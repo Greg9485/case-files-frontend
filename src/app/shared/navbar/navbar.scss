@@ -1,0 +1,23 @@
+header {
+  height: 60px;
+  background: #111827;
+  color: #e5e7eb;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:0 24px;
+
+  border-bottom:1px solid #374151;
+}
+
+.logo {
+  font-weight:700;
+  letter-spacing:3px;
+}
+
+.case {
+  font-size:14px;
+  color:#9ca3af;
+}

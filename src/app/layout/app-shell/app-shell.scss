@@ -1,0 +1,29 @@
+.app {
+
+height:100vh;
+
+background:#020617;
+
+color:white;
+
+}
+
+
+.workspace {
+
+display:flex;
+
+height:calc(100vh - 60px);
+
+}
+
+
+main {
+
+flex:1;
+
+padding:30px;
+
+overflow:auto;
+
+}
