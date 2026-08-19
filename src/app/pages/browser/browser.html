@@ -2,7 +2,7 @@
 
   <header class="browser-bar">
 
-    <button>
+    <button (click)="goBack()">
       ←
     </button>
 
@@ -10,12 +10,14 @@
       →
     </button>
 
-    <button>
+    <button
+      (click)="navigate(currentPage.path)"
+    >
       ⟳
     </button>
 
     <div class="address-bar">
-      🔒 {{ currentUrl }}
+      🔒 {{ currentPage.domain }}{{ currentPage.path }}
     </div>
 
     <button>
@@ -25,65 +27,52 @@
   </header>
 
 
-  <main class="website" (click)="visitSite()">
+  <main class="website">
 
     <header class="site-header">
 
       <h1>
-        Hollow Creek Community Board
+        {{ currentPage.title }}
       </h1>
 
       <p>
-        Local news, discussion, and community information.
+        Hollow Creek Community Board
       </p>
 
     </header>
 
 
-    <article class="post">
-
-      <div class="post-author">
-        posted by <strong>ghostwriter47</strong>
-      </div>
-
-      <h2>
-        Does anyone remember Emily Carter?
-      </h2>
+    <article class="page-content">
 
       <p>
-        It's been almost two years.
-
-        I know everyone wants to move on, but something
-        about the official story never made sense to me.
-      </p>
-
-      <p>
-        If anyone knows what actually happened that night,
-        maybe it's time someone started asking questions again.
+        {{ currentPage.content }}
       </p>
 
     </article>
 
 
-    <article class="post">
+    @if (currentPage.links?.length) {
 
-      <div class="post-author">
-        posted by <strong>nightwatch</strong>
-      </div>
+      <section class="links">
 
-      <h2>
-        Re: Emily Carter
-      </h2>
+        <h3>
+          Related
+        </h3>
 
-      <p>
-        Delete this thread.
-      </p>
+        @for (link of currentPage.links; track link.path) {
 
-      <p>
-        Seriously.
-      </p>
+          <button
+            class="site-link"
+            (click)="navigate(link.path)"
+          >
+            {{ link.label }}
+          </button>
 
-    </article>
+        }
+
+      </section>
+
+    }
 
   </main>
 

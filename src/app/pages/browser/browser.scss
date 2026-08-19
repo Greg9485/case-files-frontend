@@ -107,3 +107,65 @@
 
   color: #94a3b8;
 }
+
+.page-content {
+  margin-top: 35px;
+
+  max-width: 700px;
+
+  line-height: 1.8;
+
+  white-space: pre-line;
+
+  color: #94a3b8;
+}
+
+
+.links {
+  margin-top: 40px;
+
+  padding-top: 25px;
+
+  border-top: 1px solid #1e293b;
+}
+
+
+.links h3 {
+  color: #64748b;
+
+  font-size: 11px;
+
+  letter-spacing: 2px;
+
+  text-transform: uppercase;
+}
+
+
+.site-link {
+  display: block;
+
+  margin-top: 12px;
+
+  padding: 14px 18px;
+
+  width: 100%;
+
+  text-align: left;
+
+  background: #111827;
+
+  border: 1px solid #1e293b;
+
+  border-radius: 5px;
+
+  color: #93c5fd;
+
+  cursor: pointer;
+}
+
+
+.site-link:hover {
+  border-color: #475569;
+
+  background: #172033;
+}

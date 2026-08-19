@@ -1,5 +1,8 @@
 import { Component, inject } from '@angular/core';
+
 import { BrowserService } from '../../core/services/browser';
+import { FakeInternetService } from '../../core/services/fake-internet';
+import { FakePage } from '../../core/models/fake-page';
 
 @Component({
   selector: 'app-browser',
@@ -10,16 +13,32 @@ import { BrowserService } from '../../core/services/browser';
 export class BrowserComponent {
 
   private browser = inject(BrowserService);
+  private internet = inject(FakeInternetService);
 
-  currentUrl = 'hollowcreekboard.local';
+  currentPage: FakePage =
+    this.internet.getPage('/')!;
 
-  visitSite(): void {
+
+  navigate(path: string): void {
+
+    const page = this.internet.getPage(path);
+
+    if (!page) {
+      return;
+    }
+
+    this.currentPage = page;
 
     this.browser.visitPage(
-      'hollowcreekboard.local',
-      '/'
+      page.domain,
+      page.path
     );
 
+  }
+
+
+  goBack(): void {
+    this.navigate('/');
   }
 
 }
