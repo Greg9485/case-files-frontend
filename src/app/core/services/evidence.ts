@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Evidence } from '../models/evidence';
+import { inject } from '@angular/core';
+import { InvestigationService } from './investigation';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EvidenceService {
+
+  private investigation = inject(InvestigationService);
 
   private evidence: Evidence[] = [
 
@@ -30,7 +34,7 @@ export class EvidenceService {
 
         Investigation status: CLOSED.
       `,
-      discovered: true,
+      discovered: false,
       importance: 'medium',
       clues: [
         'Emily left work at approximately 8:42 PM.'
@@ -51,7 +55,7 @@ export class EvidenceService {
         approximately 35 minutes after Emily was last
         officially seen.
       `,
-      discovered: true,
+      discovered: false,
       importance: 'high',
       clues: [
         'A vehicle was present near the area shortly after Emily disappeared.'
@@ -81,6 +85,23 @@ export class EvidenceService {
 
 
   getEvidence(): Evidence[] {
+
+    const events = this.investigation.getEvents();
+
+    const viewedEmilyThread = events.some(
+      event =>
+        event.type === 'PAGE_VIEWED' &&
+        event.source === 'hollowcreekboard.local/'
+    );
+
+    const emilyEvidence = this.evidence.find(
+      item => item.id === 'police-report'
+    );
+
+    if (viewedEmilyThread && emilyEvidence) {
+      emilyEvidence.discovered = true;
+    }
+
     return this.evidence;
   }
 

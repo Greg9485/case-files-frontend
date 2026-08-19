@@ -7,6 +7,7 @@ import { EvidenceComponent } from './pages/evidence/evidence';
 import { WitnessesComponent } from './pages/witnesses/witnesses';
 import { NotebookComponent } from './pages/notebook/notebook';
 import { ArchiveComponent } from './pages/archive/archive';
+import { BrowserComponent } from './pages/browser/browser';
 
 export const routes: Routes = [
   {
@@ -36,6 +37,10 @@ export const routes: Routes = [
       {
         path: 'archive',
         component: ArchiveComponent
+      },
+      {
+        path: 'browser',
+        component: BrowserComponent
       }
     ]
   }
