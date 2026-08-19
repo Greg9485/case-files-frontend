@@ -1,7 +1,139 @@
-<h1>
-Evidence Database
-</h1>
+<section class="evidence-page">
 
-<p>
-Evidence collected during the investigation will appear here.
-</p>
+  <div class="page-header">
+
+    <div>
+      <p class="eyebrow">CASE #001</p>
+      <h1>Evidence</h1>
+      <p class="subtitle">
+        Materials recovered during the investigation.
+      </p>
+    </div>
+
+    <div class="counter">
+      {{ evidence.filter(e => e.discovered).length }}
+      /
+      {{ evidence.length }}
+      DISCOVERED
+    </div>
+
+  </div>
+
+
+  <div class="evidence-grid">
+
+    @for (item of evidence; track item.id) {
+
+      <article
+        class="evidence-card"
+        [class.locked]="!item.discovered"
+        (click)="selectEvidence(item)"
+      >
+
+        <div class="evidence-type">
+          {{ item.type }}
+        </div>
+
+        @if (item.discovered) {
+
+          <h2>
+            {{ item.title }}
+          </h2>
+
+          <p>
+            {{ item.description }}
+          </p>
+
+          <span
+            class="importance"
+            [class.high]="item.importance === 'high'"
+          >
+            {{ item.importance | uppercase }}
+          </span>
+
+        } @else {
+
+          <div class="locked-content">
+
+            <div class="lock">
+              ?
+            </div>
+
+            <h2>
+              Evidence Locked
+            </h2>
+
+            <p>
+              This evidence has not yet been discovered.
+            </p>
+
+          </div>
+
+        }
+
+      </article>
+
+    }
+
+  </div>
+
+
+  @if (selectedEvidence) {
+
+    <div
+      class="evidence-overlay"
+      (click)="closeEvidence()"
+    >
+
+      <article
+        class="evidence-viewer"
+        (click)="$event.stopPropagation()"
+      >
+
+        <button
+          class="close"
+          (click)="closeEvidence()"
+        >
+          ×
+        </button>
+
+
+        <p class="eyebrow">
+          {{ selectedEvidence.type }}
+        </p>
+
+        <h1>
+          {{ selectedEvidence.title }}
+        </h1>
+
+
+        <div class="document">
+
+          {{ selectedEvidence.content }}
+
+        </div>
+
+
+        <div class="clues">
+
+          <h3>
+            Potential Clues
+          </h3>
+
+          @for (clue of selectedEvidence.clues; track clue) {
+
+            <div class="clue">
+              {{ clue }}
+            </div>
+
+          }
+
+        </div>
+
+      </article>
+
+    </div>
+
+  }
+
+</section>
