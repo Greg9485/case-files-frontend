@@ -1,0 +1,215 @@
+.case-overview {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px;
+
+  color: #111827;
+  background: #ffffff;
+}
+
+/* =========================
+   CASE HEADER
+   ========================= */
+
+.case-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+
+  padding: 24px;
+
+  background-color: #ffffff;
+  color: #111827;
+
+  border: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+}
+
+.case-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.case-header .eyebrow {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #4b5563;
+
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+}
+
+.case-status {
+  padding: 6px 12px;
+
+  background-color: #ffffff;
+  color: #111827;
+
+  border: 1px solid #999999;
+
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+/* =========================
+   CASE SUMMARY
+   ========================= */
+
+.case-summary {
+  padding: 28px 0;
+
+  background-color: #ffffff;
+  color: #111827;
+
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* =========================
+   CASE DETAILS
+   ========================= */
+
+.case-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+
+  background-color: #cccccc;
+
+  border: 1px solid #cccccc;
+}
+
+.detail {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  padding: 18px;
+
+  background-color: #ffffff;
+  color: #111827;
+}
+
+.detail span {
+  color: #374151;
+
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+
+.detail strong {
+  color: #111827;
+
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* =========================
+   CASE MATERIALS
+   ========================= */
+
+.case-materials {
+  margin-top: 40px;
+
+  background-color: #ffffff;
+  color: #111827;
+}
+
+.section-header {
+  margin-bottom: 12px;
+}
+
+.section-header .eyebrow {
+  color: #374151;
+}
+
+/* =========================
+   MATERIAL ROWS
+   ========================= */
+
+.material {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+
+  padding: 18px;
+
+  background-color: #ffffff;
+  color: #111827;
+
+  border: 1px solid #cccccc;
+  border-bottom: none;
+}
+
+.material:last-child {
+  border-bottom: 1px solid #cccccc;
+}
+
+.material > div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.material strong {
+  color: #111827;
+
+  font-size: 0.9rem;
+}
+
+.material > div > span {
+  color: #4b5563;
+
+  font-size: 0.8rem;
+}
+
+.material-status {
+  color: #374151;
+
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+/* =========================
+   LOCKED MATERIALS
+   ========================= */
+
+.material.locked {
+  opacity: 0.5;
+}
+
+.material.available {
+  cursor: pointer;
+}
+
+.material.available:hover {
+  background-color: #f8fafc;
+}
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 700px) {
+  .case-overview {
+    padding: 24px;
+  }
+
+  .case-header {
+    flex-direction: column;
+  }
+
+  .case-details {
+    grid-template-columns: 1fr;
+  }
+}
