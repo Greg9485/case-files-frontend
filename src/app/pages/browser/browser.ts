@@ -5,6 +5,10 @@ import { BrowserService } from '../../core/services/browser';
 import { FakeInternetService } from '../../core/services/fake-internet';
 import { FakePage } from '../../core/models/fake-page';
 import { AccessService } from '../../core/services/access';
+import {
+  BookmarksService,
+  Bookmark
+} from '../../core/services/bookmarks';
 
 @Component({
   selector: 'app-browser',
@@ -14,10 +18,15 @@ import { AccessService } from '../../core/services/access';
 })
 export class BrowserComponent {
 
+  private bookmarksService = inject(BookmarksService);
   private browserService = inject(BrowserService);
   private internet = inject(FakeInternetService);
   private accessService = inject(AccessService);
   private router = inject(Router);
+
+
+  bookmarks: Bookmark[] = [];
+  showBookmarks = false;
 
   currentPage!: FakePage;
 
@@ -35,6 +44,7 @@ export class BrowserComponent {
     }
 
     this.navigate('/');
+    this.loadBookmarks();
 
   }
 
@@ -118,7 +128,6 @@ export class BrowserComponent {
 
   }
 
-
   reload(): void {
 
     this.browserService.visitPage(
@@ -127,5 +136,52 @@ export class BrowserComponent {
     );
 
   }
+
+  toggleBookmark(): void {
+
+  this.bookmarksService.toggleBookmark({
+    title: this.currentPage.title,
+    domain: this.currentPage.domain,
+    path: this.currentPage.path
+  });
+
+  this.loadBookmarks();
+}
+
+
+isCurrentPageBookmarked(): boolean {
+
+  return this.bookmarksService.isBookmarked(
+    this.currentPage.path
+  );
+
+}
+
+
+loadBookmarks(): void {
+
+  this.bookmarks =
+    this.bookmarksService.getBookmarks();
+
+}
+
+
+toggleBookmarksMenu(): void {
+
+  this.loadBookmarks();
+
+  this.showBookmarks =
+    !this.showBookmarks;
+
+}
+
+
+openBookmark(path: string): void {
+
+  this.navigate(path);
+
+  this.showBookmarks = false;
+
+}
 
 }

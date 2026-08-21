@@ -253,6 +253,39 @@ export const FAKE_PAGES: FakePage[] = [
     title: 'Sarah Whitmore',
     category: 'MISSING PERSONS',
     content: 'Sarah Whitmore was reported missing in June 2021. She was located three days later and returned home.'
-  }
+  },
+
+    // REMOVED PAGE
+  {
+    id: 'removed-page',
+    domain: 'hollowcreekboard.local',
+    path: '/archive/2019',
+    title: 'Content Removed',
+    category: 'CONTENT REMOVED',
+    status: 'REMOVED',
+    content: 'This content has been removed by the site administrator.'
+  },
+
+  // RESTRICTED PAGE
+  {
+    id: 'restricted-page',
+    domain: 'hollowcreekboard.local',
+    path: '/archive/2020',
+    title: 'Access Restricted',
+    category: 'ACCESS RESTRICTED',
+    status: 'RESTRICTED',
+    content: 'You do not have permission to access this resource.'
+  },
+
+  // OFFLINE PAGE
+  {
+    id: 'offline-page',
+    domain: 'hollowcreekboard.local',
+    path: '/archive/2021',
+    title: 'Server Unavailable',
+    category: 'SERVER OFFLINE',
+    status: 'OFFLINE',
+    content: 'The requested resource is temporarily unavailable.'
+  },
 
 ];

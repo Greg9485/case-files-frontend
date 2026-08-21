@@ -7,8 +7,28 @@ import { FakePage } from '../models/fake-page';
 })
 export class FakeInternetService {
 
-  getPage(path: string): FakePage | undefined {
-    return FAKE_PAGES.find(page => page.path === path);
+  private pages = FAKE_PAGES;
+
+  getPage(path: string): FakePage {
+
+    const page = this.pages.find(
+      p => p.path === path
+    );
+
+    if (page) {
+      return page;
+    }
+
+    return {
+      id: '404',
+      domain: 'hollowcreekboard.local',
+      path,
+      title: 'Page Not Found',
+      category: '404 ERROR',
+      status: 'NOT_FOUND',
+      content: 'The requested page could not be found on this server.'
+    };
+
   }
 
 }

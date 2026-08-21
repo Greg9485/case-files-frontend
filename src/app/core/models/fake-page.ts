@@ -1,3 +1,10 @@
+export type FakePageStatus =
+  | 'ACTIVE'
+  | 'NOT_FOUND'
+  | 'REMOVED'
+  | 'RESTRICTED'
+  | 'OFFLINE';
+
 export interface FakePage {
   id: string;
   domain: string;
@@ -6,6 +13,7 @@ export interface FakePage {
   subtitle?: string;
   content: string;
   category?: string;
+  status?: FakePageStatus;
   links?: FakePageLink[];
 }
 

@@ -1,4 +1,5 @@
 .browser {
+  position: relative;
   height: calc(100vh - 120px);
 
   display: flex;
@@ -385,4 +386,206 @@
   font-size: 8px;
 
   letter-spacing: 1px;
+}
+
+
+/* -----------------------------------------
+   SYSTEM / ERROR PAGES
+----------------------------------------- */
+
+.error-page {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 500px;
+}
+
+
+.system-message {
+  width: min(600px, 90%);
+
+  padding: 50px;
+
+  text-align: center;
+
+  border: 1px solid #cbd5e1;
+
+  background: white;
+}
+
+
+.system-icon {
+  margin-bottom: 25px;
+
+  font-family: monospace;
+
+  font-size: 28px;
+
+  font-weight: bold;
+
+  color: #64748b;
+}
+
+
+.system-category {
+  display: block;
+
+  margin-bottom: 12px;
+
+  font-family: monospace;
+
+  font-size: 9px;
+
+  letter-spacing: 2px;
+
+  color: #94a3b8;
+}
+
+
+.system-message h2 {
+  margin: 0 0 15px;
+
+  font-size: 24px;
+
+  font-weight: 500;
+
+  color: #0f172a;
+}
+
+
+.system-message p {
+  margin: 0 auto 30px;
+
+  max-width: 450px;
+
+  line-height: 1.7;
+
+  font-size: 13px;
+
+  color: #64748b;
+}
+
+
+.return-button {
+  padding: 10px 16px;
+
+  background: #0f172a;
+
+  border: none;
+
+  color: white;
+
+  font-family: monospace;
+
+  font-size: 9px;
+
+  letter-spacing: 1px;
+
+  cursor: pointer;
+}
+
+
+.return-button:hover {
+  background: #1e293b;
+}
+
+/* -----------------------------------------
+   BOOKMARKS
+----------------------------------------- */
+
+.bookmarks-menu {
+  position: absolute;
+
+  top: 52px;
+  right: 14px;
+
+  z-index: 100;
+
+  width: 360px;
+
+  background: #111827;
+
+  border: 1px solid #334155;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+
+.bookmarks-header {
+  padding: 12px 15px;
+
+  border-bottom: 1px solid #334155;
+
+  color: #64748b;
+
+  font-family: monospace;
+
+  font-size: 9px;
+
+  letter-spacing: 2px;
+}
+
+
+.empty-bookmarks {
+  padding: 20px;
+
+  color: #64748b;
+
+  font-family: monospace;
+
+  font-size: 11px;
+}
+
+
+.bookmark-item {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  width: 100%;
+
+  padding: 12px 15px;
+
+  text-align: left;
+
+  background: transparent;
+
+  border: none;
+
+  border-bottom: 1px solid #1e293b;
+
+  color: #cbd5e1;
+
+  cursor: pointer;
+}
+
+
+.bookmark-item:hover {
+  background: #1e293b;
+}
+
+
+.bookmark-item strong {
+  display: block;
+
+  margin-bottom: 4px;
+
+  font-size: 12px;
+
+  font-weight: 500;
+}
+
+
+.bookmark-item span {
+  display: block;
+
+  color: #64748b;
+
+  font-family: monospace;
+
+  font-size: 9px;
 }
