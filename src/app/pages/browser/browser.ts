@@ -30,6 +30,9 @@ export class BrowserComponent {
 
   currentPage!: FakePage;
 
+  currentDomain = 'hollowcreekboard.local';
+  currentPath = '/';
+
   history: string[] = [];
   historyIndex = -1;
 
@@ -44,20 +47,30 @@ export class BrowserComponent {
     }
 
     this.navigate('/');
+
     this.loadBookmarks();
 
   }
 
 
-  navigate(path: string): void {
+  navigate(
+    path: string,
+    domain: string = this.currentDomain
+  ): void {
 
-    const page = this.internet.getPage(path);
+    const page = this.internet.getPage(
+      domain,
+      path
+    );
 
     if (!page) {
       return;
     }
 
     this.currentPage = page;
+
+    this.currentDomain = domain;
+    this.currentPath = path;
 
     this.browserService.visitPage(
       page.domain,
@@ -69,7 +82,9 @@ export class BrowserComponent {
     this.history =
       this.history.slice(0, this.historyIndex + 1);
 
-    this.history.push(path);
+    this.history.push(
+      `${domain}${path}`
+    );
 
     this.historyIndex++;
 
@@ -84,14 +99,27 @@ export class BrowserComponent {
 
     this.historyIndex--;
 
-    const path =
+    const location =
       this.history[this.historyIndex];
 
-    const page = this.internet.getPage(path);
+    const [domain, ...pathParts] =
+      location.split('/');
+
+    const path =
+      '/' + pathParts.join('/');
+
+    const page =
+      this.internet.getPage(
+        domain,
+        path
+      );
 
     if (page) {
 
       this.currentPage = page;
+
+      this.currentDomain = domain;
+      this.currentPath = path;
 
       this.browserService.visitPage(
         page.domain,
@@ -101,6 +129,7 @@ export class BrowserComponent {
     }
 
   }
+
 
   goForward(): void {
 
@@ -110,14 +139,27 @@ export class BrowserComponent {
 
     this.historyIndex++;
 
-    const path =
+    const location =
       this.history[this.historyIndex];
 
-    const page = this.internet.getPage(path);
+    const [domain, ...pathParts] =
+      location.split('/');
+
+    const path =
+      '/' + pathParts.join('/');
+
+    const page =
+      this.internet.getPage(
+        domain,
+        path
+      );
 
     if (page) {
 
       this.currentPage = page;
+
+      this.currentDomain = domain;
+      this.currentPath = path;
 
       this.browserService.visitPage(
         page.domain,
@@ -127,6 +169,7 @@ export class BrowserComponent {
     }
 
   }
+
 
   reload(): void {
 
@@ -137,51 +180,53 @@ export class BrowserComponent {
 
   }
 
+
   toggleBookmark(): void {
 
-  this.bookmarksService.toggleBookmark({
-    title: this.currentPage.title,
-    domain: this.currentPage.domain,
-    path: this.currentPage.path
-  });
+    this.bookmarksService.toggleBookmark({
+      title: this.currentPage.title,
+      domain: this.currentPage.domain,
+      path: this.currentPage.path
+    });
 
-  this.loadBookmarks();
-}
+    this.loadBookmarks();
 
-
-isCurrentPageBookmarked(): boolean {
-
-  return this.bookmarksService.isBookmarked(
-    this.currentPage.path
-  );
-
-}
+  }
 
 
-loadBookmarks(): void {
+  isCurrentPageBookmarked(): boolean {
 
-  this.bookmarks =
-    this.bookmarksService.getBookmarks();
+    return this.bookmarksService.isBookmarked(
+      this.currentPage.path
+    );
 
-}
-
-
-toggleBookmarksMenu(): void {
-
-  this.loadBookmarks();
-
-  this.showBookmarks =
-    !this.showBookmarks;
-
-}
+  }
 
 
-openBookmark(path: string): void {
+  loadBookmarks(): void {
 
-  this.navigate(path);
+    this.bookmarks =
+      this.bookmarksService.getBookmarks();
 
-  this.showBookmarks = false;
+  }
 
-}
+
+  toggleBookmarksMenu(): void {
+
+    this.loadBookmarks();
+
+    this.showBookmarks =
+      !this.showBookmarks;
+
+  }
+
+
+  openBookmark(path: string): void {
+
+    this.navigate(path);
+
+    this.showBookmarks = false;
+
+  }
 
 }

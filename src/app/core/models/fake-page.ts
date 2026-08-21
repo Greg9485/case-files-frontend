@@ -5,19 +5,28 @@ export type FakePageStatus =
   | 'RESTRICTED'
   | 'OFFLINE';
 
-export interface FakePage {
-  id: string;
-  domain: string;
-  path: string;
-  title: string;
-  subtitle?: string;
-  content: string;
-  category?: string;
-  status?: FakePageStatus;
-  links?: FakePageLink[];
-}
-
 export interface FakePageLink {
   label: string;
   path: string;
+  domain?: string;
+}
+
+export interface FakePage {
+  id: string;
+
+  domain: string;
+
+  path: string;
+
+  title: string;
+
+  subtitle?: string;
+
+  category?: string;
+
+  content: string;
+
+  status?: FakePageStatus;
+
+  links?: FakePageLink[];
 }
