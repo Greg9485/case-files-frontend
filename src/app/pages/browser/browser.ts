@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { BrowserService } from '../../core/services/browser';
 import { FakeInternetService } from '../../core/services/fake-internet';
 import { FakePage } from '../../core/models/fake-page';
-import { Router } from '@angular/router';
 import { AccessService } from '../../core/services/access';
 
 @Component({
@@ -14,29 +14,29 @@ import { AccessService } from '../../core/services/access';
 })
 export class BrowserComponent {
 
-
-  private accessService = inject(AccessService);
-  private browser = inject(BrowserService);
+  private browserService = inject(BrowserService);
   private internet = inject(FakeInternetService);
+  private accessService = inject(AccessService);
   private router = inject(Router);
 
-constructor() {
+  currentPage!: FakePage;
 
-  if (!this.accessService.isAuthenticated()) {
+  history: string[] = [];
+  historyIndex = -1;
 
-    this.router.navigate(['/dark-web-login']);
 
-    return;
+  constructor() {
+
+    if (!this.accessService.isAuthenticated()) {
+
+      this.router.navigate(['/dark-web-login']);
+
+      return;
+    }
+
+    this.navigate('/');
+
   }
-
-  this.currentPage =
-    this.internet.getPage('/')!;
-}
-
-
-
-  currentPage: FakePage =
-    this.internet.getPage('/')!;
 
 
   navigate(path: string): void {
@@ -49,16 +49,83 @@ constructor() {
 
     this.currentPage = page;
 
-    this.browser.visitPage(
+    this.browserService.visitPage(
       page.domain,
       page.path
     );
+
+
+    // Remove anything after the current history position.
+    this.history =
+      this.history.slice(0, this.historyIndex + 1);
+
+    this.history.push(path);
+
+    this.historyIndex++;
 
   }
 
 
   goBack(): void {
-    this.navigate('/');
+
+    if (this.historyIndex <= 0) {
+      return;
+    }
+
+    this.historyIndex--;
+
+    const path =
+      this.history[this.historyIndex];
+
+    const page = this.internet.getPage(path);
+
+    if (page) {
+
+      this.currentPage = page;
+
+      this.browserService.visitPage(
+        page.domain,
+        page.path
+      );
+
+    }
+
+  }
+
+  goForward(): void {
+
+    if (this.historyIndex >= this.history.length - 1) {
+      return;
+    }
+
+    this.historyIndex++;
+
+    const path =
+      this.history[this.historyIndex];
+
+    const page = this.internet.getPage(path);
+
+    if (page) {
+
+      this.currentPage = page;
+
+      this.browserService.visitPage(
+        page.domain,
+        page.path
+      );
+
+    }
+
+  }
+
+
+  reload(): void {
+
+    this.browserService.visitPage(
+      this.currentPage.domain,
+      this.currentPage.path
+    );
+
   }
 
 }

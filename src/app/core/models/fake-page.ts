@@ -3,7 +3,9 @@ export interface FakePage {
   domain: string;
   path: string;
   title: string;
+  subtitle?: string;
   content: string;
+  category?: string;
   links?: FakePageLink[];
 }
 

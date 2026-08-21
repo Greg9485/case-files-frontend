@@ -1,79 +1,234 @@
 <section class="browser">
 
+  <!-- Browser chrome -->
+
   <header class="browser-bar">
 
-    <button (click)="goBack()">
-      ←
-    </button>
+    <div class="browser-controls">
 
-    <button>
-      →
-    </button>
+      <button
+        (click)="goBack()"
+        [disabled]="historyIndex <= 0"
+        title="Back"
+      >
+        ←
+      </button>
 
-    <button
-      (click)="navigate(currentPage.path)"
-    >
-      ⟳
-    </button>
+      <button
+        (click)="goForward()"
+        [disabled]="historyIndex >= history.length - 1"
+        title="Forward"
+      >
+        →
+      </button>
 
-    <div class="address-bar">
-      🔒 {{ currentPage.domain }}{{ currentPage.path }}
+      <button
+        (click)="reload()"
+        title="Reload"
+      >
+        ⟳
+      </button>
+
     </div>
 
-    <button>
+
+    <div class="address-bar">
+
+      <span class="lock">
+        🔒
+      </span>
+
+      <span>
+        {{ currentPage.domain }}{{ currentPage.path }}
+      </span>
+
+    </div>
+
+
+    <button class="bookmark">
       ☆
     </button>
 
   </header>
 
 
-  <main class="website">
+  <!-- Fake website -->
+
+  <div class="website">
+
+
+    <!-- Site header -->
 
     <header class="site-header">
 
-      <h1>
-        {{ currentPage.title }}
-      </h1>
+      <div class="site-title">
 
-      <p>
-        Hollow Creek Community Board
-      </p>
+        <h1>
+          HOLLOW CREEK COMMUNITY BOARD
+        </h1>
+
+        <span>
+          EST. 2016
+        </span>
+
+      </div>
+
+
+      <div class="site-account">
+
+        <span>
+          COMMUNITY MEMBER
+        </span>
+
+      </div>
 
     </header>
 
 
-    <article class="page-content">
+    <!-- Site navigation -->
 
-      <p>
-        {{ currentPage.content }}
-      </p>
+    <nav class="site-nav">
 
-    </article>
+      <button
+        (click)="navigate('/')"
+        [class.active]="currentPage.path === '/'"
+      >
+        HOME
+      </button>
+
+      <button
+        (click)="navigate('/local')"
+        [class.active]="currentPage.path === '/local'"
+      >
+        LOCAL
+      </button>
+
+      <button
+        (click)="navigate('/news')"
+        [class.active]="currentPage.path === '/news'"
+      >
+        NEWS
+      </button>
+
+      <button
+        (click)="navigate('/discussion')"
+        [class.active]="currentPage.path === '/discussion'"
+      >
+        DISCUSSION
+      </button>
+
+      <button
+        (click)="navigate('/missing-persons')"
+        [class.active]="currentPage.path === '/missing-persons'"
+      >
+        MISSING PERSONS
+      </button>
+
+      <button
+        (click)="navigate('/archive')"
+        [class.active]="currentPage.path === '/archive'"
+      >
+        ARCHIVE
+      </button>
+
+    </nav>
 
 
-    @if (currentPage.links?.length) {
+    <!-- Website content -->
 
-      <section class="links">
+    <main class="website-content">
 
-        <h3>
-          Related
-        </h3>
+      <div class="content-header">
 
-        @for (link of currentPage.links; track link.path) {
+        @if (currentPage.category) {
 
-          <button
-            class="site-link"
-            (click)="navigate(link.path)"
-          >
-            {{ link.label }}
-          </button>
+          <span class="category">
+            {{ currentPage.category }}
+          </span>
 
         }
 
-      </section>
+        <h2>
+          {{ currentPage.title }}
+        </h2>
 
-    }
+        @if (currentPage.subtitle) {
 
-  </main>
+          <p>
+            {{ currentPage.subtitle }}
+          </p>
+
+        }
+
+      </div>
+
+
+      <article class="page-content">
+
+        <p>
+          {{ currentPage.content }}
+        </p>
+
+      </article>
+
+
+      @if (currentPage.links?.length) {
+
+        <section class="related">
+
+          <div class="section-title">
+            RELATED
+          </div>
+
+
+          <div class="site-links">
+
+            @for (
+              link of currentPage.links;
+              track link.path
+            ) {
+
+              <button
+                class="site-link"
+                (click)="navigate(link.path)"
+              >
+
+                <span>
+                  {{ link.label }}
+                </span>
+
+                <span class="arrow">
+                  →
+                </span>
+
+              </button>
+
+            }
+
+          </div>
+
+        </section>
+
+      }
+
+    </main>
+
+
+    <!-- Site footer -->
+
+    <footer class="site-footer">
+
+      <span>
+        HOLLOW CREEK COMMUNITY BOARD
+      </span>
+
+      <span>
+        COMMUNITY OPERATED
+      </span>
+
+    </footer>
+
+
+  </div>
 
 </section>
