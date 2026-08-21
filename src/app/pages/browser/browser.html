@@ -1,0 +1,335 @@
+<section class="browser">
+
+  <!-- Browser chrome -->
+
+  <header class="browser-bar">
+
+    <div class="browser-controls">
+
+      <button
+        (click)="goBack()"
+        [disabled]="historyIndex <= 0"
+        title="Back"
+      >
+        ←
+      </button>
+
+      <button
+        (click)="goForward()"
+        [disabled]="historyIndex >= history.length - 1"
+        title="Forward"
+      >
+        →
+      </button>
+
+      <button
+        (click)="reload()"
+        title="Reload"
+      >
+        ⟳
+      </button>
+
+    </div>
+
+
+    <div class="address-bar">
+
+      <span class="lock">
+        🔒
+      </span>
+
+      <span>
+        {{ currentPage.domain }}{{ currentPage.path }}
+      </span>
+
+    </div>
+
+
+  <button
+    class="bookmark"
+    (click)="toggleBookmark()"
+    [title]="
+        isCurrentPageBookmarked()
+        ? 'Remove bookmark'
+        : 'Bookmark this page'
+    "
+    >
+        {{ isCurrentPageBookmarked() ? '★' : '☆' }}
+    </button>
+
+    <button
+        class="bookmark"
+        (click)="toggleBookmarksMenu()"
+        title="Bookmarks"
+        >
+        ▾
+    </button>
+
+  </header>
+  
+        @if (showBookmarks) {
+
+        <div class="bookmarks-menu">
+
+            <div class="bookmarks-header">
+            BOOKMARKS
+            </div>
+
+            @if (bookmarks.length === 0) {
+
+            <div class="empty-bookmarks">
+                No bookmarked pages.
+            </div>
+
+            } @else {
+
+            @for (
+                bookmark of bookmarks;
+                track bookmark.path
+            ) {
+
+                <button
+                class="bookmark-item"
+                (click)="openBookmark(bookmark.path)"
+                >
+
+                <div>
+                    <strong>
+                    {{ bookmark.title }}
+                    </strong>
+
+                    <span>
+                    {{ bookmark.domain }}{{ bookmark.path }}
+                    </span>
+                </div>
+
+                <span>→</span>
+
+                </button>
+
+            }
+
+            }
+
+        </div>
+
+        }
+
+  <!-- Fake website -->
+
+  <div class="website">
+
+
+    <!-- Site header -->
+
+    <header class="site-header">
+
+      <div class="site-title">
+
+        <h1>
+          HOLLOW CREEK COMMUNITY BOARD
+        </h1>
+
+        <span>
+          EST. 2016
+        </span>
+
+      </div>
+
+
+      <div class="site-account">
+
+        <span>
+          COMMUNITY MEMBER
+        </span>
+
+      </div>
+
+    </header>
+
+
+    <!-- Site navigation -->
+
+    <nav class="site-nav">
+
+      <button
+        (click)="navigate('/')"
+        [class.active]="currentPage.path === '/'"
+      >
+        HOME
+      </button>
+
+      <button
+        (click)="navigate('/local')"
+        [class.active]="currentPage.path === '/local'"
+      >
+        LOCAL
+      </button>
+
+      <button
+        (click)="navigate('/news')"
+        [class.active]="currentPage.path === '/news'"
+      >
+        NEWS
+      </button>
+
+      <button
+        (click)="navigate('/discussion')"
+        [class.active]="currentPage.path === '/discussion'"
+      >
+        DISCUSSION
+      </button>
+
+      <button
+        (click)="navigate('/missing-persons')"
+        [class.active]="currentPage.path === '/missing-persons'"
+      >
+        MISSING PERSONS
+      </button>
+
+      <button
+        (click)="navigate('/archive')"
+        [class.active]="currentPage.path === '/archive'"
+      >
+        ARCHIVE
+      </button>
+
+    </nav>
+
+
+    <!-- Website content -->
+
+    <main
+        class="website-content"
+        [class.error-page]="currentPage.status && currentPage.status !== 'ACTIVE'"
+        >
+
+        @if (currentPage.status && currentPage.status !== 'ACTIVE') {
+
+            <section class="system-message">
+
+            <div class="system-icon">
+                @switch (currentPage.status) {
+                @case ('NOT_FOUND') { 404 }
+                @case ('REMOVED') { DEL }
+                @case ('RESTRICTED') { LOCK }
+                @case ('OFFLINE') { OFF }
+                }
+            </div>
+
+            <span class="system-category">
+                {{ currentPage.category }}
+            </span>
+
+            <h2>
+                {{ currentPage.title }}
+            </h2>
+
+            <p>
+                {{ currentPage.content }}
+            </p>
+
+            <button
+                class="return-button"
+                (click)="goBack()"
+            >
+                ← RETURN TO PREVIOUS PAGE
+            </button>
+
+            </section>
+
+        } @else {
+
+            <!-- NORMAL PAGE -->
+
+            <div class="content-header">
+
+            @if (currentPage.category) {
+                <span class="category">
+                {{ currentPage.category }}
+                </span>
+            }
+
+            <h2>
+                {{ currentPage.title }}
+            </h2>
+
+            @if (currentPage.subtitle) {
+                <p>
+                {{ currentPage.subtitle }}
+                </p>
+            }
+
+            </div>
+
+
+            <article class="page-content">
+
+            <p>
+                {{ currentPage.content }}
+            </p>
+
+            </article>
+
+
+            @if (currentPage.links && currentPage.links.length > 0) {
+
+            <section class="related">
+
+                <div class="section-title">
+                RELATED
+                </div>
+
+                <div class="site-links">
+
+                @for (
+                    link of currentPage.links;
+                    track link.path
+                ) {
+
+                    <button
+                    class="site-link"
+                    (click)="navigate(link.path)"
+                    >
+
+                    <span>
+                        {{ link.label }}
+                    </span>
+
+                    <span class="arrow">
+                        →
+                    </span>
+
+                    </button>
+
+                }
+
+                </div>
+
+            </section>
+
+            }
+
+        }
+
+        </main>
+
+
+    <!-- Site footer -->
+
+    <footer class="site-footer">
+
+      <span>
+        HOLLOW CREEK COMMUNITY BOARD
+      </span>
+
+      <span>
+        COMMUNITY OPERATED
+      </span>
+
+    </footer>
+
+
+  </div>
+
+</section>

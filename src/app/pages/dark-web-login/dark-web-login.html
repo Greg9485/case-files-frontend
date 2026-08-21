@@ -1,0 +1,144 @@
+<section class="dark-web-login">
+
+  <div class="login-panel">
+
+    <header>
+
+      <div class="system-name">
+        CASEFILES // SECURE NETWORK
+      </div>
+
+      <div class="classification">
+        RESTRICTED
+      </div>
+
+    </header>
+
+
+    <main>
+
+      <div class="status-indicator">
+
+        <span
+          class="status-light"
+          [class.connected]="connected"
+        ></span>
+
+      </div>
+
+
+      <h1>
+        {{ status }}
+      </h1>
+
+
+      @if (!connecting) {
+
+        <p class="description">
+
+          Authorized investigative access only.
+
+          <br />
+
+          All activity is logged and monitored
+          by Hollow Creek Police Department.
+
+        </p>
+
+
+        <div class="login-form">
+
+          <label>
+            INVESTIGATOR ID
+          </label>
+
+          <input
+            type="text"
+            [(ngModel)]="username"
+            autocomplete="off"
+          />
+
+
+          <label>
+            PASSWORD
+          </label>
+
+          <input
+            type="password"
+            [(ngModel)]="password"
+          />
+
+
+          @if (error) {
+
+            <div class="error">
+              {{ error }}
+            </div>
+
+          }
+
+
+          <button
+            (click)="connect()"
+          >
+            CONNECT TO SECURE NETWORK
+          </button>
+
+        </div>
+
+      }
+
+
+      @if (connecting) {
+
+        <div class="connection-status">
+
+          <div>
+            VERIFYING INVESTIGATOR CREDENTIALS...
+          </div>
+
+          <div>
+            ESTABLISHING ENCRYPTED CONNECTION...
+          </div>
+
+          <div>
+            ACTIVITY MONITORING: ENABLED
+          </div>
+
+        </div>
+
+      }
+
+
+      @if (connected) {
+
+        <div class="connected-message">
+
+          <strong>
+            CONNECTION ESTABLISHED
+          </strong>
+
+          <span>
+            REDIRECTING TO INVESTIGATIVE NETWORK...
+          </span>
+
+        </div>
+
+      }
+
+    </main>
+
+
+    <footer>
+
+      HOLLOW CREEK POLICE DEPARTMENT
+
+      <span>
+        ALL ACTIVITY LOGGED
+      </span>
+
+    </footer>
+
+  </div>
+
+</section>
