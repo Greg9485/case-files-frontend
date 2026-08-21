@@ -8,6 +8,7 @@ export interface InvestigatorAccess {
   accessLevel: 'RESTRICTED';
   authenticated: boolean;
   authenticatedAt: Date | null;
+  browserUnlocked: boolean;
 }
 
 @Injectable({
@@ -22,7 +23,8 @@ export class AccessService {
     password: 'CARTER-74291',
     accessLevel: 'RESTRICTED',
     authenticated: false,
-    authenticatedAt: null
+    authenticatedAt: null,
+    browserUnlocked: false
   };
 
 
@@ -33,6 +35,19 @@ export class AccessService {
 
   isAuthenticated(): boolean {
     return this.access.authenticated;
+  }
+
+
+  isBrowserUnlocked(): boolean {
+    return this.access.browserUnlocked;
+  }
+
+
+  unlockBrowser(): void {
+    this.access = {
+      ...this.access,
+      browserUnlocked: true
+    };
   }
 
 

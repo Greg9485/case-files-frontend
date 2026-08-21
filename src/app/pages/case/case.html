@@ -1,67 +1,148 @@
-<section class="access-card">
+<section class="case-overview">
 
-  <div class="access-header">
+  <header class="case-header">
 
     <div>
+
       <span class="eyebrow">
-        SECURE INVESTIGATIVE ACCESS
+        CASE {{ case.caseNumber }}
       </span>
 
-      <h2>
-        Dark Web Credentials
-      </h2>
+      <h1>
+        {{ case.title }}
+      </h1>
+
     </div>
 
-    <span class="access-status">
-      ACTIVE
+    <span class="case-status">
+      {{ case.status }}
     </span>
 
-  </div>
+  </header>
 
 
-  <p class="access-warning">
-    The following credentials have been issued for
-    authorized investigative use. All activity is
-    logged and monitored by Hollow Creek Police
-    Department.
-  </p>
+  <section class="case-summary">
+
+    <p>
+      {{ case.summary }}
+    </p>
+
+  </section>
 
 
-  <div class="credentials">
+  <section class="case-details">
 
-    <div class="credential">
+    <div class="detail">
+      <span>MISSING PERSON</span>
+      <strong>{{ case.missingPerson }}</strong>
+    </div>
 
-      <span>
-        USERNAME
+    <div class="detail">
+      <span>AGE</span>
+      <strong>{{ case.age }}</strong>
+    </div>
+
+    <div class="detail">
+      <span>HOMETOWN</span>
+      <strong>{{ case.hometown }}</strong>
+    </div>
+
+    <div class="detail">
+      <span>LAST KNOWN LOCATION</span>
+      <strong>{{ case.location }}</strong>
+    </div>
+
+    <div class="detail">
+      <span>DATE REPORTED MISSING</span>
+      <strong>{{ case.dateReportedMissing }}</strong>
+    </div>
+
+  </section>
+
+
+  <section class="case-materials">
+
+    <div class="section-header">
+
+      <span class="eyebrow">
+        CASE MATERIALS
       </span>
-
-      <strong>
-        {{ access.username }}
-      </strong>
 
     </div>
 
 
-    <div class="credential">
+    <a
+        class="material available"
+        routerLink="/case-file"
+        >
 
-      <span>
-        PASSWORD
+      <div>
+        <strong>CASE FILE</strong>
+        <span>Police reports and investigative documents</span>
+      </div>
+
+      <span class="material-status">
+        AVAILABLE →
       </span>
 
-      <strong>
-        {{ access.password }}
-      </strong>
+    </a>
+
+
+    <div class="material locked">
+
+      <div>
+        <strong>EVIDENCE</strong>
+        <span>Collected investigative evidence</span>
+      </div>
+
+      <span class="material-status">
+        LOCKED
+      </span>
 
     </div>
 
-  </div>
+
+    <div class="material locked">
+
+      <div>
+        <strong>WITNESSES</strong>
+        <span>People associated with the investigation</span>
+      </div>
+
+      <span class="material-status">
+        LOCKED
+      </span>
+
+    </div>
 
 
-  <div class="access-note">
+    <div class="material locked">
 
-    ACCESS LEVEL:
-    <strong>RESTRICTED</strong>
+      <div>
+        <strong>NOTEBOOK</strong>
+        <span>Personal investigative notes</span>
+      </div>
 
-  </div>
+      <span class="material-status">
+        LOCKED
+      </span>
+
+    </div>
+
+
+    <div class="material locked">
+
+      <div>
+        <strong>ARCHIVE</strong>
+        <span>Archived case materials</span>
+      </div>
+
+      <span class="material-status">
+        LOCKED
+      </span>
+
+    </div>
+
+  </section>
 
 </section>

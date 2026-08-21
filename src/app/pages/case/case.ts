@@ -1,16 +1,20 @@
 import { Component, inject } from '@angular/core';
-import { AccessService } from '../../core/services/access';
+import { RouterLink } from '@angular/router';
+
+import { CaseService } from '../../core/services/case';
 
 @Component({
   selector: 'app-case',
-  imports: [],
+  imports: [
+    RouterLink
+  ],
   templateUrl: './case.html',
   styleUrl: './case.scss'
 })
 export class CaseComponent {
 
-  private accessService = inject(AccessService);
+  private caseService = inject(CaseService);
 
-  access = this.accessService.getAccess();
+  case = this.caseService.getCase();
 
 }

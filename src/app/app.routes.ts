@@ -9,6 +9,7 @@ import { NotebookComponent } from './pages/notebook/notebook';
 import { ArchiveComponent } from './pages/archive/archive';
 import { BrowserComponent } from './pages/browser/browser';
 import { DarkWebLoginComponent } from './pages/dark-web-login/dark-web-login';
+import { CaseFileComponent } from './pages/case-file/case-file';
 
 export const routes: Routes = [
   {
@@ -23,10 +24,16 @@ export const routes: Routes = [
         path: 'case',
         component: CaseComponent
       },
+
+      {
+        path: 'case-file',
+        component: CaseFileComponent
+      },
+
       {
         path: 'evidence',
         component: EvidenceComponent
-      },
+},
       {
         path: 'witnesses',
         component: WitnessesComponent

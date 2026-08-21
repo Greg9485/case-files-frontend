@@ -1,0 +1,233 @@
+.case-file {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px;
+
+  color: #111827;
+  background: #ffffff;
+}
+
+/* =========================
+   CASE FILE HEADER
+   ========================= */
+
+.case-file-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+
+  padding: 24px;
+
+  background: #ffffff;
+  color: #111827;
+
+  border: 1px solid #d1d5db;
+  border-bottom: 1px solid #d1d5db;
+}
+
+.case-file-header .eyebrow {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #4b5563;
+
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+}
+
+.case-file-header h1 {
+  margin: 0;
+
+  color: #111827;
+
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.file-status {
+  padding: 6px 12px;
+
+  background: #ffffff;
+  color: #111827;
+
+  border: 1px solid #999999;
+
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+/* =========================
+   DOCUMENT
+   ========================= */
+
+.document {
+  margin-top: 24px;
+
+  padding: 32px;
+
+  background: #ffffff;
+  color: #111827;
+
+  border: 1px solid #d1d5db;
+}
+
+/* =========================
+   DOCUMENT HEADER
+   ========================= */
+
+.document-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+
+  padding-bottom: 24px;
+
+  border-bottom: 2px solid #111827;
+}
+
+.document-header > div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.document-header span {
+  color: #4b5563;
+
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+
+.document-header strong {
+  color: #111827;
+
+  font-size: 0.95rem;
+}
+
+/* =========================
+   REPORT SECTIONS
+   ========================= */
+
+.report-section {
+  padding: 28px 0;
+
+  border-bottom: 1px solid #d1d5db;
+}
+
+.report-section:last-child {
+  border-bottom: none;
+}
+
+.report-section h2 {
+  margin: 0 0 18px;
+
+  color: #111827;
+
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+}
+
+.report-section p {
+  margin: 0 0 16px;
+
+  color: #1f2937;
+
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.report-section p:last-child {
+  margin-bottom: 0;
+}
+
+/* =========================
+   SUBJECT DETAILS
+   ========================= */
+
+.report-section dl {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+
+  margin: 0;
+
+  background: #d1d5db;
+
+  border: 1px solid #d1d5db;
+}
+
+.report-section dl > div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  padding: 16px;
+
+  background: #ffffff;
+}
+
+.report-section dt {
+  color: #4b5563;
+
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+
+.report-section dd {
+  margin: 0;
+
+  color: #111827;
+
+  font-size: 0.95rem;
+}
+
+/* =========================
+   REDACTED CONTENT
+   ========================= */
+
+.redacted {
+  padding: 14px;
+
+  background: #e5e7eb;
+
+  color: #374151 !important;
+
+  border-left: 3px solid #6b7280;
+
+  font-family: monospace;
+  font-size: 0.8rem !important;
+  letter-spacing: 0.05em;
+}
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 700px) {
+  .case-file {
+    padding: 24px;
+  }
+
+  .case-file-header {
+    flex-direction: column;
+  }
+
+  .document {
+    padding: 20px;
+  }
+
+  .document-header {
+    flex-direction: column;
+  }
+
+  .report-section dl {
+    grid-template-columns: 1fr;
+  }
+}

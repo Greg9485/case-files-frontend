@@ -1,34 +1,70 @@
 <nav>
 
+  <a
+    routerLink="/"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"
+  >
+    Case Overview
+  </a>
 
-<nav>
 
-<a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-  Case Overview
-</a>
+  @if (isBrowserUnlocked()) {
 
-<a routerLink="/browser" routerLinkActive="active">
-  Dark Web Access
-</a>
+    <a
+      routerLink="/browser"
+      routerLinkActive="active"
+    >
+      Dark Web Access
+    </a>
 
-<a routerLink="/case" routerLinkActive="active">
-  Case File
-</a>
+  } @else {
 
-<a routerLink="/evidence" routerLinkActive="active">
-  Evidence
-</a>
+    <span class="locked-link">
+      Dark Web Access
+      <small>LOCKED</small>
+    </span>
 
-<a routerLink="/witnesses" routerLinkActive="active">
-  Witnesses
-</a>
+  }
 
-<a routerLink="/notebook" routerLinkActive="active">
-  Notebook
-</a>
 
-<a routerLink="/archive" routerLinkActive="active">
-  Archive
-</a>
+  <a
+    routerLink="/case"
+    routerLinkActive="active"
+  >
+    Case File
+  </a>
+
+
+  <a
+    routerLink="/evidence"
+    routerLinkActive="active"
+  >
+    Evidence
+  </a>
+
+
+  <a
+    routerLink="/witnesses"
+    routerLinkActive="active"
+  >
+    Witnesses
+  </a>
+
+
+  <a
+    routerLink="/notebook"
+    routerLinkActive="active"
+  >
+    Notebook
+  </a>
+
+
+  <a
+    routerLink="/archive"
+    routerLinkActive="active"
+  >
+    Archive
+  </a>
 
 </nav>
