@@ -9,6 +9,8 @@ import {
   BookmarksService,
   Bookmark
 } from '../../core/services/bookmarks';
+import { FAKE_SITES } from '../../core/data/fake-sites';
+import { FakeSite } from '../../core/models/fake-site';
 
 @Component({
   selector: 'app-browser',
@@ -26,15 +28,14 @@ export class BrowserComponent {
 
 
   bookmarks: Bookmark[] = [];
-  showBookmarks = false;
-
-  currentPage!: FakePage;
-
   currentDomain = 'hollowcreekboard.local';
+  currentPage!: FakePage;
   currentPath = '/';
-
+  currentSite!: FakeSite;
   history: string[] = [];
   historyIndex = -1;
+  showBookmarks = false;
+
 
 
   constructor() {
@@ -53,23 +54,23 @@ export class BrowserComponent {
   }
 
 
-  navigate(
-    path: string,
-    domain: string = this.currentDomain
-  ): void {
+  navigate(path: string, domain?: string): void {
 
-    const page = this.internet.getPage(
-      domain,
-      path
-    );
+    const targetDomain = domain ?? this.currentPage?.domain ?? 'hollowcreekboard.local';
+
+    const page = this.internet.getPage(targetDomain, path);
 
     if (!page) {
       return;
     }
 
+    this.currentSite =
+      FAKE_SITES.find(site => site.domain === page.domain)
+      ?? FAKE_SITES[0];
+
     this.currentPage = page;
 
-    this.currentDomain = domain;
+    this.currentDomain = targetDomain;
     this.currentPath = path;
 
     this.browserService.visitPage(
@@ -83,7 +84,7 @@ export class BrowserComponent {
       this.history.slice(0, this.historyIndex + 1);
 
     this.history.push(
-      `${domain}${path}`
+      `${targetDomain}${path}`
     );
 
     this.historyIndex++;

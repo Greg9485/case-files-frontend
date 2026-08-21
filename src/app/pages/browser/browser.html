@@ -125,14 +125,15 @@
     <header class="site-header">
 
       <div class="site-title">
-
         <h1>
-          HOLLOW CREEK COMMUNITY BOARD
+        {{ currentSite.name }}
         </h1>
 
+        @if (currentSite.tagline) {
         <span>
-          EST. 2016
+            {{ currentSite.tagline }}
         </span>
+        }
 
       </div>
 
@@ -140,7 +141,7 @@
       <div class="site-account">
 
         <span>
-          COMMUNITY MEMBER
+            {{ currentSite.accountLabel }}
         </span>
 
       </div>
@@ -149,50 +150,18 @@
 
 
     <!-- Site navigation -->
-
     <nav class="site-nav">
 
-      <button
-        (click)="navigate('/')"
-        [class.active]="currentPage.path === '/'"
-      >
-        HOME
-      </button>
+        @for (item of currentSite.navigation; track item.path) {
 
-      <button
-        (click)="navigate('/local')"
-        [class.active]="currentPage.path === '/local'"
-      >
-        LOCAL
-      </button>
+            <button
+            (click)="navigate(item.path)"
+            [class.active]="currentPage.path === item.path"
+            >
+            {{ item.label }}
+            </button>
 
-      <button
-        (click)="navigate('/news')"
-        [class.active]="currentPage.path === '/news'"
-      >
-        NEWS
-      </button>
-
-      <button
-        (click)="navigate('/discussion')"
-        [class.active]="currentPage.path === '/discussion'"
-      >
-        DISCUSSION
-      </button>
-
-      <button
-        (click)="navigate('/missing-persons')"
-        [class.active]="currentPage.path === '/missing-persons'"
-      >
-        MISSING PERSONS
-      </button>
-
-      <button
-        (click)="navigate('/archive')"
-        [class.active]="currentPage.path === '/archive'"
-      >
-        ARCHIVE
-      </button>
+        }
 
     </nav>
 
