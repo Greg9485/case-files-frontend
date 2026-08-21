@@ -9,10 +9,15 @@ export class FakeInternetService {
 
   private pages = FAKE_PAGES;
 
-  getPage(path: string): FakePage {
+  getPage(
+    domain: string,
+    path: string
+  ): FakePage {
 
     const page = this.pages.find(
-      p => p.path === path
+      page =>
+        page.domain === domain &&
+        page.path === path
     );
 
     if (page) {
@@ -21,12 +26,13 @@ export class FakeInternetService {
 
     return {
       id: '404',
-      domain: 'hollowcreekboard.local',
+      domain,
       path,
       title: 'Page Not Found',
       category: '404 ERROR',
       status: 'NOT_FOUND',
-      content: 'The requested page could not be found on this server.'
+      content:
+        'The requested page could not be found on this server.'
     };
 
   }
