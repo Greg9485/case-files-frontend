@@ -27,10 +27,11 @@ export class SidebarComponent {
   private accessService = inject(AccessService);
 
 
-  isBrowserUnlocked(): boolean {
+  isBrowserUnlocked =
+    this.accessService.browserUnlockedSignal;
 
-    return this.accessService.isBrowserUnlocked();
 
-  }
+  isWitnessesUnlocked =
+    this.accessService.witnessesUnlockedSignal;
 
 }

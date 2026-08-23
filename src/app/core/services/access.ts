@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 
 export interface InvestigatorAccess {
   investigatorId: string;
@@ -9,6 +9,7 @@ export interface InvestigatorAccess {
   authenticated: boolean;
   authenticatedAt: Date | null;
   browserUnlocked: boolean;
+  witnessesUnlocked: boolean;
 }
 
 @Injectable({
@@ -18,16 +19,21 @@ export class AccessService {
 
   private access: InvestigatorAccess = {
     investigatorId: 'INV-74291',
-    caseId: 'HC-001',
-    username: 'HC_INV_74291',
+    caseId: 'AMPD-001',
+    username: 'AMPD_INV_74291',
     password: 'CARTER-74291',
     accessLevel: 'RESTRICTED',
     authenticated: false,
     authenticatedAt: null,
-    browserUnlocked: false
+    browserUnlocked: false,
+    witnessesUnlocked: false
   };
 
 
+    browserUnlockedSignal = signal(false);
+
+    witnessesUnlockedSignal = signal(false);
+    
   getAccess(): InvestigatorAccess {
     return this.access;
   }
@@ -39,15 +45,36 @@ export class AccessService {
 
 
   isBrowserUnlocked(): boolean {
-    return this.access.browserUnlocked;
+    return this.browserUnlockedSignal();
   }
 
 
   unlockBrowser(): void {
+
     this.access = {
       ...this.access,
       browserUnlocked: true
     };
+
+    this.browserUnlockedSignal.set(true);
+
+  }
+
+
+  isWitnessesUnlocked(): boolean {
+    return this.witnessesUnlockedSignal();
+  }
+
+
+  unlockWitnesses(): void {
+
+    this.access = {
+      ...this.access,
+      witnessesUnlocked: true
+    };
+
+    this.witnessesUnlockedSignal.set(true);
+
   }
 
 
@@ -57,7 +84,7 @@ export class AccessService {
   ): boolean {
 
     if (
-      username === this.access.username &&
+      username.trim().toLowerCase() === this.access.username.toLowerCase() &&
       password === this.access.password
     ) {
 

@@ -5,23 +5,23 @@
     routerLinkActive="active"
     [routerLinkActiveOptions]="{ exact: true }"
   >
-    Case Overview
+    Home
   </a>
 
 
   @if (isBrowserUnlocked()) {
 
     <a
-      routerLink="/browser"
+      routerLink="/dark-web-login"
       routerLinkActive="active"
     >
-      Dark Web Access
+      Amherst PD Investigation Portal
     </a>
 
   } @else {
 
     <span class="locked-link">
-      Dark Web Access
+      Amherst PD Investigation Portal
       <small>LOCKED</small>
     </span>
 
@@ -32,39 +32,44 @@
     routerLink="/case"
     routerLinkActive="active"
   >
-    Case File
+    Case Overview
   </a>
 
 
-  <a
-    routerLink="/evidence"
-    routerLinkActive="active"
-  >
+  @if (isWitnessesUnlocked()) {
+
+    <a
+      routerLink="/witnesses"
+      routerLinkActive="active"
+    >
+      Witnesses
+    </a>
+
+  } @else {
+
+    <span class="locked-link">
+      Witnesses
+      <small>LOCKED</small>
+    </span>
+
+  }
+
+
+  <span class="locked-link">
     Evidence
-  </a>
+    <small>LOCKED</small>
+  </span>
 
 
-  <a
-    routerLink="/witnesses"
-    routerLinkActive="active"
-  >
-    Witnesses
-  </a>
-
-
-  <a
-    routerLink="/notebook"
-    routerLinkActive="active"
-  >
+  <span class="locked-link">
     Notebook
-  </a>
+    <small>LOCKED</small>
+  </span>
 
 
-  <a
-    routerLink="/archive"
-    routerLinkActive="active"
-  >
+  <span class="locked-link">
     Archive
-  </a>
+    <small>LOCKED</small>
+  </span>
 
 </nav>
