@@ -1,5 +1,27 @@
 <section class="case-file">
 
+  @if (portalUnlockedToast) {
+
+    <div class="toast">
+
+      <span class="toast-indicator"></span>
+
+      <div class="toast-content">
+
+        <strong>
+          INVESTIGATION PORTAL UNLOCKED
+        </strong>
+
+        <span>
+          Restricted investigative access is now available.
+        </span>
+
+      </div>
+
+    </div>
+
+  }
+
   <header class="case-file-header">
 
     <div>
@@ -26,13 +48,27 @@
     <header class="document-header">
 
       <div>
-        <span>AMHERST POLICE DEPARTMENT</span>
-        <strong>INVESTIGATIVE REPORT</strong>
+
+        <span>
+          AMHERST POLICE DEPARTMENT
+        </span>
+
+        <strong>
+          INVESTIGATIVE REPORT
+        </strong>
+
       </div>
 
       <div>
-        <span>CASE NUMBER</span>
-        <strong>APD-24-1017</strong>
+
+        <span>
+          CASE NUMBER
+        </span>
+
+        <strong>
+          APD-24-1017
+        </strong>
+
       </div>
 
     </header>
@@ -104,11 +140,46 @@
         area.
       </p>
 
-      <p>
-        The witness also recalled seeing a dark-colored SUV
-        parked nearby. No other vehicles were observed in
-        the immediate area at the time.
-      </p>
+
+      <button
+        class="discovery"
+        type="button"
+        (click)="revealWitness()"
+      >
+
+        <span class="discovery-label">
+          INVESTIGATIVE NOTE
+        </span>
+
+        <span class="discovery-text">
+          The witness also recalled seeing a dark-colored SUV
+          parked nearby. No other vehicles were observed in
+          the immediate area at the time.
+        </span>
+
+        <span class="discovery-action">
+          {{ witnessesUnlocked ? 'WITNESS IDENTIFIED' : 'REVIEW STATEMENT' }}
+        </span>
+
+      </button>
+
+
+      @if (witnessesUnlocked) {
+
+        <div class="discovery-result">
+
+          <strong>
+            NEW INFORMATION UNLOCKED
+          </strong>
+
+          <p>
+            Witness information has been added to the
+            investigation.
+          </p>
+
+        </div>
+
+      }
 
     </section>
 
@@ -125,9 +196,129 @@
         disappearance.
       </p>
 
-      <p class="redacted">
-        [ PORTION OF REPORT WITHHELD ]
-      </p>
+
+      <div class="restricted-attachment">
+
+        <div class="attachment-header">
+
+          <div>
+
+            <span class="attachment-label">
+              RESTRICTED ATTACHMENT
+            </span>
+
+            <strong>
+              ampd_inv_0017.jpg
+            </strong>
+
+          </div>
+
+          <span class="attachment-status">
+            IMAGE RESTRICTED
+          </span>
+
+        </div>
+
+
+        <div class="attachment-preview">
+
+          <div class="image-placeholder">
+
+            <span>
+              IMAGE UNAVAILABLE
+            </span>
+
+            <small>
+              ACCESS RESTRICTED BY INVESTIGATIVE SYSTEM
+            </small>
+
+          </div>
+
+        </div>
+
+
+        <div class="attachment-actions">
+
+          <button
+            type="button"
+            class="metadata-button"
+            (click)="viewMetadata()"
+          >
+            VIEW FILE METADATA
+          </button>
+
+        </div>
+
+
+        @if (metadataVisible) {
+
+          <div class="metadata">
+
+            <div class="metadata-header">
+              FILE METADATA
+            </div>
+
+
+            <dl>
+
+              <div>
+                <dt>FILENAME</dt>
+                <dd>ampd_inv_0017.jpg</dd>
+              </div>
+
+              <div>
+                <dt>FILE TYPE</dt>
+                <dd>JPEG IMAGE</dd>
+              </div>
+
+              <div>
+                <dt>CLASSIFICATION</dt>
+                <dd>RESTRICTED</dd>
+              </div>
+
+              <div>
+                <dt>ACCESS STATUS</dt>
+                <dd>IMAGE CONTENT UNAVAILABLE</dd>
+              </div>
+
+            </dl>
+
+
+            <div class="metadata-exception">
+
+              <span class="metadata-label">
+                METADATA
+              </span>
+
+              <pre>
+                Filename: ampd_inv_0017.jpg
+                File type: JPEG Image
+                File size: 2.84 MB
+                Dimensions: 4032 × 3024
+                Created: October 18, 2024 08:43:17 AM
+                Modified: October 18, 2024 09:12:04 AM
+                Captured: October 17, 2024 10:17:43 PM
+                Source: Investigative Portal
+                Device: Apple iPhone 13
+                Location: Amherst, Virginia
+                GPS: 37.5856° N, 79.0514° W
+                Classification: RESTRICTED
+                Access status: IMAGE CONTENT UNAVAILABLE
+                Source: INVESTIGATIVE PORTAL
+                Uploaded By: 
+            &#123;redacted&#125;
+                USERNAME: ampd_inv_74291
+                PASSWORD: CARTER-74291
+            &#123;&#123;/redacted&#125;
+            </pre>
+
+            </div>
+
+          </div>
+
+        }
+
+      </div>
 
     </section>
 

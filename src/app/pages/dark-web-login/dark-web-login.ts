@@ -21,8 +21,7 @@ export class DarkWebLoginComponent {
   connected = false;
   error = '';
 
-  status = 'SECURE DARK WEB CONNECTION';
-
+  status = 'INVESTIGATION PORTAL ACCESS';
 
   connect(): void {
 
@@ -59,10 +58,10 @@ export class DarkWebLoginComponent {
       'INITIALIZING SECURE CONNECTION';
 
 
-    setTimeout(() => {
+      setTimeout(() => {
 
       this.status =
-        'ESTABLISHING ENCRYPTED CONNECTION';
+        'ESTABLISHING SECURE CONNECTION';
 
     }, 900);
 
@@ -78,7 +77,7 @@ export class DarkWebLoginComponent {
     setTimeout(() => {
 
       this.status =
-        'CONNECTION ESTABLISHED';
+        'ACCESS AUTHORIZED';
 
       this.connecting = false;
       this.connected = true;
