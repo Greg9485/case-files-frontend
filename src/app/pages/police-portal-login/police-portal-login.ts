@@ -4,12 +4,12 @@ import { Router } from '@angular/router';
 import { AccessService } from '../../core/services/access';
 
 @Component({
-  selector: 'app-dark-web-login',
+  selector: 'app-police-portal-login',
   imports: [FormsModule],
-  templateUrl: './dark-web-login.html',
-  styleUrl: './dark-web-login.scss'
+  templateUrl: './police-portal-login.html',
+  styleUrl: './police-portal-login.scss'
 })
-export class DarkWebLoginComponent {
+export class PolicePortalLoginComponent {
 
   private accessService = inject(AccessService);
   private router = inject(Router);
@@ -57,14 +57,12 @@ export class DarkWebLoginComponent {
     this.status =
       'INITIALIZING SECURE CONNECTION';
 
-
-      setTimeout(() => {
+    setTimeout(() => {
 
       this.status =
         'ESTABLISHING SECURE CONNECTION';
 
     }, 900);
-
 
     setTimeout(() => {
 
@@ -72,7 +70,6 @@ export class DarkWebLoginComponent {
         'VERIFYING INVESTIGATOR CREDENTIALS';
 
     }, 1800);
-
 
     setTimeout(() => {
 
@@ -84,10 +81,9 @@ export class DarkWebLoginComponent {
 
     }, 2700);
 
-
     setTimeout(() => {
 
-      this.router.navigate(['/browser']);
+      this.router.navigate(['/police-portal']);
 
     }, 3800);
 
