@@ -1,0 +1,1001 @@
+.case-portal {
+
+  min-height: calc(100vh - 120px);
+
+  background: #eef1f4;
+
+  color: #17202a;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.case-header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding: 22px 35px;
+
+  background: #1f2933;
+
+  color: white;
+
+  border-bottom: 4px solid #8b1e1e;
+
+}
+
+
+.eyebrow {
+
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: #6b7280;
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  letter-spacing: 1.5px;
+
+}
+
+
+.case-header .eyebrow {
+
+  color: #cbd5e1;
+
+}
+
+
+.case-header h1 {
+
+  margin: 0;
+
+  font-size: 17px;
+
+  font-weight: 500;
+
+  letter-spacing: 0.5px;
+
+}
+
+
+.session {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-end;
+
+  gap: 5px;
+
+  color: #cbd5e1;
+
+  font-size: 9px;
+
+  letter-spacing: 1px;
+
+}
+
+
+.session strong {
+
+  color: #86efac;
+
+}
+
+
+/* =========================
+   CASE IDENTIFICATION
+========================= */
+
+.case-identification {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: flex-start;
+
+  gap: 30px;
+
+  padding: 30px 35px;
+
+  background: white;
+
+  border-bottom: 1px solid #c7cdd4;
+
+}
+
+
+.case-identification h2 {
+
+  margin: 0;
+
+  font-size: 24px;
+
+  font-weight: 500;
+
+}
+
+
+.case-identification p {
+
+  margin: 8px 0 0;
+
+  color: #4b5563;
+
+  font-size: 16px;
+
+}
+
+
+.case-status {
+
+  display: grid;
+
+  grid-template-columns: auto auto;
+
+  gap: 8px 18px;
+
+  font-family: monospace;
+
+  font-size: 10px;
+
+}
+
+
+.case-status span {
+
+  color: #6b7280;
+
+}
+
+
+.case-status strong {
+
+  color: #111827;
+
+}
+
+
+.case-status .cold {
+
+  color: #8b1e1e;
+
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+.case-nav {
+
+  display: flex;
+
+  overflow-x: auto;
+
+  padding: 0 35px;
+
+  background: white;
+
+  border-bottom: 1px solid #c7cdd4;
+
+}
+
+
+.case-nav button {
+
+  flex: 0 0 auto;
+
+  padding: 14px 18px;
+
+  background: transparent;
+
+  border: none;
+
+  border-right: 1px solid #e5e7eb;
+
+  color: #4b5563;
+
+  font-size: 10px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.5px;
+
+  cursor: pointer;
+
+}
+
+
+.case-nav button:first-child {
+
+  border-left: 1px solid #e5e7eb;
+
+}
+
+
+.case-nav button:hover {
+
+  background: #f3f4f6;
+
+  color: #111827;
+
+}
+
+
+.case-nav button.active {
+
+  background: #e5e7eb;
+
+  color: #111827;
+
+  box-shadow: inset 0 -3px 0 #8b1e1e;
+
+}
+
+
+/* =========================
+   CONTENT
+========================= */
+
+.case-content {
+
+  width: min(1100px, 92%);
+
+  margin: 0 auto;
+
+  padding: 30px 0 60px;
+
+}
+
+
+.panel {
+
+  background: white;
+
+  border: 1px solid #c7cdd4;
+
+}
+
+
+.panel-header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: flex-start;
+
+  gap: 20px;
+
+  padding: 24px 26px;
+
+  border-bottom: 1px solid #d1d5db;
+
+}
+
+
+.panel-header h3 {
+
+  margin: 0;
+
+  font-size: 21px;
+
+  font-weight: 500;
+
+}
+
+
+.record-id {
+
+  color: #6b7280;
+
+  font-family: monospace;
+
+  font-size: 10px;
+
+}
+
+
+/* =========================
+   SUMMARY
+========================= */
+
+.summary-grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 1px;
+
+  background: #d1d5db;
+
+}
+
+
+.summary-grid > div {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+
+  padding: 20px;
+
+  background: white;
+
+}
+
+
+.summary-grid span {
+
+  color: #6b7280;
+
+  font-size: 9px;
+
+  font-weight: 700;
+
+  letter-spacing: 1px;
+
+}
+
+
+.summary-grid strong {
+
+  color: #111827;
+
+  font-size: 13px;
+
+  font-weight: 500;
+
+}
+
+
+.summary-section {
+
+  padding: 28px;
+
+  border-top: 1px solid #e5e7eb;
+
+}
+
+
+.summary-section h4 {
+
+  margin: 0 0 16px;
+
+  color: #374151;
+
+  font-size: 10px;
+
+  letter-spacing: 1.2px;
+
+}
+
+
+.summary-section p {
+
+  margin: 0 0 16px;
+
+  max-width: 800px;
+
+  color: #4b5563;
+
+  font-size: 14px;
+
+  line-height: 1.8;
+
+}
+
+
+.timeline {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 0;
+
+}
+
+
+.timeline > div {
+
+  display: grid;
+
+  grid-template-columns: 140px 1fr;
+
+  gap: 20px;
+
+  padding: 16px 0;
+
+  border-top: 1px solid #e5e7eb;
+
+}
+
+
+.timeline > div:first-child {
+
+  border-top: none;
+
+}
+
+
+.timeline span {
+
+  color: #6b7280;
+
+  font-family: monospace;
+
+  font-size: 10px;
+
+}
+
+
+.timeline p {
+
+  margin: 0;
+
+}
+
+
+/* =========================
+   WITNESS RECORD
+========================= */
+
+.witness-record {
+
+  display: grid;
+
+  grid-template-columns: 1fr auto auto;
+
+  align-items: center;
+
+  gap: 30px;
+
+  width: 100%;
+
+  padding: 24px 26px;
+
+  text-align: left;
+
+  background: white;
+
+  border: none;
+
+  color: #111827;
+
+  cursor: pointer;
+
+}
+
+
+.witness-record:hover {
+
+  background: #f8fafc;
+
+}
+
+
+.witness-main {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 6px;
+
+}
+
+
+.witness-main strong {
+
+  color: #6b7280;
+
+  font-family: monospace;
+
+  font-size: 10px;
+
+}
+
+
+.witness-main span {
+
+  font-size: 15px;
+
+}
+
+
+.witness-meta {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-end;
+
+  gap: 6px;
+
+}
+
+
+.witness-meta span {
+
+  color: #6b7280;
+
+  font-family: monospace;
+
+  font-size: 9px;
+
+}
+
+
+.witness-meta strong {
+
+  font-family: monospace;
+
+  font-size: 10px;
+
+}
+
+
+.arrow {
+
+  color: #9ca3af;
+
+  font-size: 20px;
+
+}
+
+
+/* =========================
+   PLACEHOLDER
+========================= */
+
+.placeholder {
+
+  padding: 45px;
+
+}
+
+
+.placeholder h3 {
+
+  margin: 0;
+
+  font-size: 22px;
+
+  font-weight: 500;
+
+}
+
+
+.placeholder p {
+
+  max-width: 600px;
+
+  color: #6b7280;
+
+  line-height: 1.8;
+
+}
+
+
+.system-code {
+
+  display: inline-block;
+
+  margin-top: 15px;
+
+  padding: 8px 10px;
+
+  background: #f3f4f6;
+
+  color: #6b7280;
+
+  font-family: monospace;
+
+  font-size: 10px;
+
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.case-footer {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  padding: 14px 35px;
+
+  background: #1f2933;
+
+  color: #9ca3af;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: 0.8px;
+
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+.modal-backdrop {
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 1000;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 30px;
+
+  background: rgba(2, 6, 23, 0.78);
+
+}
+
+
+.witness-modal {
+
+  width: min(850px, 100%);
+
+  max-height: 90vh;
+
+  overflow-y: auto;
+
+  background: white;
+
+  border: 1px solid #94a3b8;
+
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.45);
+
+}
+
+
+.modal-header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: flex-start;
+
+  gap: 20px;
+
+  padding: 26px;
+
+  border-bottom: 1px solid #d1d5db;
+
+}
+
+
+.modal-header h3 {
+
+  margin: 0;
+
+  font-size: 22px;
+
+  font-weight: 500;
+
+}
+
+
+.close-button {
+
+  width: 34px;
+
+  height: 34px;
+
+  border: 1px solid #d1d5db;
+
+  background: white;
+
+  color: #4b5563;
+
+  font-size: 22px;
+
+  cursor: pointer;
+
+}
+
+
+.close-button:hover {
+
+  background: #f3f4f6;
+
+}
+
+
+/* =========================
+   STATEMENT META
+========================= */
+
+.statement-meta {
+
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 1px;
+
+  background: #d1d5db;
+
+}
+
+
+.statement-meta > div {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+
+  padding: 18px 26px;
+
+  background: #f8fafc;
+
+}
+
+
+.statement-meta span {
+
+  color: #6b7280;
+
+  font-size: 9px;
+
+  font-weight: 700;
+
+  letter-spacing: 1px;
+
+}
+
+
+.statement-meta strong {
+
+  color: #111827;
+
+  font-family: monospace;
+
+  font-size: 11px;
+
+}
+
+
+/* =========================
+   STATEMENT
+========================= */
+
+.statement-content {
+
+  padding: 35px;
+
+}
+
+
+.statement-content h4 {
+
+  margin: 0 0 24px;
+
+  color: #374151;
+
+  font-size: 10px;
+
+  letter-spacing: 1.2px;
+
+}
+
+
+.statement-content p {
+
+  margin: 0 0 20px;
+
+  color: #374151;
+
+  font-size: 14px;
+
+  line-height: 1.9;
+
+}
+
+
+/* TEMP STORY PLACEHOLDER */
+
+.contradiction {
+
+  margin: 30px 0;
+
+  padding: 20px;
+
+  background: #fef2f2;
+
+  border: 1px solid #fecaca;
+
+  border-left: 4px solid #8b1e1e;
+
+  color: #8b1e1e;
+
+  font-family: monospace;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  letter-spacing: 1.5px;
+
+}
+
+
+/* =========================
+   MODAL FOOTER
+========================= */
+
+.modal-footer {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 20px;
+
+  padding: 18px 26px;
+
+  border-top: 1px solid #d1d5db;
+
+  background: #f8fafc;
+
+}
+
+
+.modal-footer span {
+
+  color: #6b7280;
+
+  font-family: monospace;
+
+  font-size: 9px;
+
+}
+
+
+.modal-footer button {
+
+  padding: 10px 16px;
+
+  background: #374151;
+
+  border: 1px solid #374151;
+
+  color: white;
+
+  font-size: 10px;
+
+  font-weight: 600;
+
+  letter-spacing: 1px;
+
+  cursor: pointer;
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 800px) {
+
+  .case-header {
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 15px;
+
+  }
+
+
+  .session {
+
+    align-items: flex-start;
+
+  }
+
+
+  .case-identification {
+
+    flex-direction: column;
+
+  }
+
+
+  .summary-grid {
+
+    grid-template-columns: 1fr;
+
+  }
+
+
+  .timeline > div {
+
+    grid-template-columns: 1fr;
+
+    gap: 8px;
+
+  }
+
+
+  .witness-record {
+
+    grid-template-columns: 1fr auto;
+
+  }
+
+
+  .witness-meta {
+
+    display: none;
+
+  }
+
+
+  .statement-meta {
+
+    grid-template-columns: 1fr;
+
+  }
+
+
+  .modal-footer {
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+  }
+
+
+  .case-footer {
+
+    flex-direction: column;
+
+    gap: 6px;
+
+  }
+
+}

@@ -1,0 +1,660 @@
+<section class="case-portal">
+
+  <!-- HEADER -->
+
+  <header class="case-header">
+
+    <div>
+
+      <span class="eyebrow">
+        AMHERST POLICE DEPARTMENT
+      </span>
+
+      <h1>
+        INVESTIGATIVE INFORMATION SYSTEM
+      </h1>
+
+    </div>
+
+
+    <div class="session">
+
+      <span>
+        CASE ACCESS
+      </span>
+
+      <strong>
+        AUTHORIZED
+      </strong>
+
+    </div>
+
+  </header>
+
+
+  <!-- CASE IDENTIFICATION -->
+
+  <section class="case-identification">
+
+    <div>
+
+      <span class="eyebrow">
+        INVESTIGATIVE CASE FILE
+      </span>
+
+      <h2>
+        CASE #24-1017
+      </h2>
+
+      <p>
+        Emily Carter
+      </p>
+
+    </div>
+
+
+    <div class="case-status">
+
+      <span>
+        CLASSIFICATION
+      </span>
+
+      <strong>
+        MISSING PERSON
+      </strong>
+
+
+      <span>
+        STATUS
+      </span>
+
+      <strong class="cold">
+        COLD
+      </strong>
+
+    </div>
+
+  </section>
+
+
+  <!-- CASE NAVIGATION -->
+
+  <nav class="case-nav">
+
+    @for (tab of tabs; track tab) {
+
+      <button
+        type="button"
+        [class.active]="activeTab === tab"
+        (click)="setActiveTab(tab)"
+      >
+        {{ tab }}
+      </button>
+
+    }
+
+  </nav>
+
+
+  <!-- CONTENT -->
+
+  <main class="case-content">
+
+
+    <!-- CASE SUMMARY -->
+
+    @if (activeTab === 'CASE SUMMARY') {
+
+      <section class="panel">
+
+        <header class="panel-header">
+
+          <div>
+
+            <span class="eyebrow">
+              CASE SUMMARY
+            </span>
+
+            <h3>
+              Emily Carter
+            </h3>
+
+          </div>
+
+          <span class="record-id">
+            APD-24-1017
+          </span>
+
+        </header>
+
+
+        <div class="summary-grid">
+
+          <div>
+
+            <span>
+              FULL NAME
+            </span>
+
+            <strong>
+              Emily Carter
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              AGE
+            </span>
+
+            <strong>
+              27
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              DATE REPORTED MISSING
+            </span>
+
+            <strong>
+              OCTOBER 18, 2024
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              LAST KNOWN LOCATION
+            </span>
+
+            <strong>
+              AMHERST, VIRGINIA
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              CASE STATUS
+            </span>
+
+            <strong>
+              COLD CASE
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              ASSIGNED UNIT
+            </span>
+
+            <strong>
+              CRIMINAL INVESTIGATIONS
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <section class="summary-section">
+
+          <h4>
+            CASE DESCRIPTION
+          </h4>
+
+          <p>
+            Emily Carter was reported missing on October 18, 2024
+            after failing to return home following an evening
+            appointment in downtown Amherst.
+          </p>
+
+          <p>
+            Investigators determined that Carter was last seen
+            during the evening of October 17, 2024. Her vehicle
+            was located the following morning.
+          </p>
+
+        </section>
+
+
+        <section class="summary-section">
+
+          <h4>
+            INVESTIGATIVE TIMELINE
+          </h4>
+
+
+          <div class="timeline">
+
+            <div>
+
+              <span>
+                OCT 17, 2024
+              </span>
+
+              <p>
+                Emily Carter last confirmed active in Amherst.
+              </p>
+
+            </div>
+
+
+            <div>
+
+              <span>
+                OCT 18, 2024
+              </span>
+
+              <p>
+                Missing person report filed.
+              </p>
+
+            </div>
+
+
+            <div>
+
+              <span>
+                OCT 18, 2024
+              </span>
+
+              <p>
+                Carter's vehicle located by responding officers.
+              </p>
+
+            </div>
+
+
+            <div>
+
+              <span>
+                CURRENT
+              </span>
+
+              <p>
+                Case remains open with limited investigative activity.
+              </p>
+
+            </div>
+
+          </div>
+
+        </section>
+
+      </section>
+
+    }
+
+
+    <!-- INCIDENT REPORTS -->
+
+    @if (activeTab === 'INCIDENT REPORTS') {
+
+      <section class="panel placeholder">
+
+        <span class="eyebrow">
+          INCIDENT REPORTS
+        </span>
+
+        <h3>
+          Reports On File
+        </h3>
+
+        <p>
+          Incident and supplemental investigative reports
+          associated with this case will appear here.
+        </p>
+
+        <span class="system-code">
+          RECORDS AVAILABLE
+        </span>
+
+      </section>
+
+    }
+
+
+    <!-- WITNESS STATEMENTS -->
+
+    @if (activeTab === 'WITNESS STATEMENTS') {
+
+      <section class="panel">
+
+        <header class="panel-header">
+
+          <div>
+
+            <span class="eyebrow">
+              WITNESS STATEMENTS
+            </span>
+
+            <h3>
+              Recorded Witness Interviews
+            </h3>
+
+          </div>
+
+          <span class="record-id">
+            1 RECORD
+          </span>
+
+        </header>
+
+
+        <button
+          type="button"
+          class="witness-record"
+          (click)="openWitnessStatement()"
+        >
+
+          <div class="witness-main">
+
+            <strong>
+              WITNESS-001
+            </strong>
+
+            <span>
+              Martin Hale
+            </span>
+
+          </div>
+
+
+          <div class="witness-meta">
+
+            <span>
+              INTERVIEW DATE
+            </span>
+
+            <strong>
+              OCTOBER 18, 2024
+            </strong>
+
+          </div>
+
+
+          <span class="arrow">
+            →
+          </span>
+
+        </button>
+
+      </section>
+
+    }
+
+
+    <!-- EVIDENCE -->
+
+    @if (activeTab === 'EVIDENCE') {
+
+      <section class="panel placeholder">
+
+        <span class="eyebrow">
+          EVIDENCE
+        </span>
+
+        <h3>
+          Evidence Inventory
+        </h3>
+
+        <p>
+          Physical and digital evidence associated with this
+          investigation will appear here.
+        </p>
+
+        <span class="system-code">
+          EVIDENCE INDEX INITIALIZED
+        </span>
+
+      </section>
+
+    }
+
+
+    <!-- INVESTIGATION NOTES -->
+
+    @if (activeTab === 'INVESTIGATION NOTES') {
+
+      <section class="panel placeholder">
+
+        <span class="eyebrow">
+          INVESTIGATION NOTES
+        </span>
+
+        <h3>
+          Investigative Activity
+        </h3>
+
+        <p>
+          Chronological investigative notes and follow-up
+          activity will appear here.
+        </p>
+
+        <span class="system-code">
+          INVESTIGATIVE LOG AVAILABLE
+        </span>
+
+      </section>
+
+    }
+
+
+    <!-- RELATED RECORDS -->
+
+    @if (activeTab === 'RELATED RECORDS') {
+
+      <section class="panel placeholder">
+
+        <span class="eyebrow">
+          RELATED RECORDS
+        </span>
+
+        <h3>
+          Associated Records
+        </h3>
+
+        <p>
+          Related persons, vehicles, incidents, and external
+          agency records will appear here.
+        </p>
+
+        <span class="system-code">
+          CROSS-REFERENCE INDEX
+        </span>
+
+      </section>
+
+    }
+
+  </main>
+
+
+  <!-- FOOTER -->
+
+  <footer class="case-footer">
+
+    <span>
+      AMHERST POLICE DEPARTMENT
+    </span>
+
+    <span>
+      AUTHORIZED PERSONNEL ONLY
+    </span>
+
+    <span>
+      CASE ACCESS LOGGED
+    </span>
+
+  </footer>
+
+
+  <!-- WITNESS MODAL -->
+
+  @if (witnessStatementOpen) {
+
+    <div
+      class="modal-backdrop"
+      (click)="closeWitnessStatement()"
+    >
+
+      <section
+        class="witness-modal"
+        (click)="$event.stopPropagation()"
+      >
+
+        <header class="modal-header">
+
+          <div>
+
+            <span class="eyebrow">
+              WITNESS STATEMENT
+            </span>
+
+            <h3>
+              Martin Hale
+            </h3>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="close-button"
+            (click)="closeWitnessStatement()"
+          >
+            ×
+          </button>
+
+        </header>
+
+
+        <div class="statement-meta">
+
+          <div>
+
+            <span>
+              WITNESS ID
+            </span>
+
+            <strong>
+              WITNESS-001
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              INTERVIEW DATE
+            </span>
+
+            <strong>
+              OCTOBER 18, 2024
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              INTERVIEW LOCATION
+            </span>
+
+            <strong>
+              AMHERST POLICE DEPARTMENT
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              STATEMENT STATUS
+            </span>
+
+            <strong>
+              RECORDED
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <article class="statement-content">
+
+          <h4>
+            RECORDED STATEMENT
+          </h4>
+
+          <p>
+            My name is Martin Hale. I was in the downtown Amherst
+            area during the evening of October 17, 2024.
+          </p>
+
+          <p>
+            I provided investigators with information regarding
+            activity I observed near the municipal parking area.
+          </p>
+
+          <p>
+            I remember seeing several people in the area and
+            noticed a dark-colored vehicle parked nearby.
+          </p>
+
+
+          <div class="contradiction">
+
+            CONTRADICTORY INFO
+
+          </div>
+
+
+          <p>
+            This statement was recorded and entered into the
+            investigative case file.
+          </p>
+
+        </article>
+
+
+        <footer class="modal-footer">
+
+          <span>
+            APD INVESTIGATIVE RECORD
+          </span>
+
+          <button
+            type="button"
+            (click)="closeWitnessStatement()"
+          >
+            CLOSE STATEMENT
+          </button>
+
+        </footer>
+
+      </section>
+
+    </div>
+
+  }
+
+</section>

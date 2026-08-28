@@ -1,0 +1,174 @@
+<section class="portal">
+
+  <header class="portal-header">
+
+    <div class="agency">
+      <div class="agency-mark">
+        APD
+      </div>
+
+      <div>
+        <span class="eyebrow">
+          AMHERST POLICE DEPARTMENT
+        </span>
+
+        <h1>
+          INVESTIGATIVE INFORMATION SYSTEM
+        </h1>
+      </div>
+    </div>
+
+    <div class="session">
+      <span>
+        INTERNAL USE ONLY
+      </span>
+
+      <strong>
+        SESSION ACTIVE
+      </strong>
+    </div>
+
+  </header>
+
+
+  <nav class="portal-nav">
+
+    @for (section of sections; track section) {
+
+      <button
+        [class.active]="activeSection === section"
+        (click)="setSection(section)"
+      >
+        {{ section }}
+      </button>
+
+    }
+
+  </nav>
+
+
+  <main class="portal-content">
+
+    <div class="breadcrumb">
+      APD / INVESTIGATIVE SYSTEM / {{ activeSection }}
+    </div>
+
+
+    @if (activeSection === 'CASE SEARCH') {
+
+      <section class="panel">
+
+        <div class="panel-header">
+          <div>
+            <span class="eyebrow">
+              CASE SEARCH
+            </span>
+
+            <h2>
+              Investigative Records
+            </h2>
+          </div>
+
+          <span class="record-count">
+            1 RECORD
+          </span>
+        </div>
+
+
+        <div class="search-row">
+
+          <input
+            type="text"
+            value="24-1017"
+            aria-label="Case number"
+          />
+
+          <button class="search-button">
+            SEARCH
+          </button>
+
+        </div>
+
+
+        <button
+          class="record"
+          (click)="openEmilyCase()"
+        >
+
+          <div class="record-main">
+
+            <strong>
+              CASE #24-1017
+            </strong>
+
+            <span>
+              Emily Carter
+            </span>
+
+          </div>
+
+          <div class="record-meta">
+
+            <span>
+              MISSING PERSON
+            </span>
+
+            <span>
+              COLD
+            </span>
+
+          </div>
+
+          <span class="arrow">
+            →
+          </span>
+
+        </button>
+
+      </section>
+
+    } @else {
+
+      <section class="panel placeholder">
+
+        <span class="eyebrow">
+          {{ activeSection }}
+        </span>
+
+        <h2>
+          Module Unavailable
+        </h2>
+
+        <p>
+          This investigative module is not currently available
+          through this session.
+        </p>
+
+        <span class="system-code">
+          ERROR: RECORD_ACCESS_PENDING
+        </span>
+
+      </section>
+
+    }
+
+  </main>
+
+
+  <footer class="portal-footer">
+
+    <span>
+      AMHERST POLICE DEPARTMENT
+    </span>
+
+    <span>
+      AUTHORIZED PERSONNEL ONLY
+    </span>
+
+    <span>
+      SYSTEM VERSION 4.7.2
+    </span>
+
+  </footer>
+
+</section>
