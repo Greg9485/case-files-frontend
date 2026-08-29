@@ -1,4 +1,8 @@
-<section class="case-portal">
+<section
+  class="case-portal"
+  [class.glitching]="glitchActive()"
+  [class.page-frozen]="pageFrozen()"
+>
 
   <!-- HEADER -->
 
@@ -131,80 +135,33 @@
         <div class="summary-grid">
 
           <div>
-
-            <span>
-              FULL NAME
-            </span>
-
-            <strong>
-              Emily Carter
-            </strong>
-
+            <span>FULL NAME</span>
+            <strong>Emily Carter</strong>
           </div>
 
-
           <div>
-
-            <span>
-              AGE
-            </span>
-
-            <strong>
-              27
-            </strong>
-
+            <span>AGE</span>
+            <strong>27</strong>
           </div>
 
-
           <div>
-
-            <span>
-              DATE REPORTED MISSING
-            </span>
-
-            <strong>
-              OCTOBER 18, 2024
-            </strong>
-
+            <span>DATE REPORTED MISSING</span>
+            <strong>OCTOBER 18, 2024</strong>
           </div>
 
-
           <div>
-
-            <span>
-              LAST KNOWN LOCATION
-            </span>
-
-            <strong>
-              AMHERST, VIRGINIA
-            </strong>
-
+            <span>LAST KNOWN LOCATION</span>
+            <strong>AMHERST, VIRGINIA</strong>
           </div>
 
-
           <div>
-
-            <span>
-              CASE STATUS
-            </span>
-
-            <strong>
-              COLD CASE
-            </strong>
-
+            <span>CASE STATUS</span>
+            <strong>COLD CASE</strong>
           </div>
 
-
           <div>
-
-            <span>
-              ASSIGNED UNIT
-            </span>
-
-            <strong>
-              CRIMINAL INVESTIGATIONS
-            </strong>
-
+            <span>ASSIGNED UNIT</span>
+            <strong>CRIMINAL INVESTIGATIONS</strong>
           </div>
 
         </div>
@@ -241,54 +198,23 @@
           <div class="timeline">
 
             <div>
-
-              <span>
-                OCT 17, 2024
-              </span>
-
-              <p>
-                Emily Carter last confirmed active in Amherst.
-              </p>
-
+              <span>OCT 17, 2024</span>
+              <p>Emily Carter last confirmed active in Amherst.</p>
             </div>
 
-
             <div>
-
-              <span>
-                OCT 18, 2024
-              </span>
-
-              <p>
-                Missing person report filed.
-              </p>
-
+              <span>OCT 18, 2024</span>
+              <p>Missing person report filed.</p>
             </div>
 
-
             <div>
-
-              <span>
-                OCT 18, 2024
-              </span>
-
-              <p>
-                Carter's vehicle located by responding officers.
-              </p>
-
+              <span>OCT 18, 2024</span>
+              <p>Carter's vehicle located by responding officers.</p>
             </div>
 
-
             <div>
-
-              <span>
-                CURRENT
-              </span>
-
-              <p>
-                Case remains open with limited investigative activity.
-              </p>
-
+              <span>CURRENT</span>
+              <p>Case remains open with limited investigative activity.</p>
             </div>
 
           </div>
@@ -503,7 +429,9 @@
   </footer>
 
 
-  <!-- WITNESS MODAL -->
+  <!-- =========================
+       WITNESS STATEMENT MODAL
+  ========================= -->
 
   @if (witnessStatementOpen) {
 
@@ -546,54 +474,23 @@
         <div class="statement-meta">
 
           <div>
-
-            <span>
-              WITNESS ID
-            </span>
-
-            <strong>
-              WITNESS-001
-            </strong>
-
+            <span>WITNESS ID</span>
+            <strong>WITNESS-001</strong>
           </div>
 
-
           <div>
-
-            <span>
-              INTERVIEW DATE
-            </span>
-
-            <strong>
-              OCTOBER 18, 2024
-            </strong>
-
+            <span>INTERVIEW DATE</span>
+            <strong>OCTOBER 18, 2024</strong>
           </div>
 
-
           <div>
-
-            <span>
-              INTERVIEW LOCATION
-            </span>
-
-            <strong>
-              AMHERST POLICE DEPARTMENT
-            </strong>
-
+            <span>INTERVIEW LOCATION</span>
+            <strong>AMHERST POLICE DEPARTMENT</strong>
           </div>
 
-
           <div>
-
-            <span>
-              STATEMENT STATUS
-            </span>
-
-            <strong>
-              RECORDED
-            </strong>
-
+            <span>STATEMENT STATUS</span>
+            <strong>RECORDED</strong>
           </div>
 
         </div>
@@ -622,9 +519,7 @@
 
 
           <div class="contradiction">
-
             CONTRADICTORY INFO
-
           </div>
 
 
@@ -652,6 +547,142 @@
         </footer>
 
       </section>
+
+    </div>
+
+  }
+
+
+  <!-- =========================
+       GLITCH EFFECT
+  ========================= -->
+
+  @if (glitchActive()) {
+
+    <div class="glitch-overlay">
+
+      <div class="glitch-noise"></div>
+
+      <div class="glitch-scanlines"></div>
+
+      <div class="glitch-rgb glitch-red"></div>
+
+      <div class="glitch-rgb glitch-cyan"></div>
+
+      <div class="glitch-flash"></div>
+
+    </div>
+
+  }
+
+
+  <!-- =========================
+       HACKER MODAL
+  ========================= -->
+
+  @if (hackerModalOpen()) {
+
+    <div class="hacker-backdrop">
+
+      <section class="hacker-modal">
+
+        <header class="hacker-header">
+
+          <div class="hacker-system">
+            UNKNOWN CONNECTION
+          </div>
+
+          <div class="hacker-status">
+            ENCRYPTED
+          </div>
+
+        </header>
+
+
+        <main class="hacker-content">
+
+          <div class="hacker-terminal">
+
+            <div class="terminal-line">
+
+              <span class="terminal-prompt">
+                &gt;
+              </span>
+
+              <span>
+                CONNECTION ESTABLISHED
+              </span>
+
+            </div>
+
+
+            <div class="terminal-line">
+
+              <span class="terminal-prompt">
+                &gt;
+              </span>
+
+              <span>
+                SOURCE: UNKNOWN
+              </span>
+
+            </div>
+
+
+            <div class="terminal-divider"></div>
+
+
+            <div class="hacker-message">
+
+              {{ hackerDisplayedMessage() }}
+
+              @if (hackerTyping()) {
+
+                <span class="typing-cursor">
+                  _
+                </span>
+
+              }
+
+            </div>
+
+
+            @if (hackerComplete()) {
+
+              <div class="hacker-final">
+
+                <span>
+                  CONNECTION TERMINATING...
+                </span>
+
+                <span>
+                  DO NOT REPLY
+                </span>
+
+              </div>
+
+            }
+
+          </div>
+
+        </main>
+
+      </section>
+
+    </div>
+
+  }
+
+
+  <!-- =========================
+       TOR REVEAL INDICATOR
+  ========================= -->
+
+  @if (torRevealPending()) {
+
+    <div class="tor-reveal-indicator">
+
+      SECURE CONNECTION AVAILABLE
 
     </div>
 

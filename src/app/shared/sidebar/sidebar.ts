@@ -1,8 +1,11 @@
 import { Component, inject } from '@angular/core';
 
 import {
+
   RouterLink,
+
   RouterLinkActive
+
 } from '@angular/router';
 
 import { AccessService } from '../../core/services/access';
@@ -12,8 +15,11 @@ import { AccessService } from '../../core/services/access';
   selector: 'app-sidebar',
 
   imports: [
+
     RouterLink,
+
     RouterLinkActive
+
   ],
 
   templateUrl: './sidebar.html',
@@ -27,11 +33,15 @@ export class SidebarComponent {
   private accessService = inject(AccessService);
 
 
-  isBrowserUnlocked =
-    this.accessService.browserUnlockedSignal;
+  isPolicePortalUnlocked =
+    this.accessService.policePortalUnlockedSignal;
 
 
   isWitnessesUnlocked =
     this.accessService.witnessesUnlockedSignal;
+
+
+  isTorBrowserUnlocked =
+    this.accessService.torBrowserUnlockedSignal;
 
 }

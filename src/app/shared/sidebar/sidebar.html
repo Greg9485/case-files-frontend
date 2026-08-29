@@ -1,75 +1,104 @@
 <nav>
 
-  <a
-    routerLink="/"
-    routerLinkActive="active"
-    [routerLinkActiveOptions]="{ exact: true }"
-  >
-    Home
-  </a>
-
-
-  @if (isBrowserUnlocked()) {
+  <div class="nav-main">
 
     <a
-      routerLink="/police-portal-login"
+      routerLink="/"
       routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
     >
-      Amherst PD Investigation Portal
+      Home
     </a>
 
-  } @else {
+
+    @if (isPolicePortalUnlocked()) {
+
+      <a
+        routerLink="/police-portal-login"
+        routerLinkActive="active"
+      >
+        Amherst PD Investigation Portal
+      </a>
+
+    } @else {
+
+      <span class="locked-link">
+        Amherst PD Investigation Portal
+        <small>LOCKED</small>
+      </span>
+
+    }
+
+
+    <a
+      routerLink="/case"
+      routerLinkActive="active"
+    >
+      Case Overview
+    </a>
+
+
+    @if (isWitnessesUnlocked()) {
+
+      <a
+        routerLink="/witnesses"
+        routerLinkActive="active"
+      >
+        Witnesses
+      </a>
+
+    } @else {
+
+      <span class="locked-link">
+        Witnesses
+        <small>LOCKED</small>
+      </span>
+
+    }
+
 
     <span class="locked-link">
-      Amherst PD Investigation Portal
+      Evidence
       <small>LOCKED</small>
     </span>
 
-  }
-
-
-  <a
-    routerLink="/case"
-    routerLinkActive="active"
-  >
-    Case Overview
-  </a>
-
-
-  @if (isWitnessesUnlocked()) {
-
-    <a
-      routerLink="/witnesses"
-      routerLinkActive="active"
-    >
-      Witnesses
-    </a>
-
-  } @else {
 
     <span class="locked-link">
-      Witnesses
+      Notebook
       <small>LOCKED</small>
     </span>
 
+
+    <span class="locked-link">
+      Archive
+      <small>LOCKED</small>
+    </span>
+
+  </div>
+
+
+  @if (isTorBrowserUnlocked()) {
+
+    <div class="tor-section">
+
+      <div class="tor-divider"></div>
+
+      <a
+        class="tor-browser-link"
+        routerLink="/browser"
+        routerLinkActive="active"
+      >
+        <span class="tor-label">
+          TOR BROWSER
+        </span>
+
+        <small>
+          SECURE CONNECTION
+        </small>
+      </a>
+
+    </div>
+
   }
-
-
-  <span class="locked-link">
-    Evidence
-    <small>LOCKED</small>
-  </span>
-
-
-  <span class="locked-link">
-    Notebook
-    <small>LOCKED</small>
-  </span>
-
-
-  <span class="locked-link">
-    Archive
-    <small>LOCKED</small>
-  </span>
 
 </nav>
