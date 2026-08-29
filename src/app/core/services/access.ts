@@ -8,8 +8,11 @@ export interface InvestigatorAccess {
   accessLevel: 'RESTRICTED';
   authenticated: boolean;
   authenticatedAt: Date | null;
-  browserUnlocked: boolean;
+
+  policePortalUnlocked: boolean;
   witnessesUnlocked: boolean;
+  hackerEventTriggered: boolean;
+  torBrowserUnlocked: boolean;
 }
 
 @Injectable({
@@ -25,41 +28,51 @@ export class AccessService {
     accessLevel: 'RESTRICTED',
     authenticated: false,
     authenticatedAt: null,
-    browserUnlocked: false,
-    witnessesUnlocked: false
+
+    policePortalUnlocked: false,
+    witnessesUnlocked: false,
+    hackerEventTriggered: false,
+    torBrowserUnlocked: false
   };
 
 
-    browserUnlockedSignal = signal(false);
+  policePortalUnlockedSignal = signal(false);
 
-    witnessesUnlockedSignal = signal(false);
-    
+  witnessesUnlockedSignal = signal(false);
+
+  hackerEventTriggeredSignal = signal(false);
+
+  torBrowserUnlockedSignal = signal(false);
+
+
   getAccess(): InvestigatorAccess {
     return this.access;
   }
 
 
-  isAuthenticated(): boolean {
-    return this.access.authenticated;
+  /* =========================
+     POLICE PORTAL ACCESS
+  ========================= */
+
+  isPolicePortalUnlocked(): boolean {
+    return this.policePortalUnlockedSignal();
   }
 
 
-  isBrowserUnlocked(): boolean {
-    return this.browserUnlockedSignal();
-  }
-
-
-  unlockBrowser(): void {
+  unlockPolicePortal(): void {
 
     this.access = {
       ...this.access,
-      browserUnlocked: true
+      policePortalUnlocked: true
     };
 
-    this.browserUnlockedSignal.set(true);
-
+    this.policePortalUnlockedSignal.set(true);
   }
 
+
+  /* =========================
+     WITNESSES ACCESS
+  ========================= */
 
   isWitnessesUnlocked(): boolean {
     return this.witnessesUnlockedSignal();
@@ -74,7 +87,61 @@ export class AccessService {
     };
 
     this.witnessesUnlockedSignal.set(true);
+  }
 
+
+  /* =========================
+     HACKER EVENT
+  ========================= */
+
+  hasHackerEventTriggered(): boolean {
+    return this.hackerEventTriggeredSignal();
+  }
+
+
+  triggerHackerEvent(): boolean {
+
+    if (this.hackerEventTriggeredSignal()) {
+      return false;
+    }
+
+    this.access = {
+      ...this.access,
+      hackerEventTriggered: true
+    };
+
+    this.hackerEventTriggeredSignal.set(true);
+
+    return true;
+  }
+
+
+  /* =========================
+     TOR BROWSER ACCESS
+  ========================= */
+
+  isTorBrowserUnlocked(): boolean {
+    return this.torBrowserUnlockedSignal();
+  }
+
+
+  unlockTorBrowser(): void {
+
+    this.access = {
+      ...this.access,
+      torBrowserUnlocked: true
+    };
+
+    this.torBrowserUnlockedSignal.set(true);
+  }
+
+
+  /* =========================
+     AUTHENTICATION
+  ========================= */
+
+  isAuthenticated(): boolean {
+    return this.access.authenticated;
   }
 
 
@@ -84,7 +151,8 @@ export class AccessService {
   ): boolean {
 
     if (
-      username.trim().toLowerCase() === this.access.username.toLowerCase() &&
+      username.trim().toLowerCase() ===
+        this.access.username.toLowerCase() &&
       password === this.access.password
     ) {
 
@@ -108,7 +176,6 @@ export class AccessService {
       authenticated: false,
       authenticatedAt: null
     };
-
   }
 
 }

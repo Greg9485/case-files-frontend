@@ -8,6 +8,10 @@
 
   font-family: Arial, Helvetica, sans-serif;
 
+  position: relative;
+
+  overflow-x: hidden;
+
 }
 
 
@@ -52,9 +56,7 @@
 
 
 .case-header .eyebrow {
-
   color: #cbd5e1;
-
 }
 
 
@@ -91,9 +93,7 @@
 
 
 .session strong {
-
   color: #86efac;
-
 }
 
 
@@ -158,23 +158,17 @@
 
 
 .case-status span {
-
   color: #6b7280;
-
 }
 
 
 .case-status strong {
-
   color: #111827;
-
 }
 
 
 .case-status .cold {
-
   color: #8b1e1e;
-
 }
 
 
@@ -223,9 +217,7 @@
 
 
 .case-nav button:first-child {
-
   border-left: 1px solid #e5e7eb;
-
 }
 
 
@@ -432,9 +424,7 @@
 
 
 .timeline > div:first-child {
-
   border-top: none;
-
 }
 
 
@@ -450,9 +440,7 @@
 
 
 .timeline p {
-
   margin: 0;
-
 }
 
 
@@ -488,9 +476,7 @@
 
 
 .witness-record:hover {
-
   background: #f8fafc;
-
 }
 
 
@@ -517,9 +503,7 @@
 
 
 .witness-main span {
-
   font-size: 15px;
-
 }
 
 
@@ -570,9 +554,7 @@
 ========================= */
 
 .placeholder {
-
   padding: 45px;
-
 }
 
 
@@ -643,7 +625,7 @@
 
 
 /* =========================
-   MODAL
+   WITNESS MODAL
 ========================= */
 
 .modal-backdrop {
@@ -683,6 +665,10 @@
 
 }
 
+
+/* =========================
+   MODAL HEADER
+========================= */
 
 .modal-header {
 
@@ -732,9 +718,7 @@
 
 
 .close-button:hover {
-
   background: #f3f4f6;
-
 }
 
 
@@ -799,9 +783,7 @@
 ========================= */
 
 .statement-content {
-
   padding: 35px;
-
 }
 
 
@@ -830,8 +812,6 @@
 
 }
 
-
-/* TEMP STORY PLACEHOLDER */
 
 .contradiction {
 
@@ -913,6 +893,757 @@
 }
 
 
+/* =========================================================
+   HACKER GLITCH
+========================================================= */
+
+
+/*
+ * The entire police portal starts physically moving.
+ */
+
+.case-portal.glitching {
+
+  animation:
+    portal-jitter 0.12s steps(2, end) infinite;
+
+}
+
+
+/*
+ * Brief chromatic separation.
+ */
+
+.case-portal.glitching::before,
+
+.case-portal.glitching::after {
+
+  content: "";
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 1090;
+
+  pointer-events: none;
+
+}
+
+
+.case-portal.glitching::before {
+
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 5px,
+      rgba(255, 0, 0, 0.08) 6px,
+      transparent 7px
+    );
+
+  mix-blend-mode: screen;
+
+  transform: translateX(-3px);
+
+  animation: rgb-red 0.08s steps(2) infinite;
+
+}
+
+
+.case-portal.glitching::after {
+
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 7px,
+      rgba(0, 255, 255, 0.08) 8px,
+      transparent 9px
+    );
+
+  mix-blend-mode: screen;
+
+  transform: translateX(3px);
+
+  animation: rgb-cyan 0.1s steps(2) infinite;
+
+}
+
+
+/*
+ * Main glitch overlay.
+ */
+
+.glitch-overlay {
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 1100;
+
+  pointer-events: none;
+
+  overflow: hidden;
+
+  background:
+    rgba(0, 0, 0, 0.08);
+
+  animation:
+    glitch-flicker 0.09s steps(2) infinite;
+
+}
+
+
+/*
+ * Static/noise layer.
+ */
+
+.glitch-noise {
+
+  position: absolute;
+
+  inset: -50%;
+
+  opacity: 0.25;
+
+  background-image:
+    repeating-radial-gradient(
+      circle at 0 0,
+      transparent 0,
+      rgba(255, 255, 255, 0.65) 1px,
+      transparent 2px
+    );
+
+  background-size: 4px 4px;
+
+  animation:
+    static-shift 0.06s steps(3) infinite;
+
+}
+
+
+/*
+ * Horizontal scanlines.
+ */
+
+.glitch-scanlines {
+
+  position: absolute;
+
+  inset: 0;
+
+  opacity: 0.24;
+
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 3px,
+      rgba(0, 0, 0, 0.8) 4px
+    );
+
+  animation:
+    scanline-jump 0.11s steps(2) infinite;
+
+}
+
+
+/*
+ * Red/cyan distortion blocks.
+ */
+
+.glitch-rgb {
+
+  position: absolute;
+
+  inset: 0;
+
+  opacity: 0;
+
+  mix-blend-mode: screen;
+
+}
+
+
+.glitch-red {
+
+  background:
+    linear-gradient(
+      transparent 0%,
+      rgba(255, 0, 0, 0.22) 31%,
+      transparent 33%,
+      transparent 67%,
+      rgba(255, 0, 0, 0.16) 69%,
+      transparent 71%
+    );
+
+  animation:
+    red-slice 0.18s steps(2) infinite;
+
+}
+
+
+.glitch-cyan {
+
+  background:
+    linear-gradient(
+      transparent 0%,
+      rgba(0, 255, 255, 0.18) 47%,
+      transparent 49%,
+      transparent 82%,
+      rgba(0, 255, 255, 0.14) 84%,
+      transparent 86%
+    );
+
+  animation:
+    cyan-slice 0.15s steps(2) infinite;
+
+}
+
+
+/*
+ * Brief white flashes.
+ */
+
+.glitch-flash {
+
+  position: absolute;
+
+  inset: 0;
+
+  background: white;
+
+  opacity: 0;
+
+  animation:
+    glitch-flash 0.35s steps(1) infinite;
+
+}
+
+
+/* =========================
+   GLITCH KEYFRAMES
+========================= */
+
+@keyframes portal-jitter {
+
+  0% {
+    transform: translate(0, 0);
+  }
+
+  20% {
+    transform: translate(-5px, 2px);
+  }
+
+  40% {
+    transform: translate(7px, -2px);
+  }
+
+  60% {
+    transform: translate(-3px, -1px);
+  }
+
+  80% {
+    transform: translate(5px, 3px);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
+
+}
+
+
+@keyframes rgb-red {
+
+  0% {
+    transform: translateX(-2px);
+  }
+
+  50% {
+    transform: translateX(-7px);
+  }
+
+  100% {
+    transform: translateX(1px);
+  }
+
+}
+
+
+@keyframes rgb-cyan {
+
+  0% {
+    transform: translateX(2px);
+  }
+
+  50% {
+    transform: translateX(8px);
+  }
+
+  100% {
+    transform: translateX(-1px);
+  }
+
+}
+
+
+@keyframes static-shift {
+
+  0% {
+    transform: translate(0, 0);
+  }
+
+  25% {
+    transform: translate(-15px, 8px);
+  }
+
+  50% {
+    transform: translate(11px, -7px);
+  }
+
+  75% {
+    transform: translate(-7px, -11px);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
+
+}
+
+
+@keyframes scanline-jump {
+
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(10px);
+  }
+
+  100% {
+    transform: translateY(-7px);
+  }
+
+}
+
+
+@keyframes red-slice {
+
+  0% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+
+  25% {
+    opacity: 0.8;
+    transform: translateX(-15px);
+  }
+
+  50% {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+
+  75% {
+    opacity: 0.6;
+    transform: translateX(-8px);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+
+}
+
+
+@keyframes cyan-slice {
+
+  0% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+
+  30% {
+    opacity: 0.7;
+    transform: translateX(14px);
+  }
+
+  60% {
+    opacity: 0;
+    transform: translateX(-11px);
+  }
+
+  80% {
+    opacity: 0.6;
+    transform: translateX(8px);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+
+}
+
+
+@keyframes glitch-flicker {
+
+  0% {
+    opacity: 1;
+  }
+
+  20% {
+    opacity: 0.75;
+  }
+
+  40% {
+    opacity: 1;
+  }
+
+  60% {
+    opacity: 0.55;
+  }
+
+  80% {
+    opacity: 0.9;
+  }
+
+  100% {
+    opacity: 1;
+  }
+
+}
+
+
+@keyframes glitch-flash {
+
+  0%,
+  65%,
+  100% {
+    opacity: 0;
+  }
+
+  68% {
+    opacity: 0.18;
+  }
+
+  70% {
+    opacity: 0;
+  }
+
+  88% {
+    opacity: 0.08;
+  }
+
+  90% {
+    opacity: 0;
+  }
+
+}
+
+
+/* =========================================================
+   HACKER MODAL
+========================================================= */
+
+.hacker-backdrop {
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 1200;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 30px;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(15, 23, 42, 0.72),
+      rgba(0, 0, 0, 0.96)
+    );
+
+  animation:
+    hacker-backdrop-in 0.7s ease-out;
+
+}
+
+
+.hacker-modal {
+
+  width: min(700px, 90vw);
+
+  background: #020604;
+
+  border: 1px solid #18352a;
+
+  box-shadow:
+    0 0 40px rgba(0, 255, 120, 0.08),
+    0 0 120px rgba(0, 0, 0, 0.9);
+
+  color: #86efac;
+
+  font-family: monospace;
+
+  animation:
+    hacker-modal-in 0.5s ease-out;
+
+}
+
+
+.hacker-header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding: 14px 18px;
+
+  border-bottom: 1px solid #18352a;
+
+  background: rgba(0, 20, 10, 0.8);
+
+}
+
+
+.hacker-system {
+
+  color: #4ade80;
+
+  font-size: 10px;
+
+  letter-spacing: 2px;
+
+}
+
+
+.hacker-status {
+
+  color: #166534;
+
+  font-size: 9px;
+
+  letter-spacing: 1.5px;
+
+}
+
+
+.hacker-content {
+  padding: 35px;
+}
+
+
+.hacker-terminal {
+
+  min-height: 230px;
+
+}
+
+
+.terminal-line {
+
+  display: flex;
+
+  gap: 10px;
+
+  margin-bottom: 8px;
+
+  color: #166534;
+
+  font-size: 10px;
+
+  letter-spacing: 1px;
+
+}
+
+
+.terminal-prompt {
+  color: #22c55e;
+}
+
+
+.terminal-divider {
+
+  height: 1px;
+
+  margin: 25px 0 30px;
+
+  background: #18352a;
+
+}
+
+
+.hacker-message {
+
+  min-height: 90px;
+
+  color: #86efac;
+
+  font-size: 17px;
+
+  line-height: 1.8;
+
+  letter-spacing: 1px;
+
+  text-shadow:
+    0 0 8px rgba(74, 222, 128, 0.35);
+
+}
+
+
+.typing-cursor {
+
+  display: inline-block;
+
+  margin-left: 3px;
+
+  color: #4ade80;
+
+  animation:
+    cursor-blink 0.7s steps(1) infinite;
+
+}
+
+
+.hacker-final {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+
+  margin-top: 20px;
+
+  padding-top: 20px;
+
+  border-top: 1px solid #18352a;
+
+  color: #166534;
+
+  font-size: 9px;
+
+  letter-spacing: 1.5px;
+
+}
+
+
+/* =========================
+   HACKER ANIMATIONS
+========================= */
+
+@keyframes cursor-blink {
+
+  0%,
+  49% {
+    opacity: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 0;
+  }
+
+}
+
+
+@keyframes hacker-backdrop-in {
+
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+
+}
+
+
+@keyframes hacker-modal-in {
+
+  from {
+    opacity: 0;
+
+    transform:
+      scale(0.97)
+      translateY(4px);
+
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      scale(1)
+      translateY(0);
+
+  }
+
+}
+
+
+/* =========================
+   TOR REVEAL
+========================= */
+
+.tor-reveal-indicator {
+
+  position: fixed;
+
+  right: 30px;
+
+  bottom: 20px;
+
+  z-index: 1300;
+
+  padding: 8px 12px;
+
+  border: 1px solid #334155;
+
+  background: #0f172a;
+
+  color: #64748b;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: 1px;
+
+  animation:
+    tor-indicator-in 1s ease-out;
+
+}
+
+
+@keyframes tor-indicator-in {
+
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+
+}
+
+
 /* =========================
    MOBILE
 ========================= */
@@ -931,9 +1662,7 @@
 
 
   .session {
-
     align-items: flex-start;
-
   }
 
 
@@ -968,9 +1697,7 @@
 
 
   .witness-meta {
-
     display: none;
-
   }
 
 

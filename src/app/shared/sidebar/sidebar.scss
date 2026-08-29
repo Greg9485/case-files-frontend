@@ -1,41 +1,206 @@
 nav {
   height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+
   display: flex;
   flex-direction: column;
+
   padding: 20px;
   background: #0f172a;
+
+  position: relative;
+
+  /*
+   * The sidebar fills the workspace rather than the
+   * entire viewport. This prevents the 60px top navbar
+   * from causing the sidebar to extend below the screen.
+   */
+  overflow: hidden;
 }
+
+
+/* =========================
+   MAIN NAVIGATION
+========================= */
+
+.nav-main {
+  display: flex;
+  flex-direction: column;
+}
+
 
 a,
 .locked-link {
   color: #cbd5e1;
+
   padding: 12px;
+
   text-decoration: none;
+
   border-radius: 6px;
+
   margin-bottom: 5px;
+
   box-sizing: border-box;
 }
+
 
 a:hover {
   background: #1e293b;
 }
 
+
 .active {
   background: #334155;
+
   color: white;
 }
 
+
+/* =========================
+   LOCKED LINKS
+========================= */
+
 .locked-link {
   color: #64748b;
+
   cursor: not-allowed;
+
   display: flex;
+
   align-items: center;
+
   justify-content: space-between;
+
   gap: 12px;
 }
 
+
 .locked-link small {
   font-size: 0.65rem;
+
   letter-spacing: 0.08em;
+
   color: #475569;
+}
+
+
+/* =========================
+   TOR BROWSER
+========================= */
+
+.tor-section {
+  /*
+   * Absolutely positioned relative to the sidebar.
+   *
+   * Because nav itself is the positioning context,
+   * this stays inside the sidebar instead of stretching
+   * across the entire browser window.
+   */
+  position: absolute;
+
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+
+  box-sizing: border-box;
+
+  z-index: 100;
+
+  animation: tor-reveal 1s ease-out both;
+}
+
+
+.tor-divider {
+  height: 1px;
+
+  margin-bottom: 14px;
+
+  background: linear-gradient(
+    to right,
+    transparent,
+    #334155,
+    transparent
+  );
+}
+
+
+.tor-browser-link {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 5px;
+
+  width: 100%;
+
+  padding: 14px 12px;
+
+  color: #94a3b8;
+
+  text-decoration: none;
+
+  border: 1px solid transparent;
+
+  background: rgba(2, 6, 23, 0.3);
+
+  box-sizing: border-box;
+}
+
+
+.tor-browser-link:hover {
+  background: #020617;
+
+  border-color: #334155;
+}
+
+
+.tor-browser-link.active {
+  background: #020617;
+
+  color: #e2e8f0;
+}
+
+
+.tor-label {
+  font-size: 0.75rem;
+
+  letter-spacing: 0.16em;
+
+  font-weight: 600;
+}
+
+
+.tor-browser-link small {
+  color: #475569;
+
+  font-size: 0.55rem;
+
+  letter-spacing: 0.1em;
+}
+
+
+/* =========================
+   REVEAL ANIMATION
+========================= */
+
+@keyframes tor-reveal {
+
+  0% {
+    opacity: 0;
+
+    transform: translateY(8px);
+  }
+
+  35% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+
 }

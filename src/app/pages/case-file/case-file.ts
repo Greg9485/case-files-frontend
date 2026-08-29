@@ -41,9 +41,9 @@ export class CaseFileComponent {
 
     this.metadataVisible = true;
 
-    if (!this.accessService.isBrowserUnlocked()) {
+    if (!this.accessService.isPolicePortalUnlocked()) {
 
-      this.accessService.unlockBrowser();
+      this.accessService.unlockPolicePortal();
 
       this.showPortalUnlockedToast();
 
