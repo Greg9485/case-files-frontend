@@ -1,0 +1,95 @@
+<section class="dark-login">
+
+  <div class="terminal">
+
+    <header class="terminal-header">
+      <div class="network-status">
+        <span class="status-dot"></span>
+        NODE CONNECTION
+      </div>
+
+      <span class="node">NODE: 7F3C</span>
+    </header>
+
+    <main class="terminal-body">
+
+      <div class="ascii-mark">
+        UNDERNET
+      </div>
+
+      <div class="system-lines">
+        <div>connecting to relay............... OK</div>
+        <div>route integrity................... OK</div>
+        <div>identity protection............... ACTIVE</div>
+        <div>public index..................... LIMITED</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="login-heading">
+        <span>PRIVATE NODE ACCESS</span>
+        <small>AUTHORIZED USERS ONLY</small>
+      </div>
+
+      <form (ngSubmit)="connect()">
+
+        <label>
+          <span>HANDLE</span>
+
+          <input
+            type="text"
+            name="username"
+            [(ngModel)]="username"
+            autocomplete="off"
+            spellcheck="false"
+            [disabled]="connecting"
+          />
+        </label>
+
+        <label>
+          <span>PASSCODE</span>
+
+          <input
+            type="password"
+            name="password"
+            [(ngModel)]="password"
+            autocomplete="off"
+            [disabled]="connecting"
+          />
+        </label>
+
+        @if (error) {
+          <div class="error">
+            {{ error }}
+          </div>
+        }
+
+        <button
+          type="submit"
+          [disabled]="connecting"
+        >
+          @if (connecting) {
+            CONNECTING...
+          } @else {
+            CONNECT
+          }
+        </button>
+
+      </form>
+
+      <div class="warning">
+        <span>NOTICE:</span>
+        This node does not verify identities.
+        Activity may be archived by third parties.
+      </div>
+
+    </main>
+
+    <footer class="terminal-footer">
+      <span>UNDERNET NODE 7F3C</span>
+      <span>CONNECTION ENCRYPTED</span>
+    </footer>
+
+  </div>
+
+</section>

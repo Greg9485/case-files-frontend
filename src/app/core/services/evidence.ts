@@ -18,7 +18,7 @@ export class EvidenceService {
       type: 'DOCUMENT',
       description: 'The official report filed after Emily Carter disappeared.',
       content: `
-        Hollow Creek Police Department
+        Amherst Police Department
         Case #001
 
         Subject: Emily Carter
@@ -27,7 +27,7 @@ export class EvidenceService {
         Date Reported Missing: October 15, 2024
 
         According to the initial investigation, Emily Carter
-        was last seen leaving Hollow Creek Legal Services at
+        was last seen leaving Amherst Legal Services at
         approximately 8:42 PM on October 14, 2024.
 
         No signs of forced entry were discovered at her residence.
@@ -47,7 +47,7 @@ export class EvidenceService {
       type: 'PHOTOGRAPH',
       description: 'A still image recovered from a nearby security camera.',
       content: `
-        Camera: Hollow Creek Municipal Building
+        Camera: Amherst Municipal Building
         Date: October 14, 2024
         Time: 9:17 PM
 
@@ -91,7 +91,7 @@ export class EvidenceService {
     const viewedEmilyThread = events.some(
       event =>
         event.type === 'PAGE_VIEWED' &&
-        event.source === 'hollowcreekboard.local/'
+        event.source === 'amherstboard.local/'
     );
 
     const emilyEvidence = this.evidence.find(

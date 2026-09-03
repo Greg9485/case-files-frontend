@@ -11,6 +11,28 @@
     </a>
 
 
+    <a
+      routerLink="/case"
+      routerLinkActive="active"
+    >
+      Case Overview
+    </a>
+
+
+    <!-- ================================================
+         AMHERST COMMUNITY BOARD
+
+         Always available from the beginning of the game.
+    ================================================= -->
+
+    <a
+      routerLink="/amherst-board"
+      routerLinkActive="active"
+    >
+      Amherst Community Board
+    </a>
+
+
     @if (isPolicePortalUnlocked()) {
 
       <a
@@ -23,19 +45,16 @@
     } @else {
 
       <span class="locked-link">
+
         Amherst PD Investigation Portal
-        <small>LOCKED</small>
+
+        <small>
+          LOCKED
+        </small>
+
       </span>
 
     }
-
-
-    <a
-      routerLink="/case"
-      routerLinkActive="active"
-    >
-      Case Overview
-    </a>
 
 
     @if (isWitnessesUnlocked()) {
@@ -50,32 +69,58 @@
     } @else {
 
       <span class="locked-link">
+
         Witnesses
-        <small>LOCKED</small>
+
+        <small>
+          LOCKED
+        </small>
+
       </span>
 
     }
 
 
     <span class="locked-link">
+
       Evidence
-      <small>LOCKED</small>
+
+      <small>
+        LOCKED
+      </small>
+
     </span>
 
 
     <span class="locked-link">
+
       Notebook
-      <small>LOCKED</small>
+
+      <small>
+        LOCKED
+      </small>
+
     </span>
 
 
     <span class="locked-link">
+
       Archive
-      <small>LOCKED</small>
+
+      <small>
+        LOCKED
+      </small>
+
     </span>
 
   </div>
 
+
+  <!-- ================================================
+       TOR BROWSER
+
+       Only becomes visible after the hacker event.
+  ================================================= -->
 
   @if (isTorBrowserUnlocked()) {
 
@@ -83,18 +128,22 @@
 
       <div class="tor-divider"></div>
 
+
       <a
         class="tor-browser-link"
-        routerLink="/browser"
+        routerLink="/dark-web-login"
         routerLinkActive="active"
       >
+
         <span class="tor-label">
           TOR BROWSER
         </span>
 
+
         <small>
           SECURE CONNECTION
         </small>
+
       </a>
 
     </div>
