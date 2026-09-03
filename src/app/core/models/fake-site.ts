@@ -1,6 +1,7 @@
 export interface FakeSiteNavItem {
   label: string;
   path: string;
+  domain?: string;
 }
 
 export interface FakeSite {

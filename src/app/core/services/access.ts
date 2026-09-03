@@ -13,6 +13,10 @@ export interface InvestigatorAccess {
   witnessesUnlocked: boolean;
   hackerEventTriggered: boolean;
   torBrowserUnlocked: boolean;
+
+  darkWebAuthenticated: boolean;
+  darkWebUsername: string | null;
+  darkWebAuthenticatedAt: Date | null;
 }
 
 @Injectable({
@@ -26,41 +30,40 @@ export class AccessService {
     username: 'AMPD_INV_74291',
     password: 'CARTER-74291',
     accessLevel: 'RESTRICTED',
+
     authenticated: false,
     authenticatedAt: null,
 
     policePortalUnlocked: false,
     witnessesUnlocked: false,
     hackerEventTriggered: false,
-    torBrowserUnlocked: false
+    torBrowserUnlocked: false,
+
+    darkWebAuthenticated: false,
+    darkWebUsername: null,
+    darkWebAuthenticatedAt: null
   };
 
-
   policePortalUnlockedSignal = signal(false);
-
   witnessesUnlockedSignal = signal(false);
-
   hackerEventTriggeredSignal = signal(false);
-
   torBrowserUnlockedSignal = signal(false);
 
+  darkWebAuthenticatedSignal = signal(false);
 
   getAccess(): InvestigatorAccess {
     return this.access;
   }
 
-
-  /* =========================
-     POLICE PORTAL ACCESS
-  ========================= */
+  // ============================================================
+  // POLICE PORTAL ACCESS
+  // ============================================================
 
   isPolicePortalUnlocked(): boolean {
     return this.policePortalUnlockedSignal();
   }
 
-
   unlockPolicePortal(): void {
-
     this.access = {
       ...this.access,
       policePortalUnlocked: true
@@ -69,18 +72,11 @@ export class AccessService {
     this.policePortalUnlockedSignal.set(true);
   }
 
-
-  /* =========================
-     WITNESSES ACCESS
-  ========================= */
-
   isWitnessesUnlocked(): boolean {
     return this.witnessesUnlockedSignal();
   }
 
-
   unlockWitnesses(): void {
-
     this.access = {
       ...this.access,
       witnessesUnlocked: true
@@ -89,18 +85,11 @@ export class AccessService {
     this.witnessesUnlockedSignal.set(true);
   }
 
-
-  /* =========================
-     HACKER EVENT
-  ========================= */
-
   hasHackerEventTriggered(): boolean {
     return this.hackerEventTriggeredSignal();
   }
 
-
   triggerHackerEvent(): boolean {
-
     if (this.hackerEventTriggeredSignal()) {
       return false;
     }
@@ -115,18 +104,11 @@ export class AccessService {
     return true;
   }
 
-
-  /* =========================
-     TOR BROWSER ACCESS
-  ========================= */
-
   isTorBrowserUnlocked(): boolean {
     return this.torBrowserUnlockedSignal();
   }
 
-
   unlockTorBrowser(): void {
-
     this.access = {
       ...this.access,
       torBrowserUnlocked: true
@@ -135,27 +117,20 @@ export class AccessService {
     this.torBrowserUnlockedSignal.set(true);
   }
 
-
-  /* =========================
-     AUTHENTICATION
-  ========================= */
+  // ============================================================
+  // POLICE PORTAL AUTHENTICATION
+  // ============================================================
 
   isAuthenticated(): boolean {
     return this.access.authenticated;
   }
 
-
-  authenticate(
-    username: string,
-    password: string
-  ): boolean {
-
+  authenticate(username: string, password: string): boolean {
     if (
       username.trim().toLowerCase() ===
         this.access.username.toLowerCase() &&
       password === this.access.password
     ) {
-
       this.access = {
         ...this.access,
         authenticated: true,
@@ -168,9 +143,7 @@ export class AccessService {
     return false;
   }
 
-
   logout(): void {
-
     this.access = {
       ...this.access,
       authenticated: false,
@@ -178,4 +151,60 @@ export class AccessService {
     };
   }
 
+  // ============================================================
+  // DARK WEB AUTHENTICATION
+  // ============================================================
+
+  isDarkWebAuthenticated(): boolean {
+    return this.darkWebAuthenticatedSignal();
+  }
+
+  authenticateDarkWeb(
+    username: string,
+    password: string
+  ): boolean {
+
+    const normalizedUsername =
+      username
+        .trim()
+        .toLowerCase();
+
+
+    const validUsername =
+      'observer26';
+
+
+    const validPassword =
+      'emilycarter';
+
+
+    if (
+      normalizedUsername !== validUsername ||
+      password !== validPassword
+    ) {
+      return false;
+    }
+
+
+    this.access = {
+      ...this.access,
+
+      darkWebAuthenticated: true,
+
+      darkWebUsername:
+        normalizedUsername,
+
+      darkWebAuthenticatedAt:
+        new Date()
+    };
+
+
+    this.darkWebAuthenticatedSignal.set(
+      true
+    );
+
+
+    return true;
+
+  }
 }

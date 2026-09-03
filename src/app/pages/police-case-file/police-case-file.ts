@@ -1,39 +1,40 @@
-import { Component, inject, signal } from '@angular/core';
-import { AccessService } from '../../core/services/access';
+import {
+  Component,
+  inject,
+  signal
+} from '@angular/core';
 
-export interface InvestigatorAccess {
-  investigatorId: string;
-  caseId: string;
-  username: string;
-  password: string;
-  accessLevel: 'RESTRICTED';
-  authenticated: boolean;
-  authenticatedAt: Date | null;
+import {
+  AccessService
+} from '../../core/services/access';
 
-  policePortalUnlocked: boolean;
-  witnessesUnlocked: boolean;
-  hackerEventTriggered: boolean;
-  torBrowserUnlocked: boolean;
-}
 
 @Component({
   selector: 'app-police-case-file',
+
   imports: [],
-  templateUrl: './police-case-file.html',
-  styleUrl: './police-case-file.scss'
+
+  templateUrl:
+    './police-case-file.html',
+
+  styleUrl:
+    './police-case-file.scss'
 })
 export class PoliceCaseFileComponent {
 
-  private accessService = inject(AccessService);
+  private accessService =
+    inject(AccessService);
 
 
   /*
-   * =========================
+   * ==========================================================
    * CASE NAVIGATION
-   * =========================
+   * ==========================================================
    */
 
-  activeTab = 'CASE SUMMARY';
+  activeTab =
+    'CASE SUMMARY';
+
 
   tabs = [
     'CASE SUMMARY',
@@ -46,127 +47,147 @@ export class PoliceCaseFileComponent {
 
 
   /*
-   * =========================
+   * ==========================================================
    * WITNESS STATEMENT
-   * =========================
+   * ==========================================================
    */
 
-  witnessStatementOpen = false;
+  witnessStatementOpen =
+    false;
 
 
   /*
-   * =========================
+   * ==========================================================
    * HACKER EVENT
-   * =========================
-   *
-   * These are SIGNALS rather than ordinary
-   * class properties.
-   *
-   * This is important because the hacker event
-   * is driven by a series of asynchronous timers.
+   * ==========================================================
    */
 
-  pageFrozen = signal(false);
+  pageFrozen =
+    signal(false);
 
-  glitchActive = signal(false);
 
-  hackerModalOpen = signal(false);
+  glitchActive =
+    signal(false);
 
-  hackerDisplayedMessage = signal('');
 
-  hackerTyping = signal(false);
+  hackerModalOpen =
+    signal(false);
 
-  hackerComplete = signal(false);
 
-  torRevealPending = signal(false);
+  hackerDisplayedMessage =
+    signal('');
+
+
+  hackerTyping =
+    signal(false);
+
+
+  hackerComplete =
+    signal(false);
+
+
+  torRevealPending =
+    signal(false);
 
 
   /*
-   * =========================
+   * ==========================================================
    * HACKER MESSAGES
-   * =========================
+   * ==========================================================
+   *
+   * The player should understand:
+   *
+   * 1. Someone is contacting them.
+   * 2. The police portal is compromised.
+   * 3. There is another network.
+   * 4. A new TOR BROWSER option will appear.
+   * 5. They need to go there.
+   *
+   * We are NOT giving away the entire mystery.
+   * We are giving the player a clear next action.
    */
 
-  private hackerMessages = [
-    'There\'s more going on here than you know.',
-    'Something in this case doesn\'t add up.',
-    'Someone doesn\'t want you looking too closely.',
-    'There\'s a place that has the information you\'re looking for.',
-    'I\'ve unlocked it for you.',
-    'Find me there. We need to talk.'
-  ];
+ private hackerMessages = [
+  'There\'s more going on here than you know.',
+  'Something in this case doesn\'t add up.',
+  'You\'ve been looking in the right places. Just not all of them.',
+  'There\'s another network. More files. Things they don\'t put in public records.',
+  'You\'re going to need an account.',
+  'Use observer26.',
+  'For the passcode: think about who this whole thing started with. No spaces. All lowercase.',
+  'I\'ve unlocked the connection for you.',
+  'Find me there.\n\n— quietstatic'
+];
 
 
-  private hackerMessageIndex = 0;
+  private hackerMessageIndex =
+    0;
 
-  private eventStarted = false;
+
+  private eventStarted =
+    false;
 
 
   /*
-   * =========================
+   * ==========================================================
    * CASE NAVIGATION
-   * =========================
+   * ==========================================================
    */
 
-  setActiveTab(tab: string): void {
-
-    /*
-     * During the actual glitch/hacker takeover,
-     * navigation should no longer be possible.
-     *
-     * Before that point, the site remains completely
-     * functional.
-     */
+  setActiveTab(
+    tab: string
+  ): void {
 
     if (
-      this.glitchActive() ||
+      this.glitchActive()
+      ||
       this.hackerModalOpen()
     ) {
       return;
     }
 
-    this.activeTab = tab;
+
+    this.activeTab =
+      tab;
 
   }
 
 
   /*
-   * =========================
+   * ==========================================================
    * WITNESS STATEMENT
-   * =========================
+   * ==========================================================
    */
 
   openWitnessStatement(): void {
 
-    /*
-     * Don't allow the witness statement to reopen
-     * after the hacker sequence has started.
-     */
-
     if (
-      this.glitchActive() ||
+      this.glitchActive()
+      ||
       this.hackerModalOpen()
     ) {
       return;
     }
 
-    this.witnessStatementOpen = true;
+
+    this.witnessStatementOpen =
+      true;
 
   }
 
 
   closeWitnessStatement(): void {
 
-    /*
-     * Only the first genuine closing of the witness
-     * statement should trigger the event.
-     */
-
-    if (!this.witnessStatementOpen) {
+    if (
+      !this.witnessStatementOpen
+    ) {
       return;
     }
 
-    this.witnessStatementOpen = false;
+
+    this.witnessStatementOpen =
+      false;
+
 
     this.startHackerEvent();
 
@@ -174,144 +195,138 @@ export class PoliceCaseFileComponent {
 
 
   /*
-   * =========================
-   * HACKER EVENT
-   * =========================
+   * ==========================================================
+   * START HACKER EVENT
+   * ==========================================================
    */
 
   private startHackerEvent(): void {
 
-    /*
-     * Never allow the event to run more than once.
-     */
-
-    if (this.eventStarted) {
+    if (
+      this.eventStarted
+    ) {
       return;
     }
 
 
-    /*
-     * Check persistent progression state too.
-     */
-
-    if (this.accessService.hasHackerEventTriggered()) {
+    if (
+      this.accessService
+        .hasHackerEventTriggered()
+    ) {
       return;
     }
 
 
-    this.eventStarted = true;
+    this.eventStarted =
+      true;
 
 
     /*
-     * =========================
-     * PHASE 1
-     * =========================
-     *
-     * The website continues functioning normally.
-     *
-     * This is intentionally a quiet 3-second window.
+     * Quiet delay before anything happens.
      */
 
-    setTimeout(() => {
+    setTimeout(
+      () => {
 
-      this.beginGlitchSequence();
+        this.beginGlitchSequence();
 
-    }, 3000);
+      },
+      3000
+    );
 
   }
 
 
   /*
-   * =========================
-   * GLITCH SEQUENCE
-   * =========================
+   * ==========================================================
+   * GLITCH
+   * ==========================================================
    */
 
   private beginGlitchSequence(): void {
 
-    /*
-     * The page is now being hijacked.
-     *
-     * From this point onward navigation is blocked.
-     */
-
-    this.pageFrozen.set(true);
-
-    this.glitchActive.set(true);
+    this.pageFrozen.set(
+      true
+    );
 
 
-    /*
-     * Let the glitch run for approximately
-     * one second.
-     */
+    this.glitchActive.set(
+      true
+    );
 
-    setTimeout(() => {
 
-      this.glitchActive.set(false);
+    setTimeout(
+      () => {
 
-      this.openHackerModal();
+        this.glitchActive.set(
+          false
+        );
 
-    }, 1000);
+
+        this.openHackerModal();
+
+      },
+      1000
+    );
 
   }
 
 
   /*
-   * =========================
-   * HACKER MODAL
-   * =========================
+   * ==========================================================
+   * OPEN HACKER MODAL
+   * ==========================================================
    */
 
   private openHackerModal(): void {
 
-    /*
-     * Permanently record that the hacker event
-     * has occurred.
-     */
-
-    this.accessService.triggerHackerEvent();
+    this.accessService
+      .triggerHackerEvent();
 
 
-    this.hackerModalOpen.set(true);
-
-    this.hackerComplete.set(false);
-
-    this.hackerTyping.set(false);
-
-    this.hackerDisplayedMessage.set('');
-
-    this.hackerMessageIndex = 0;
+    this.hackerModalOpen.set(
+      true
+    );
 
 
-    /*
-     * Important:
-     *
-     * The hacker does NOT immediately start typing.
-     *
-     * We give the player a short moment of blank
-     * terminal before the first message appears.
-     */
+    this.hackerComplete.set(
+      false
+    );
 
-    setTimeout(() => {
 
-      this.typeNextMessage();
+    this.hackerTyping.set(
+      false
+    );
 
-    }, 1500);
+
+    this.hackerDisplayedMessage.set(
+      ''
+    );
+
+
+    this.hackerMessageIndex =
+      0;
+
+
+    setTimeout(
+      () => {
+
+        this.typeNextMessage();
+
+      },
+      1500
+    );
 
   }
 
 
   /*
-   * =========================
+   * ==========================================================
    * TYPE NEXT MESSAGE
-   * =========================
+   * ==========================================================
    */
 
   private typeNextMessage(): void {
-
-    /*
-     * All messages have been displayed.
-     */
 
     if (
       this.hackerMessageIndex >=
@@ -326,53 +341,47 @@ export class PoliceCaseFileComponent {
 
 
     const message =
-      this.hackerMessages[this.hackerMessageIndex];
+      this.hackerMessages[
+        this.hackerMessageIndex
+      ];
 
 
-    /*
-     * Start this message blank.
-     */
-
-    this.hackerDisplayedMessage.set('');
-
-    this.hackerTyping.set(true);
+    this.hackerDisplayedMessage.set(
+      ''
+    );
 
 
-    let characterIndex = 0;
+    this.hackerTyping.set(
+      true
+    );
 
 
-    /*
-     * =========================
-     * CHARACTER TYPING
-     * =========================
-     */
+    let characterIndex =
+      0;
+
 
     const typeCharacter = () => {
 
-      if (characterIndex >= message.length) {
+      if (
+        characterIndex >=
+        message.length
+      ) {
 
-        /*
-         * Finished typing this message.
-         */
-
-        this.hackerTyping.set(false);
+        this.hackerTyping.set(
+          false
+        );
 
 
-        /*
-         * Keep the completed message visible
-         * for several seconds before moving on.
-         *
-         * 6.5 seconds gives the player plenty
-         * of time to read it.
-         */
+        setTimeout(
+          () => {
 
-        setTimeout(() => {
+            this.hackerMessageIndex++;
 
-          this.hackerMessageIndex++;
+            this.typeNextMessage();
 
-          this.typeNextMessage();
-
-        }, 6500);
+          },
+          4000
+        );
 
 
         return;
@@ -380,31 +389,29 @@ export class PoliceCaseFileComponent {
       }
 
 
-      /*
-       * Add exactly one character.
-       */
-
       this.hackerDisplayedMessage.update(
         current =>
-          current + message.charAt(characterIndex)
+          current +
+          message.charAt(
+            characterIndex
+          )
       );
 
 
       characterIndex++;
 
 
-      /*
-       * Human-ish typing speed.
-       *
-       * Most characters arrive around 35–70ms apart.
-       */
-
       const delay =
-        35 +
-        Math.floor(Math.random() * 40);
+        30 +
+        Math.floor(
+          Math.random() * 35
+        );
 
 
-      setTimeout(typeCharacter, delay);
+      setTimeout(
+        typeCharacter,
+        delay
+      );
 
     };
 
@@ -415,72 +422,80 @@ export class PoliceCaseFileComponent {
 
 
   /*
-   * =========================
-   * FINISH HACKER EVENT
-   * =========================
+   * ==========================================================
+   * FINISH
+   * ==========================================================
    */
 
   private finishHackerEvent(): void {
 
-    this.hackerComplete.set(true);
+    this.hackerComplete.set(
+      true
+    );
 
-    this.hackerTyping.set(false);
+
+    this.hackerTyping.set(
+      false
+    );
 
 
-    /*
-     * The final message remains on screen for
-     * approximately 10 seconds.
-     */
+    setTimeout(
+      () => {
 
-    setTimeout(() => {
+        this.closeHackerModal();
 
-      this.closeHackerModal();
-
-    }, 5000);
+      },
+      2500
+    );
 
   }
 
 
   /*
-   * =========================
-   * CLOSE HACKER MODAL
-   * =========================
+   * ==========================================================
+   * CLOSE
+   * ==========================================================
    */
 
   private closeHackerModal(): void {
 
-    this.hackerModalOpen.set(false);
+    this.hackerModalOpen.set(
+      false
+    );
 
-    this.pageFrozen.set(false);
+
+    this.pageFrozen.set(
+      false
+    );
 
 
-    /*
-     * The website has returned to normal.
-     *
-     * Three seconds later the new TOR BROWSER
-     * access becomes visible.
-     */
+    setTimeout(
+      () => {
 
-    setTimeout(() => {
+        this.revealTorBrowser();
 
-      this.revealTorBrowser();
-
-    }, 3000);
+      },
+      1000
+    );
 
   }
 
 
   /*
-   * =========================
-   * TOR BROWSER REVEAL
-   * =========================
+   * ==========================================================
+   * REVEAL TOR
+   * ==========================================================
    */
 
   private revealTorBrowser(): void {
 
-    this.torRevealPending.set(true);
+    this.torRevealPending.set(
+      true
+    );
 
-    this.accessService.unlockTorBrowser();
+
+    this.accessService
+      .unlockTorBrowser();
 
   }
 

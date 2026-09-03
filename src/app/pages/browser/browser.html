@@ -1,6 +1,11 @@
-<section class="browser">
+<section
+  class="browser"
+  [class.dark-web-mode]="isDarkWebSite()"
+>
 
-  <!-- Browser chrome -->
+  <!-- ======================================================
+       BROWSER CHROME
+  ======================================================= -->
 
   <header class="browser-bar">
 
@@ -14,6 +19,7 @@
         ←
       </button>
 
+
       <button
         (click)="goForward()"
         [disabled]="historyIndex >= history.length - 1"
@@ -21,6 +27,7 @@
       >
         →
       </button>
+
 
       <button
         (click)="reload()"
@@ -45,77 +52,96 @@
     </div>
 
 
-  <button
-    class="bookmark"
-    (click)="toggleBookmark()"
-    [title]="
+    <button
+      class="bookmark"
+      (click)="toggleBookmark()"
+      [title]="
         isCurrentPageBookmarked()
-        ? 'Remove bookmark'
-        : 'Bookmark this page'
-    "
+          ? 'Remove bookmark'
+          : 'Bookmark this page'
+      "
     >
-        {{ isCurrentPageBookmarked() ? '★' : '☆' }}
+      {{
+        isCurrentPageBookmarked()
+          ? '★'
+          : '☆'
+      }}
     </button>
 
+
     <button
-        class="bookmark"
-        (click)="toggleBookmarksMenu()"
-        title="Bookmarks"
-        >
-        ▾
+      class="bookmark"
+      (click)="toggleBookmarksMenu()"
+      title="Bookmarks"
+    >
+      ▾
     </button>
 
   </header>
 
-        @if (showBookmarks) {
 
-        <div class="bookmarks-menu">
+  <!-- ======================================================
+       BOOKMARKS
+  ======================================================= -->
 
-            <div class="bookmarks-header">
-            BOOKMARKS
-            </div>
+  @if (showBookmarks) {
 
-            @if (bookmarks.length === 0) {
+    <div class="bookmarks-menu">
 
-            <div class="empty-bookmarks">
-                No bookmarked pages.
-            </div>
+      <div class="bookmarks-header">
+        BOOKMARKS
+      </div>
 
-            } @else {
 
-            @for (
-                bookmark of bookmarks;
-                track bookmark.path
-            ) {
+      @if (bookmarks.length === 0) {
 
-                <button
-                class="bookmark-item"
-                (click)="openBookmark(bookmark.path)"
-                >
-
-                <div>
-                    <strong>
-                    {{ bookmark.title }}
-                    </strong>
-
-                    <span>
-                    {{ bookmark.domain }}{{ bookmark.path }}
-                    </span>
-                </div>
-
-                <span>→</span>
-
-                </button>
-
-            }
-
-            }
-
+        <div class="empty-bookmarks">
+          No bookmarked pages.
         </div>
+
+      } @else {
+
+        @for (
+          bookmark of bookmarks;
+          track bookmark.domain + bookmark.path
+        ) {
+
+          <button
+            class="bookmark-item"
+            (click)="openBookmark(bookmark)"
+          >
+
+            <div>
+
+              <strong>
+                {{ bookmark.title }}
+              </strong>
+
+              <span>
+                {{ bookmark.domain }}{{ bookmark.path }}
+              </span>
+
+            </div>
+
+
+            <span>
+              →
+            </span>
+
+          </button>
 
         }
 
-  <!-- Fake website -->
+      }
+
+    </div>
+
+  }
+
+
+  <!-- ======================================================
+       WEBSITE
+  ======================================================= -->
 
   <div class="website">
 
@@ -125,14 +151,18 @@
     <header class="site-header">
 
       <div class="site-title">
+
         <h1>
-        {{ currentSite.name }}
+          {{ currentSite.name }}
         </h1>
 
+
         @if (currentSite.tagline) {
-        <span>
+
+          <span>
             {{ currentSite.tagline }}
-        </span>
+          </span>
+
         }
 
       </div>
@@ -141,7 +171,7 @@
       <div class="site-account">
 
         <span>
-            {{ currentSite.accountLabel }}
+          {{ currentSite.accountLabel }}
         </span>
 
       </div>
@@ -150,154 +180,380 @@
 
 
     <!-- Site navigation -->
+
     <nav class="site-nav">
 
-        @for (item of currentSite.navigation; track item.path) {
+      @for (
+        item of currentSite.navigation;
+        track item.path
+      ) {
 
-            <button
-            (click)="navigate(item.path)"
-            [class.active]="currentPage.path === item.path"
-            >
-            {{ item.label }}
-            </button>
+       <button
+        (click)="
+          navigate(
+            item.path,
+            item.domain
+          )
+        "
+        [class.active]="
+          currentPage.path === item.path
+          &&
+          currentPage.domain ===
+            (
+              item.domain ||
+              currentSite.domain
+            )
+        "
+      >
+        {{ item.label }}
+      </button>
 
-        }
+      }
 
     </nav>
 
 
-    <!-- Website content -->
+    <!-- ====================================================
+         WEBSITE CONTENT
+    ===================================================== -->
 
     <main
-        class="website-content"
-        [class.error-page]="currentPage.status && currentPage.status !== 'ACTIVE'"
-        >
+      class="website-content"
+      [class.error-page]="
+        currentPage.status &&
+        currentPage.status !== 'ACTIVE'
+      "
+    >
 
-        @if (currentPage.status && currentPage.status !== 'ACTIVE') {
 
-            <section class="system-message">
+      <!-- ==================================================
+           ERROR PAGE
+      =================================================== -->
 
-            <div class="system-icon">
-                @switch (currentPage.status) {
-                @case ('NOT_FOUND') { 404 }
-                @case ('REMOVED') { DEL }
-                @case ('RESTRICTED') { LOCK }
-                @case ('OFFLINE') { OFF }
-                }
-            </div>
+      @if (
+        currentPage.status &&
+        currentPage.status !== 'ACTIVE'
+      ) {
 
-            <span class="system-category">
-                {{ currentPage.category }}
-            </span>
+        <section class="system-message">
 
-            <h2>
-                {{ currentPage.title }}
-            </h2>
+          <div class="system-icon">
 
-            <p>
-                {{ currentPage.content }}
-            </p>
+            @switch (currentPage.status) {
 
-            <button
-                class="return-button"
-                (click)="goBack()"
-            >
-                ← RETURN TO PREVIOUS PAGE
-            </button>
+              @case ('NOT_FOUND') {
+                404
+              }
 
-            </section>
+              @case ('REMOVED') {
+                DEL
+              }
 
-        } @else {
+              @case ('RESTRICTED') {
+                LOCK
+              }
 
-            <!-- NORMAL PAGE -->
+              @case ('OFFLINE') {
+                OFF
+              }
 
-            <div class="content-header">
+            }
+
+          </div>
+
+
+          <span class="system-category">
+            {{ currentPage.category }}
+          </span>
+
+
+          <h2>
+            {{ currentPage.title }}
+          </h2>
+
+
+          <p>
+            {{ currentPage.content }}
+          </p>
+
+
+          <button
+            class="return-button"
+            (click)="goBack()"
+          >
+            ← RETURN TO PREVIOUS PAGE
+          </button>
+
+        </section>
+
+
+      <!-- ==================================================
+           FORUM THREAD
+      =================================================== -->
+
+      } @else if (isForumThread()) {
+
+        <section class="forum-thread">
+
+
+          <div class="forum-thread-header">
 
             @if (currentPage.category) {
-                <span class="category">
+
+              <span class="category">
                 {{ currentPage.category }}
-                </span>
+              </span>
+
             }
+
 
             <h2>
-                {{ currentPage.title }}
+              {{ currentPage.title }}
             </h2>
 
+
             @if (currentPage.subtitle) {
-                <p>
+
+              <p>
                 {{ currentPage.subtitle }}
-                </p>
+              </p>
+
             }
 
-            </div>
+          </div>
 
 
-            <article class="page-content">
+          <div class="forum-posts">
 
-            <p>
-                {{ currentPage.content }}
-            </p>
+            @for (
+              post of currentForumPosts;
+              track post.id
+            ) {
 
-            </article>
+              <article
+                class="forum-post"
+                [class.original-poster]="
+                  post.isOriginalPoster
+                "
+              >
 
 
-            @if (currentPage.links && currentPage.links.length > 0) {
+                <div class="forum-post-sidebar">
 
-            <section class="related">
+                  <button
+                    class="forum-username"
+                    (click)="
+                      openForumUser(
+                        post.userPath
+                      )
+                    "
+                  >
+                    {{ post.username }}
+                  </button>
 
-                <div class="section-title">
-                RELATED
+
+                  @if (post.isOriginalPoster) {
+
+                    <span class="op-badge">
+                      OP
+                    </span>
+
+                  }
+
                 </div>
 
-                <div class="site-links">
 
-                @for (
-                    link of currentPage.links;
-                    track link.path
-                ) {
+                <div class="forum-post-main">
 
-                    <button
-                    class="site-link"
-                   (click)="navigate(link.path, link.domain)"
-                    >
+                  <div class="forum-post-meta">
 
                     <span>
-                        {{ link.label }}
+                      {{ post.timestamp }}
                     </span>
+
+                  </div>
+
+
+                  <p>
+                    {{ post.content }}
+                  </p>
+
+                </div>
+
+              </article>
+
+            }
+
+          </div>
+
+
+          @if (
+            currentPage.links &&
+            currentPage.links.length > 0
+          ) {
+
+            <section
+              class="related forum-related"
+            >
+
+              <div class="section-title">
+                THREAD LINKS
+              </div>
+
+
+              <div class="site-links">
+
+                @for (
+                  link of currentPage.links;
+                  track link.path
+                ) {
+
+                  <button
+                    class="site-link"
+                    (click)="
+                      navigate(
+                        link.path,
+                        link.domain
+                      )
+                    "
+                  >
+
+                    <span>
+                      {{ link.label }}
+                    </span>
+
 
                     <span class="arrow">
-                        →
+                      →
                     </span>
 
-                    </button>
+                  </button>
 
                 }
 
-                </div>
+              </div>
 
             </section>
 
-            }
+          }
+
+        </section>
+
+
+      <!-- ==================================================
+           STANDARD PAGE
+      =================================================== -->
+
+      } @else {
+
+        <div class="content-header">
+
+          @if (currentPage.category) {
+
+            <span class="category">
+              {{ currentPage.category }}
+            </span>
+
+          }
+
+
+          <h2>
+            {{ currentPage.title }}
+          </h2>
+
+
+          @if (currentPage.subtitle) {
+
+            <p>
+              {{ currentPage.subtitle }}
+            </p>
+
+          }
+
+        </div>
+
+
+        <article class="page-content">
+
+          <p>
+            {{ currentPage.content }}
+          </p>
+
+        </article>
+
+
+        @if (
+          currentPage.links &&
+          currentPage.links.length > 0
+        ) {
+
+          <section class="related">
+
+            <div class="section-title">
+              RELATED
+            </div>
+
+
+            <div class="site-links">
+
+              @for (
+                link of currentPage.links;
+                track link.path
+              ) {
+
+                <button
+                  class="site-link"
+                  (click)="
+                    navigate(
+                      link.path,
+                      link.domain
+                    )
+                  "
+                >
+
+                  <span>
+                    {{ link.label }}
+                  </span>
+
+
+                  <span class="arrow">
+                    →
+                  </span>
+
+                </button>
+
+              }
+
+            </div>
+
+          </section>
 
         }
 
-        </main>
+      }
+
+    </main>
 
 
-    <!-- Site footer -->
+    <!-- ====================================================
+         FOOTER
+    ===================================================== -->
 
     <footer class="site-footer">
 
       <span>
-        HOLLOW CREEK COMMUNITY BOARD
+        {{ currentSite.name }}
       </span>
 
+
       <span>
-        COMMUNITY OPERATED
+        {{
+          currentSite.tagline
+          || 'COMMUNITY OPERATED'
+        }}
       </span>
 
     </footer>
-
 
   </div>
 
