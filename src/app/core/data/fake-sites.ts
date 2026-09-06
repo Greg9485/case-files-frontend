@@ -29,9 +29,7 @@ export const FAKE_SITES: FakeSite[] = [
       { label: 'NEWS', path: '/news' },
       { label: 'DISCUSSION', path: '/discussion' },
       { label: 'MISSING PERSONS', path: '/missing-persons' },
-      { label: 'ARCHIVE', path: '/archive' },
-      { label: 'EXCHANGE', domain: 'amherst-exchange.local', path: '/' },
-      { label: 'POLICE RECORDS', domain: 'amherstpd.local', path: '/' }
+      { label: 'ARCHIVE', path: '/archive' }
     ]
   },
 

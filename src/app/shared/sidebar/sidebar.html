@@ -2,6 +2,11 @@
 
   <div class="nav-main">
 
+
+    <!-- ================================================
+         HOME
+    ================================================= -->
+
     <a
       routerLink="/"
       routerLinkActive="active"
@@ -10,6 +15,10 @@
       Home
     </a>
 
+
+    <!-- ================================================
+         CASE OVERVIEW
+    ================================================= -->
 
     <a
       routerLink="/case"
@@ -20,18 +29,82 @@
 
 
     <!-- ================================================
-         AMHERST COMMUNITY BOARD
-
-         Always available from the beginning of the game.
+         AMHERST PUBLIC ACCESS
     ================================================= -->
 
-    <a
-      routerLink="/amherst-board"
-      routerLinkActive="active"
-    >
-      Amherst Community Board
-    </a>
+    <section class="nav-group">
 
+      <button
+        class="nav-group-toggle"
+        type="button"
+        (click)="togglePublicAccess()"
+      >
+
+        <span>
+          Amherst Public Access
+        </span>
+
+
+        <span
+          class="group-arrow"
+          [class.expanded]="
+            publicAccessExpanded()
+          "
+        >
+          ›
+        </span>
+
+      </button>
+
+
+      @if (publicAccessExpanded()) {
+
+        <div class="nav-submenu">
+
+
+          <!-- Amherst Community Board -->
+
+          <a
+            class="subnav-link"
+            routerLink="/amherst-board"
+            routerLinkActive="active"
+          >
+            Amherst Community Board
+          </a>
+
+
+          <!-- Amherst Exchange -->
+
+          <a
+            class="subnav-link"
+            routerLink="/amherst-exchange"
+            routerLinkActive="active"
+          >
+            Amherst Exchange
+          </a>
+
+
+          <!-- Amherst Public Police Records -->
+
+          <a
+            class="subnav-link"
+            routerLink="/amherst-public-records"
+            routerLinkActive="active"
+          >
+            Amherst Public Police Records
+          </a>
+
+
+        </div>
+
+      }
+
+    </section>
+
+
+    <!-- ================================================
+         INVESTIGATION PORTAL
+    ================================================= -->
 
     @if (isPolicePortalUnlocked()) {
 
@@ -57,6 +130,10 @@
     }
 
 
+    <!-- ================================================
+         WITNESSES
+    ================================================= -->
+
     @if (isWitnessesUnlocked()) {
 
       <a
@@ -80,6 +157,10 @@
 
     }
 
+
+    <!-- ================================================
+         LOCKED SECTIONS
+    ================================================= -->
 
     <span class="locked-link">
 
@@ -113,13 +194,12 @@
 
     </span>
 
+
   </div>
 
 
   <!-- ================================================
        TOR BROWSER
-
-       Only becomes visible after the hacker event.
   ================================================= -->
 
   @if (isTorBrowserUnlocked()) {

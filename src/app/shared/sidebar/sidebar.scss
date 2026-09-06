@@ -1,21 +1,18 @@
 nav {
   height: 100%;
   width: 100%;
+
   box-sizing: border-box;
 
   display: flex;
   flex-direction: column;
 
   padding: 20px;
+
   background: #0f172a;
 
   position: relative;
 
-  /*
-   * The sidebar fills the workspace rather than the
-   * entire viewport. This prevents the 60px top navbar
-   * from causing the sidebar to extend below the screen.
-   */
   overflow: hidden;
 }
 
@@ -29,6 +26,10 @@ nav {
   flex-direction: column;
 }
 
+
+/* =========================
+   PRIMARY LINKS
+========================= */
 
 a,
 .locked-link {
@@ -55,6 +56,119 @@ a:hover {
   background: #334155;
 
   color: white;
+}
+
+
+/* =========================
+   AMHERST PUBLIC ACCESS
+========================= */
+
+.nav-group {
+  margin-bottom: 6px;
+}
+
+
+.nav-group-toggle {
+  width: 100%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding: 12px;
+
+  border: none;
+
+  border-radius: 6px;
+
+  background: transparent;
+
+  color: #cbd5e1;
+
+  font: inherit;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  box-sizing: border-box;
+}
+
+
+.nav-group-toggle:hover {
+  background: #1e293b;
+}
+
+
+.group-arrow {
+  color: #64748b;
+
+  font-size: 1.2rem;
+
+  line-height: 1;
+
+  transform: rotate(0deg);
+
+  transition: transform 0.2s ease;
+}
+
+
+.group-arrow.expanded {
+  transform: rotate(90deg);
+}
+
+
+/* =========================
+   SUB NAVIGATION
+========================= */
+
+.nav-submenu {
+  display: flex;
+
+  flex-direction: column;
+
+  margin:
+    2px
+    0
+    8px
+    12px;
+
+  padding-left: 10px;
+
+  border-left: 1px solid #334155;
+}
+
+
+.subnav-link {
+  position: relative;
+
+  padding:
+    9px
+    10px;
+
+  margin-bottom: 2px;
+
+  color: #94a3b8;
+
+  font-size: 0.85rem;
+
+  border-radius: 4px;
+}
+
+
+.subnav-link:hover {
+  background: #1e293b;
+
+  color: #e2e8f0;
+}
+
+
+.subnav-link.active {
+  background: #1e293b;
+
+  color: #ffffff;
 }
 
 
@@ -91,13 +205,6 @@ a:hover {
 ========================= */
 
 .tor-section {
-  /*
-   * Absolutely positioned relative to the sidebar.
-   *
-   * Because nav itself is the positioning context,
-   * this stays inside the sidebar instead of stretching
-   * across the entire browser window.
-   */
   position: absolute;
 
   left: 20px;
@@ -108,7 +215,11 @@ a:hover {
 
   z-index: 100;
 
-  animation: tor-reveal 1s ease-out both;
+  animation:
+    tor-reveal
+    1s
+    ease-out
+    both;
 }
 
 
@@ -143,7 +254,8 @@ a:hover {
 
   border: 1px solid transparent;
 
-  background: rgba(2, 6, 23, 0.3);
+  background:
+    rgba(2, 6, 23, 0.3);
 
   box-sizing: border-box;
 }
@@ -190,7 +302,8 @@ a:hover {
   0% {
     opacity: 0;
 
-    transform: translateY(8px);
+    transform:
+      translateY(8px);
   }
 
   35% {
@@ -200,7 +313,8 @@ a:hover {
   100% {
     opacity: 1;
 
-    transform: translateY(0);
+    transform:
+      translateY(0);
   }
 
 }

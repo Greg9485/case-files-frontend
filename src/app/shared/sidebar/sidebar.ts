@@ -1,11 +1,18 @@
-import { Component, inject } from '@angular/core';
+import {
+  Component,
+  inject,
+  signal
+} from '@angular/core';
 
 import {
   RouterLink,
   RouterLinkActive
 } from '@angular/router';
 
-import { AccessService } from '../../core/services/access';
+import {
+  AccessService
+} from '../../core/services/access';
+
 
 @Component({
   selector: 'app-sidebar',
@@ -16,22 +23,40 @@ import { AccessService } from '../../core/services/access';
   ],
 
   templateUrl: './sidebar.html',
+
   styleUrl: './sidebar.scss'
 })
 export class SidebarComponent {
 
-  private accessService = inject(AccessService);
+  private accessService =
+    inject(AccessService);
 
 
   isPolicePortalUnlocked =
-    this.accessService.policePortalUnlockedSignal;
+    this.accessService
+      .policePortalUnlockedSignal;
 
 
   isWitnessesUnlocked =
-    this.accessService.witnessesUnlockedSignal;
+    this.accessService
+      .witnessesUnlockedSignal;
 
 
   isTorBrowserUnlocked =
-    this.accessService.torBrowserUnlockedSignal;
+    this.accessService
+      .torBrowserUnlockedSignal;
+
+
+  publicAccessExpanded =
+    signal(true);
+
+
+  togglePublicAccess(): void {
+
+    this.publicAccessExpanded.update(
+      expanded => !expanded
+    );
+
+  }
 
 }
