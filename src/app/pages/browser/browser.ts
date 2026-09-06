@@ -137,7 +137,7 @@ export class BrowserComponent {
      * ACCESS CHECKS
      * ========================================================
      *
-     * Amherst Community Board:
+     * Amherst public sites:
      *
      *   No access requirements.
      *
@@ -176,10 +176,23 @@ export class BrowserComponent {
      * ========================================================
      * INITIAL PAGE
      * ========================================================
+     *
+     * If a cross-site link brought us here with:
+     *
+     *   ?page=/some/path
+     *
+     * load that page.
+     *
+     * Otherwise load the site's homepage.
      */
 
+    const initialPath =
+      this.route.snapshot.queryParamMap.get('page')
+      ?? '/';
+
+
     this.navigate(
-      '/',
+      initialPath,
       this.initialDomain
     );
 
@@ -204,6 +217,48 @@ export class BrowserComponent {
       domain
       ?? this.currentPage?.domain
       ?? this.initialDomain;
+
+
+    /*
+     * ========================================================
+     * CROSS-SITE NAVIGATION
+     * ========================================================
+     *
+     * When a link points to another fake website, change the
+     * Angular route as well as the fake browser domain.
+     *
+     * This keeps the sidebar's RouterLinkActive state accurate.
+     *
+     * We only do this after the BrowserComponent has loaded its
+     * initial page. During construction currentPage is undefined,
+     * so the initial navigation is handled normally.
+     */
+
+    if (
+      this.currentPage &&
+      targetDomain !== this.currentDomain
+    ) {
+
+      const siteRoute =
+        this.getSiteRoute(targetDomain);
+
+
+      if (siteRoute) {
+
+        this.router.navigate(
+          [siteRoute],
+          {
+            queryParams: {
+              page: path
+            }
+          }
+        );
+
+        return;
+
+      }
+
+    }
 
 
     const page =
@@ -252,6 +307,7 @@ export class BrowserComponent {
     this.currentDomain =
       page.domain;
 
+
     this.currentPath =
       page.path;
 
@@ -260,6 +316,7 @@ export class BrowserComponent {
       AMHERST_BOARD_FORUM_POSTS[
         page.path
       ] ?? [];
+
 
     this.browserService.visitPage(
       page.domain,
@@ -510,6 +567,47 @@ export class BrowserComponent {
       userPath,
       this.currentPage.domain
     );
+
+  }
+
+
+  /*
+   * ==========================================================
+   * SITE ROUTING
+   * ==========================================================
+   */
+
+  private getSiteRoute(
+    domain: string
+  ): string | null {
+
+    switch (domain) {
+
+      case 'amherstboard.local':
+
+        return '/amherst-board';
+
+
+      case 'amherst-exchange.local':
+
+        return '/amherst-exchange';
+
+
+      case 'amherstpd.local':
+
+        return '/amherst-public-records';
+
+
+      case 'undernet.local':
+
+        return '/browser';
+
+
+      default:
+
+        return null;
+
+    }
 
   }
 

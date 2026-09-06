@@ -70,15 +70,35 @@ export const routes: Routes = [
        * ========================================================
        */
 
-      {
-        path: 'amherst-board',
-        component: BrowserComponent,
-        data: {
-          initialDomain: 'amherstboard.local',
-          requiresTor: false,
-          requiresDarkWebAuth: false
-        }
-      },
+   {
+      path: 'amherst-board',
+      component: BrowserComponent,
+      data: {
+        initialDomain: 'amherstboard.local',
+        requiresTor: false,
+        requiresDarkWebAuth: false
+      }
+    },
+
+    {
+      path: 'amherst-exchange',
+      component: BrowserComponent,
+      data: {
+        initialDomain: 'amherst-exchange.local',
+        requiresTor: false,
+        requiresDarkWebAuth: false
+      }
+    },
+
+    {
+      path: 'amherst-public-records',
+      component: BrowserComponent,
+      data: {
+        initialDomain: 'amherstpd.local',
+        requiresTor: false,
+        requiresDarkWebAuth: false
+      }
+    },
 
       /*
        * ========================================================
