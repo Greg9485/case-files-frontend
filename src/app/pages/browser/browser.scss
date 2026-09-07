@@ -1,1277 +1,1515 @@
 .browser {
 
-  position: relative;
+position: relative;
 
-  height: calc(100vh - 120px);
+height: calc(100vh - 120px);
 
-  display: flex;
+display: flex;
 
-  flex-direction: column;
+flex-direction: column;
 
-  background: #020617;
+background: #020617;
 
-  overflow: hidden;
+overflow: hidden;
 
 }
 
-
 /* ============================================================
-   BROWSER
+BROWSER CHROME
 ============================================================ */
 
 .browser-bar {
 
-  height: 52px;
+height: 52px;
 
-  display: flex;
+display: flex;
 
-  align-items: center;
+align-items: center;
 
-  gap: 12px;
+gap: 12px;
 
-  padding: 0 14px;
+padding: 0 14px;
 
-  background: #111827;
+background: #111827;
 
-  border-bottom: 1px solid #334155;
+border-bottom: 1px solid #334155;
 
-  flex-shrink: 0;
+flex-shrink: 0;
 
 }
-
 
 .browser-controls {
 
-  display: flex;
+display: flex;
 
-  gap: 4px;
+gap: 4px;
 
 }
-
 
 .browser-controls button,
 .bookmark {
 
-  width: 30px;
+width: 30px;
 
-  height: 30px;
+height: 30px;
 
-  background: transparent;
+background: transparent;
 
-  border: none;
+border: none;
 
-  color: #64748b;
+color: #64748b;
 
-  font-size: 18px;
+font-size: 18px;
 
-  cursor: pointer;
+cursor: pointer;
 
 }
-
 
 .browser-controls button:hover,
 .bookmark:hover {
 
-  color: #cbd5e1;
+color: #cbd5e1;
 
 }
-
 
 .browser-controls button:disabled {
 
-  opacity: 0.25;
+opacity: .25;
 
-  cursor: default;
+cursor: default;
 
 }
-
 
 .address-bar {
 
-  flex: 1;
+flex: 1;
 
-  height: 32px;
+height: 32px;
 
-  display: flex;
+display: flex;
 
-  align-items: center;
+align-items: center;
 
-  gap: 8px;
+gap: 8px;
 
-  padding: 0 12px;
+padding: 0 12px;
 
-  background: #020617;
+background: #020617;
 
-  border: 1px solid #334155;
+border: 1px solid #334155;
 
-  border-radius: 6px;
+border-radius: 6px;
 
-  color: #94a3b8;
+color: #94a3b8;
 
-  font-family: monospace;
+font-family: monospace;
 
-  font-size: 12px;
+font-size: 12px;
 
 }
-
 
 .lock {
 
-  font-size: 10px;
+font-size: 10px;
 
 }
 
-
 /* ============================================================
-   WEBSITE
+WEBSITE
 ============================================================ */
 
 .website {
 
-  flex: 1;
+flex: 1;
 
-  display: flex;
+display: flex;
 
-  flex-direction: column;
+flex-direction: column;
 
-  overflow-y: auto;
+overflow-y: auto;
 
-  background: #f8fafc;
+background: #f4f5f6;
 
-  color: #1e293b;
+color: #333;
+
+font-family:
+Arial,
+Helvetica,
+sans-serif;
 
 }
 
-
 /* ============================================================
-   SITE HEADER
+MUNICIPAL HEADER
 ============================================================ */
 
 .site-header {
 
-  display: flex;
+display: flex;
 
-  align-items: center;
+align-items: center;
 
-  justify-content: space-between;
+justify-content: space-between;
 
-  padding: 22px 45px;
+min-height: 105px;
 
-  background: white;
+padding: 18px 55px;
 
-  border-bottom: 1px solid #cbd5e1;
+background: #fff;
+
+border-bottom: 1px solid #d6d9dc;
+
+box-sizing: border-box;
 
 }
 
+.town-identity {
+
+display: flex;
+
+align-items: center;
+
+gap: 18px;
+
+}
+
+.town-seal {
+
+width: 62px;
+
+height: 62px;
+
+border: 3px solid #526879;
+
+border-radius: 50%;
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+box-sizing: border-box;
+
+color: #526879;
+
+}
+
+.seal-inner {
+
+width: 48px;
+
+height: 48px;
+
+border: 1px solid #9aa8b3;
+
+border-radius: 50%;
+
+display: flex;
+
+flex-direction: column;
+
+align-items: center;
+
+justify-content: center;
+
+line-height: 1;
+
+}
+
+.seal-town {
+
+font-size: 6px;
+
+letter-spacing: 1px;
+
+}
+
+.seal-inner strong {
+
+margin: 2px 0;
+
+font-family: Georgia, serif;
+
+font-size: 21px;
+
+font-weight: normal;
+
+}
+
+.seal-state {
+
+font-size: 5px;
+
+letter-spacing: 1px;
+
+}
 
 .site-title {
 
-  display: flex;
+display: flex;
 
-  align-items: baseline;
+flex-direction: column;
 
-  gap: 14px;
+gap: 5px;
 
 }
-
 
 .site-title h1 {
 
-  margin: 0;
+margin: 0;
 
-  font-size: 18px;
+color: #344c5f;
 
-  letter-spacing: 1px;
+font-family:
+Georgia,
+'Times New Roman',
+serif;
 
-  color: #0f172a;
+font-size: 25px;
 
-}
+font-weight: normal;
 
+letter-spacing: .3px;
 
-.site-title span {
-
-  font-size: 9px;
-
-  color: #94a3b8;
-
-}
-
-
-.site-account {
-
-  font-size: 9px;
-
-  letter-spacing: 1px;
-
-  color: #94a3b8;
+text-transform: uppercase;
 
 }
 
+.site-tagline {
+
+color: #7b858d;
+
+font-family:
+Georgia,
+'Times New Roman',
+serif;
+
+font-size: 10px;
+
+font-style: italic;
+
+letter-spacing: .7px;
+
+}
+
+.site-header-right {
+
+display: flex;
+
+flex-direction: column;
+
+align-items: flex-end;
+
+gap: 7px;
+
+}
+
+.contact-line {
+
+color: #69757e;
+
+font-size: 11px;
+
+}
+
+.account-line {
+
+padding: 5px 9px;
+
+background: #eef1f3;
+
+border: 1px solid #d6dce0;
+
+color: #64727b;
+
+font-size: 8px;
+
+letter-spacing: 1px;
+
+}
 
 /* ============================================================
-   SITE NAVIGATION
+NAVIGATION
 ============================================================ */
 
 .site-nav {
 
-  display: flex;
+background: #526b7c;
 
-  padding: 0 45px;
-
-  background: #0f172a;
-
-  border-bottom: 3px solid #cbd5e1;
+border-bottom: 4px solid #d1a34a;
 
 }
 
+.site-nav-inner {
+
+display: flex;
+
+align-items: stretch;
+
+padding: 0 45px;
+
+}
 
 .site-nav button {
 
-  padding: 15px 18px;
+padding: 13px 16px;
 
-  background: transparent;
+background: transparent;
 
-  border: none;
+border: none;
 
-  color: #94a3b8;
+border-right: 1px solid rgba(255,255,255,.12);
 
-  font-size: 10px;
+color: #fff;
 
-  letter-spacing: 1px;
+font-size: 10px;
 
-  cursor: pointer;
+font-weight: 600;
+
+letter-spacing: .6px;
+
+cursor: pointer;
 
 }
 
+.site-nav button:first-child {
+
+border-left: 1px solid rgba(255,255,255,.12);
+
+}
 
 .site-nav button:hover {
 
-  color: white;
-
-  background: #1e293b;
+background: #435b6b;
 
 }
-
 
 .site-nav button.active {
 
-  color: white;
+background: #3e5565;
 
-  background: #1e293b;
-
-  box-shadow:
-    inset 0 -3px 0 #94a3b8;
+box-shadow:
+inset 0 -4px 0 #d1a34a;
 
 }
 
-
 /* ============================================================
-   CONTENT
+CONTENT
 ============================================================ */
 
 .website-content {
 
-  width: min(900px, 90%);
+width: min(1080px, calc(100% - 100px));
 
-  margin: 0 auto;
+margin: 0 auto;
 
-  padding: 55px 0;
+padding: 35px 0 55px;
+
+box-sizing: border-box;
 
 }
 
+.breadcrumb {
+
+margin-bottom: 18px;
+
+color: #89939a;
+
+font-size: 8px;
+
+font-weight: 600;
+
+letter-spacing: 1px;
+
+text-transform: uppercase;
+
+}
 
 .content-header {
 
-  padding-bottom: 25px;
+padding: 0 0 18px;
 
-  border-bottom: 1px solid #cbd5e1;
+border-bottom: 1px solid #d5d9dc;
 
 }
-
 
 .category {
 
-  display: block;
+display: block;
 
-  margin-bottom: 10px;
+margin-bottom: 7px;
 
-  font-size: 9px;
+color: #8a969e;
 
-  letter-spacing: 2px;
+font-size: 8px;
 
-  color: #64748b;
+font-weight: 700;
+
+letter-spacing: 1.5px;
 
 }
-
 
 .content-header h2 {
 
-  margin: 0;
+margin: 0;
 
-  font-size: 28px;
+color: #40576a;
 
-  font-weight: 500;
+font-family:
+Georgia,
+'Times New Roman',
+serif;
 
-  color: #0f172a;
+font-size: 30px;
+
+font-weight: normal;
 
 }
-
 
 .content-header p {
 
-  margin-top: 8px;
+margin: 8px 0 0;
 
-  color: #64748b;
+color: #78838b;
+
+font-family:
+Georgia,
+'Times New Roman',
+serif;
+
+font-size: 14px;
+
+line-height: 1.5;
 
 }
-
 
 .page-content {
 
-  padding: 30px 0;
+max-width: 780px;
 
-  max-width: 700px;
+padding: 25px 0;
 
 }
-
 
 .page-content p {
 
-  margin: 0;
+margin: 0;
 
-  white-space: pre-line;
+white-space: pre-line;
 
-  line-height: 1.8;
+color: #505b62;
 
-  color: #475569;
+font-size: 14px;
 
-  font-size: 14px;
+line-height: 1.85;
 
 }
-
 
 /* ============================================================
-   FORUM THREADS
-============================================================ */
-
-.forum-thread {
-
-  width: 100%;
-
-}
-
-
-.forum-thread-header {
-
-  padding-bottom: 20px;
-
-  border-bottom: 2px solid #334155;
-
-}
-
-
-.forum-thread-header h2 {
-
-  margin: 0;
-
-  font-size: 24px;
-
-  font-weight: 600;
-
-  color: #0f172a;
-
-}
-
-
-.forum-thread-header p {
-
-  margin: 8px 0 0;
-
-  font-size: 12px;
-
-  color: #64748b;
-
-}
-
-
-.forum-posts {
-
-  display: flex;
-
-  flex-direction: column;
-
-  margin-top: 18px;
-
-  border: 1px solid #cbd5e1;
-
-  background: white;
-
-}
-
-
-.forum-post {
-
-  display: grid;
-
-  grid-template-columns: 170px 1fr;
-
-  min-height: 130px;
-
-  border-bottom: 1px solid #dbe3ec;
-
-}
-
-
-.forum-post:last-child {
-
-  border-bottom: none;
-
-}
-
-
-.forum-post-sidebar {
-
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: flex-start;
-
-  gap: 8px;
-
-  padding: 18px;
-
-  background: #f1f5f9;
-
-  border-right: 1px solid #dbe3ec;
-
-}
-
-
-.forum-username {
-
-  padding: 0;
-
-  background: transparent;
-
-  border: none;
-
-  color: #1d4ed8;
-
-  font-size: 13px;
-
-  font-weight: 600;
-
-  cursor: pointer;
-
-}
-
-
-.forum-username:hover {
-
-  text-decoration: underline;
-
-}
-
-
-.op-badge {
-
-  padding: 3px 6px;
-
-  background: #0f172a;
-
-  color: white;
-
-  font-size: 8px;
-
-  font-weight: bold;
-
-  letter-spacing: 1px;
-
-}
-
-
-.forum-post-main {
-
-  padding: 18px 22px;
-
-}
-
-
-.forum-post-meta {
-
-  margin-bottom: 16px;
-
-  color: #94a3b8;
-
-  font-size: 10px;
-
-}
-
-
-.forum-post-main p {
-
-  margin: 0;
-
-  white-space: pre-line;
-
-  color: #334155;
-
-  font-size: 14px;
-
-  line-height: 1.75;
-
-}
-
-
-.original-poster {
-
-  border-left: 3px solid #64748b;
-
-}
-
-
-.forum-related {
-
-  margin-top: 25px;
-
-}
-
-
-/* ============================================================
-   RELATED LINKS
+RELATED INFORMATION
 ============================================================ */
 
 .related {
 
-  margin-top: 20px;
+margin-top: 15px;
 
-  padding-top: 25px;
+padding-top: 22px;
 
-  border-top: 1px solid #e2e8f0;
+border-top: 1px solid #d9dde0;
 
 }
-
 
 .section-title {
 
-  margin-bottom: 15px;
+margin-bottom: 12px;
 
-  font-size: 9px;
+color: #687780;
 
-  letter-spacing: 2px;
+font-size: 9px;
 
-  color: #94a3b8;
+font-weight: 700;
+
+letter-spacing: 1.5px;
 
 }
-
 
 .site-links {
 
-  display: flex;
+display: flex;
 
-  flex-direction: column;
+flex-direction: column;
 
-  gap: 8px;
+gap: 7px;
 
 }
-
 
 .site-link {
 
-  display: flex;
+display: flex;
 
-  align-items: center;
+align-items: center;
 
-  justify-content: space-between;
+justify-content: space-between;
 
-  width: 100%;
+width: 100%;
 
-  padding: 15px 18px;
+padding: 13px 15px;
 
-  text-align: left;
+text-align: left;
 
-  background: white;
+background: #fff;
 
-  border: 1px solid #cbd5e1;
+border: 1px solid #d4d9dd;
 
-  color: #334155;
+color: #49657a;
 
-  cursor: pointer;
+font-size: 12px;
 
-  transition:
-    background 0.15s,
-    border-color 0.15s;
+cursor: pointer;
+
+transition:
+background .15s ease,
+border-color .15s ease,
+padding-left .15s ease;
 
 }
-
 
 .site-link:hover {
 
-  background: #f1f5f9;
+padding-left: 19px;
 
-  border-color: #94a3b8;
+background: #f9fafb;
+
+border-color: #aeb9c1;
 
 }
-
 
 .arrow {
 
-  color: #94a3b8;
+color: #a0aab1;
+
+font-size: 15px;
 
 }
 
+/* ============================================================
+FORUM
+============================================================ */
+
+.forum-thread {
+
+width: 100%;
+
+}
+
+.forum-thread-header {
+
+padding-bottom: 18px;
+
+border-bottom: 1px solid #d4d9dd;
+
+}
+
+.forum-thread-header h2 {
+
+margin: 0;
+
+color: #40576a;
+
+font-family:
+Georgia,
+'Times New Roman',
+serif;
+
+font-size: 27px;
+
+font-weight: normal;
+
+}
+
+.forum-thread-header p {
+
+margin: 7px 0 0;
+
+color: #7c878f;
+
+font-size: 12px;
+
+}
+
+.forum-posts {
+
+display: flex;
+
+flex-direction: column;
+
+margin-top: 18px;
+
+border: 1px solid #d2d7db;
+
+background: #fff;
+
+}
+
+.forum-post {
+
+display: grid;
+
+grid-template-columns: 165px 1fr;
+
+min-height: 125px;
+
+border-bottom: 1px solid #e0e3e5;
+
+}
+
+.forum-post:last-child {
+
+border-bottom: none;
+
+}
+
+.forum-post-sidebar {
+
+display: flex;
+
+flex-direction: column;
+
+align-items: flex-start;
+
+gap: 8px;
+
+padding: 17px;
+
+background: #f0f2f3;
+
+border-right: 1px solid #d8dde0;
+
+}
+
+.forum-username {
+
+padding: 0;
+
+background: transparent;
+
+border: none;
+
+color: #496c83;
+
+font-size: 12px;
+
+font-weight: 700;
+
+cursor: pointer;
+
+}
+
+.forum-username:hover {
+
+text-decoration: underline;
+
+}
+
+.op-badge {
+
+padding: 3px 5px;
+
+background: #526b7c;
+
+color: #fff;
+
+font-size: 7px;
+
+font-weight: 700;
+
+letter-spacing: .7px;
+
+}
+
+.forum-post-main {
+
+padding: 18px 22px;
+
+}
+
+.forum-post-meta {
+
+margin-bottom: 13px;
+
+color: #929ca2;
+
+font-size: 9px;
+
+}
+
+.forum-post-main p {
+
+margin: 0;
+
+white-space: pre-line;
+
+color: #505b62;
+
+font-size: 13px;
+
+line-height: 1.75;
+
+}
+
+.original-poster {
+
+border-left: 3px solid #d1a34a;
+
+}
+
+.forum-related {
+
+margin-top: 25px;
+
+}
 
 /* ============================================================
-   FOOTER
+FOOTER
 ============================================================ */
 
 .site-footer {
 
-  display: flex;
+display: flex;
 
-  justify-content: space-between;
+justify-content: space-between;
 
-  padding: 15px 45px;
+gap: 30px;
 
-  background: white;
+padding: 18px 55px;
 
-  border-top: 1px solid #cbd5e1;
+background: #526b7c;
 
-  color: #94a3b8;
+border-top: 4px solid #d1a34a;
 
-  font-size: 8px;
+color: #e5eaed;
 
-  letter-spacing: 1px;
+font-size: 9px;
+
+line-height: 1.7;
 
 }
 
+.site-footer > div {
+
+display: flex;
+
+flex-direction: column;
+
+gap: 2px;
+
+}
+
+.site-footer strong {
+
+color: #fff;
+
+font-family:
+Georgia,
+'Times New Roman',
+serif;
+
+font-size: 11px;
+
+font-weight: normal;
+
+}
+
+.footer-right {
+
+align-items: flex-end;
+
+text-align: right;
+
+}
 
 /* ============================================================
-   SYSTEM / ERROR PAGES
+SYSTEM / ERROR PAGES
 ============================================================ */
 
 .error-page {
 
-  display: flex;
+display: flex;
 
-  align-items: center;
+align-items: center;
 
-  justify-content: center;
+justify-content: center;
 
-  min-height: 500px;
+min-height: 500px;
 
 }
-
 
 .system-message {
 
-  width: min(600px, 90%);
+width: min(600px, 90%);
 
-  padding: 50px;
+padding: 45px;
 
-  text-align: center;
+text-align: center;
 
-  border: 1px solid #cbd5e1;
+background: #fff;
 
-  background: white;
+border: 1px solid #cfd5d9;
 
 }
-
 
 .system-icon {
 
-  margin-bottom: 25px;
+margin-bottom: 20px;
 
-  font-family: monospace;
+color: #71808a;
 
-  font-size: 28px;
+font-family: monospace;
 
-  font-weight: bold;
+font-size: 26px;
 
-  color: #64748b;
+font-weight: bold;
 
 }
-
 
 .system-category {
 
-  display: block;
+display: block;
 
-  margin-bottom: 12px;
+margin-bottom: 10px;
 
-  font-family: monospace;
+color: #89949b;
 
-  font-size: 9px;
+font-family: monospace;
 
-  letter-spacing: 2px;
+font-size: 8px;
 
-  color: #94a3b8;
+letter-spacing: 1.5px;
 
 }
-
 
 .system-message h2 {
 
-  margin: 0 0 15px;
+margin: 0 0 14px;
 
-  font-size: 24px;
+color: #40576a;
 
-  font-weight: 500;
+font-family:
+Georgia,
+'Times New Roman',
+serif;
 
-  color: #0f172a;
+font-size: 23px;
+
+font-weight: normal;
 
 }
-
 
 .system-message p {
 
-  margin: 0 auto 30px;
+max-width: 450px;
 
-  max-width: 450px;
+margin: 0 auto 25px;
 
-  line-height: 1.7;
+color: #657179;
 
-  font-size: 13px;
+font-size: 13px;
 
-  color: #64748b;
+line-height: 1.7;
 
 }
-
 
 .return-button {
 
-  padding: 10px 16px;
+padding: 9px 14px;
 
-  background: #0f172a;
+background: #526b7c;
 
-  border: none;
+border: none;
 
-  color: white;
+color: #fff;
 
-  font-family: monospace;
+font-size: 8px;
 
-  font-size: 9px;
+letter-spacing: .8px;
 
-  letter-spacing: 1px;
-
-  cursor: pointer;
+cursor: pointer;
 
 }
-
 
 .return-button:hover {
 
-  background: #1e293b;
+background: #405968;
 
 }
 
-
 /* ============================================================
-   BOOKMARKS
+BOOKMARKS
 ============================================================ */
 
 .bookmarks-menu {
 
-  position: absolute;
+position: absolute;
 
-  top: 52px;
+top: 52px;
 
-  right: 14px;
+right: 14px;
 
-  z-index: 100;
+z-index: 100;
 
-  width: 360px;
+width: 360px;
 
-  background: #111827;
+background: #111827;
 
-  border: 1px solid #334155;
+border: 1px solid #334155;
 
-  box-shadow:
-    0 10px 30px
-    rgba(0, 0, 0, 0.4);
+box-shadow:
+0 10px 30px
+rgba(0, 0, 0, .4);
 
 }
-
 
 .bookmarks-header {
 
-  padding: 12px 15px;
+padding: 12px 15px;
 
-  border-bottom: 1px solid #334155;
+border-bottom: 1px solid #334155;
 
-  color: #64748b;
+color: #64748b;
 
-  font-family: monospace;
+font-family: monospace;
 
-  font-size: 9px;
+font-size: 9px;
 
-  letter-spacing: 2px;
+letter-spacing: 2px;
 
 }
-
 
 .empty-bookmarks {
 
-  padding: 20px;
+padding: 20px;
 
-  color: #64748b;
+color: #64748b;
 
-  font-family: monospace;
+font-family: monospace;
 
-  font-size: 11px;
+font-size: 11px;
 
 }
-
 
 .bookmark-item {
 
-  display: flex;
+display: flex;
 
-  align-items: center;
+align-items: center;
 
-  justify-content: space-between;
+justify-content: space-between;
 
-  width: 100%;
+width: 100%;
 
-  padding: 12px 15px;
+padding: 12px 15px;
 
-  text-align: left;
+text-align: left;
 
-  background: transparent;
+background: transparent;
 
-  border: none;
+border: none;
 
-  border-bottom: 1px solid #1e293b;
+border-bottom: 1px solid #1e293b;
 
-  color: #cbd5e1;
+color: #cbd5e1;
 
-  cursor: pointer;
+cursor: pointer;
 
 }
-
 
 .bookmark-item:hover {
 
-  background: #1e293b;
+background: #1e293b;
 
 }
-
 
 .bookmark-item strong {
 
-  display: block;
+display: block;
 
-  margin-bottom: 4px;
+margin-bottom: 4px;
 
-  font-size: 12px;
+font-size: 12px;
 
-  font-weight: 500;
+font-weight: 500;
 
 }
-
 
 .bookmark-item span {
 
-  display: block;
+display: block;
 
-  color: #64748b;
+color: #64748b;
 
-  font-family: monospace;
+font-family: monospace;
 
-  font-size: 9px;
+font-size: 9px;
 
 }
 
-
 /* ============================================================
-   UNDERNET / DARK WEB MODE
+UNDERNET / DARK WEB
+Leave the dark-web visual language intact.
 ============================================================ */
 
 .dark-web-mode {
 
-  background: #080808;
+background: #080808;
 
 }
-
 
 .dark-web-mode .website {
 
-  background: #d8d8d8;
+background: #d8d8d8;
 
-  color: #222;
+color: #222;
 
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
+font-family:
+Arial,
+Helvetica,
+sans-serif;
 
 }
-
 
 .dark-web-mode .site-header {
 
-  padding: 9px 14px;
+min-height: auto;
 
-  background: #ededed;
+padding: 9px 14px;
 
-  border-bottom: 1px solid #999;
+background: #ededed;
+
+border-bottom: 1px solid #999;
 
 }
 
+.dark-web-mode .town-seal {
+
+display: none;
+
+}
+
+.dark-web-mode .town-identity {
+
+gap: 0;
+
+}
 
 .dark-web-mode .site-title {
 
-  gap: 10px;
+gap: 3px;
 
 }
-
 
 .dark-web-mode .site-title h1 {
 
-  font-family: monospace;
+font-family: monospace;
 
-  font-size: 16px;
+font-size: 16px;
 
-  letter-spacing: 2px;
-
-}
-
-
-.dark-web-mode .site-title span {
-
-  font-family: monospace;
-
-  font-size: 8px;
-
-  color: #666;
+letter-spacing: 2px;
 
 }
 
+.dark-web-mode .site-tagline {
 
-.dark-web-mode .site-account {
+font-family: monospace;
 
-  font-family: monospace;
+font-size: 8px;
 
-  font-size: 8px;
+font-style: normal;
 
-  color: #666;
+color: #666;
 
 }
 
+.dark-web-mode .site-header-right {
+
+gap: 2px;
+
+}
+
+.dark-web-mode .contact-line {
+
+display: none;
+
+}
+
+.dark-web-mode .account-line {
+
+padding: 0;
+
+background: transparent;
+
+border: none;
+
+font-family: monospace;
+
+font-size: 8px;
+
+color: #666;
+
+}
 
 .dark-web-mode .site-nav {
 
-  padding: 0 14px;
+padding: 0 14px;
 
-  background: #3b3b3b;
+background: #3b3b3b;
 
-  border-bottom: 1px solid #111;
+border-bottom: 1px solid #111;
 
 }
 
+.dark-web-mode .site-nav-inner {
+
+padding: 0;
+
+}
 
 .dark-web-mode .site-nav button {
 
-  padding: 9px 11px;
+padding: 9px 11px;
 
-  color: #cfcfcf;
+color: #cfcfcf;
 
-  font-family: monospace;
+font-family: monospace;
 
-  font-size: 9px;
+font-size: 9px;
 
-  letter-spacing: 0;
+letter-spacing: 0;
 
 }
-
 
 .dark-web-mode .site-nav button:hover {
 
-  background: #505050;
+background: #505050;
 
 }
-
 
 .dark-web-mode .site-nav button.active {
 
-  background: #505050;
+background: #505050;
 
-  box-shadow: none;
+box-shadow: none;
 
-  text-decoration: underline;
+text-decoration: underline;
 
 }
-
 
 .dark-web-mode .website-content {
 
-  width: min(1100px, 96%);
+width: min(1100px, 96%);
 
-  padding: 20px 0;
+padding: 20px 0;
 
 }
 
+.dark-web-mode .breadcrumb {
+
+display: none;
+
+}
 
 .dark-web-mode .content-header {
 
-  padding: 10px 12px;
+padding: 10px 12px;
 
-  background: #ededed;
+background: #ededed;
 
-  border: 1px solid #aaa;
+border: 1px solid #aaa;
 
 }
-
 
 .dark-web-mode .category {
 
-  margin-bottom: 7px;
+margin-bottom: 7px;
 
-  font-family: monospace;
+font-family: monospace;
 
-  font-size: 8px;
+font-size: 8px;
 
-  letter-spacing: 1px;
+letter-spacing: 1px;
 
-  color: #666;
+color: #666;
 
 }
-
 
 .dark-web-mode .content-header h2 {
 
-  font-family: monospace;
+font-family: monospace;
 
-  font-size: 20px;
+font-size: 20px;
 
-  font-weight: normal;
+font-weight: normal;
 
-  color: #222;
+color: #222;
 
 }
-
 
 .dark-web-mode .content-header p {
 
-  margin-bottom: 0;
+margin-bottom: 0;
 
-  font-family: monospace;
+font-family: monospace;
 
-  font-size: 10px;
+font-size: 10px;
 
-  color: #666;
+color: #666;
 
 }
-
 
 .dark-web-mode .page-content {
 
-  max-width: none;
+max-width: none;
 
-  padding: 14px 12px;
+padding: 14px 12px;
 
 }
-
 
 .dark-web-mode .page-content p {
 
-  color: #333;
+color: #333;
 
-  font-family: monospace;
+font-family: monospace;
 
-  font-size: 12px;
+font-size: 12px;
 
-  line-height: 1.55;
+line-height: 1.55;
 
 }
-
 
 .dark-web-mode .related {
 
-  margin-top: 12px;
+margin-top: 12px;
 
-  padding: 12px;
+padding: 12px;
 
-  border: 1px solid #aaa;
+border: 1px solid #aaa;
 
-  background: #ededed;
+background: #ededed;
 
 }
-
 
 .dark-web-mode .section-title {
 
-  margin-bottom: 10px;
+margin-bottom: 10px;
 
-  font-family: monospace;
+font-family: monospace;
 
-  font-size: 8px;
+font-size: 8px;
 
-  letter-spacing: 1px;
+letter-spacing: 1px;
 
-  color: #666;
+color: #666;
 
 }
-
 
 .dark-web-mode .site-links {
 
-  gap: 4px;
+gap: 4px;
 
 }
-
 
 .dark-web-mode .site-link {
 
-  padding: 8px 10px;
+padding: 8px 10px;
 
-  background: #dedede;
+background: #dedede;
 
-  border: 1px solid #aaa;
+border: 1px solid #aaa;
 
-  color: #333;
+color: #333;
 
-  font-family: monospace;
+font-family: monospace;
 
-  font-size: 10px;
+font-size: 10px;
 
 }
-
 
 .dark-web-mode .site-link:hover {
 
-  background: #f1f1f1;
+background: #f1f1f1;
 
-  border-color: #777;
+border-color: #777;
 
 }
-
 
 .dark-web-mode .arrow {
 
-  color: #666;
+color: #666;
 
 }
-
 
 .dark-web-mode .site-footer {
 
-  padding: 8px 14px;
+padding: 8px 14px;
 
-  background: #c9c9c9;
+background: #c9c9c9;
 
-  border-top: 1px solid #999;
+border-top: 1px solid #999;
 
-  color: #666;
+color: #666;
 
-  font-family: monospace;
+font-family: monospace;
 
-  font-size: 8px;
+font-size: 8px;
 
 }
-
 
 .dark-web-mode .error-page {
 
-  min-height: 400px;
+min-height: 400px;
 
 }
-
 
 .dark-web-mode .system-message {
 
-  background: #ededed;
+background: #ededed;
 
-  border: 1px solid #999;
+border: 1px solid #999;
 
 }
-
 
 .dark-web-mode .system-message h2 {
 
-  font-family: monospace;
+font-family: monospace;
 
-  font-size: 20px;
+font-size: 20px;
 
-  color: #222;
+color: #222;
 
 }
-
 
 .dark-web-mode .system-message p {
 
-  color: #555;
+color: #555;
 
 }
-
 
 .dark-web-mode .return-button {
 
-  background: #333;
+background: #333;
 
-  font-family: monospace;
+font-family: monospace;
 
 }
-
 
 .dark-web-mode .return-button:hover {
 
-  background: #444;
+background: #444;
 
 }
 
-
 /* ============================================================
-   RESPONSIVE FORUM
+RESPONSIVE
 ============================================================ */
 
 @media (max-width: 700px) {
 
-  .forum-post {
-
-    grid-template-columns: 1fr;
-
-  }
+.site-header {
 
 
-  .forum-post-sidebar {
-
-    flex-direction: row;
-
-    align-items: center;
-
-    border-right: none;
-
-    border-bottom: 1px solid #dbe3ec;
-
-  }
+padding: 16px 20px;
 
 
-  .site-header {
+}
 
-    padding:
-      18px
-      20px;
-
-  }
+.site-header-right {
 
 
-  .site-nav {
-
-    overflow-x: auto;
-
-    padding:
-      0
-      10px;
-
-  }
+display: none;
 
 
-  .website-content {
+}
 
-    width: 92%;
+.site-title h1 {
 
-  }
+
+font-size: 19px;
+
+
+}
+
+.town-seal {
+
+
+width: 50px;
+
+height: 50px;
+
+
+}
+
+.seal-inner {
+
+
+width: 38px;
+
+height: 38px;
+
+
+}
+
+.site-nav {
+
+
+overflow-x: auto;
+
+
+}
+
+.site-nav-inner {
+
+
+padding: 0 10px;
+
+
+}
+
+.website-content {
+
+
+width: 92%;
+
+
+}
+
+.forum-post {
+
+
+grid-template-columns: 1fr;
+
+
+}
+
+.forum-post-sidebar {
+
+
+flex-direction: row;
+
+align-items: center;
+
+border-right: none;
+
+border-bottom: 1px solid #dbe3e7;
+
+
+}
+
+.site-footer {
+
+
+padding: 15px 20px;
+
+
+}
 
 }
