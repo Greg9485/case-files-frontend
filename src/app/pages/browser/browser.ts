@@ -1,212 +1,117 @@
-import {
-  Component,
-  inject
-} from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import {
-  ActivatedRoute,
-  Router
-} from '@angular/router';
-
-import {
-  AMHERST_BOARD_FORUM_POSTS
-} from '../../core/data/sites/amherst-board/amherst-board.forum';
-
+import { AMHERST_BOARD_FORUM_POSTS } from '../../core/data/sites/amherst-board/amherst-board.forum';
 import { BrowserService } from '../../core/services/browser';
 import { FakeInternetService } from '../../core/services/fake-internet';
-
 import { FakePage } from '../../core/models/fake-page';
 import { FakeSite } from '../../core/models/fake-site';
-
 import { AccessService } from '../../core/services/access';
-
-import {
-  BookmarksService,
-  Bookmark
-} from '../../core/services/bookmarks';
-
+import { BookmarksService, Bookmark } from '../../core/services/bookmarks';
 import { FAKE_SITES } from '../../core/data/fake-sites';
-
-import {
-  ForumPost
-} from '../../core/models/forum-post';
-
+import { ForumPost } from '../../core/models/forum-post';
 
 @Component({
   selector: 'app-browser',
-
   imports: [],
-
   templateUrl: './browser.html',
   styleUrl: './browser.scss'
 })
 export class BrowserComponent {
 
-  private bookmarksService =
-    inject(BookmarksService);
-
-  private browserService =
-    inject(BrowserService);
-
-  private internet =
-    inject(FakeInternetService);
-
-  private accessService =
-    inject(AccessService);
-
-  private router =
-    inject(Router);
-
-  private route =
-    inject(ActivatedRoute);
-
+  private bookmarksService = inject(BookmarksService);
+  private browserService = inject(BrowserService);
+  private internet = inject(FakeInternetService);
+  private accessService = inject(AccessService);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
 
   bookmarks: Bookmark[] = [];
 
-
-  currentDomain =
-    'amherstboard.local';
-
-
+  currentDomain = 'amherstboard.local';
   currentPage!: FakePage;
-
-
-  currentPath =
-    '/';
-
-
+  currentPath = '/';
   currentSite!: FakeSite;
 
-
   history: string[] = [];
+  historyIndex = -1;
 
+  showBookmarks = false;
 
-  historyIndex =
-    -1;
+  currentForumPosts: ForumPost[] = [];
 
-
-  showBookmarks =
-    false;
-
-
-  currentForumPosts:
-    ForumPost[] = [];
-
-
-  private requiresTor =
-    false;
-
-
-  private requiresDarkWebAuth =
-    false;
-
-
-  private initialDomain =
-    'amherstboard.local';
-
+  private requiresTor = false;
+  private requiresDarkWebAuth = false;
+  private initialDomain = 'amherstboard.local';
 
   constructor() {
 
-    /*
-     * ========================================================
-     * READ ROUTE CONFIGURATION
-     * ========================================================
-     */
-
-    const routeData =
-      this.route.snapshot.data;
-
+    const routeData = this.route.snapshot.data;
 
     this.initialDomain =
-      routeData['initialDomain']
-      ?? 'amherstboard.local';
-
+      routeData['initialDomain'] ?? 'amherstboard.local';
 
     this.requiresTor =
-      routeData['requiresTor']
-      ?? false;
-
+      routeData['requiresTor'] ?? false;
 
     this.requiresDarkWebAuth =
-      routeData['requiresDarkWebAuth']
-      ?? false;
-
-
-    /*
-     * ========================================================
-     * ACCESS CHECKS
-     * ========================================================
-     *
-     * Amherst public sites:
-     *
-     *   No access requirements.
-     *
-     * TOR Browser:
-     *
-     *   Requires TOR unlock and authentication.
-     */
+      routeData['requiresDarkWebAuth'] ?? false;
 
     if (
       this.requiresTor &&
       !this.accessService.isTorBrowserUnlocked()
     ) {
-
       this.router.navigate(['/case']);
-
       return;
-
     }
-
 
     if (
       this.requiresDarkWebAuth &&
       !this.accessService.isDarkWebAuthenticated()
     ) {
-
-      this.router.navigate([
-        '/dark-web-login'
-      ]);
-
+      this.router.navigate(['/dark-web-login']);
       return;
-
     }
 
-
-    /*
-     * ========================================================
-     * INITIAL PAGE
-     * ========================================================
-     *
-     * If a cross-site link brought us here with:
-     *
-     *   ?page=/some/path
-     *
-     * load that page.
-     *
-     * Otherwise load the site's homepage.
-     */
-
     const initialPath =
-      this.route.snapshot.queryParamMap.get('page')
-      ?? '/';
-
+      this.route.snapshot.queryParamMap.get('page') ?? '/';
 
     this.navigate(
       initialPath,
       this.initialDomain
     );
 
-
     this.loadBookmarks();
-
   }
 
 
-  /*
-   * ==========================================================
-   * NAVIGATION
-   * ==========================================================
-   */
+  // ==========================================================
+  // RENDERER IDENTIFICATION
+  // ==========================================================
+
+  isCommunityBoard(): boolean {
+    return this.currentDomain === 'amherstboard.local';
+  }
+
+
+  isExchange(): boolean {
+    return this.currentDomain === 'amherst-exchange.local';
+  }
+
+
+  isPoliceRecords(): boolean {
+    return this.currentDomain === 'amherstpd.local';
+  }
+
+
+  isDarkWebSite(): boolean {
+    return this.currentDomain === 'undernet.local';
+  }
+
+
+  // ==========================================================
+  // NAVIGATION
+  // ==========================================================
 
   navigate(
     path: string,
@@ -214,25 +119,9 @@ export class BrowserComponent {
   ): void {
 
     const targetDomain =
-      domain
-      ?? this.currentPage?.domain
-      ?? this.initialDomain;
-
-
-    /*
-     * ========================================================
-     * CROSS-SITE NAVIGATION
-     * ========================================================
-     *
-     * When a link points to another fake website, change the
-     * Angular route as well as the fake browser domain.
-     *
-     * This keeps the sidebar's RouterLinkActive state accurate.
-     *
-     * We only do this after the BrowserComponent has loaded its
-     * initial page. During construction currentPage is undefined,
-     * so the initial navigation is handled normally.
-     */
+      domain ??
+      this.currentPage?.domain ??
+      this.initialDomain;
 
     if (
       this.currentPage &&
@@ -241,7 +130,6 @@ export class BrowserComponent {
 
       const siteRoute =
         this.getSiteRoute(targetDomain);
-
 
       if (siteRoute) {
 
@@ -255,11 +143,8 @@ export class BrowserComponent {
         );
 
         return;
-
       }
-
     }
-
 
     const page =
       this.internet.getPage(
@@ -267,25 +152,16 @@ export class BrowserComponent {
         path
       );
 
-
     if (!page) {
       return;
     }
-
 
     this.setCurrentPage(
       page,
       true
     );
-
   }
 
-
-  /*
-   * ==========================================================
-   * SET CURRENT PAGE
-   * ==========================================================
-   */
 
   private setCurrentPage(
     page: FakePage,
@@ -294,44 +170,24 @@ export class BrowserComponent {
 
     this.currentSite =
       FAKE_SITES.find(
-        site =>
-          site.domain === page.domain
-      )
-      ?? FAKE_SITES[0];
+        site => site.domain === page.domain
+      ) ?? FAKE_SITES[0];
 
-
-    this.currentPage =
-      page;
-
-
-    this.currentDomain =
-      page.domain;
-
-
-    this.currentPath =
-      page.path;
-
+    this.currentPage = page;
+    this.currentDomain = page.domain;
+    this.currentPath = page.path;
 
     this.currentForumPosts =
-      AMHERST_BOARD_FORUM_POSTS[
-        page.path
-      ] ?? [];
-
+      AMHERST_BOARD_FORUM_POSTS[page.path] ?? [];
 
     this.browserService.visitPage(
       page.domain,
       page.path
     );
 
-
     if (!addToHistory) {
       return;
     }
-
-
-    /*
-     * Remove forward history.
-     */
 
     this.history =
       this.history.slice(
@@ -339,45 +195,25 @@ export class BrowserComponent {
         this.historyIndex + 1
       );
 
-
     this.history.push(
       `${page.domain}${page.path}`
     );
 
-
     this.historyIndex++;
-
   }
 
-
-  /*
-   * ==========================================================
-   * BACK
-   * ==========================================================
-   */
 
   goBack(): void {
 
-    if (
-      this.historyIndex <= 0
-    ) {
+    if (this.historyIndex <= 0) {
       return;
     }
 
-
     this.historyIndex--;
 
-
     this.loadHistoryLocation();
-
   }
 
-
-  /*
-   * ==========================================================
-   * FORWARD
-   * ==========================================================
-   */
 
   goForward(): void {
 
@@ -388,32 +224,19 @@ export class BrowserComponent {
       return;
     }
 
-
     this.historyIndex++;
 
-
     this.loadHistoryLocation();
-
   }
 
-
-  /*
-   * ==========================================================
-   * LOAD HISTORY LOCATION
-   * ==========================================================
-   */
 
   private loadHistoryLocation(): void {
 
     const location =
-      this.history[
-        this.historyIndex
-      ];
-
+      this.history[this.historyIndex];
 
     const slashIndex =
       location.indexOf('/');
-
 
     const domain =
       location.substring(
@@ -421,12 +244,10 @@ export class BrowserComponent {
         slashIndex
       );
 
-
     const path =
       location.substring(
         slashIndex
       );
-
 
     const page =
       this.internet.getPage(
@@ -434,25 +255,16 @@ export class BrowserComponent {
         path
       );
 
-
     if (!page) {
       return;
     }
-
 
     this.setCurrentPage(
       page,
       false
     );
-
   }
 
-
-  /*
-   * ==========================================================
-   * RELOAD
-   * ==========================================================
-   */
 
   reload(): void {
 
@@ -460,32 +272,22 @@ export class BrowserComponent {
       this.currentPage.domain,
       this.currentPage.path
     );
-
   }
 
 
-  /*
-   * ==========================================================
-   * BOOKMARKS
-   * ==========================================================
-   */
+  // ==========================================================
+  // BOOKMARKS
+  // ==========================================================
 
   toggleBookmark(): void {
 
     this.bookmarksService.toggleBookmark({
-      title:
-        this.currentPage.title,
-
-      domain:
-        this.currentPage.domain,
-
-      path:
-        this.currentPage.path
+      title: this.currentPage.title,
+      domain: this.currentPage.domain,
+      path: this.currentPage.path
     });
 
-
     this.loadBookmarks();
-
   }
 
 
@@ -493,13 +295,9 @@ export class BrowserComponent {
 
     return this.bookmarks.some(
       bookmark =>
-        bookmark.domain ===
-          this.currentPage.domain
-        &&
-        bookmark.path ===
-          this.currentPage.path
+        bookmark.domain === this.currentPage.domain &&
+        bookmark.path === this.currentPage.path
     );
-
   }
 
 
@@ -507,7 +305,6 @@ export class BrowserComponent {
 
     this.bookmarks =
       this.bookmarksService.getBookmarks();
-
   }
 
 
@@ -515,10 +312,8 @@ export class BrowserComponent {
 
     this.loadBookmarks();
 
-
     this.showBookmarks =
       !this.showBookmarks;
-
   }
 
 
@@ -531,26 +326,17 @@ export class BrowserComponent {
       bookmark.domain
     );
 
-
-    this.showBookmarks =
-      false;
-
+    this.showBookmarks = false;
   }
 
 
-  /*
-   * ==========================================================
-   * FORUM
-   * ==========================================================
-   */
+  // ==========================================================
+  // FORUM
+  // ==========================================================
 
   isForumThread(): boolean {
 
-    return (
-      this.currentPage.type ===
-      'FORUM_THREAD'
-    );
-
+    return this.currentPage.type === 'FORUM_THREAD';
   }
 
 
@@ -562,20 +348,16 @@ export class BrowserComponent {
       return;
     }
 
-
     this.navigate(
       userPath,
       this.currentPage.domain
     );
-
   }
 
 
-  /*
-   * ==========================================================
-   * SITE ROUTING
-   * ==========================================================
-   */
+  // ==========================================================
+  // CROSS-SITE ROUTING
+  // ==========================================================
 
   private getSiteRoute(
     domain: string
@@ -584,47 +366,20 @@ export class BrowserComponent {
     switch (domain) {
 
       case 'amherstboard.local':
-
         return '/amherst-board';
 
-
       case 'amherst-exchange.local':
-
         return '/amherst-exchange';
 
-
       case 'amherstpd.local':
-
         return '/amherst-public-records';
 
-
       case 'undernet.local':
-
         return '/browser';
 
-
       default:
-
         return null;
-
     }
-
-  }
-
-
-  /*
-   * ==========================================================
-   * SITE TYPE
-   * ==========================================================
-   */
-
-  isDarkWebSite(): boolean {
-
-    return (
-      this.currentDomain ===
-      'undernet.local'
-    );
-
   }
 
 }

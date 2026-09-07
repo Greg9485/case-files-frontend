@@ -9,135 +9,122 @@
 
   <header class="browser-bar">
 
-    <div class="browser-controls">
+```
+<div class="browser-controls">
 
-      <button
-        (click)="goBack()"
-        [disabled]="historyIndex <= 0"
-        title="Back"
-      >
-        ←
-      </button>
+  <button
+    (click)="goBack()"
+    [disabled]="historyIndex <= 0"
+    title="Back"
+  >
+    ←
+  </button>
 
+  <button
+    (click)="goForward()"
+    [disabled]="historyIndex >= history.length - 1"
+    title="Forward"
+  >
+    →
+  </button>
 
-      <button
-        (click)="goForward()"
-        [disabled]="historyIndex >= history.length - 1"
-        title="Forward"
-      >
-        →
-      </button>
+  <button
+    (click)="reload()"
+    title="Reload"
+  >
+    ⟳
+  </button>
 
+</div>
 
-      <button
-        (click)="reload()"
-        title="Reload"
-      >
-        ⟳
-      </button>
+<div class="address-bar">
 
-    </div>
+  <span class="lock">🔒</span>
 
+  <span>
+    {{ currentPage.domain }}{{ currentPage.path }}
+  </span>
 
-    <div class="address-bar">
+</div>
 
-      <span class="lock">
-        🔒
-      </span>
+<button
+  class="bookmark"
+  (click)="toggleBookmark()"
+  [title]="
+    isCurrentPageBookmarked()
+      ? 'Remove bookmark'
+      : 'Bookmark this page'
+  "
+>
+  {{ isCurrentPageBookmarked() ? '★' : '☆' }}
+</button>
 
-      <span>
-        {{ currentPage.domain }}{{ currentPage.path }}
-      </span>
-
-    </div>
-
-
-    <button
-      class="bookmark"
-      (click)="toggleBookmark()"
-      [title]="
-        isCurrentPageBookmarked()
-          ? 'Remove bookmark'
-          : 'Bookmark this page'
-      "
-    >
-      {{
-        isCurrentPageBookmarked()
-          ? '★'
-          : '☆'
-      }}
-    </button>
-
-
-    <button
-      class="bookmark"
-      (click)="toggleBookmarksMenu()"
-      title="Bookmarks"
-    >
-      ▾
-    </button>
+<button
+  class="bookmark"
+  (click)="toggleBookmarksMenu()"
+  title="Bookmarks"
+>
+  ▾
+</button>
+```
 
   </header>
-
 
   <!-- ======================================================
        BOOKMARKS
   ======================================================= -->
 
-  @if (showBookmarks) {
+@if (showBookmarks) {
 
-    <div class="bookmarks-menu">
+```
+<div class="bookmarks-menu">
 
-      <div class="bookmarks-header">
-        BOOKMARKS
-      </div>
+  <div class="bookmarks-header">
+    BOOKMARKS
+  </div>
 
+  @if (bookmarks.length === 0) {
 
-      @if (bookmarks.length === 0) {
+    <div class="empty-bookmarks">
+      No bookmarked pages.
+    </div>
 
-        <div class="empty-bookmarks">
-          No bookmarked pages.
+  } @else {
+
+    @for (
+      bookmark of bookmarks;
+      track bookmark.domain + bookmark.path
+    ) {
+
+      <button
+        class="bookmark-item"
+        (click)="openBookmark(bookmark)"
+      >
+
+        <div>
+
+          <strong>
+            {{ bookmark.title }}
+          </strong>
+
+          <span>
+            {{ bookmark.domain }}{{ bookmark.path }}
+          </span>
+
         </div>
 
-      } @else {
+        <span>→</span>
 
-        @for (
-          bookmark of bookmarks;
-          track bookmark.domain + bookmark.path
-        ) {
+      </button>
 
-          <button
-            class="bookmark-item"
-            (click)="openBookmark(bookmark)"
-          >
-
-            <div>
-
-              <strong>
-                {{ bookmark.title }}
-              </strong>
-
-              <span>
-                {{ bookmark.domain }}{{ bookmark.path }}
-              </span>
-
-            </div>
-
-
-            <span>
-              →
-            </span>
-
-          </button>
-
-        }
-
-      }
-
-    </div>
+    }
 
   }
 
+</div>
+```
+
+}
 
   <!-- ======================================================
        WEBSITE
@@ -145,50 +132,74 @@
 
   <div class="website">
 
+```
+<!-- ====================================================
+     MUNICIPAL-STYLE HEADER
+===================================================== -->
 
-    <!-- Site header -->
+<header class="site-header">
 
-    <header class="site-header">
+  <div class="town-identity">
 
-      <div class="site-title">
+    <div class="town-seal" aria-hidden="true">
 
-        <h1>
-          {{ currentSite.name }}
-        </h1>
-
-
-        @if (currentSite.tagline) {
-
-          <span>
-            {{ currentSite.tagline }}
-          </span>
-
-        }
-
+      <div class="seal-inner">
+        <span class="seal-town">TOWN</span>
+        <strong>A</strong>
+        <span class="seal-state">VIRGINIA</span>
       </div>
 
+    </div>
 
-      <div class="site-account">
 
-        <span>
-          {{ currentSite.accountLabel }}
+    <div class="site-title">
+
+      <h1>
+        {{ currentSite.name }}
+      </h1>
+
+      @if (currentSite.tagline) {
+
+        <span class="site-tagline">
+          {{ currentSite.tagline }}
         </span>
 
-      </div>
+      }
 
-    </header>
+    </div>
+
+  </div>
 
 
-    <!-- Site navigation -->
+  <div class="site-header-right">
 
-    <nav class="site-nav">
+    <div class="contact-line">
+      Amherst, Virginia
+    </div>
 
-      @for (
-        item of currentSite.navigation;
-        track item.path
-      ) {
+    <div class="account-line">
+      {{ currentSite.accountLabel }}
+    </div>
 
-       <button
+  </div>
+
+</header>
+
+
+<!-- ====================================================
+     GOVERNMENT-STYLE NAVIGATION
+===================================================== -->
+
+<nav class="site-nav">
+
+  <div class="site-nav-inner">
+
+    @for (
+      item of currentSite.navigation;
+      track item.path
+    ) {
+
+      <button
         (click)="
           navigate(
             item.path,
@@ -208,352 +219,358 @@
         {{ item.label }}
       </button>
 
-      }
+    }
 
-    </nav>
+  </div>
 
-
-    <!-- ====================================================
-         WEBSITE CONTENT
-    ===================================================== -->
-
-    <main
-      class="website-content"
-      [class.error-page]="
-        currentPage.status &&
-        currentPage.status !== 'ACTIVE'
-      "
-    >
+</nav>
 
 
-      <!-- ==================================================
-           ERROR PAGE
-      =================================================== -->
+<!-- ====================================================
+     WEBSITE CONTENT
+===================================================== -->
 
-      @if (
-        currentPage.status &&
-        currentPage.status !== 'ACTIVE'
-      ) {
-
-        <section class="system-message">
-
-          <div class="system-icon">
-
-            @switch (currentPage.status) {
-
-              @case ('NOT_FOUND') {
-                404
-              }
-
-              @case ('REMOVED') {
-                DEL
-              }
-
-              @case ('RESTRICTED') {
-                LOCK
-              }
-
-              @case ('OFFLINE') {
-                OFF
-              }
-
-            }
-
-          </div>
+<main
+  class="website-content"
+  [class.error-page]="
+    currentPage.status &&
+    currentPage.status !== 'ACTIVE'
+  "
+>
 
 
-          <span class="system-category">
+  <!-- ==================================================
+       ERROR PAGE
+  =================================================== -->
+
+  @if (
+    currentPage.status &&
+    currentPage.status !== 'ACTIVE'
+  ) {
+
+    <section class="system-message">
+
+      <div class="system-icon">
+
+        @switch (currentPage.status) {
+
+          @case ('NOT_FOUND') {
+            404
+          }
+
+          @case ('REMOVED') {
+            DEL
+          }
+
+          @case ('RESTRICTED') {
+            LOCK
+          }
+
+          @case ('OFFLINE') {
+            OFF
+          }
+
+        }
+
+      </div>
+
+      <span class="system-category">
+        {{ currentPage.category }}
+      </span>
+
+      <h2>
+        {{ currentPage.title }}
+      </h2>
+
+      <p>
+        {{ currentPage.content }}
+      </p>
+
+      <button
+        class="return-button"
+        (click)="goBack()"
+      >
+        ← RETURN TO PREVIOUS PAGE
+      </button>
+
+    </section>
+
+
+  <!-- ==================================================
+       FORUM THREAD
+  =================================================== -->
+
+  } @else if (isForumThread()) {
+
+    <section class="forum-thread">
+
+      <div class="breadcrumb">
+        COMMUNITY &nbsp; / &nbsp;
+        {{ currentPage.category || 'DISCUSSION' }}
+      </div>
+
+      <div class="forum-thread-header">
+
+        @if (currentPage.category) {
+
+          <span class="category">
             {{ currentPage.category }}
           </span>
 
+        }
 
-          <h2>
-            {{ currentPage.title }}
-          </h2>
+        <h2>
+          {{ currentPage.title }}
+        </h2>
 
+        @if (currentPage.subtitle) {
 
           <p>
-            {{ currentPage.content }}
+            {{ currentPage.subtitle }}
           </p>
 
+        }
 
-          <button
-            class="return-button"
-            (click)="goBack()"
+      </div>
+
+
+      <div class="forum-posts">
+
+        @for (
+          post of currentForumPosts;
+          track post.id
+        ) {
+
+          <article
+            class="forum-post"
+            [class.original-poster]="
+              post.isOriginalPoster
+            "
           >
-            ← RETURN TO PREVIOUS PAGE
-          </button>
 
-        </section>
+            <div class="forum-post-sidebar">
 
+              <button
+                class="forum-username"
+                (click)="
+                  openForumUser(
+                    post.userPath
+                  )
+                "
+              >
+                {{ post.username }}
+              </button>
 
-      <!-- ==================================================
-           FORUM THREAD
-      =================================================== -->
+              @if (post.isOriginalPoster) {
 
-      } @else if (isForumThread()) {
+                <span class="op-badge">
+                  ORIGINAL POSTER
+                </span>
 
-        <section class="forum-thread">
+              }
 
-
-          <div class="forum-thread-header">
-
-            @if (currentPage.category) {
-
-              <span class="category">
-                {{ currentPage.category }}
-              </span>
-
-            }
-
-
-            <h2>
-              {{ currentPage.title }}
-            </h2>
+            </div>
 
 
-            @if (currentPage.subtitle) {
+            <div class="forum-post-main">
+
+              <div class="forum-post-meta">
+
+                <span>
+                  {{ post.timestamp }}
+                </span>
+
+              </div>
 
               <p>
-                {{ currentPage.subtitle }}
+                {{ post.content }}
               </p>
 
-            }
+            </div>
 
+          </article>
+
+        }
+
+      </div>
+
+
+      @if (
+        currentPage.links &&
+        currentPage.links.length > 0
+      ) {
+
+        <section class="related forum-related">
+
+          <div class="section-title">
+            RELATED INFORMATION
           </div>
 
-
-          <div class="forum-posts">
+          <div class="site-links">
 
             @for (
-              post of currentForumPosts;
-              track post.id
+              link of currentPage.links;
+              track link.path
             ) {
 
-              <article
-                class="forum-post"
-                [class.original-poster]="
-                  post.isOriginalPoster
+              <button
+                class="site-link"
+                (click)="
+                  navigate(
+                    link.path,
+                    link.domain
+                  )
                 "
               >
 
+                <span>
+                  {{ link.label }}
+                </span>
 
-                <div class="forum-post-sidebar">
+                <span class="arrow">
+                  →
+                </span>
 
-                  <button
-                    class="forum-username"
-                    (click)="
-                      openForumUser(
-                        post.userPath
-                      )
-                    "
-                  >
-                    {{ post.username }}
-                  </button>
-
-
-                  @if (post.isOriginalPoster) {
-
-                    <span class="op-badge">
-                      OP
-                    </span>
-
-                  }
-
-                </div>
-
-
-                <div class="forum-post-main">
-
-                  <div class="forum-post-meta">
-
-                    <span>
-                      {{ post.timestamp }}
-                    </span>
-
-                  </div>
-
-
-                  <p>
-                    {{ post.content }}
-                  </p>
-
-                </div>
-
-              </article>
+              </button>
 
             }
 
           </div>
 
-
-          @if (
-            currentPage.links &&
-            currentPage.links.length > 0
-          ) {
-
-            <section
-              class="related forum-related"
-            >
-
-              <div class="section-title">
-                THREAD LINKS
-              </div>
-
-
-              <div class="site-links">
-
-                @for (
-                  link of currentPage.links;
-                  track link.path
-                ) {
-
-                  <button
-                    class="site-link"
-                    (click)="
-                      navigate(
-                        link.path,
-                        link.domain
-                      )
-                    "
-                  >
-
-                    <span>
-                      {{ link.label }}
-                    </span>
-
-
-                    <span class="arrow">
-                      →
-                    </span>
-
-                  </button>
-
-                }
-
-              </div>
-
-            </section>
-
-          }
-
         </section>
 
+      }
 
-      <!-- ==================================================
-           STANDARD PAGE
-      =================================================== -->
-
-      } @else {
-
-        <div class="content-header">
-
-          @if (currentPage.category) {
-
-            <span class="category">
-              {{ currentPage.category }}
-            </span>
-
-          }
+    </section>
 
 
-          <h2>
-            {{ currentPage.title }}
-          </h2>
+  <!-- ==================================================
+       STANDARD PAGE
+  =================================================== -->
+
+  } @else {
+
+    <div class="breadcrumb">
+      TOWN OF AMHERST &nbsp; / &nbsp;
+      {{ currentPage.category || 'COMMUNITY' }}
+    </div>
 
 
-          @if (currentPage.subtitle) {
+    <div class="content-header">
 
-            <p>
-              {{ currentPage.subtitle }}
-            </p>
+      @if (currentPage.category) {
+
+        <span class="category">
+          {{ currentPage.category }}
+        </span>
+
+      }
+
+      <h2>
+        {{ currentPage.title }}
+      </h2>
+
+      @if (currentPage.subtitle) {
+
+        <p>
+          {{ currentPage.subtitle }}
+        </p>
+
+      }
+
+    </div>
+
+
+    <article class="page-content">
+
+      <p>
+        {{ currentPage.content }}
+      </p>
+
+    </article>
+
+
+    @if (
+      currentPage.links &&
+      currentPage.links.length > 0
+    ) {
+
+      <section class="related">
+
+        <div class="section-title">
+          RELATED INFORMATION
+        </div>
+
+        <div class="site-links">
+
+          @for (
+            link of currentPage.links;
+            track link.path
+          ) {
+
+            <button
+              class="site-link"
+              (click)="
+                navigate(
+                  link.path,
+                  link.domain
+                )
+              "
+            >
+
+              <span>
+                {{ link.label }}
+              </span>
+
+              <span class="arrow">
+                →
+              </span>
+
+            </button>
 
           }
 
         </div>
 
+      </section>
 
-        <article class="page-content">
+    }
 
-          <p>
-            {{ currentPage.content }}
-          </p>
+  }
 
-        </article>
-
-
-        @if (
-          currentPage.links &&
-          currentPage.links.length > 0
-        ) {
-
-          <section class="related">
-
-            <div class="section-title">
-              RELATED
-            </div>
+</main>
 
 
-            <div class="site-links">
+<!-- ====================================================
+     MUNICIPAL FOOTER
+===================================================== -->
 
-              @for (
-                link of currentPage.links;
-                track link.path
-              ) {
+<footer class="site-footer">
 
-                <button
-                  class="site-link"
-                  (click)="
-                    navigate(
-                      link.path,
-                      link.domain
-                    )
-                  "
-                >
+  <div>
+    <strong>
+      {{ currentSite.name }}
+    </strong>
 
-                  <span>
-                    {{ link.label }}
-                  </span>
+    <span>
+      174 S. Main Street, Amherst, VA 24521
+    </span>
+  </div>
 
+  <div class="footer-right">
 
-                  <span class="arrow">
-                    →
-                  </span>
+    <span>
+      434-946-7885
+    </span>
 
-                </button>
+    <span>
+      {{ currentSite.tagline || 'COMMUNITY INFORMATION' }}
+    </span>
 
-              }
+  </div>
 
-            </div>
-
-          </section>
-
-        }
-
-      }
-
-    </main>
-
-
-    <!-- ====================================================
-         FOOTER
-    ===================================================== -->
-
-    <footer class="site-footer">
-
-      <span>
-        {{ currentSite.name }}
-      </span>
-
-
-      <span>
-        {{
-          currentSite.tagline
-          || 'COMMUNITY OPERATED'
-        }}
-      </span>
-
-    </footer>
+</footer>
+```
 
   </div>
 
