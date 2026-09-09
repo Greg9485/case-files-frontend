@@ -1,218 +1,381 @@
-<nav>
+<nav [class.collapsed]="sidebarCollapsed()">
 
-  <div class="nav-main">
+  <!-- ========================================================
+       SIDEBAR HEADER / COLLAPSE CONTROL
+       ======================================================== -->
 
+  <div class="sidebar-top">
 
-    <!-- ================================================
-         HOME
-    ================================================= -->
-
-    <a
-      routerLink="/"
-      routerLinkActive="active"
-      [routerLinkActiveOptions]="{ exact: true }"
+    <button
+      type="button"
+      class="collapse-button"
+      (click)="toggleSidebar()"
+      [attr.aria-label]="
+        sidebarCollapsed()
+          ? 'Expand sidebar'
+          : 'Collapse sidebar'
+      "
     >
-      Home
-    </a>
-
-
-    <!-- ================================================
-         AMHERST PUBLIC ACCESS
-    ================================================= -->
-
-    <section class="nav-group">
-
-      <button
-        class="nav-group-toggle"
-        type="button"
-        (click)="togglePublicAccess()"
-      >
-
-        <span>
-          Amherst Public Access
-        </span>
-
-
-        <span
-          class="group-arrow"
-          [class.expanded]="
-            publicAccessExpanded()
-          "
-        >
-          ›
-        </span>
-
-      </button>
-
-
-      @if (publicAccessExpanded()) {
-
-        <div class="nav-submenu">
-
-
-          <!-- Amherst Community Board -->
-
-          <a
-            class="subnav-link"
-            routerLink="/amherst-board"
-            routerLinkActive="active"
-          >
-            Amherst Community Board
-          </a>
-
-
-          <!-- Amherst Exchange -->
-
-          <a
-            class="subnav-link"
-            routerLink="/amherst-exchange"
-            routerLinkActive="active"
-          >
-            Amherst Exchange
-          </a>
-
-
-          <!-- Amherst Public Police Records -->
-
-          <a
-            class="subnav-link"
-            routerLink="/amherst-public-records"
-            routerLinkActive="active"
-          >
-            Amherst Public Police Records
-          </a>
-
-
-        </div>
-
-      }
-
-    </section>
-
-
-    <!-- ================================================
-         INVESTIGATION PORTAL
-    ================================================= -->
-
-    @if (isPolicePortalUnlocked()) {
-
-      <a
-        routerLink="/police-portal-login"
-        routerLinkActive="active"
-      >
-        Amherst PD Investigation Portal
-      </a>
-
-    } @else {
-
-      <span class="locked-link">
-
-        Amherst PD Investigation Portal
-
-        <small>
-          LOCKED
-        </small>
-
+      <span>
+        {{ sidebarCollapsed() ? '›' : '‹' }}
       </span>
-
-    }
-
-
-    <!-- ================================================
-         WITNESSES
-    ================================================= -->
-
-    @if (isWitnessesUnlocked()) {
-
-      <a
-        routerLink="/witnesses"
-        routerLinkActive="active"
-      >
-        Witnesses
-      </a>
-
-    } @else {
-
-      <span class="locked-link">
-
-        Witnesses
-
-        <small>
-          LOCKED
-        </small>
-
-      </span>
-
-    }
-
-
-    <!-- ================================================
-         LOCKED SECTIONS
-    ================================================= -->
-
-    <span class="locked-link">
-
-      Evidence
-
-      <small>
-        LOCKED
-      </small>
-
-    </span>
-
-
-    <span class="locked-link">
-
-      Notebook
-
-      <small>
-        LOCKED
-      </small>
-
-    </span>
-
-
-    <span class="locked-link">
-
-      Archive
-
-      <small>
-        LOCKED
-      </small>
-
-    </span>
-
+    </button>
 
   </div>
 
 
-  <!-- ================================================
-       TOR BROWSER
-  ================================================= -->
+  @if (!sidebarCollapsed()) {
 
-  @if (isTorBrowserUnlocked()) {
+    <!-- ======================================================
+         EXPANDED NAVIGATION
+         ====================================================== -->
 
-    <div class="tor-section">
+    <div class="nav-main">
 
-      <div class="tor-divider"></div>
-
+      <!-- HOME -->
 
       <a
-        class="tor-browser-link"
-        routerLink="/dark-web-login"
+        routerLink="/"
         routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
       >
+        Home
+      </a>
 
-        <span class="tor-label">
-          TOR BROWSER
+
+      <!-- ================================================
+           AMHERST PUBLIC ACCESS
+      ================================================= -->
+
+      <section class="nav-group">
+
+        <button
+          class="nav-group-toggle"
+          type="button"
+          (click)="togglePublicAccess()"
+        >
+
+          <span>
+            Amherst Public Access
+          </span>
+
+          <span
+            class="group-arrow"
+            [class.expanded]="
+              publicAccessExpanded()
+            "
+          >
+            ›
+          </span>
+
+        </button>
+
+
+        @if (publicAccessExpanded()) {
+
+          <div class="nav-submenu">
+
+            <a
+              class="subnav-link"
+              routerLink="/amherst-board"
+              routerLinkActive="active"
+            >
+              Amherst Community Board
+            </a>
+
+
+            <a
+              class="subnav-link"
+              routerLink="/amherst-exchange"
+              routerLinkActive="active"
+            >
+              Amherst Exchange
+            </a>
+
+
+            <a
+              class="subnav-link"
+              routerLink="/amherst-public-records"
+              routerLinkActive="active"
+            >
+              Amherst Public Police Records
+            </a>
+
+          </div>
+
+        }
+
+      </section>
+
+
+      <!-- ================================================
+           INVESTIGATION PORTAL
+      ================================================= -->
+
+      @if (isPolicePortalUnlocked()) {
+
+        <a
+          routerLink="/police-portal-login"
+          routerLinkActive="active"
+        >
+          Amherst PD Investigation Portal
+        </a>
+
+      } @else {
+
+        <span class="locked-link">
+
+          Amherst PD Investigation Portal
+
+          <small>
+            LOCKED
+          </small>
+
         </span>
 
+      }
+
+
+      <!-- ================================================
+           WITNESSES
+      ================================================= -->
+
+      @if (isWitnessesUnlocked()) {
+
+        <a
+          routerLink="/witnesses"
+          routerLinkActive="active"
+        >
+          Witnesses
+        </a>
+
+      } @else {
+
+        <span class="locked-link">
+
+          Witnesses
+
+          <small>
+            LOCKED
+          </small>
+
+        </span>
+
+      }
+
+
+      <!-- ================================================
+           LOCKED SECTIONS
+      ================================================= -->
+
+      <span class="locked-link">
+
+        Evidence
 
         <small>
-          SECURE CONNECTION
+          LOCKED
         </small>
 
+      </span>
+
+
+      <span class="locked-link">
+
+        Notebook
+
+        <small>
+          LOCKED
+        </small>
+
+      </span>
+
+
+      <span class="locked-link">
+
+        Archive
+
+        <small>
+          LOCKED
+        </small>
+
+      </span>
+
+    </div>
+
+
+    <!-- ======================================================
+         TOR BROWSER
+         ====================================================== -->
+
+    @if (isTorBrowserUnlocked()) {
+
+      <div class="tor-section">
+
+        <div class="tor-divider"></div>
+
+        <a
+          class="tor-browser-link"
+          routerLink="/dark-web-login"
+          routerLinkActive="active"
+        >
+
+          <span class="tor-label">
+            TOR BROWSER
+          </span>
+
+          <small>
+            SECURE CONNECTION
+          </small>
+
+        </a>
+
+      </div>
+
+    }
+
+  } @else {
+
+    <!-- ======================================================
+         COLLAPSED ICON RAIL
+         ====================================================== -->
+
+    <div class="icon-rail">
+
+      <!-- HOME -->
+
+      <a
+        class="rail-item"
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        title="Home"
+        aria-label="Home"
+      >
+        <span class="rail-icon">⌂</span>
       </a>
+
+
+      <!-- PUBLIC ACCESS -->
+
+      <button
+        type="button"
+        class="rail-item"
+        title="Amherst Public Access"
+        aria-label="Amherst Public Access"
+        (click)="togglePublicAccess()"
+      >
+        <span class="rail-icon">▣</span>
+      </button>
+
+
+      <!-- INVESTIGATION PORTAL -->
+
+      @if (isPolicePortalUnlocked()) {
+
+        <a
+          class="rail-item"
+          routerLink="/police-portal-login"
+          routerLinkActive="active"
+          title="Amherst PD Investigation Portal"
+          aria-label="Amherst PD Investigation Portal"
+        >
+          <span class="rail-icon">⌕</span>
+        </a>
+
+      } @else {
+
+        <span
+          class="rail-item locked"
+          title="Amherst PD Investigation Portal — Locked"
+          aria-label="Amherst PD Investigation Portal — Locked"
+        >
+          <span class="rail-icon">◉</span>
+        </span>
+
+      }
+
+
+      <!-- WITNESSES -->
+
+      @if (isWitnessesUnlocked()) {
+
+        <a
+          class="rail-item"
+          routerLink="/witnesses"
+          routerLinkActive="active"
+          title="Witnesses"
+          aria-label="Witnesses"
+        >
+          <span class="rail-icon">♙</span>
+        </a>
+
+      } @else {
+
+        <span
+          class="rail-item locked"
+          title="Witnesses — Locked"
+          aria-label="Witnesses — Locked"
+        >
+          <span class="rail-icon">♙</span>
+        </span>
+
+      }
+
+
+      <!-- EVIDENCE -->
+
+      <span
+        class="rail-item locked"
+        title="Evidence — Locked"
+        aria-label="Evidence — Locked"
+      >
+        <span class="rail-icon">◇</span>
+      </span>
+
+
+      <!-- NOTEBOOK -->
+
+      <span
+        class="rail-item locked"
+        title="Notebook — Locked"
+        aria-label="Notebook — Locked"
+      >
+        <span class="rail-icon">▤</span>
+      </span>
+
+
+      <!-- ARCHIVE -->
+
+      <span
+        class="rail-item locked"
+        title="Archive — Locked"
+        aria-label="Archive — Locked"
+      >
+        <span class="rail-icon">▥</span>
+      </span>
+
+
+      <!-- TOR -->
+
+      @if (isTorBrowserUnlocked()) {
+
+        <div class="rail-tor">
+
+          <div class="rail-divider"></div>
+
+          <a
+            class="rail-item tor-rail-item"
+            routerLink="/dark-web-login"
+            routerLinkActive="active"
+            title="TOR Browser — Secure Connection"
+            aria-label="TOR Browser — Secure Connection"
+          >
+            <span class="rail-icon">◉</span>
+          </a>
+
+        </div>
+
+      }
 
     </div>
 

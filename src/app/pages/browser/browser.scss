@@ -3,8 +3,21 @@
    ============================================================ */
 
 .browser {
-  min-height: 100%;
+  width: 100%;
+  height: 100%;
+
+  min-width: 0;
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+
+  overflow: hidden;
+
   background: #020617;
+
   color: #e2e8f0;
 }
 
@@ -14,39 +27,66 @@
    ============================================================ */
 
 .browser-chrome {
+  flex: 0 0 54px;
+
   display: flex;
+
   align-items: center;
+
   gap: 8px;
+
   height: 54px;
+
   padding: 8px 12px;
+
   box-sizing: border-box;
+
   background: #0f172a;
+
   border-bottom: 1px solid #1e293b;
+
+  z-index: 100;
 }
+
 
 .browser-control {
   width: 34px;
   height: 34px;
+
+  flex: 0 0 34px;
+
   padding: 0;
+
   border: 1px solid #334155;
+
   border-radius: 5px;
+
   background: #111827;
+
   color: #cbd5e1;
+
   font-family: inherit;
+
   font-size: 1rem;
+
   cursor: pointer;
+
   transition:
     background 0.12s ease,
     border-color 0.12s ease;
 }
 
+
 .browser-control:hover:not(:disabled) {
   background: #1e293b;
+
   border-color: #475569;
 }
 
+
 .browser-control:disabled {
   opacity: 0.35;
+
   cursor: default;
 }
 
@@ -57,30 +97,49 @@
 
 .address-bar {
   flex: 1;
+
   min-width: 0;
+
   height: 34px;
+
   display: flex;
+
   align-items: center;
+
   gap: 8px;
+
   padding: 0 12px;
+
   box-sizing: border-box;
+
   border: 1px solid #334155;
+
   border-radius: 5px;
+
   background: #020617;
+
   color: #94a3b8;
+
   font-family: monospace;
+
   font-size: 0.75rem;
+
   overflow: hidden;
 }
+
 
 .address-lock {
   flex: 0 0 auto;
+
   font-size: 0.7rem;
 }
 
+
 .address-bar span:last-child {
   overflow: hidden;
+
   text-overflow: ellipsis;
+
   white-space: nowrap;
 }
 
@@ -91,58 +150,119 @@
 
 .bookmarks-panel {
   position: absolute;
+
   top: 62px;
   right: 12px;
+
   z-index: 500;
+
   width: 320px;
+
   max-width: calc(100vw - 24px);
+
   background: #0f172a;
+
   border: 1px solid #334155;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+
+  box-shadow:
+    0 12px 30px
+    rgba(0, 0, 0, 0.35);
 }
+
 
 .bookmarks-header {
   padding: 10px 12px;
+
   border-bottom: 1px solid #334155;
+
   color: #94a3b8;
+
   font-size: 0.65rem;
+
   letter-spacing: 0.12em;
+
   font-weight: 700;
 }
 
+
 .bookmarks-empty {
   padding: 18px 12px;
+
   color: #64748b;
+
   font-size: 0.8rem;
 }
 
+
 .bookmark-item {
   width: 100%;
+
   display: flex;
+
   flex-direction: column;
+
   gap: 4px;
+
   padding: 10px 12px;
+
   box-sizing: border-box;
+
   border: 0;
+
   border-bottom: 1px solid #1e293b;
+
   background: transparent;
+
   color: #cbd5e1;
+
   text-align: left;
+
   cursor: pointer;
 }
+
 
 .bookmark-item:hover {
   background: #1e293b;
 }
 
+
 .bookmark-title {
   font-size: 0.8rem;
 }
 
+
 .bookmark-url {
   color: #64748b;
+
   font-family: monospace;
+
   font-size: 0.65rem;
+}
+
+
+/* ============================================================
+   WEBSITE VIEWPORT
+   ============================================================ */
+
+/*
+ * This is the important part.
+ *
+ * The browser chrome occupies its own fixed flex row.
+ * The website gets all remaining browser height and is
+ * independently scrollable.
+ */
+
+.website {
+  flex: 1 1 auto;
+
+  min-width: 0;
+  min-height: 0;
+
+  overflow: auto;
+
+  position: relative;
+
+  background: #020617;
 }
 
 
@@ -152,21 +272,31 @@
 
 .error-page {
   max-width: 700px;
+
   margin: 80px auto;
+
   padding: 40px;
+
   box-sizing: border-box;
+
   background: #ffffff;
+
   border: 1px solid #d1d5db;
 }
 
+
 .error-page h1 {
   margin: 0 0 10px;
+
   color: #111827;
+
   font-size: 1.4rem;
 }
 
+
 .error-page p {
   margin: 0;
+
   color: #6b7280;
 }
 
@@ -179,22 +309,32 @@
 
   .browser-chrome {
     gap: 5px;
+
     padding: 7px;
   }
+
 
   .browser-control {
     width: 30px;
     height: 30px;
+
+    flex-basis: 30px;
   }
+
 
   .bookmarks-panel {
     right: 7px;
+
     width: 300px;
   }
 
+
   .error-page {
     width: calc(100% - 40px);
+
     margin: 40px auto;
+
     padding: 25px;
   }
+
 }

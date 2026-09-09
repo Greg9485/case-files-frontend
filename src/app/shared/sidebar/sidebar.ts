@@ -51,10 +51,23 @@ export class SidebarComponent {
     signal(true);
 
 
+  sidebarCollapsed =
+    signal(false);
+
+
   togglePublicAccess(): void {
 
     this.publicAccessExpanded.update(
       expanded => !expanded
+    );
+
+  }
+
+
+  toggleSidebar(): void {
+
+    this.sidebarCollapsed.update(
+      collapsed => !collapsed
     );
 
   }
