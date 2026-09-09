@@ -1,0 +1,274 @@
+<section class="tor-browser">
+
+  <!-- ====================================================
+       UNDERNET HEADER
+  ===================================================== -->
+
+  <header class="site-header">
+
+    <div class="town-identity">
+
+      <div class="town-seal" aria-hidden="true">
+
+        <div class="seal-inner">
+          <span class="seal-town">TOWN</span>
+          <strong>A</strong>
+          <span class="seal-state">VIRGINIA</span>
+        </div>
+
+      </div>
+
+      <div class="site-title">
+
+        <h1>
+          {{ site.name }}
+        </h1>
+
+        @if (site.tagline) {
+
+          <span class="site-tagline">
+            {{ site.tagline }}
+          </span>
+
+        }
+
+      </div>
+
+    </div>
+
+    <div class="site-header-right">
+
+      <div class="contact-line">
+        Amherst, Virginia
+      </div>
+
+      <div class="account-line">
+        {{ site.accountLabel }}
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- ====================================================
+       UNDERNET NAVIGATION
+  ===================================================== -->
+
+  <nav class="site-nav">
+
+    <div class="site-nav-inner">
+
+      @for (
+        item of site.navigation;
+        track item.path
+      ) {
+
+        <button
+          type="button"
+          (click)="navigateTo(item.path, item.domain)"
+          [class.active]="
+            page.path === item.path &&
+            page.domain === (item.domain || site.domain)
+          "
+        >
+          {{ item.label }}
+        </button>
+
+      }
+
+    </div>
+
+  </nav>
+
+
+  <!-- ====================================================
+       WEBSITE CONTENT
+  ===================================================== -->
+
+  <main class="website-content">
+
+
+    <!-- ==================================================
+         ERROR PAGE
+    =================================================== -->
+
+    @if (
+      page.status &&
+      page.status !== 'ACTIVE'
+    ) {
+
+      <section class="system-message">
+
+        <div class="system-icon">
+
+          @switch (page.status) {
+
+            @case ('NOT_FOUND') {
+              404
+            }
+
+            @case ('REMOVED') {
+              DEL
+            }
+
+            @case ('RESTRICTED') {
+              LOCK
+            }
+
+            @case ('OFFLINE') {
+              OFF
+            }
+
+          }
+
+        </div>
+
+        <span class="system-category">
+          {{ page.category }}
+        </span>
+
+        <h2>
+          {{ page.title }}
+        </h2>
+
+        <p>
+          {{ page.content }}
+        </p>
+
+        <button
+          type="button"
+          class="return-button"
+          (click)="navigateTo('/')"
+        >
+          ← RETURN TO UNDERNET
+        </button>
+
+      </section>
+
+
+    <!-- ==================================================
+         STANDARD PAGE
+    =================================================== -->
+
+    } @else {
+
+      <div class="content-header">
+
+        @if (page.category) {
+
+          <span class="category">
+            {{ page.category }}
+          </span>
+
+        }
+
+        <h2>
+          {{ page.title }}
+        </h2>
+
+        @if (page.subtitle) {
+
+          <p>
+            {{ page.subtitle }}
+          </p>
+
+        }
+
+      </div>
+
+
+      <article class="page-content">
+
+        <p>
+          {{ page.content }}
+        </p>
+
+      </article>
+
+
+      @if (
+        page.links &&
+        page.links.length > 0
+      ) {
+
+        <section class="related">
+
+          <div class="section-title">
+            RELATED INFORMATION
+          </div>
+
+          <div class="site-links">
+
+            @for (
+              link of page.links;
+              track link.path
+            ) {
+
+              <button
+                type="button"
+                class="site-link"
+                (click)="
+                  navigateTo(
+                    link.path,
+                    link.domain
+                  )
+                "
+              >
+
+                <span>
+                  {{ link.label }}
+                </span>
+
+                <span class="arrow">
+                  →
+                </span>
+
+              </button>
+
+            }
+
+          </div>
+
+        </section>
+
+      }
+
+    }
+
+  </main>
+
+
+  <!-- ====================================================
+       UNDERNET FOOTER
+  ===================================================== -->
+
+  <footer class="site-footer">
+
+    <div>
+
+      <strong>
+        {{ site.name }}
+      </strong>
+
+      <span>
+        Anonymous discussion network
+      </span>
+
+    </div>
+
+    <div class="footer-right">
+
+      <span>
+        Amherst, Virginia
+      </span>
+
+      <span>
+        {{ site.accountLabel }}
+      </span>
+
+    </div>
+
+  </footer>
+
+</section>

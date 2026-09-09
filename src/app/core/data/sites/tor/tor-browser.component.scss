@@ -1,0 +1,549 @@
+.tor-browser {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  background: #d8d8d8;
+  color: #222;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  overflow-y: auto;
+}
+
+
+/* ============================================================
+   UNDERNET HEADER
+   ============================================================ */
+
+.tor-browser .site-header {
+
+  min-height: auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 9px 14px;
+
+  background: #ededed;
+
+  border-bottom: 1px solid #999;
+
+  box-sizing: border-box;
+}
+
+
+.tor-browser .town-seal {
+  display: none;
+}
+
+
+.tor-browser .town-identity {
+  gap: 0;
+}
+
+
+.tor-browser .site-title {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+
+.tor-browser .site-title h1 {
+
+  margin: 0;
+
+  font-family: monospace;
+
+  font-size: 16px;
+  font-weight: normal;
+
+  letter-spacing: 2px;
+
+  color: #222;
+
+  text-transform: uppercase;
+}
+
+
+.tor-browser .site-tagline {
+
+  color: #666;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  font-style: normal;
+
+  letter-spacing: 0;
+}
+
+
+.tor-browser .site-header-right {
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-end;
+
+  gap: 2px;
+}
+
+
+.tor-browser .contact-line {
+  display: none;
+}
+
+
+.tor-browser .account-line {
+
+  padding: 0;
+
+  background: transparent;
+
+  border: none;
+
+  color: #666;
+
+  font-family: monospace;
+
+  font-size: 8px;
+}
+
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+
+.tor-browser .site-nav {
+
+  padding: 0 14px;
+
+  background: #3b3b3b;
+
+  border-bottom: 1px solid #111;
+}
+
+
+.tor-browser .site-nav-inner {
+
+  display: flex;
+  align-items: stretch;
+
+  padding: 0;
+}
+
+
+.tor-browser .site-nav button {
+
+  padding: 9px 11px;
+
+  background: transparent;
+
+  border: none;
+
+  color: #cfcfcf;
+
+  font-family: monospace;
+
+  font-size: 9px;
+
+  letter-spacing: 0;
+
+  cursor: pointer;
+}
+
+
+.tor-browser .site-nav button:hover {
+
+  background: #505050;
+}
+
+
+.tor-browser .site-nav button.active {
+
+  background: #505050;
+
+  box-shadow: none;
+
+  text-decoration: underline;
+}
+
+
+/* ============================================================
+   CONTENT
+   ============================================================ */
+
+.tor-browser .website-content {
+
+  width: min(1100px, 96%);
+
+  margin: 0 auto;
+
+  padding: 20px 0;
+
+  box-sizing: border-box;
+}
+
+
+.tor-browser .content-header {
+
+  padding: 10px 12px;
+
+  background: #ededed;
+
+  border: 1px solid #aaa;
+}
+
+
+.tor-browser .category {
+
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #666;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: 1px;
+
+  text-transform: uppercase;
+}
+
+
+.tor-browser .content-header h2 {
+
+  margin: 0;
+
+  color: #222;
+
+  font-family: monospace;
+
+  font-size: 20px;
+
+  font-weight: normal;
+}
+
+
+.tor-browser .content-header p {
+
+  margin: 6px 0 0;
+
+  color: #666;
+
+  font-family: monospace;
+
+  font-size: 10px;
+}
+
+
+.tor-browser .page-content {
+
+  max-width: none;
+
+  padding: 14px 12px;
+}
+
+
+.tor-browser .page-content p {
+
+  margin: 0;
+
+  color: #333;
+
+  font-family: monospace;
+
+  font-size: 12px;
+
+  line-height: 1.55;
+
+  white-space: pre-line;
+}
+
+
+/* ============================================================
+   RELATED INFORMATION
+   ============================================================ */
+
+.tor-browser .related {
+
+  margin-top: 12px;
+
+  padding: 12px;
+
+  background: #ededed;
+
+  border: 1px solid #aaa;
+}
+
+
+.tor-browser .section-title {
+
+  margin-bottom: 10px;
+
+  color: #666;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: 1px;
+}
+
+
+.tor-browser .site-links {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 4px;
+}
+
+
+.tor-browser .site-link {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  width: 100%;
+
+  padding: 8px 10px;
+
+  text-align: left;
+
+  background: #dedede;
+
+  border: 1px solid #aaa;
+
+  color: #333;
+
+  font-family: monospace;
+
+  font-size: 10px;
+
+  cursor: pointer;
+
+  transition:
+    background .15s ease,
+    border-color .15s ease;
+}
+
+
+.tor-browser .site-link:hover {
+
+  background: #f1f1f1;
+
+  border-color: #777;
+}
+
+
+.tor-browser .arrow {
+  color: #666;
+}
+
+
+/* ============================================================
+   ERROR / SYSTEM PAGES
+   ============================================================ */
+
+.tor-browser .system-message {
+
+  width: min(600px, 90%);
+
+  margin: 40px auto;
+
+  padding: 45px;
+
+  text-align: center;
+
+  background: #ededed;
+
+  border: 1px solid #999;
+
+  box-sizing: border-box;
+}
+
+
+.tor-browser .system-icon {
+
+  margin-bottom: 20px;
+
+  color: #333;
+
+  font-family: monospace;
+
+  font-size: 26px;
+
+  font-weight: bold;
+}
+
+
+.tor-browser .system-category {
+
+  display: block;
+
+  margin-bottom: 10px;
+
+  color: #666;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: 1.5px;
+}
+
+
+.tor-browser .system-message h2 {
+
+  margin: 0 0 14px;
+
+  color: #222;
+
+  font-family: monospace;
+
+  font-size: 20px;
+
+  font-weight: normal;
+}
+
+
+.tor-browser .system-message p {
+
+  max-width: 450px;
+
+  margin: 0 auto 25px;
+
+  color: #555;
+
+  font-family: monospace;
+
+  font-size: 11px;
+
+  line-height: 1.7;
+
+  white-space: pre-line;
+}
+
+
+.tor-browser .return-button {
+
+  padding: 9px 14px;
+
+  background: #333;
+
+  border: none;
+
+  color: #fff;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: .8px;
+
+  cursor: pointer;
+}
+
+
+.tor-browser .return-button:hover {
+  background: #444;
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.tor-browser .site-footer {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 30px;
+
+  margin-top: auto;
+
+  padding: 8px 14px;
+
+  background: #c9c9c9;
+
+  border-top: 1px solid #999;
+
+  color: #666;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  line-height: 1.7;
+}
+
+
+.tor-browser .site-footer > div {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 2px;
+}
+
+
+.tor-browser .site-footer strong {
+
+  color: #333;
+
+  font-family: monospace;
+
+  font-size: 9px;
+
+  font-weight: normal;
+}
+
+
+.tor-browser .footer-right {
+
+  align-items: flex-end;
+
+  text-align: right;
+}
+
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 700px) {
+
+  .tor-browser .site-header {
+    padding: 8px 10px;
+  }
+
+  .tor-browser .site-nav {
+    overflow-x: auto;
+  }
+
+  .tor-browser .site-nav-inner {
+    width: max-content;
+  }
+
+  .tor-browser .site-footer {
+    padding: 8px 10px;
+  }
+
+}

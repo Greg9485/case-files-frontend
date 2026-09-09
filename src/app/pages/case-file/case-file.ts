@@ -3,25 +3,17 @@ import { Component, inject } from '@angular/core';
 import { AccessService } from '../../core/services/access';
 
 @Component({
-
   selector: 'app-case-file',
-
   imports: [],
-
   templateUrl: './case-file.html',
-
   styleUrl: './case-file.scss'
-
 })
-
 export class CaseFileComponent {
 
   private accessService = inject(AccessService);
 
-
   witnessesUnlocked =
     this.accessService.isWitnessesUnlocked();
-
 
   metadataVisible = false;
 
@@ -40,6 +32,13 @@ export class CaseFileComponent {
   viewMetadata(): void {
 
     this.metadataVisible = true;
+
+  }
+
+
+  closeMetadata(): void {
+
+    this.metadataVisible = false;
 
     if (!this.accessService.isPolicePortalUnlocked()) {
 

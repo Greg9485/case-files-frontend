@@ -1,1515 +1,3645 @@
-.browser {
+// .browser {
+//   position: relative;
+//   height: calc(100vh - 120px);
+//   display: flex;
+//   flex-direction: column;
+//   background: #020617;
+//   overflow: hidden;
+// }
 
-position: relative;
 
-height: calc(100vh - 120px);
+// /* ============================================================
+//    BROWSER CHROME
+// ============================================================ */
 
-display: flex;
+// .browser-bar {
+//   height: 52px;
+//   display: flex;
+//   align-items: center;
+//   gap: 12px;
+//   padding: 0 14px;
+//   background: #111827;
+//   border-bottom: 1px solid #334155;
+//   flex-shrink: 0;
+// }
 
-flex-direction: column;
+// .browser-controls {
+//   display: flex;
+//   gap: 4px;
+// }
 
-background: #020617;
+// .browser-controls button,
+// .bookmark {
+//   width: 30px;
+//   height: 30px;
+//   background: transparent;
+//   border: none;
+//   color: #64748b;
+//   font-size: 18px;
+//   cursor: pointer;
+// }
 
-overflow: hidden;
+// .browser-controls button:hover,
+// .bookmark:hover {
+//   color: #cbd5e1;
+// }
 
-}
+// .browser-controls button:disabled {
+//   opacity: .25;
+//   cursor: default;
+// }
+
+// .address-bar {
+//   flex: 1;
+//   height: 32px;
+//   display: flex;
+//   align-items: center;
+//   gap: 8px;
+//   padding: 0 12px;
+//   background: #020617;
+//   border: 1px solid #334155;
+//   border-radius: 6px;
+//   color: #94a3b8;
+//   font-family: monospace;
+//   font-size: 12px;
+// }
+
+// .lock {
+//   font-size: 10px;
+// }
+
+
+// /* ============================================================
+//    WEBSITE
+// ============================================================ */
+
+// .website {
+//   flex: 1;
+//   display: flex;
+//   flex-direction: column;
+//   overflow-y: auto;
+//   background: #f4f5f6;
+//   color: #333;
+//   font-family: Arial, Helvetica, sans-serif;
+// }
+
+
+// /* ============================================================
+//    MUNICIPAL HEADER
+// ============================================================ */
+
+// .site-header {
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   min-height: 105px;
+//   padding: 18px 55px;
+//   background: #fff;
+//   border-bottom: 1px solid #d6d9dc;
+//   box-sizing: border-box;
+// }
+
+// .town-identity {
+//   display: flex;
+//   align-items: center;
+//   gap: 18px;
+// }
+
+// .town-seal {
+//   width: 62px;
+//   height: 62px;
+//   border: 3px solid #526879;
+//   border-radius: 50%;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   box-sizing: border-box;
+//   color: #526879;
+// }
+
+// .seal-inner {
+//   width: 48px;
+//   height: 48px;
+//   border: 1px solid #9aa8b3;
+//   border-radius: 50%;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   line-height: 1;
+// }
+
+// .seal-town {
+//   font-size: 6px;
+//   letter-spacing: 1px;
+// }
+
+// .seal-inner strong {
+//   margin: 2px 0;
+//   font-family: Georgia, serif;
+//   font-size: 21px;
+//   font-weight: normal;
+// }
+
+// .seal-state {
+//   font-size: 5px;
+//   letter-spacing: 1px;
+// }
+
+// .site-title {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 5px;
+// }
+
+// .site-title h1 {
+//   margin: 0;
+//   color: #344c5f;
+//   font-family: Georgia, 'Times New Roman', serif;
+//   font-size: 25px;
+//   font-weight: normal;
+//   letter-spacing: .3px;
+//   text-transform: uppercase;
+// }
+
+// .site-tagline {
+//   color: #7b858d;
+//   font-family: Georgia, 'Times New Roman', serif;
+//   font-size: 10px;
+//   font-style: italic;
+//   letter-spacing: .7px;
+// }
+
+// .site-header-right {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: flex-end;
+//   gap: 7px;
+// }
+
+// .contact-line {
+//   color: #69757e;
+//   font-size: 11px;
+// }
+
+// .account-line {
+//   padding: 5px 9px;
+//   background: #eef1f3;
+//   border: 1px solid #d6dce0;
+//   color: #64727b;
+//   font-size: 8px;
+//   letter-spacing: 1px;
+// }
+
+
+// /* ============================================================
+//    MUNICIPAL NAVIGATION
+// ============================================================ */
+
+// .site-nav {
+//   background: #526b7c;
+//   border-bottom: 4px solid #d1a34a;
+// }
+
+// .site-nav-inner {
+//   display: flex;
+//   align-items: stretch;
+//   padding: 0 45px;
+// }
+
+// .site-nav button {
+//   padding: 13px 16px;
+//   background: transparent;
+//   border: none;
+//   border-right: 1px solid rgba(255, 255, 255, .12);
+//   color: #fff;
+//   font-size: 10px;
+//   font-weight: 600;
+//   letter-spacing: .6px;
+//   cursor: pointer;
+// }
+
+// .site-nav button:first-child {
+//   border-left: 1px solid rgba(255, 255, 255, .12);
+// }
+
+// .site-nav button:hover {
+//   background: #435b6b;
+// }
+
+// .site-nav button.active {
+//   background: #3e5565;
+//   box-shadow: inset 0 -4px 0 #d1a34a;
+// }
+
+
+// /* ============================================================
+//    MUNICIPAL CONTENT
+// ============================================================ */
+
+// .website-content {
+//   width: min(1080px, calc(100% - 100px));
+//   margin: 0 auto;
+//   padding: 35px 0 55px;
+//   box-sizing: border-box;
+// }
+
+// .breadcrumb {
+//   margin-bottom: 18px;
+//   color: #89939a;
+//   font-size: 8px;
+//   font-weight: 600;
+//   letter-spacing: 1px;
+//   text-transform: uppercase;
+// }
+
+// .content-header {
+//   padding: 0 0 18px;
+//   border-bottom: 1px solid #d5d9dc;
+// }
+
+// .category {
+//   display: block;
+//   margin-bottom: 7px;
+//   color: #8a969e;
+//   font-size: 8px;
+//   font-weight: 700;
+//   letter-spacing: 1.5px;
+// }
+
+// .content-header h2 {
+//   margin: 0;
+//   color: #40576a;
+//   font-family: Georgia, 'Times New Roman', serif;
+//   font-size: 30px;
+//   font-weight: normal;
+// }
+
+// .content-header p {
+//   margin: 8px 0 0;
+//   color: #78838b;
+//   font-family: Georgia, 'Times New Roman', serif;
+//   font-size: 14px;
+//   line-height: 1.5;
+// }
+
+// .page-content {
+//   max-width: 780px;
+//   padding: 25px 0;
+// }
+
+// .page-content p {
+//   margin: 0;
+//   white-space: pre-line;
+//   color: #505b62;
+//   font-size: 14px;
+//   line-height: 1.85;
+// }
+
+
+// /* ============================================================
+//    RELATED INFORMATION
+// ============================================================ */
+
+// .related {
+//   margin-top: 15px;
+//   padding-top: 22px;
+//   border-top: 1px solid #d9dde0;
+// }
+
+// .section-title {
+//   margin-bottom: 12px;
+//   color: #687780;
+//   font-size: 9px;
+//   font-weight: 700;
+//   letter-spacing: 1.5px;
+// }
+
+// .site-links {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 7px;
+// }
+
+// .site-link {
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   width: 100%;
+//   padding: 13px 15px;
+//   text-align: left;
+//   background: #fff;
+//   border: 1px solid #d4d9dd;
+//   color: #49657a;
+//   font-size: 12px;
+//   cursor: pointer;
+//   transition:
+//     background .15s ease,
+//     border-color .15s ease,
+//     padding-left .15s ease;
+// }
+
+// .site-link:hover {
+//   padding-left: 19px;
+//   background: #f9fafb;
+//   border-color: #aeb9c1;
+// }
+
+// .arrow {
+//   color: #a0aab1;
+//   font-size: 15px;
+// }
+
+
+// /* ============================================================
+//    FORUM
+// ============================================================ */
+
+// .forum-thread {
+//   width: 100%;
+// }
+
+// .forum-thread-header {
+//   padding-bottom: 18px;
+//   border-bottom: 1px solid #d4d9dd;
+// }
+
+// .forum-thread-header h2 {
+//   margin: 0;
+//   color: #40576a;
+//   font-family: Georgia, 'Times New Roman', serif;
+//   font-size: 27px;
+//   font-weight: normal;
+// }
+
+// .forum-thread-header p {
+//   margin: 7px 0 0;
+//   color: #7c878f;
+//   font-size: 12px;
+// }
+
+// .forum-posts {
+//   display: flex;
+//   flex-direction: column;
+//   margin-top: 18px;
+//   border: 1px solid #d2d7db;
+//   background: #fff;
+// }
+
+// .forum-post {
+//   display: grid;
+//   grid-template-columns: 165px 1fr;
+//   min-height: 125px;
+//   border-bottom: 1px solid #e0e3e5;
+// }
+
+// .forum-post:last-child {
+//   border-bottom: none;
+// }
+
+// .forum-post-sidebar {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: flex-start;
+//   gap: 8px;
+//   padding: 17px;
+//   background: #f0f2f3;
+//   border-right: 1px solid #d8dde0;
+// }
+
+// .forum-username {
+//   padding: 0;
+//   background: transparent;
+//   border: none;
+//   color: #496c83;
+//   font-size: 12px;
+//   font-weight: 700;
+//   cursor: pointer;
+// }
+
+// .forum-username:hover {
+//   text-decoration: underline;
+// }
+
+// .op-badge {
+//   padding: 3px 5px;
+//   background: #526b7c;
+//   color: #fff;
+//   font-size: 7px;
+//   font-weight: 700;
+//   letter-spacing: .7px;
+// }
+
+// .forum-post-main {
+//   padding: 18px 22px;
+// }
+
+// .forum-post-meta {
+//   margin-bottom: 13px;
+//   color: #929ca2;
+//   font-size: 9px;
+// }
+
+// .forum-post-main p {
+//   margin: 0;
+//   white-space: pre-line;
+//   color: #505b62;
+//   font-size: 13px;
+//   line-height: 1.75;
+// }
+
+// .original-poster {
+//   border-left: 3px solid #d1a34a;
+// }
+
+// .forum-related {
+//   margin-top: 25px;
+// }
+
+
+// /* ============================================================
+//    MUNICIPAL FOOTER
+// ============================================================ */
+
+// .site-footer {
+//   display: flex;
+//   justify-content: space-between;
+//   gap: 30px;
+//   padding: 18px 55px;
+//   background: #526b7c;
+//   border-top: 4px solid #d1a34a;
+//   color: #e5eaed;
+//   font-size: 9px;
+//   line-height: 1.7;
+// }
+
+// .site-footer > div {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 2px;
+// }
+
+// .site-footer strong {
+//   color: #fff;
+//   font-family: Georgia, 'Times New Roman', serif;
+//   font-size: 11px;
+//   font-weight: normal;
+// }
+
+// .footer-right {
+//   align-items: flex-end;
+//   text-align: right;
+// }
+
+
+// /* ============================================================
+//    SYSTEM / ERROR PAGES
+// ============================================================ */
+
+// .error-page {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   min-height: 500px;
+// }
+
+// .system-message {
+//   width: min(600px, 90%);
+//   padding: 45px;
+//   text-align: center;
+//   background: #fff;
+//   border: 1px solid #cfd5d9;
+// }
+
+// .system-icon {
+//   margin-bottom: 20px;
+//   color: #71808a;
+//   font-family: monospace;
+//   font-size: 26px;
+//   font-weight: bold;
+// }
+
+// .system-category {
+//   display: block;
+//   margin-bottom: 10px;
+//   color: #89949b;
+//   font-family: monospace;
+//   font-size: 8px;
+//   letter-spacing: 1.5px;
+// }
+
+// .system-message h2 {
+//   margin: 0 0 14px;
+//   color: #40576a;
+//   font-family: Georgia, 'Times New Roman', serif;
+//   font-size: 23px;
+//   font-weight: normal;
+// }
+
+// .system-message p {
+//   max-width: 450px;
+//   margin: 0 auto 25px;
+//   color: #657179;
+//   font-size: 13px;
+//   line-height: 1.7;
+// }
+
+// .return-button {
+//   padding: 9px 14px;
+//   background: #526b7c;
+//   border: none;
+//   color: #fff;
+//   font-size: 8px;
+//   letter-spacing: .8px;
+//   cursor: pointer;
+// }
+
+// .return-button:hover {
+//   background: #405968;
+// }
+
+
+// /* ============================================================
+//    BOOKMARKS
+// ============================================================ */
+
+// .bookmarks-menu {
+//   position: absolute;
+//   top: 52px;
+//   right: 14px;
+//   z-index: 100;
+//   width: 360px;
+//   background: #111827;
+//   border: 1px solid #334155;
+//   box-shadow: 0 10px 30px rgba(0, 0, 0, .4);
+// }
+
+// .bookmarks-header {
+//   padding: 12px 15px;
+//   border-bottom: 1px solid #334155;
+//   color: #64748b;
+//   font-family: monospace;
+//   font-size: 9px;
+//   letter-spacing: 2px;
+// }
+
+// .empty-bookmarks {
+//   padding: 20px;
+//   color: #64748b;
+//   font-family: monospace;
+//   font-size: 11px;
+// }
+
+// .bookmark-item {
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   width: 100%;
+//   padding: 12px 15px;
+//   text-align: left;
+//   background: transparent;
+//   border: none;
+//   border-bottom: 1px solid #1e293b;
+//   color: #cbd5e1;
+//   cursor: pointer;
+// }
+
+// .bookmark-item:hover {
+//   background: #1e293b;
+// }
+
+// .bookmark-item strong {
+//   display: block;
+//   margin-bottom: 4px;
+//   font-size: 12px;
+//   font-weight: 500;
+// }
+
+// .bookmark-item span {
+//   display: block;
+//   color: #64748b;
+//   font-family: monospace;
+//   font-size: 9px;
+// }
+
+
+// /* ============================================================
+//    AMHERST EXCHANGE
+//    Completely independent visual system.
+// ============================================================ */
+
+// .exchange-site {
+//   min-height: 100%;
+//   background: #f6f6f5;
+//   color: #222;
+//   font-family: Arial, Helvetica, sans-serif;
+// }
+
+// .exchange-header {
+//   background: #fff;
+//   border-bottom: 1px solid #ddd;
+// }
+
+// .exchange-top {
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   padding: 18px 42px;
+// }
+
+// .exchange-logo {
+//   display: flex;
+//   align-items: center;
+//   gap: 12px;
+// }
+
+// .exchange-logo-mark {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   width: 38px;
+//   height: 38px;
+//   background: #111;
+//   color: #fff;
+//   font-size: 11px;
+//   font-weight: 800;
+//   letter-spacing: -.04em;
+// }
+
+// .exchange-logo h1 {
+//   margin: 0;
+//   font-size: 21px;
+//   font-weight: 700;
+//   letter-spacing: -.04em;
+// }
+
+// .exchange-logo span:last-child {
+//   display: block;
+//   margin-top: 2px;
+//   color: #777;
+//   font-size: 11px;
+// }
+
+// .exchange-account {
+//   display: flex;
+//   align-items: center;
+//   gap: 12px;
+// }
+
+// .exchange-account button {
+//   padding: 9px 13px;
+//   background: transparent;
+//   border: none;
+//   color: #333;
+//   font-size: 12px;
+//   cursor: pointer;
+// }
+
+// .exchange-account .sell-button {
+//   background: #111;
+//   color: #fff;
+//   border-radius: 4px;
+//   font-weight: 600;
+// }
+
+// .exchange-search-row {
+//   display: flex;
+//   align-items: center;
+//   gap: 15px;
+//   padding: 0 42px 18px;
+// }
+
+// .exchange-search {
+//   display: flex;
+//   flex: 1;
+//   max-width: 850px;
+//   height: 42px;
+//   border: 1px solid #bbb;
+//   border-radius: 4px;
+//   overflow: hidden;
+//   background: #fff;
+// }
+
+// .search-icon {
+//   display: flex;
+//   align-items: center;
+//   padding: 0 12px;
+//   color: #888;
+//   font-size: 20px;
+// }
+
+// .exchange-search input {
+//   flex: 1;
+//   min-width: 0;
+//   border: none;
+//   outline: none;
+//   font: inherit;
+//   font-size: 13px;
+// }
+
+// .exchange-search button {
+//   padding: 0 22px;
+//   background: #111;
+//   border: none;
+//   color: #fff;
+//   font-size: 12px;
+//   font-weight: 600;
+//   cursor: pointer;
+// }
+
+// .exchange-location {
+//   color: #555;
+//   font-size: 12px;
+//   white-space: nowrap;
+// }
+
+// .exchange-nav {
+//   display: flex;
+//   align-items: center;
+//   gap: 2px;
+//   padding: 0 42px;
+//   background: #fff;
+//   border-bottom: 1px solid #ddd;
+// }
+
+// .exchange-nav button {
+//   padding: 13px 15px;
+//   background: transparent;
+//   border: none;
+//   border-bottom: 2px solid transparent;
+//   color: #444;
+//   font-size: 12px;
+//   cursor: pointer;
+// }
+
+// .exchange-nav button:hover {
+//   background: #f5f5f5;
+// }
+
+// .exchange-nav button.active {
+//   border-bottom-color: #111;
+//   color: #111;
+//   font-weight: 600;
+// }
+
+// .exchange-content {
+//   width: min(1160px, calc(100% - 70px));
+//   margin: 0 auto;
+//   padding: 30px 0 60px;
+// }
+
+// .exchange-page-heading {
+//   display: flex;
+//   align-items: flex-end;
+//   justify-content: space-between;
+//   margin-bottom: 22px;
+// }
+
+// .exchange-eyebrow {
+//   display: block;
+//   margin-bottom: 5px;
+//   color: #777;
+//   font-size: 9px;
+//   font-weight: 700;
+//   letter-spacing: .12em;
+//   text-transform: uppercase;
+// }
+
+// .exchange-page-heading h2 {
+//   margin: 0;
+//   font-size: 25px;
+//   font-weight: 600;
+//   letter-spacing: -.025em;
+// }
+
+// .exchange-page-heading p {
+//   margin: 5px 0 0;
+//   color: #777;
+//   font-size: 13px;
+// }
+
+// .listing-count {
+//   color: #777;
+//   font-size: 11px;
+// }
+
+// .listing-grid {
+//   display: grid;
+//   grid-template-columns: repeat(4, minmax(0, 1fr));
+//   gap: 18px;
+// }
+
+// .listing-card {
+//   display: block;
+//   width: 100%;
+//   padding: 0;
+//   overflow: hidden;
+//   text-align: left;
+//   background: #fff;
+//   border: 1px solid #ddd;
+//   color: #222;
+//   font: inherit;
+//   cursor: pointer;
+//   transition:
+//     transform .12s ease,
+//     box-shadow .12s ease;
+// }
+
+// .listing-card:hover {
+//   transform: translateY(-2px);
+//   box-shadow: 0 5px 18px rgba(0, 0, 0, .09);
+// }
+
+// .listing-image {
+//   aspect-ratio: 1 / 1;
+//   overflow: hidden;
+//   background: #e9e9e9;
+// }
+
+// .listing-image img {
+//   display: block;
+//   width: 100%;
+//   height: 100%;
+//   object-fit: cover;
+// }
+
+// .listing-image-placeholder {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   width: 100%;
+//   height: 100%;
+//   color: #999;
+//   font-size: 11px;
+// }
+
+// .listing-info {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 5px;
+//   padding: 12px;
+// }
+
+// .listing-price {
+//   color: #111;
+//   font-size: 17px;
+// }
+
+// .listing-title {
+//   color: #333;
+//   font-size: 13px;
+//   line-height: 1.35;
+// }
+
+// .listing-location,
+// .listing-posted {
+//   color: #888;
+//   font-size: 10px;
+// }
+
+// .listing-detail {
+//   display: grid;
+//   grid-template-columns: minmax(0, 1.45fr) minmax(300px, .75fr);
+//   gap: 35px;
+//   padding: 25px;
+//   background: #fff;
+//   border: 1px solid #ddd;
+// }
+
+// .listing-gallery {
+//   display: grid;
+//   grid-template-columns: repeat(2, 1fr);
+//   gap: 8px;
+// }
+
+// .listing-gallery img {
+//   display: block;
+//   width: 100%;
+//   aspect-ratio: 1 / 1;
+//   object-fit: cover;
+//   background: #eee;
+// }
+
+// .listing-detail-info {
+//   padding: 5px 0;
+// }
+
+// .listing-category {
+//   color: #777;
+//   font-size: 9px;
+//   font-weight: 700;
+//   letter-spacing: .1em;
+//   text-transform: uppercase;
+// }
+
+// .listing-detail-info h2 {
+//   margin: 8px 0 5px;
+//   font-size: 27px;
+//   font-weight: 600;
+//   letter-spacing: -.025em;
+// }
+
+// .detail-price {
+//   margin-bottom: 5px;
+//   font-size: 24px;
+//   font-weight: 700;
+// }
+
+// .detail-location {
+//   margin-bottom: 22px;
+//   color: #777;
+//   font-size: 12px;
+// }
+
+// .detail-condition {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 3px;
+//   padding: 12px 0;
+//   border-top: 1px solid #eee;
+//   border-bottom: 1px solid #eee;
+// }
+
+// .detail-condition span {
+//   color: #888;
+//   font-size: 9px;
+//   text-transform: uppercase;
+// }
+
+// .detail-condition strong {
+//   font-size: 12px;
+// }
+
+// .listing-description {
+//   margin-top: 22px;
+// }
+
+// .listing-description h3 {
+//   margin: 0 0 8px;
+//   font-size: 11px;
+//   font-weight: 700;
+// }
+
+// .listing-description p {
+//   margin: 0;
+//   white-space: pre-line;
+//   color: #444;
+//   font-size: 13px;
+//   line-height: 1.7;
+// }
+
+// .seller-card {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 4px;
+//   margin-top: 25px;
+//   padding: 18px;
+//   background: #f6f6f5;
+//   border: 1px solid #e1e1df;
+// }
+
+// .seller-card span {
+//   color: #888;
+//   font-size: 8px;
+//   font-weight: 700;
+//   letter-spacing: .1em;
+// }
+
+// .seller-card strong {
+//   font-size: 14px;
+// }
+
+// .seller-card small {
+//   color: #888;
+//   font-size: 10px;
+// }
+
+// .listing-actions {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 7px;
+//   margin-top: 20px;
+// }
+
+// .listing-actions button {
+//   padding: 11px 13px;
+//   text-align: left;
+//   background: #fff;
+//   border: 1px solid #ccc;
+//   color: #333;
+//   font-size: 11px;
+//   cursor: pointer;
+// }
+
+// .listing-actions button:hover {
+//   background: #f4f4f4;
+// }
+
+// .exchange-empty-state {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   min-height: 280px;
+//   gap: 8px;
+//   background: #fff;
+//   border: 1px solid #ddd;
+//   color: #555;
+//   text-align: center;
+// }
+
+// .exchange-empty-state strong {
+//   font-size: 16px;
+// }
+
+// .exchange-empty-state span {
+//   color: #888;
+//   font-size: 12px;
+// }
+
+// .exchange-footer {
+//   display: flex;
+//   justify-content: space-between;
+//   gap: 20px;
+//   padding: 20px 42px;
+//   background: #fff;
+//   border-top: 1px solid #ddd;
+//   color: #888;
+//   font-size: 10px;
+// }
+
+
+// /* ============================================================
+//    AMHERST POLICE PUBLIC DATA
+//    Completely independent visual system.
+// ============================================================ */
+
+// .police-public-site {
+//   min-height: 100%;
+//   background: #f4f5f6;
+//   color: #222;
+//   font-family: Arial, Helvetica, sans-serif;
+// }
+
+// .police-public-header {
+//   background: #fff;
+//   border-bottom: 1px solid #d6d9dc;
+// }
+
+// .police-header-inner {
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   width: min(1180px, calc(100% - 70px));
+//   margin: 0 auto;
+//   padding: 24px 0;
+// }
+
+// .police-agency-block {
+//   display: flex;
+//   align-items: center;
+//   gap: 14px;
+// }
+
+// .police-shield {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   width: 48px;
+//   height: 56px;
+//   background: #273b4a;
+//   color: #fff;
+//   clip-path: polygon(
+//     50% 0%,
+//     92% 14%,
+//     88% 62%,
+//     70% 87%,
+//     50% 100%,
+//     30% 87%,
+//     12% 62%,
+//     8% 14%
+//   );
+//   font-size: 10px;
+//   font-weight: 700;
+//   letter-spacing: .08em;
+// }
+
+// .police-agency {
+//   display: block;
+//   margin-bottom: 4px;
+//   color: #65727b;
+//   font-size: 9px;
+//   font-weight: 700;
+//   letter-spacing: .12em;
+// }
+
+// .police-agency-block h1 {
+//   margin: 0;
+//   color: #293b48;
+//   font-family: Georgia, 'Times New Roman', serif;
+//   font-size: 25px;
+//   font-weight: normal;
+// }
+
+// .police-header-links {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: flex-end;
+//   gap: 5px;
+//   color: #707b83;
+//   font-size: 10px;
+// }
+
+// .police-public-nav {
+//   background: #344c5c;
+//   border-bottom: 3px solid #c9a04a;
+// }
+
+// .police-nav-inner {
+//   display: flex;
+//   align-items: stretch;
+//   width: min(1180px, calc(100% - 70px));
+//   margin: 0 auto;
+// }
+
+// .police-public-nav button {
+//   padding: 13px 16px;
+//   background: transparent;
+//   border: none;
+//   border-right: 1px solid rgba(255, 255, 255, .12);
+//   color: #fff;
+//   font-size: 10px;
+//   font-weight: 600;
+//   letter-spacing: .25px;
+//   cursor: pointer;
+// }
+
+// .police-public-nav button:first-child {
+//   border-left: 1px solid rgba(255, 255, 255, .12);
+// }
+
+// .police-public-nav button:hover {
+//   background: #405b6c;
+// }
+
+// .police-public-nav button.active {
+//   background: #2c414f;
+//   box-shadow: inset 0 -3px 0 #c9a04a;
+// }
+
+// .police-public-content {
+//   width: min(1180px, calc(100% - 70px));
+//   margin: 0 auto;
+//   padding: 28px 0 60px;
+// }
+
+// .police-breadcrumb {
+//   margin-bottom: 16px;
+//   color: #7d878e;
+//   font-size: 8px;
+//   font-weight: 700;
+//   letter-spacing: .12em;
+// }
+
+// .police-page-heading {
+//   margin-bottom: 22px;
+// }
+
+// .police-page-heading h2 {
+//   margin: 0;
+//   color: #344b5a;
+//   font-family: Georgia, 'Times New Roman', serif;
+//   font-size: 28px;
+//   font-weight: normal;
+// }
+
+// .police-page-heading p {
+//   margin: 6px 0 0;
+//   color: #737e85;
+//   font-size: 12px;
+// }
+
+
+// /* ------------------------------------------------------------
+//    POLICE FILTERS
+// ------------------------------------------------------------ */
+
+// .police-filters {
+//   display: grid;
+//   grid-template-columns: 150px 150px minmax(190px, 1fr) minmax(230px, 1.25fr);
+//   gap: 16px;
+//   align-items: end;
+//   padding: 20px;
+//   margin-bottom: 24px;
+//   background: #fff;
+//   border: 1px solid #d4d9dd;
+// }
+
+// .filter-field {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 6px;
+// }
+
+// .filter-field label {
+//   color: #66747d;
+//   font-size: 8px;
+//   font-weight: 700;
+//   letter-spacing: .08em;
+//   text-transform: uppercase;
+// }
+
+// .filter-field input,
+// .filter-field select {
+//   width: 100%;
+//   height: 34px;
+//   padding: 0 9px;
+//   box-sizing: border-box;
+//   background: #fff;
+//   border: 1px solid #c6ccd0;
+//   border-radius: 2px;
+//   color: #333;
+//   font-family: Arial, Helvetica, sans-serif;
+//   font-size: 11px;
+// }
+
+// .filter-field input:focus,
+// .filter-field select:focus {
+//   outline: none;
+//   border-color: #718593;
+// }
+
+// .filter-options {
+//   grid-column: 1 / 4;
+//   display: flex;
+//   align-items: center;
+//   gap: 20px;
+// }
+
+// .filter-options label {
+//   display: flex;
+//   align-items: center;
+//   gap: 6px;
+//   color: #69757d;
+//   font-size: 10px;
+// }
+
+// .filter-options input {
+//   margin: 0;
+// }
+
+// .filter-actions {
+//   display: flex;
+//   justify-content: flex-end;
+//   gap: 8px;
+// }
+
+// .filter-actions button {
+//   height: 34px;
+//   padding: 0 16px;
+//   border: 1px solid #bdc5ca;
+//   background: #fff;
+//   color: #4e606c;
+//   font-size: 10px;
+//   font-weight: 600;
+//   cursor: pointer;
+// }
+
+// .filter-actions .search-records {
+//   background: #344c5c;
+//   border-color: #344c5c;
+//   color: #fff;
+// }
+
+// .filter-actions button:hover {
+//   background: #edf0f2;
+// }
+
+// .filter-actions .search-records:hover {
+//   background: #405b6c;
+// }
+
+
+// /* ------------------------------------------------------------
+//    POLICE RESULTS
+// ------------------------------------------------------------ */
+
+// .police-results {
+//   background: #fff;
+//   border: 1px solid #d4d9dd;
+// }
+
+// .police-results-header {
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   gap: 20px;
+//   padding: 15px 17px;
+//   border-bottom: 1px solid #d4d9dd;
+// }
+
+// .police-results-header > div:first-child {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 4px;
+// }
+
+// .police-results-header strong {
+//   color: #465963;
+//   font-size: 11px;
+// }
+
+// .police-results-header span {
+//   color: #89939a;
+//   font-size: 9px;
+// }
+
+// .results-actions {
+//   display: flex;
+//   align-items: center;
+//   gap: 14px;
+// }
+
+// .results-actions button {
+//   padding: 6px 9px;
+//   background: #fff;
+//   border: 1px solid #c8cfd3;
+//   color: #65737b;
+//   font-size: 8px;
+//   cursor: pointer;
+// }
+
+// .results-actions button:hover {
+//   background: #f1f3f4;
+// }
+
+// .police-table-wrapper {
+//   width: 100%;
+//   overflow-x: auto;
+// }
+
+// .police-table {
+//   width: 100%;
+//   border-collapse: collapse;
+//   font-size: 10px;
+// }
+
+// .police-table th {
+//   padding: 10px 12px;
+//   background: #eef1f3;
+//   border-bottom: 1px solid #cfd5d9;
+//   color: #65727a;
+//   font-size: 8px;
+//   font-weight: 700;
+//   letter-spacing: .05em;
+//   text-align: left;
+//   text-transform: uppercase;
+//   white-space: nowrap;
+// }
+
+// .police-table td {
+//   padding: 11px 12px;
+//   border-bottom: 1px solid #e2e5e7;
+//   color: #4f5b62;
+//   vertical-align: middle;
+// }
+
+// .police-table tbody tr:last-child td {
+//   border-bottom: none;
+// }
+
+// .police-row {
+//   cursor: pointer;
+//   transition: background .1s ease;
+// }
+
+// .police-row:hover {
+//   background: #f5f7f8;
+// }
+
+// .police-table td:nth-child(1) {
+//   width: 85px;
+// }
+
+// .police-table td:nth-child(2) {
+//   width: 135px;
+// }
+
+// .police-table td:nth-child(5) {
+//   width: 80px;
+// }
+
+// .police-table td:nth-child(6) {
+//   width: 150px;
+// }
+
+// .police-table td:nth-child(7) {
+//   width: 90px;
+// }
+
+// .police-table td span,
+// .police-table td small {
+//   display: block;
+// }
+
+// .police-table td small {
+//   margin-top: 3px;
+//   color: #8a949a;
+//   font-size: 9px;
+// }
+
+// .incident-link {
+//   padding: 0;
+//   background: transparent;
+//   border: none;
+//   color: #3f6278;
+//   font: inherit;
+//   font-weight: 700;
+//   cursor: pointer;
+// }
+
+// .incident-link:hover {
+//   text-decoration: underline;
+// }
+
+// .police-pagination {
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   padding: 12px 15px;
+//   border-top: 1px solid #dfe3e5;
+//   color: #858f95;
+//   font-size: 9px;
+// }
+
+// .police-pagination > div {
+//   display: flex;
+//   gap: 4px;
+// }
+
+// .police-pagination button {
+//   min-width: 28px;
+//   height: 26px;
+//   padding: 0 8px;
+//   background: #fff;
+//   border: 1px solid #ccd2d5;
+//   color: #65727a;
+//   font-size: 9px;
+// }
+
+// .police-pagination button:disabled {
+//   opacity: .45;
+// }
+
+// .police-pagination .current-page {
+//   background: #344c5c;
+//   border-color: #344c5c;
+//   color: #fff;
+// }
+
+
+// /* ------------------------------------------------------------
+//    POLICE INCIDENT DETAIL
+// ------------------------------------------------------------ */
+
+// .police-incident-detail {
+//   background: #fff;
+//   border: 1px solid #d4d9dd;
+// }
+
+// .incident-detail-heading {
+//   display: flex;
+//   align-items: flex-start;
+//   justify-content: space-between;
+//   gap: 25px;
+//   padding: 22px;
+//   border-bottom: 1px solid #d4d9dd;
+// }
+
+// .incident-detail-heading > div:first-child {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 6px;
+// }
+
+// .incident-detail-heading span:first-child {
+//   color: #7a858c;
+//   font-size: 8px;
+//   font-weight: 700;
+//   letter-spacing: .12em;
+// }
+
+// .incident-detail-heading h2 {
+//   margin: 0;
+//   color: #344b5a;
+//   font-family: Georgia, 'Times New Roman', serif;
+//   font-size: 26px;
+//   font-weight: normal;
+// }
+
+// .incident-detail-heading p {
+//   margin: 0;
+//   color: #7c878e;
+//   font-size: 11px;
+// }
+
+// .incident-record-number {
+//   padding: 6px 8px;
+//   background: #eef1f3;
+//   border: 1px solid #d2d8dc;
+//   color: #66747d;
+//   font-size: 8px;
+//   font-weight: 700;
+//   letter-spacing: .08em;
+//   white-space: nowrap;
+// }
+
+// .incident-detail-body {
+//   padding: 22px;
+// }
+
+// .incident-detail-fields {
+//   display: grid;
+//   grid-template-columns: repeat(4, 1fr);
+//   gap: 1px;
+//   background: #d9dde0;
+//   border: 1px solid #d9dde0;
+// }
+
+// .incident-detail-fields > div {
+//   min-height: 72px;
+//   padding: 13px;
+//   box-sizing: border-box;
+//   background: #f8f9fa;
+// }
+
+// .incident-detail-fields span {
+//   display: block;
+//   margin-bottom: 6px;
+//   color: #7b878e;
+//   font-size: 7px;
+//   font-weight: 700;
+//   letter-spacing: .1em;
+// }
+
+// .incident-detail-fields strong {
+//   display: block;
+//   color: #3f4e57;
+//   font-size: 11px;
+//   font-weight: 600;
+//   line-height: 1.4;
+// }
+
+// .incident-public-summary {
+//   margin-top: 24px;
+//   padding-top: 20px;
+//   border-top: 1px solid #dfe3e5;
+// }
+
+// .incident-public-summary h3,
+// .incident-related h3 {
+//   margin: 0 0 10px;
+//   color: #687780;
+//   font-size: 9px;
+//   font-weight: 700;
+//   letter-spacing: .12em;
+//   text-transform: uppercase;
+// }
+
+// .incident-public-summary p {
+//   max-width: 800px;
+//   margin: 0;
+//   color: #505d64;
+//   font-size: 12px;
+//   line-height: 1.75;
+//   white-space: pre-line;
+// }
+
+// .incident-related {
+//   margin-top: 24px;
+//   padding-top: 20px;
+//   border-top: 1px solid #dfe3e5;
+// }
+
+// .public-record-link,
+// .case-file-link {
+//   display: block;
+//   width: 100%;
+//   padding: 11px 13px;
+//   text-align: left;
+//   background: #f8f9fa;
+//   border: 1px solid #d1d7da;
+//   color: #45667a;
+//   font-size: 10px;
+//   cursor: pointer;
+// }
+
+// .public-record-link:hover {
+//   background: #eef1f3;
+// }
+
+// .case-file-link {
+//   background: #344c5c;
+//   border-color: #344c5c;
+//   color: #fff;
+// }
+
+// .case-file-link:hover {
+//   background: #405b6c;
+// }
+
+// .back-to-records {
+//   margin: 0 22px 22px;
+//   padding: 9px 12px;
+//   background: #fff;
+//   border: 1px solid #cbd2d5;
+//   color: #5e6c74;
+//   font-size: 9px;
+//   cursor: pointer;
+// }
+
+// .back-to-records:hover {
+//   background: #f2f4f5;
+// }
+
+// .police-no-record {
+//   padding: 30px;
+//   text-align: center;
+// }
+
+// .police-no-record strong {
+//   display: block;
+//   margin-bottom: 8px;
+//   color: #52616a;
+//   font-size: 13px;
+// }
+
+// .police-no-record p {
+//   margin: 0;
+//   color: #7d878d;
+//   font-size: 11px;
+// }
+
+
+// /* ------------------------------------------------------------
+//    POLICE HOME
+// ------------------------------------------------------------ */
+
+// .police-home {
+//   padding: 25px;
+//   background: #fff;
+//   border: 1px solid #d4d9dd;
+// }
+
+// .police-home h2 {
+//   margin: 0;
+//   color: #344b5a;
+//   font-family: Georgia, 'Times New Roman', serif;
+//   font-size: 26px;
+//   font-weight: normal;
+// }
+
+// .police-home-subtitle {
+//   margin: 7px 0 0;
+//   color: #737e85;
+//   font-size: 12px;
+// }
+
+// .police-home-description {
+//   margin: 20px 0 0;
+//   color: #505d64;
+//   font-size: 12px;
+//   line-height: 1.75;
+// }
+
+// .police-home-links {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 7px;
+//   margin-top: 24px;
+// }
+
+// .police-home-links button {
+//   padding: 11px 13px;
+//   text-align: left;
+//   background: #f8f9fa;
+//   border: 1px solid #d1d7da;
+//   color: #45667a;
+//   font-size: 10px;
+//   cursor: pointer;
+// }
+
+// .police-home-links button:hover {
+//   background: #eef1f3;
+// }
+
+// .police-public-footer {
+//   display: flex;
+//   justify-content: space-between;
+//   gap: 25px;
+//   padding: 20px max(35px, calc((100% - 1180px) / 2));
+//   background: #344c5c;
+//   color: #dfe5e8;
+//   font-size: 9px;
+//   line-height: 1.6;
+// }
+
+// .police-public-footer > div {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 2px;
+// }
+
+// .police-public-footer strong {
+//   color: #fff;
+//   font-size: 10px;
+// }
+
+// .police-public-footer span {
+//   color: #b8c3c8;
+// }
+
+
+// /* ============================================================
+//    UNDERNET / DARK WEB
+//    Leave existing dark-web language intact.
+// ============================================================ */
+
+// .dark-web-mode {
+//   background: #080808;
+// }
+
+// .dark-web-mode .website {
+//   background: #d8d8d8;
+//   color: #222;
+//   font-family: Arial, Helvetica, sans-serif;
+// }
+
+// .dark-web-mode .site-header {
+//   min-height: auto;
+//   padding: 9px 14px;
+//   background: #ededed;
+//   border-bottom: 1px solid #999;
+// }
+
+// .dark-web-mode .town-seal {
+//   display: none;
+// }
+
+// .dark-web-mode .town-identity {
+//   gap: 0;
+// }
+
+// .dark-web-mode .site-title {
+//   gap: 3px;
+// }
+
+// .dark-web-mode .site-title h1 {
+//   font-family: monospace;
+//   font-size: 16px;
+//   letter-spacing: 2px;
+// }
+
+// .dark-web-mode .site-tagline {
+//   font-family: monospace;
+//   font-size: 8px;
+//   font-style: normal;
+//   color: #666;
+// }
+
+// .dark-web-mode .site-header-right {
+//   gap: 2px;
+// }
+
+// .dark-web-mode .contact-line {
+//   display: none;
+// }
+
+// .dark-web-mode .account-line {
+//   padding: 0;
+//   background: transparent;
+//   border: none;
+//   font-family: monospace;
+//   font-size: 8px;
+//   color: #666;
+// }
+
+// .dark-web-mode .site-nav {
+//   padding: 0 14px;
+//   background: #3b3b3b;
+//   border-bottom: 1px solid #111;
+// }
+
+// .dark-web-mode .site-nav-inner {
+//   padding: 0;
+// }
+
+// .dark-web-mode .site-nav button {
+//   padding: 9px 11px;
+//   color: #cfcfcf;
+//   font-family: monospace;
+//   font-size: 9px;
+//   letter-spacing: 0;
+// }
+
+// .dark-web-mode .site-nav button:hover {
+//   background: #505050;
+// }
+
+// .dark-web-mode .site-nav button.active {
+//   background: #505050;
+//   box-shadow: none;
+//   text-decoration: underline;
+// }
+
+// .dark-web-mode .website-content {
+//   width: min(1100px, 96%);
+//   padding: 20px 0;
+// }
+
+// .dark-web-mode .breadcrumb {
+//   display: none;
+// }
+
+// .dark-web-mode .content-header {
+//   padding: 10px 12px;
+//   background: #ededed;
+//   border: 1px solid #aaa;
+// }
+
+// .dark-web-mode .category {
+//   margin-bottom: 7px;
+//   font-family: monospace;
+//   font-size: 8px;
+//   letter-spacing: 1px;
+//   color: #666;
+// }
+
+// .dark-web-mode .content-header h2 {
+//   font-family: monospace;
+//   font-size: 20px;
+//   font-weight: normal;
+//   color: #222;
+// }
+
+// .dark-web-mode .content-header p {
+//   margin-bottom: 0;
+//   font-family: monospace;
+//   font-size: 10px;
+//   color: #666;
+// }
+
+// .dark-web-mode .page-content {
+//   max-width: none;
+//   padding: 14px 12px;
+// }
+
+// .dark-web-mode .page-content p {
+//   color: #333;
+//   font-family: monospace;
+//   font-size: 12px;
+//   line-height: 1.55;
+// }
+
+// .dark-web-mode .related {
+//   margin-top: 12px;
+//   padding: 12px;
+//   border: 1px solid #aaa;
+//   background: #ededed;
+// }
+
+// .dark-web-mode .section-title {
+//   margin-bottom: 10px;
+//   font-family: monospace;
+//   font-size: 8px;
+//   letter-spacing: 1px;
+//   color: #666;
+// }
+
+// .dark-web-mode .site-links {
+//   gap: 4px;
+// }
+
+// .dark-web-mode .site-link {
+//   padding: 8px 10px;
+//   background: #dedede;
+//   border: 1px solid #aaa;
+//   color: #333;
+//   font-family: monospace;
+//   font-size: 10px;
+// }
+
+// .dark-web-mode .site-link:hover {
+//   background: #f1f1f1;
+//   border-color: #777;
+// }
+
+// .dark-web-mode .arrow {
+//   color: #666;
+// }
+
+// .dark-web-mode .site-footer {
+//   padding: 8px 14px;
+//   background: #c9c9c9;
+//   border-top: 1px solid #999;
+//   color: #666;
+//   font-family: monospace;
+//   font-size: 8px;
+// }
+
+// .dark-web-mode .error-page {
+//   min-height: 400px;
+// }
+
+// .dark-web-mode .system-message {
+//   background: #ededed;
+//   border: 1px solid #999;
+// }
+
+// .dark-web-mode .system-message h2 {
+//   font-family: monospace;
+//   font-size: 20px;
+//   color: #222;
+// }
+
+// .dark-web-mode .system-message p {
+//   color: #555;
+// }
+
+// .dark-web-mode .return-button {
+//   background: #333;
+//   font-family: monospace;
+// }
+
+// .dark-web-mode .return-button:hover {
+//   background: #444;
+// }
+
+
+// /* ============================================================
+//    RESPONSIVE
+// ============================================================ */
+
+// @media (max-width: 950px) {
+
+//   .listing-grid {
+//     grid-template-columns: repeat(3, minmax(0, 1fr));
+//   }
+
+//   .listing-detail {
+//     grid-template-columns: 1fr;
+//   }
+
+//   .police-filters {
+//     grid-template-columns: repeat(2, 1fr);
+//   }
+
+//   .filter-options {
+//     grid-column: 1 / -1;
+//   }
+
+//   .filter-actions {
+//     grid-column: 1 / -1;
+//     justify-content: flex-start;
+//   }
+
+//   .incident-detail-fields {
+//     grid-template-columns: repeat(2, 1fr);
+//   }
+
+// }
+
+
+// @media (max-width: 700px) {
+
+//   .site-header {
+//     padding: 16px 20px;
+//   }
+
+//   .site-header-right {
+//     display: none;
+//   }
+
+//   .site-title h1 {
+//     font-size: 19px;
+//   }
+
+//   .town-seal {
+//     width: 50px;
+//     height: 50px;
+//   }
+
+//   .seal-inner {
+//     width: 38px;
+//     height: 38px;
+//   }
+
+//   .site-nav {
+//     overflow-x: auto;
+//   }
+
+//   .site-nav-inner {
+//     padding: 0 10px;
+//   }
+
+//   .website-content {
+//     width: 92%;
+//   }
+
+//   .forum-post {
+//     grid-template-columns: 1fr;
+//   }
+
+//   .forum-post-sidebar {
+//     flex-direction: row;
+//     align-items: center;
+//     border-right: none;
+//     border-bottom: 1px solid #dbe3e7;
+//   }
+
+//   .site-footer {
+//     padding: 15px 20px;
+//   }
+
+//   .exchange-top {
+//     padding: 15px 20px;
+//   }
+
+//   .exchange-account .sell-button {
+//     display: none;
+//   }
+
+//   .exchange-search-row {
+//     padding: 0 20px 15px;
+//   }
+
+//   .exchange-location {
+//     display: none;
+//   }
+
+//   .exchange-nav {
+//     padding: 0 10px;
+//     overflow-x: auto;
+//   }
+
+//   .exchange-content {
+//     width: 92%;
+//   }
+
+//   .listing-grid {
+//     grid-template-columns: repeat(2, minmax(0, 1fr));
+//   }
+
+//   .exchange-footer {
+//     padding: 18px 20px;
+//   }
+
+//   .police-header-inner {
+//     width: 92%;
+//   }
+
+//   .police-header-links {
+//     display: none;
+//   }
+
+//   .police-nav-inner {
+//     width: 100%;
+//     overflow-x: auto;
+//   }
+
+//   .police-public-nav button {
+//     white-space: nowrap;
+//   }
+
+//   .police-public-content {
+//     width: 92%;
+//   }
+
+//   .police-filters {
+//     grid-template-columns: 1fr;
+//   }
+
+//   .filter-options {
+//     flex-direction: column;
+//     align-items: flex-start;
+//     gap: 10px;
+//   }
+
+//   .filter-actions {
+//     justify-content: stretch;
+//   }
+
+//   .filter-actions button {
+//     flex: 1;
+//   }
+
+//   .police-results-header {
+//     align-items: flex-start;
+//     flex-direction: column;
+//   }
+
+//   .results-actions {
+//     width: 100%;
+//     justify-content: space-between;
+//   }
+
+//   .incident-detail-heading {
+//     flex-direction: column;
+//   }
+
+//   .incident-detail-fields {
+//     grid-template-columns: 1fr;
+//   }
+
+//   .police-public-footer {
+//     padding: 18px 20px;
+//   }
+
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// /* ============================================================
+//    BROWSER
+//    ============================================================ */
+
+// .browser {
+//   min-height: 100%;
+//   background: #020617;
+//   color: #e2e8f0;
+// }
+
+
+// /* ============================================================
+//    BROWSER CHROME
+//    ============================================================ */
+
+// .browser-chrome {
+//   display: flex;
+//   align-items: center;
+//   gap: 8px;
+//   height: 54px;
+//   padding: 8px 12px;
+//   box-sizing: border-box;
+//   background: #0f172a;
+//   border-bottom: 1px solid #1e293b;
+// }
+
+// .browser-control {
+//   width: 34px;
+//   height: 34px;
+//   padding: 0;
+//   border: 1px solid #334155;
+//   border-radius: 5px;
+//   background: #111827;
+//   color: #cbd5e1;
+//   font-family: inherit;
+//   font-size: 1rem;
+//   cursor: pointer;
+// }
+
+// .browser-control:hover:not(:disabled) {
+//   background: #1e293b;
+// }
+
+// .browser-control:disabled {
+//   opacity: 0.35;
+//   cursor: default;
+// }
+
+// .address-bar {
+//   flex: 1;
+//   min-width: 0;
+//   height: 34px;
+//   display: flex;
+//   align-items: center;
+//   gap: 8px;
+//   padding: 0 12px;
+//   box-sizing: border-box;
+//   border: 1px solid #334155;
+//   border-radius: 5px;
+//   background: #020617;
+//   color: #94a3b8;
+//   font-family: monospace;
+//   font-size: 0.75rem;
+//   overflow: hidden;
+// }
+
+// .address-lock {
+//   flex: 0 0 auto;
+//   font-size: 0.7rem;
+// }
+
+// .address-bar span:last-child {
+//   overflow: hidden;
+//   text-overflow: ellipsis;
+//   white-space: nowrap;
+// }
+
+
+// /* ============================================================
+//    BOOKMARKS
+//    ============================================================ */
+
+// .bookmarks-panel {
+//   position: absolute;
+//   top: 62px;
+//   right: 12px;
+//   z-index: 500;
+//   width: 320px;
+//   max-width: calc(100vw - 24px);
+//   background: #0f172a;
+//   border: 1px solid #334155;
+//   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+// }
+
+// .bookmarks-header {
+//   padding: 10px 12px;
+//   border-bottom: 1px solid #334155;
+//   color: #94a3b8;
+//   font-size: 0.65rem;
+//   letter-spacing: 0.12em;
+//   font-weight: 700;
+// }
+
+// .bookmarks-empty {
+//   padding: 18px 12px;
+//   color: #64748b;
+//   font-size: 0.8rem;
+// }
+
+// .bookmark-item {
+//   width: 100%;
+//   display: flex;
+//   flex-direction: column;
+//   gap: 4px;
+//   padding: 10px 12px;
+//   box-sizing: border-box;
+//   border: 0;
+//   border-bottom: 1px solid #1e293b;
+//   background: transparent;
+//   color: #cbd5e1;
+//   text-align: left;
+//   cursor: pointer;
+// }
+
+// .bookmark-item:hover {
+//   background: #1e293b;
+// }
+
+// .bookmark-title {
+//   font-size: 0.8rem;
+// }
+
+// .bookmark-url {
+//   color: #64748b;
+//   font-family: monospace;
+//   font-size: 0.65rem;
+// }
+
+
+// /* ============================================================
+//    SHARED WEBSITE
+//    ============================================================ */
+
+// .website {
+//   min-height: calc(100vh - 54px);
+//   background: #f8fafc;
+//   color: #111827;
+// }
+
+
+// /* ============================================================
+//    COMMUNITY BOARD / GENERIC MUNICIPAL SITE
+//    ============================================================ */
+
+// .site-header {
+//   padding: 22px 28px;
+//   background: #ffffff;
+//   border-bottom: 1px solid #d1d5db;
+// }
+
+// .site-brand {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 4px;
+// }
+
+// .site-title {
+//   color: #111827;
+//   font-size: 1.15rem;
+//   font-weight: 700;
+// }
+
+// .site-tagline {
+//   color: #6b7280;
+//   font-size: 0.75rem;
+// }
+
+// .site-nav {
+//   display: flex;
+//   gap: 4px;
+//   padding: 8px 28px;
+//   background: #f1f5f9;
+//   border-bottom: 1px solid #d1d5db;
+// }
+
+// .site-nav button {
+//   padding: 8px 12px;
+//   border: 0;
+//   background: transparent;
+//   color: #475569;
+//   font: inherit;
+//   font-size: 0.75rem;
+//   cursor: pointer;
+// }
+
+// .site-nav button:hover {
+//   background: #e2e8f0;
+//   color: #111827;
+// }
+
+// .site-content {
+//   max-width: 1100px;
+//   margin: 0 auto;
+//   padding: 32px;
+// }
+
+// .standard-page {
+//   background: #ffffff;
+//   border: 1px solid #d1d5db;
+// }
+
+// .page-header {
+//   padding: 24px;
+//   border-bottom: 1px solid #d1d5db;
+// }
+
+// .page-category {
+//   display: block;
+//   margin-bottom: 8px;
+//   color: #64748b;
+//   font-size: 0.65rem;
+//   letter-spacing: 0.12em;
+//   font-weight: 700;
+// }
+
+// .page-header h1 {
+//   margin: 0;
+//   color: #111827;
+//   font-size: 1.7rem;
+// }
+
+// .page-header p {
+//   margin: 8px 0 0;
+//   color: #64748b;
+//   line-height: 1.5;
+// }
+
+// .page-content {
+//   padding: 24px;
+//   white-space: pre-line;
+//   color: #374151;
+//   line-height: 1.7;
+// }
+
+// .page-links {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 6px;
+//   padding: 0 24px 24px;
+// }
+
+// .page-links button {
+//   padding: 12px 14px;
+//   border: 1px solid #cbd5e1;
+//   background: #f8fafc;
+//   color: #374151;
+//   text-align: left;
+//   font: inherit;
+//   cursor: pointer;
+// }
+
+// .page-links button:hover {
+//   background: #f1f5f9;
+//   border-color: #94a3b8;
+// }
+
+// .site-footer {
+//   padding: 20px 28px;
+//   border-top: 1px solid #d1d5db;
+//   background: #f1f5f9;
+//   color: #64748b;
+//   font-size: 0.7rem;
+// }
+
+
+// /* ============================================================
+//    FORUM
+//    ============================================================ */
+
+// .forum-thread {
+//   background: #ffffff;
+//   border: 1px solid #d1d5db;
+// }
+
+// .forum-thread-header {
+//   display: flex;
+//   justify-content: space-between;
+//   gap: 20px;
+//   padding: 24px;
+//   border-bottom: 1px solid #d1d5db;
+// }
+
+// .forum-category {
+//   color: #64748b;
+//   font-size: 0.65rem;
+//   letter-spacing: 0.1em;
+//   font-weight: 700;
+// }
+
+// .forum-thread-header h1 {
+//   margin: 8px 0 0;
+//   font-size: 1.5rem;
+// }
+
+// .forum-thread-date {
+//   color: #64748b;
+//   font-size: 0.75rem;
+// }
+
+// .forum-post {
+//   display: grid;
+//   grid-template-columns: 170px 1fr;
+//   border-bottom: 1px solid #e5e7eb;
+// }
+
+// .forum-user {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 5px;
+//   padding: 20px;
+//   background: #f8fafc;
+//   border-right: 1px solid #e5e7eb;
+// }
+
+// .forum-user strong {
+//   font-size: 0.8rem;
+// }
+
+// .forum-user span {
+//   color: #64748b;
+//   font-size: 0.65rem;
+// }
+
+// .forum-post-body {
+//   padding: 20px;
+// }
+
+// .forum-post-body p {
+//   margin: 0;
+//   color: #374151;
+//   line-height: 1.7;
+//   white-space: pre-line;
+// }
+
+
+// /* ============================================================
+//    EXCHANGE
+//    ============================================================ */
+
+// .exchange-site {
+//   min-height: calc(100vh - 54px);
+//   background: #f7f7f7;
+//   color: #111827;
+// }
+
+// .exchange-header {
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   gap: 24px;
+//   padding: 18px 32px;
+//   background: #ffffff;
+//   border-bottom: 1px solid #e5e7eb;
+// }
+
+// .exchange-brand {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 2px;
+// }
+
+// .exchange-brand strong {
+//   color: #111827;
+//   font-size: 1.25rem;
+//   letter-spacing: -0.03em;
+// }
+
+// .exchange-brand strong span {
+//   font-weight: 400;
+// }
+
+// .exchange-brand small {
+//   color: #6b7280;
+//   font-size: 0.65rem;
+// }
+
+// .exchange-post-button {
+//   padding: 9px 16px;
+//   border: 1px solid #111827;
+//   border-radius: 5px;
+//   background: #111827;
+//   color: #ffffff;
+//   font: inherit;
+//   font-size: 0.75rem;
+//   font-weight: 600;
+//   cursor: pointer;
+// }
+
+// .exchange-post-button:hover {
+//   background: #374151;
+// }
+
+// .exchange-nav {
+//   display: flex;
+//   gap: 4px;
+//   padding: 0 32px;
+//   background: #ffffff;
+//   border-bottom: 1px solid #e5e7eb;
+// }
+
+// .exchange-nav button {
+//   padding: 12px 14px;
+//   border: 0;
+//   background: transparent;
+//   color: #4b5563;
+//   font: inherit;
+//   font-size: 0.75rem;
+//   cursor: pointer;
+// }
+
+// .exchange-nav button:hover {
+//   color: #111827;
+//   background: #f3f4f6;
+// }
+
+// .exchange-content {
+//   max-width: 1200px;
+//   margin: 0 auto;
+//   padding: 30px 32px 50px;
+// }
+
+// .exchange-page-header {
+//   display: flex;
+//   align-items: flex-end;
+//   justify-content: space-between;
+//   gap: 30px;
+//   margin-bottom: 24px;
+// }
+
+// .exchange-page-header > div:first-child > span {
+//   color: #6b7280;
+//   font-size: 0.65rem;
+//   letter-spacing: 0.1em;
+//   font-weight: 700;
+// }
+
+// .exchange-page-header h1 {
+//   margin: 7px 0 0;
+//   color: #111827;
+//   font-size: 1.7rem;
+// }
+
+// .exchange-page-header p {
+//   margin: 6px 0 0;
+//   color: #6b7280;
+//   font-size: 0.8rem;
+// }
+
+// .exchange-search {
+//   display: flex;
+//   width: 330px;
+//   max-width: 100%;
+// }
+
+// .exchange-search input {
+//   flex: 1;
+//   min-width: 0;
+//   padding: 10px 12px;
+//   border: 1px solid #d1d5db;
+//   border-right: 0;
+//   background: #ffffff;
+//   color: #111827;
+//   font: inherit;
+//   font-size: 0.75rem;
+// }
+
+// .exchange-search button {
+//   padding: 0 14px;
+//   border: 1px solid #d1d5db;
+//   background: #ffffff;
+//   color: #374151;
+//   font: inherit;
+//   font-size: 0.7rem;
+//   cursor: pointer;
+// }
+
+// .exchange-listing-grid {
+//   display: grid;
+//   grid-template-columns: repeat(4, minmax(0, 1fr));
+//   gap: 18px;
+// }
+
+// .exchange-card {
+//   overflow: hidden;
+//   background: #ffffff;
+//   border: 1px solid #e5e7eb;
+//   border-radius: 6px;
+//   cursor: pointer;
+//   transition:
+//     transform 0.12s ease,
+//     box-shadow 0.12s ease,
+//     border-color 0.12s ease;
+// }
+
+// .exchange-card:hover {
+//   transform: translateY(-2px);
+//   border-color: #cbd5e1;
+//   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+// }
+
+// .exchange-card-image {
+//   aspect-ratio: 1 / 0.82;
+//   overflow: hidden;
+//   background: #e5e7eb;
+// }
+
+// .exchange-card-image img {
+//   width: 100%;
+//   height: 100%;
+//   display: block;
+//   object-fit: cover;
+// }
+
+// .exchange-card-body {
+//   padding: 13px 14px 14px;
+// }
+
+// .exchange-card-price {
+//   margin-bottom: 5px;
+//   color: #111827;
+//   font-size: 1rem;
+//   font-weight: 700;
+// }
+
+// .exchange-card h2 {
+//   margin: 0;
+//   color: #1f2937;
+//   font-size: 0.85rem;
+//   font-weight: 500;
+// }
+
+// .exchange-card-location {
+//   margin-top: 7px;
+//   color: #6b7280;
+//   font-size: 0.68rem;
+// }
+
+// .exchange-card-footer {
+//   display: flex;
+//   justify-content: space-between;
+//   gap: 8px;
+//   margin-top: 12px;
+//   color: #9ca3af;
+//   font-size: 0.62rem;
+// }
+
+// .exchange-detail {
+//   max-width: 1100px;
+//   margin: 0 auto;
+// }
+
+// .exchange-back {
+//   margin-bottom: 20px;
+//   padding: 0;
+//   border: 0;
+//   background: transparent;
+//   color: #6b7280;
+//   font: inherit;
+//   font-size: 0.75rem;
+//   cursor: pointer;
+// }
+
+// .exchange-back:hover {
+//   color: #111827;
+// }
+
+// .listing-detail-grid {
+//   display: grid;
+//   grid-template-columns: minmax(0, 1.2fr) minmax(340px, 0.8fr);
+//   gap: 36px;
+// }
+
+// .listing-gallery-main,
+// .listing-image-large {
+//   aspect-ratio: 1.25 / 1;
+//   overflow: hidden;
+//   background: #e5e7eb;
+//   border: 1px solid #e5e7eb;
+// }
+
+// .listing-gallery-main img,
+// .listing-image-large img {
+//   width: 100%;
+//   height: 100%;
+//   display: block;
+//   object-fit: cover;
+// }
+
+// .listing-thumbnails {
+//   display: flex;
+//   gap: 8px;
+//   margin-top: 8px;
+// }
+
+// .listing-thumbnails img {
+//   width: 70px;
+//   height: 58px;
+//   object-fit: cover;
+//   border: 1px solid #d1d5db;
+// }
+
+// .listing-category {
+//   color: #6b7280;
+//   font-size: 0.65rem;
+//   letter-spacing: 0.1em;
+//   font-weight: 700;
+// }
+
+// .listing-detail-info h1 {
+//   margin: 8px 0 6px;
+//   color: #111827;
+//   font-size: 1.8rem;
+// }
+
+// .listing-price {
+//   margin-bottom: 18px;
+//   color: #111827;
+//   font-size: 1.3rem;
+//   font-weight: 700;
+// }
+
+// .listing-meta {
+//   display: flex;
+//   flex-wrap: wrap;
+//   gap: 7px;
+// }
+
+// .listing-meta span {
+//   padding: 5px 8px;
+//   border: 1px solid #e5e7eb;
+//   background: #ffffff;
+//   color: #6b7280;
+//   font-size: 0.65rem;
+// }
+
+// .listing-description {
+//   margin-top: 30px;
+//   padding-top: 24px;
+//   border-top: 1px solid #e5e7eb;
+// }
+
+// .listing-description h2 {
+//   margin: 0 0 10px;
+//   font-size: 0.75rem;
+//   letter-spacing: 0.08em;
+//   text-transform: uppercase;
+// }
+
+// .listing-description p {
+//   margin: 0;
+//   color: #4b5563;
+//   font-size: 0.85rem;
+//   line-height: 1.7;
+//   white-space: pre-line;
+// }
+
+// .listing-seller {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 5px;
+//   margin-top: 30px;
+//   padding: 18px;
+//   background: #ffffff;
+//   border: 1px solid #e5e7eb;
+// }
+
+// .listing-seller span {
+//   color: #9ca3af;
+//   font-size: 0.6rem;
+//   letter-spacing: 0.08em;
+//   text-transform: uppercase;
+// }
+
+// .listing-seller strong {
+//   color: #111827;
+//   font-size: 0.85rem;
+// }
+
+// .listing-seller button {
+//   align-self: flex-start;
+//   margin-top: 5px;
+//   padding: 7px 10px;
+//   border: 1px solid #d1d5db;
+//   background: #ffffff;
+//   color: #374151;
+//   font: inherit;
+//   font-size: 0.68rem;
+//   cursor: pointer;
+// }
+
+// .listing-actions {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 8px;
+//   margin-top: 14px;
+// }
+
+// .listing-actions button {
+//   padding: 11px 13px;
+//   border: 1px solid #d1d5db;
+//   background: #ffffff;
+//   color: #374151;
+//   text-align: left;
+//   font: inherit;
+//   font-size: 0.72rem;
+//   cursor: pointer;
+// }
+
+// .listing-actions button:hover {
+//   background: #f3f4f6;
+// }
+
+// .exchange-footer {
+//   display: flex;
+//   justify-content: space-between;
+//   gap: 20px;
+//   padding: 18px 32px;
+//   border-top: 1px solid #e5e7eb;
+//   background: #ffffff;
+//   color: #9ca3af;
+//   font-size: 0.65rem;
+// }
+
+
+// /* ============================================================
+//    PUBLIC POLICE RECORDS
+//    ============================================================ */
+
+// .police-public-site {
+//   min-height: calc(100vh - 54px);
+//   background: #ffffff;
+//   color: #111827;
+// }
+
+// .police-header {
+//   background: #ffffff;
+//   border-bottom: 1px solid #d1d5db;
+// }
+
+// .police-header-inner {
+//   display: flex;
+//   align-items: flex-end;
+//   justify-content: space-between;
+//   gap: 24px;
+//   max-width: 1280px;
+//   margin: 0 auto;
+//   padding: 24px 32px;
+// }
+
+// .police-agency {
+//   display: block;
+//   margin-bottom: 6px;
+//   color: #4b5563;
+//   font-size: 0.65rem;
+//   letter-spacing: 0.12em;
+//   font-weight: 700;
+// }
+
+// .police-header h1 {
+//   margin: 0;
+//   color: #111827;
+//   font-size: 1.35rem;
+//   font-weight: 600;
+// }
+
+// .police-public-label {
+//   padding: 6px 9px;
+//   border: 1px solid #d1d5db;
+//   color: #6b7280;
+//   font-size: 0.6rem;
+//   letter-spacing: 0.1em;
+//   font-weight: 700;
+// }
+
+// .police-nav {
+//   display: flex;
+//   gap: 2px;
+//   padding: 0 32px;
+//   border-bottom: 1px solid #d1d5db;
+//   background: #f8fafc;
+// }
+
+// .police-nav button {
+//   padding: 11px 13px;
+//   border: 0;
+//   background: transparent;
+//   color: #4b5563;
+//   font: inherit;
+//   font-size: 0.7rem;
+//   cursor: pointer;
+// }
+
+// .police-nav button:hover {
+//   background: #e5e7eb;
+//   color: #111827;
+// }
+
+// .police-content {
+//   max-width: 1280px;
+//   margin: 0 auto;
+//   padding: 28px 32px 50px;
+// }
+
+// .police-page-heading {
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: flex-end;
+//   gap: 20px;
+//   margin-bottom: 18px;
+// }
+
+// .police-page-heading > div:first-child > span {
+//   color: #6b7280;
+//   font-size: 0.62rem;
+//   letter-spacing: 0.1em;
+//   font-weight: 700;
+// }
+
+// .police-page-heading h2 {
+//   margin: 5px 0 0;
+//   color: #111827;
+//   font-size: 1.4rem;
+//   font-weight: 600;
+// }
+
+// .police-record-count {
+//   color: #6b7280;
+//   font-size: 0.7rem;
+// }
+
+// .police-filters {
+//   display: grid;
+//   grid-template-columns: 150px 150px 190px minmax(180px, 1fr) auto;
+//   gap: 10px;
+//   align-items: end;
+//   padding: 16px;
+//   margin-bottom: 18px;
+//   background: #f8fafc;
+//   border: 1px solid #d1d5db;
+// }
+
+// .police-filter {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 5px;
+// }
+
+// .police-filter label {
+//   color: #4b5563;
+//   font-size: 0.6rem;
+//   letter-spacing: 0.06em;
+//   font-weight: 700;
+// }
+
+// .police-filter input,
+// .police-filter select {
+//   width: 100%;
+//   height: 34px;
+//   padding: 0 8px;
+//   box-sizing: border-box;
+//   border: 1px solid #cbd5e1;
+//   background: #ffffff;
+//   color: #111827;
+//   font: inherit;
+//   font-size: 0.7rem;
+// }
+
+// .police-search-button {
+//   height: 34px;
+//   padding: 0 15px;
+//   border: 1px solid #374151;
+//   background: #374151;
+//   color: #ffffff;
+//   font: inherit;
+//   font-size: 0.7rem;
+//   font-weight: 600;
+//   cursor: pointer;
+// }
+
+// .police-search-button:hover {
+//   background: #111827;
+// }
+
+// .police-table-wrapper {
+//   overflow-x: auto;
+//   border: 1px solid #cbd5e1;
+// }
+
+// .police-table {
+//   width: 100%;
+//   min-width: 950px;
+//   border-collapse: collapse;
+//   background: #ffffff;
+//   font-size: 0.72rem;
+// }
+
+// .police-table th {
+//   padding: 11px 10px;
+//   background: #f1f5f9;
+//   border-bottom: 1px solid #cbd5e1;
+//   color: #4b5563;
+//   text-align: left;
+//   font-size: 0.6rem;
+//   letter-spacing: 0.04em;
+//   font-weight: 700;
+//   white-space: nowrap;
+// }
+
+// .police-table td {
+//   padding: 12px 10px;
+//   border-bottom: 1px solid #e5e7eb;
+//   color: #374151;
+//   vertical-align: top;
+// }
+
+// .police-table-row {
+//   cursor: pointer;
+// }
+
+// .police-table-row:hover {
+//   background: #f8fafc;
+// }
+
+// .police-table-row:last-child td {
+//   border-bottom: 0;
+// }
+
+// .incident-number {
+//   color: #111827 !important;
+//   font-family: monospace;
+//   font-weight: 600;
+// }
+
+// .incident-time {
+//   color: #9ca3af;
+//   font-size: 0.62rem;
+// }
+
+// .incident-status {
+//   display: inline-block;
+//   padding: 3px 7px;
+//   border: 1px solid #d1d5db;
+//   background: #f8fafc;
+//   color: #6b7280;
+//   font-size: 0.6rem;
+//   font-weight: 600;
+// }
+
+// .incident-status.open {
+//   background: #ffffff;
+//   border-color: #9ca3af;
+//   color: #111827;
+// }
+
+// .incident-status.large {
+//   padding: 5px 9px;
+// }
+
+// .police-table-note {
+//   margin-top: 10px;
+//   color: #9ca3af;
+//   font-size: 0.62rem;
+//   line-height: 1.5;
+// }
+
+// .police-incident-detail {
+//   max-width: 950px;
+//   margin: 0 auto;
+// }
+
+// .police-breadcrumb {
+//   display: flex;
+//   align-items: center;
+//   gap: 8px;
+//   margin-bottom: 18px;
+//   color: #9ca3af;
+//   font-size: 0.65rem;
+// }
+
+// .police-breadcrumb button {
+//   padding: 0;
+//   border: 0;
+//   background: transparent;
+//   color: #6b7280;
+//   font: inherit;
+//   cursor: pointer;
+// }
+
+// .police-breadcrumb button:hover {
+//   color: #111827;
+// }
+
+// .police-incident-header {
+//   display: flex;
+//   align-items: flex-end;
+//   justify-content: space-between;
+//   gap: 20px;
+//   padding-bottom: 18px;
+//   border-bottom: 2px solid #111827;
+// }
+
+// .police-incident-header span:first-child {
+//   color: #6b7280;
+//   font-size: 0.62rem;
+//   letter-spacing: 0.1em;
+//   font-weight: 700;
+// }
+
+// .police-incident-header h2 {
+//   margin: 6px 0 0;
+//   color: #111827;
+//   font-size: 1.6rem;
+//   font-weight: 600;
+// }
+
+// .police-incident-summary {
+//   display: grid;
+//   grid-template-columns: repeat(4, 1fr);
+//   gap: 1px;
+//   margin-top: 22px;
+//   background: #d1d5db;
+//   border: 1px solid #d1d5db;
+// }
+
+// .police-incident-summary > div {
+//   min-height: 72px;
+//   padding: 13px;
+//   background: #ffffff;
+// }
+
+// .police-incident-summary span {
+//   display: block;
+//   margin-bottom: 6px;
+//   color: #6b7280;
+//   font-size: 0.57rem;
+//   letter-spacing: 0.08em;
+//   font-weight: 700;
+// }
+
+// .police-incident-summary strong {
+//   color: #111827;
+//   font-size: 0.75rem;
+//   font-weight: 500;
+//   line-height: 1.4;
+// }
+
+// .police-public-notice {
+//   margin-top: 22px;
+//   padding: 18px;
+//   background: #f8fafc;
+//   border: 1px solid #d1d5db;
+// }
+
+// .police-public-notice h3 {
+//   margin: 0 0 9px;
+//   color: #374151;
+//   font-size: 0.7rem;
+//   letter-spacing: 0.08em;
+//   text-transform: uppercase;
+// }
+
+// .police-public-notice p {
+//   margin: 0;
+//   color: #4b5563;
+//   font-size: 0.78rem;
+//   line-height: 1.6;
+//   white-space: pre-line;
+// }
+
+// .police-incident-actions {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 7px;
+//   margin-top: 18px;
+// }
+
+// .police-incident-actions button {
+//   padding: 11px 13px;
+//   border: 1px solid #cbd5e1;
+//   background: #ffffff;
+//   color: #374151;
+//   text-align: left;
+//   font: inherit;
+//   font-size: 0.7rem;
+//   cursor: pointer;
+// }
+
+// .police-incident-actions button:hover {
+//   background: #f8fafc;
+//   border-color: #94a3b8;
+// }
+
+// .police-footer {
+//   display: flex;
+//   justify-content: space-between;
+//   gap: 20px;
+//   padding: 18px 32px;
+//   border-top: 1px solid #d1d5db;
+//   background: #f8fafc;
+//   color: #9ca3af;
+//   font-size: 0.62rem;
+// }
+
+
+// /* ============================================================
+//    DARK WEB
+//    ============================================================ */
+
+// .browser:has(.dark-web-site) {
+//   background: #020617;
+// }
+
+// .dark-web-site {
+//   background: #020617;
+//   color: #cbd5e1;
+// }
+
+
+// /* ============================================================
+//    ERROR
+//    ============================================================ */
+
+// .error-page {
+//   max-width: 700px;
+//   margin: 80px auto;
+//   padding: 40px;
+//   background: #ffffff;
+//   border: 1px solid #d1d5db;
+// }
+
+// .error-page h1 {
+//   margin: 0 0 10px;
+//   color: #111827;
+//   font-size: 1.4rem;
+// }
+
+// .error-page p {
+//   margin: 0;
+//   color: #6b7280;
+// }
+
+
+// /* ============================================================
+//    RESPONSIVE
+//    ============================================================ */
+
+// @media (max-width: 1000px) {
+
+//   .exchange-listing-grid {
+//     grid-template-columns: repeat(3, minmax(0, 1fr));
+//   }
+
+//   .police-filters {
+//     grid-template-columns: repeat(2, 1fr);
+//   }
+
+//   .police-search-button {
+//     width: 100%;
+//   }
+
+//   .listing-detail-grid {
+//     grid-template-columns: 1fr;
+//   }
+
+//   .police-incident-summary {
+//     grid-template-columns: repeat(2, 1fr);
+//   }
+
+// }
+
+
+// @media (max-width: 700px) {
+
+//   .browser-chrome {
+//     padding: 7px;
+//   }
+
+//   .browser-control {
+//     width: 30px;
+//     height: 30px;
+//   }
+
+//   .site-content,
+//   .exchange-content,
+//   .police-content {
+//     padding: 20px;
+//   }
+
+//   .site-nav,
+//   .exchange-nav,
+//   .police-nav {
+//     padding-left: 20px;
+//     padding-right: 20px;
+//     overflow-x: auto;
+//   }
+
+//   .forum-thread-header {
+//     flex-direction: column;
+//   }
+
+//   .forum-post {
+//     grid-template-columns: 1fr;
+//   }
+
+//   .forum-user {
+//     border-right: 0;
+//     border-bottom: 1px solid #e5e7eb;
+//   }
+
+//   .exchange-header,
+//   .exchange-page-header {
+//     flex-direction: column;
+//     align-items: stretch;
+//   }
+
+//   .exchange-listing-grid {
+//     grid-template-columns: repeat(2, minmax(0, 1fr));
+//   }
+
+//   .exchange-search {
+//     width: 100%;
+//   }
+
+//   .exchange-footer,
+//   .police-footer {
+//     flex-direction: column;
+//   }
+
+//   .police-header-inner,
+//   .police-page-heading,
+//   .police-incident-header {
+//     flex-direction: column;
+//     align-items: flex-start;
+//   }
+
+//   .police-filters {
+//     grid-template-columns: 1fr;
+//   }
+
+//   .police-incident-summary {
+//     grid-template-columns: 1fr;
+//   }
+
+// }
+
+
+// @media (max-width: 480px) {
+
+//   .exchange-listing-grid {
+//     grid-template-columns: 1fr;
+//   }
+
+// }
+
 
 /* ============================================================
-BROWSER CHROME
-============================================================ */
+   BROWSER
+   ============================================================ */
 
-.browser-bar {
-
-height: 52px;
-
-display: flex;
-
-align-items: center;
-
-gap: 12px;
-
-padding: 0 14px;
-
-background: #111827;
-
-border-bottom: 1px solid #334155;
-
-flex-shrink: 0;
-
+.browser {
+  min-height: 100%;
+  background: #020617;
+  color: #e2e8f0;
 }
 
-.browser-controls {
 
-display: flex;
+/* ============================================================
+   BROWSER CHROME
+   ============================================================ */
 
-gap: 4px;
-
+.browser-chrome {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 54px;
+  padding: 8px 12px;
+  box-sizing: border-box;
+  background: #0f172a;
+  border-bottom: 1px solid #1e293b;
 }
 
-.browser-controls button,
-.bookmark {
-
-width: 30px;
-
-height: 30px;
-
-background: transparent;
-
-border: none;
-
-color: #64748b;
-
-font-size: 18px;
-
-cursor: pointer;
-
+.browser-control {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1px solid #334155;
+  border-radius: 5px;
+  background: #111827;
+  color: #cbd5e1;
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  transition:
+    background 0.12s ease,
+    border-color 0.12s ease;
 }
 
-.browser-controls button:hover,
-.bookmark:hover {
-
-color: #cbd5e1;
-
+.browser-control:hover:not(:disabled) {
+  background: #1e293b;
+  border-color: #475569;
 }
 
-.browser-controls button:disabled {
-
-opacity: .25;
-
-cursor: default;
-
+.browser-control:disabled {
+  opacity: 0.35;
+  cursor: default;
 }
+
+
+/* ============================================================
+   ADDRESS BAR
+   ============================================================ */
 
 .address-bar {
-
-flex: 1;
-
-height: 32px;
-
-display: flex;
-
-align-items: center;
-
-gap: 8px;
-
-padding: 0 12px;
-
-background: #020617;
-
-border: 1px solid #334155;
-
-border-radius: 6px;
-
-color: #94a3b8;
-
-font-family: monospace;
-
-font-size: 12px;
-
+  flex: 1;
+  min-width: 0;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  box-sizing: border-box;
+  border: 1px solid #334155;
+  border-radius: 5px;
+  background: #020617;
+  color: #94a3b8;
+  font-family: monospace;
+  font-size: 0.75rem;
+  overflow: hidden;
 }
 
-.lock {
-
-font-size: 10px;
-
+.address-lock {
+  flex: 0 0 auto;
+  font-size: 0.7rem;
 }
+
+.address-bar span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 
 /* ============================================================
-WEBSITE
-============================================================ */
-
-.website {
-
-flex: 1;
-
-display: flex;
-
-flex-direction: column;
-
-overflow-y: auto;
-
-background: #f4f5f6;
-
-color: #333;
-
-font-family:
-Arial,
-Helvetica,
-sans-serif;
-
-}
-
-/* ============================================================
-MUNICIPAL HEADER
-============================================================ */
-
-.site-header {
-
-display: flex;
-
-align-items: center;
-
-justify-content: space-between;
-
-min-height: 105px;
-
-padding: 18px 55px;
-
-background: #fff;
-
-border-bottom: 1px solid #d6d9dc;
-
-box-sizing: border-box;
-
-}
-
-.town-identity {
-
-display: flex;
-
-align-items: center;
-
-gap: 18px;
-
-}
-
-.town-seal {
-
-width: 62px;
-
-height: 62px;
-
-border: 3px solid #526879;
-
-border-radius: 50%;
-
-display: flex;
-
-align-items: center;
-
-justify-content: center;
-
-box-sizing: border-box;
-
-color: #526879;
-
-}
-
-.seal-inner {
-
-width: 48px;
-
-height: 48px;
-
-border: 1px solid #9aa8b3;
-
-border-radius: 50%;
-
-display: flex;
-
-flex-direction: column;
-
-align-items: center;
-
-justify-content: center;
-
-line-height: 1;
-
-}
-
-.seal-town {
-
-font-size: 6px;
-
-letter-spacing: 1px;
-
-}
-
-.seal-inner strong {
-
-margin: 2px 0;
-
-font-family: Georgia, serif;
-
-font-size: 21px;
-
-font-weight: normal;
-
-}
-
-.seal-state {
-
-font-size: 5px;
-
-letter-spacing: 1px;
-
-}
-
-.site-title {
-
-display: flex;
-
-flex-direction: column;
-
-gap: 5px;
-
-}
-
-.site-title h1 {
-
-margin: 0;
-
-color: #344c5f;
-
-font-family:
-Georgia,
-'Times New Roman',
-serif;
-
-font-size: 25px;
-
-font-weight: normal;
-
-letter-spacing: .3px;
-
-text-transform: uppercase;
-
-}
-
-.site-tagline {
-
-color: #7b858d;
-
-font-family:
-Georgia,
-'Times New Roman',
-serif;
-
-font-size: 10px;
-
-font-style: italic;
-
-letter-spacing: .7px;
-
-}
-
-.site-header-right {
-
-display: flex;
-
-flex-direction: column;
-
-align-items: flex-end;
-
-gap: 7px;
-
-}
-
-.contact-line {
-
-color: #69757e;
-
-font-size: 11px;
-
-}
-
-.account-line {
-
-padding: 5px 9px;
-
-background: #eef1f3;
-
-border: 1px solid #d6dce0;
-
-color: #64727b;
-
-font-size: 8px;
-
-letter-spacing: 1px;
-
-}
-
-/* ============================================================
-NAVIGATION
-============================================================ */
-
-.site-nav {
-
-background: #526b7c;
-
-border-bottom: 4px solid #d1a34a;
-
-}
-
-.site-nav-inner {
-
-display: flex;
-
-align-items: stretch;
-
-padding: 0 45px;
-
-}
-
-.site-nav button {
-
-padding: 13px 16px;
-
-background: transparent;
-
-border: none;
-
-border-right: 1px solid rgba(255,255,255,.12);
-
-color: #fff;
-
-font-size: 10px;
-
-font-weight: 600;
-
-letter-spacing: .6px;
-
-cursor: pointer;
-
-}
-
-.site-nav button:first-child {
-
-border-left: 1px solid rgba(255,255,255,.12);
-
-}
-
-.site-nav button:hover {
-
-background: #435b6b;
-
-}
-
-.site-nav button.active {
-
-background: #3e5565;
-
-box-shadow:
-inset 0 -4px 0 #d1a34a;
-
-}
-
-/* ============================================================
-CONTENT
-============================================================ */
-
-.website-content {
-
-width: min(1080px, calc(100% - 100px));
-
-margin: 0 auto;
-
-padding: 35px 0 55px;
-
-box-sizing: border-box;
-
-}
-
-.breadcrumb {
-
-margin-bottom: 18px;
-
-color: #89939a;
-
-font-size: 8px;
-
-font-weight: 600;
-
-letter-spacing: 1px;
-
-text-transform: uppercase;
-
-}
-
-.content-header {
-
-padding: 0 0 18px;
-
-border-bottom: 1px solid #d5d9dc;
-
-}
-
-.category {
-
-display: block;
-
-margin-bottom: 7px;
-
-color: #8a969e;
-
-font-size: 8px;
-
-font-weight: 700;
-
-letter-spacing: 1.5px;
-
-}
-
-.content-header h2 {
-
-margin: 0;
-
-color: #40576a;
-
-font-family:
-Georgia,
-'Times New Roman',
-serif;
-
-font-size: 30px;
-
-font-weight: normal;
-
-}
-
-.content-header p {
-
-margin: 8px 0 0;
-
-color: #78838b;
-
-font-family:
-Georgia,
-'Times New Roman',
-serif;
-
-font-size: 14px;
-
-line-height: 1.5;
-
-}
-
-.page-content {
-
-max-width: 780px;
-
-padding: 25px 0;
-
-}
-
-.page-content p {
-
-margin: 0;
-
-white-space: pre-line;
-
-color: #505b62;
-
-font-size: 14px;
-
-line-height: 1.85;
-
-}
-
-/* ============================================================
-RELATED INFORMATION
-============================================================ */
-
-.related {
-
-margin-top: 15px;
-
-padding-top: 22px;
-
-border-top: 1px solid #d9dde0;
-
-}
-
-.section-title {
-
-margin-bottom: 12px;
-
-color: #687780;
-
-font-size: 9px;
-
-font-weight: 700;
-
-letter-spacing: 1.5px;
-
-}
-
-.site-links {
-
-display: flex;
-
-flex-direction: column;
-
-gap: 7px;
-
-}
-
-.site-link {
-
-display: flex;
-
-align-items: center;
-
-justify-content: space-between;
-
-width: 100%;
-
-padding: 13px 15px;
-
-text-align: left;
-
-background: #fff;
-
-border: 1px solid #d4d9dd;
-
-color: #49657a;
-
-font-size: 12px;
-
-cursor: pointer;
-
-transition:
-background .15s ease,
-border-color .15s ease,
-padding-left .15s ease;
-
-}
-
-.site-link:hover {
-
-padding-left: 19px;
-
-background: #f9fafb;
-
-border-color: #aeb9c1;
-
-}
-
-.arrow {
-
-color: #a0aab1;
-
-font-size: 15px;
-
-}
-
-/* ============================================================
-FORUM
-============================================================ */
-
-.forum-thread {
-
-width: 100%;
-
-}
-
-.forum-thread-header {
-
-padding-bottom: 18px;
-
-border-bottom: 1px solid #d4d9dd;
-
-}
-
-.forum-thread-header h2 {
-
-margin: 0;
-
-color: #40576a;
-
-font-family:
-Georgia,
-'Times New Roman',
-serif;
-
-font-size: 27px;
-
-font-weight: normal;
-
-}
-
-.forum-thread-header p {
-
-margin: 7px 0 0;
-
-color: #7c878f;
-
-font-size: 12px;
-
-}
-
-.forum-posts {
-
-display: flex;
-
-flex-direction: column;
-
-margin-top: 18px;
-
-border: 1px solid #d2d7db;
-
-background: #fff;
-
-}
-
-.forum-post {
-
-display: grid;
-
-grid-template-columns: 165px 1fr;
-
-min-height: 125px;
-
-border-bottom: 1px solid #e0e3e5;
-
-}
-
-.forum-post:last-child {
-
-border-bottom: none;
-
-}
-
-.forum-post-sidebar {
-
-display: flex;
-
-flex-direction: column;
-
-align-items: flex-start;
-
-gap: 8px;
-
-padding: 17px;
-
-background: #f0f2f3;
-
-border-right: 1px solid #d8dde0;
-
-}
-
-.forum-username {
-
-padding: 0;
-
-background: transparent;
-
-border: none;
-
-color: #496c83;
-
-font-size: 12px;
-
-font-weight: 700;
-
-cursor: pointer;
-
-}
-
-.forum-username:hover {
-
-text-decoration: underline;
-
-}
-
-.op-badge {
-
-padding: 3px 5px;
-
-background: #526b7c;
-
-color: #fff;
-
-font-size: 7px;
-
-font-weight: 700;
-
-letter-spacing: .7px;
-
-}
-
-.forum-post-main {
-
-padding: 18px 22px;
-
-}
-
-.forum-post-meta {
-
-margin-bottom: 13px;
-
-color: #929ca2;
-
-font-size: 9px;
-
-}
-
-.forum-post-main p {
-
-margin: 0;
-
-white-space: pre-line;
-
-color: #505b62;
-
-font-size: 13px;
-
-line-height: 1.75;
-
-}
-
-.original-poster {
-
-border-left: 3px solid #d1a34a;
-
-}
-
-.forum-related {
-
-margin-top: 25px;
-
-}
-
-/* ============================================================
-FOOTER
-============================================================ */
-
-.site-footer {
-
-display: flex;
-
-justify-content: space-between;
-
-gap: 30px;
-
-padding: 18px 55px;
-
-background: #526b7c;
-
-border-top: 4px solid #d1a34a;
-
-color: #e5eaed;
-
-font-size: 9px;
-
-line-height: 1.7;
-
-}
-
-.site-footer > div {
-
-display: flex;
-
-flex-direction: column;
-
-gap: 2px;
-
-}
-
-.site-footer strong {
-
-color: #fff;
-
-font-family:
-Georgia,
-'Times New Roman',
-serif;
-
-font-size: 11px;
-
-font-weight: normal;
-
-}
-
-.footer-right {
-
-align-items: flex-end;
-
-text-align: right;
-
-}
-
-/* ============================================================
-SYSTEM / ERROR PAGES
-============================================================ */
-
-.error-page {
-
-display: flex;
-
-align-items: center;
-
-justify-content: center;
-
-min-height: 500px;
-
-}
-
-.system-message {
-
-width: min(600px, 90%);
-
-padding: 45px;
-
-text-align: center;
-
-background: #fff;
-
-border: 1px solid #cfd5d9;
-
-}
-
-.system-icon {
-
-margin-bottom: 20px;
-
-color: #71808a;
-
-font-family: monospace;
-
-font-size: 26px;
-
-font-weight: bold;
-
-}
-
-.system-category {
-
-display: block;
-
-margin-bottom: 10px;
-
-color: #89949b;
-
-font-family: monospace;
-
-font-size: 8px;
-
-letter-spacing: 1.5px;
-
-}
-
-.system-message h2 {
-
-margin: 0 0 14px;
-
-color: #40576a;
-
-font-family:
-Georgia,
-'Times New Roman',
-serif;
-
-font-size: 23px;
-
-font-weight: normal;
-
-}
-
-.system-message p {
-
-max-width: 450px;
-
-margin: 0 auto 25px;
-
-color: #657179;
-
-font-size: 13px;
-
-line-height: 1.7;
-
-}
-
-.return-button {
-
-padding: 9px 14px;
-
-background: #526b7c;
-
-border: none;
-
-color: #fff;
-
-font-size: 8px;
-
-letter-spacing: .8px;
-
-cursor: pointer;
-
-}
-
-.return-button:hover {
-
-background: #405968;
-
-}
-
-/* ============================================================
-BOOKMARKS
-============================================================ */
-
-.bookmarks-menu {
-
-position: absolute;
-
-top: 52px;
-
-right: 14px;
-
-z-index: 100;
-
-width: 360px;
-
-background: #111827;
-
-border: 1px solid #334155;
-
-box-shadow:
-0 10px 30px
-rgba(0, 0, 0, .4);
-
+   BOOKMARKS
+   ============================================================ */
+
+.bookmarks-panel {
+  position: absolute;
+  top: 62px;
+  right: 12px;
+  z-index: 500;
+  width: 320px;
+  max-width: calc(100vw - 24px);
+  background: #0f172a;
+  border: 1px solid #334155;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
 }
 
 .bookmarks-header {
-
-padding: 12px 15px;
-
-border-bottom: 1px solid #334155;
-
-color: #64748b;
-
-font-family: monospace;
-
-font-size: 9px;
-
-letter-spacing: 2px;
-
+  padding: 10px 12px;
+  border-bottom: 1px solid #334155;
+  color: #94a3b8;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  font-weight: 700;
 }
 
-.empty-bookmarks {
-
-padding: 20px;
-
-color: #64748b;
-
-font-family: monospace;
-
-font-size: 11px;
-
+.bookmarks-empty {
+  padding: 18px 12px;
+  color: #64748b;
+  font-size: 0.8rem;
 }
 
 .bookmark-item {
-
-display: flex;
-
-align-items: center;
-
-justify-content: space-between;
-
-width: 100%;
-
-padding: 12px 15px;
-
-text-align: left;
-
-background: transparent;
-
-border: none;
-
-border-bottom: 1px solid #1e293b;
-
-color: #cbd5e1;
-
-cursor: pointer;
-
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px;
+  box-sizing: border-box;
+  border: 0;
+  border-bottom: 1px solid #1e293b;
+  background: transparent;
+  color: #cbd5e1;
+  text-align: left;
+  cursor: pointer;
 }
 
 .bookmark-item:hover {
-
-background: #1e293b;
-
+  background: #1e293b;
 }
 
-.bookmark-item strong {
-
-display: block;
-
-margin-bottom: 4px;
-
-font-size: 12px;
-
-font-weight: 500;
-
+.bookmark-title {
+  font-size: 0.8rem;
 }
 
-.bookmark-item span {
-
-display: block;
-
-color: #64748b;
-
-font-family: monospace;
-
-font-size: 9px;
-
+.bookmark-url {
+  color: #64748b;
+  font-family: monospace;
+  font-size: 0.65rem;
 }
+
 
 /* ============================================================
-UNDERNET / DARK WEB
-Leave the dark-web visual language intact.
-============================================================ */
+   GENERIC ERROR PAGE
+   ============================================================ */
 
-.dark-web-mode {
-
-background: #080808;
-
+.error-page {
+  max-width: 700px;
+  margin: 80px auto;
+  padding: 40px;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
 }
 
-.dark-web-mode .website {
-
-background: #d8d8d8;
-
-color: #222;
-
-font-family:
-Arial,
-Helvetica,
-sans-serif;
-
+.error-page h1 {
+  margin: 0 0 10px;
+  color: #111827;
+  font-size: 1.4rem;
 }
 
-.dark-web-mode .site-header {
-
-min-height: auto;
-
-padding: 9px 14px;
-
-background: #ededed;
-
-border-bottom: 1px solid #999;
-
+.error-page p {
+  margin: 0;
+  color: #6b7280;
 }
 
-.dark-web-mode .town-seal {
-
-display: none;
-
-}
-
-.dark-web-mode .town-identity {
-
-gap: 0;
-
-}
-
-.dark-web-mode .site-title {
-
-gap: 3px;
-
-}
-
-.dark-web-mode .site-title h1 {
-
-font-family: monospace;
-
-font-size: 16px;
-
-letter-spacing: 2px;
-
-}
-
-.dark-web-mode .site-tagline {
-
-font-family: monospace;
-
-font-size: 8px;
-
-font-style: normal;
-
-color: #666;
-
-}
-
-.dark-web-mode .site-header-right {
-
-gap: 2px;
-
-}
-
-.dark-web-mode .contact-line {
-
-display: none;
-
-}
-
-.dark-web-mode .account-line {
-
-padding: 0;
-
-background: transparent;
-
-border: none;
-
-font-family: monospace;
-
-font-size: 8px;
-
-color: #666;
-
-}
-
-.dark-web-mode .site-nav {
-
-padding: 0 14px;
-
-background: #3b3b3b;
-
-border-bottom: 1px solid #111;
-
-}
-
-.dark-web-mode .site-nav-inner {
-
-padding: 0;
-
-}
-
-.dark-web-mode .site-nav button {
-
-padding: 9px 11px;
-
-color: #cfcfcf;
-
-font-family: monospace;
-
-font-size: 9px;
-
-letter-spacing: 0;
-
-}
-
-.dark-web-mode .site-nav button:hover {
-
-background: #505050;
-
-}
-
-.dark-web-mode .site-nav button.active {
-
-background: #505050;
-
-box-shadow: none;
-
-text-decoration: underline;
-
-}
-
-.dark-web-mode .website-content {
-
-width: min(1100px, 96%);
-
-padding: 20px 0;
-
-}
-
-.dark-web-mode .breadcrumb {
-
-display: none;
-
-}
-
-.dark-web-mode .content-header {
-
-padding: 10px 12px;
-
-background: #ededed;
-
-border: 1px solid #aaa;
-
-}
-
-.dark-web-mode .category {
-
-margin-bottom: 7px;
-
-font-family: monospace;
-
-font-size: 8px;
-
-letter-spacing: 1px;
-
-color: #666;
-
-}
-
-.dark-web-mode .content-header h2 {
-
-font-family: monospace;
-
-font-size: 20px;
-
-font-weight: normal;
-
-color: #222;
-
-}
-
-.dark-web-mode .content-header p {
-
-margin-bottom: 0;
-
-font-family: monospace;
-
-font-size: 10px;
-
-color: #666;
-
-}
-
-.dark-web-mode .page-content {
-
-max-width: none;
-
-padding: 14px 12px;
-
-}
-
-.dark-web-mode .page-content p {
-
-color: #333;
-
-font-family: monospace;
-
-font-size: 12px;
-
-line-height: 1.55;
-
-}
-
-.dark-web-mode .related {
-
-margin-top: 12px;
-
-padding: 12px;
-
-border: 1px solid #aaa;
-
-background: #ededed;
-
-}
-
-.dark-web-mode .section-title {
-
-margin-bottom: 10px;
-
-font-family: monospace;
-
-font-size: 8px;
-
-letter-spacing: 1px;
-
-color: #666;
-
-}
-
-.dark-web-mode .site-links {
-
-gap: 4px;
-
-}
-
-.dark-web-mode .site-link {
-
-padding: 8px 10px;
-
-background: #dedede;
-
-border: 1px solid #aaa;
-
-color: #333;
-
-font-family: monospace;
-
-font-size: 10px;
-
-}
-
-.dark-web-mode .site-link:hover {
-
-background: #f1f1f1;
-
-border-color: #777;
-
-}
-
-.dark-web-mode .arrow {
-
-color: #666;
-
-}
-
-.dark-web-mode .site-footer {
-
-padding: 8px 14px;
-
-background: #c9c9c9;
-
-border-top: 1px solid #999;
-
-color: #666;
-
-font-family: monospace;
-
-font-size: 8px;
-
-}
-
-.dark-web-mode .error-page {
-
-min-height: 400px;
-
-}
-
-.dark-web-mode .system-message {
-
-background: #ededed;
-
-border: 1px solid #999;
-
-}
-
-.dark-web-mode .system-message h2 {
-
-font-family: monospace;
-
-font-size: 20px;
-
-color: #222;
-
-}
-
-.dark-web-mode .system-message p {
-
-color: #555;
-
-}
-
-.dark-web-mode .return-button {
-
-background: #333;
-
-font-family: monospace;
-
-}
-
-.dark-web-mode .return-button:hover {
-
-background: #444;
-
-}
 
 /* ============================================================
-RESPONSIVE
-============================================================ */
+   RESPONSIVE
+   ============================================================ */
 
 @media (max-width: 700px) {
 
-.site-header {
+  .browser-chrome {
+    gap: 5px;
+    padding: 7px;
+  }
 
+  .browser-control {
+    width: 30px;
+    height: 30px;
+  }
 
-padding: 16px 20px;
+  .bookmarks-panel {
+    right: 7px;
+    width: 300px;
+  }
 
-
-}
-
-.site-header-right {
-
-
-display: none;
-
-
-}
-
-.site-title h1 {
-
-
-font-size: 19px;
-
-
-}
-
-.town-seal {
-
-
-width: 50px;
-
-height: 50px;
-
-
-}
-
-.seal-inner {
-
-
-width: 38px;
-
-height: 38px;
-
-
-}
-
-.site-nav {
-
-
-overflow-x: auto;
-
-
-}
-
-.site-nav-inner {
-
-
-padding: 0 10px;
-
-
-}
-
-.website-content {
-
-
-width: 92%;
-
-
-}
-
-.forum-post {
-
-
-grid-template-columns: 1fr;
-
-
-}
-
-.forum-post-sidebar {
-
-
-flex-direction: row;
-
-align-items: center;
-
-border-right: none;
-
-border-bottom: 1px solid #dbe3e7;
-
-
-}
-
-.site-footer {
-
-
-padding: 15px 20px;
-
-
-}
-
+  .error-page {
+    width: calc(100% - 40px);
+    margin: 40px auto;
+    padding: 25px;
+  }
 }

@@ -1,0 +1,438 @@
+<div class="exchange-site">
+
+  <header class="exchange-header">
+
+    <div class="exchange-header-inner">
+
+      <div class="exchange-brand">
+
+        <div class="exchange-logo">
+          amherst<span>exchange</span>
+        </div>
+
+        <div class="exchange-location">
+          Amherst, VA
+          <span>⌄</span>
+        </div>
+
+      </div>
+
+
+      <div class="exchange-search">
+
+        <input
+          type="text"
+          placeholder="What are you looking for?"
+        >
+
+        <button
+          type="button"
+          aria-label="Search"
+        >
+          🔍
+        </button>
+
+      </div>
+
+
+      <div class="exchange-account">
+
+        <button
+          type="button"
+          class="exchange-login"
+        >
+          Log in
+        </button>
+
+        <button
+          type="button"
+          class="exchange-post-button"
+        >
+          Post an item
+        </button>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <nav class="exchange-nav">
+
+    <div class="exchange-nav-inner">
+
+      <button
+        type="button"
+        class="category-all"
+        (click)="navigate('/')"
+      >
+        All
+      </button>
+
+      <button
+        type="button"
+        (click)="navigate('/category/vehicles')"
+      >
+        Vehicles
+      </button>
+
+      <button
+        type="button"
+        (click)="navigate('/category/furniture')"
+      >
+        Furniture
+      </button>
+
+      <button
+        type="button"
+        (click)="navigate('/category/electronics')"
+      >
+        Electronics
+      </button>
+
+      <button
+        type="button"
+        (click)="navigate('/category/misc')"
+      >
+        Other
+      </button>
+
+    </div>
+
+  </nav>
+
+
+  <main class="exchange-content">
+
+    @if (
+      isListing() &&
+      listing
+    ) {
+
+      <div class="exchange-detail">
+
+        <button
+          type="button"
+          class="exchange-back"
+          (click)="navigate('/category/vehicles')"
+        >
+          ← Back to listings
+        </button>
+
+
+        <div class="listing-detail-grid">
+
+          <div class="listing-gallery">
+
+            @if (listing.images?.length) {
+
+              <div class="listing-gallery-main">
+
+                <img
+                  [src]="listing.images[0]"
+                  [alt]="listing.title"
+                >
+
+              </div>
+
+
+              <div class="listing-thumbnails">
+
+                @for (
+                  image of listing.images;
+                  track image
+                ) {
+
+                  <button type="button">
+
+                    <img
+                      [src]="image"
+                      [alt]="listing.title"
+                    >
+
+                  </button>
+
+                }
+
+              </div>
+
+            } @else {
+
+              <div class="listing-image-large">
+
+                <img
+                  [src]="listing.image"
+                  [alt]="listing.title"
+                >
+
+              </div>
+
+            }
+
+          </div>
+
+
+          <div class="listing-detail-info">
+
+            <span class="listing-category">
+              {{ listing.category }}
+            </span>
+
+            <h1>
+              {{ listing.title }}
+            </h1>
+
+            <div class="listing-price">
+              {{ listing.price }}
+            </div>
+
+
+            <div class="listing-meta">
+
+              <span>
+                {{ listing.condition }}
+              </span>
+
+              <span>
+                {{ listing.location }}
+              </span>
+
+              <span>
+                {{ listing.posted }}
+              </span>
+
+            </div>
+
+
+            <div class="listing-actions">
+
+              @if (page.links?.length) {
+
+                @for (
+                  link of page.links;
+                  track link.label
+                ) {
+
+                  <button
+                    type="button"
+                    (click)="navigate(
+                      link.path,
+                      link.domain
+                    )"
+                  >
+                    {{ link.label }}
+                  </button>
+
+                }
+
+              } @else {
+
+                <button type="button">
+                  Message seller
+                </button>
+
+                <button
+                  type="button"
+                  class="secondary-action"
+                >
+                  Make an offer
+                </button>
+
+              }
+
+            </div>
+
+
+            <div class="listing-seller">
+
+                <div class="seller-avatar">
+                    {{ listing.seller?.charAt(0) ?? '?' }}
+                </div>
+
+              <div class="seller-info">
+
+                <span>
+                  Listed by
+                </span>
+
+                <strong>
+                  {{ listing.seller }}
+                </strong>
+
+                <button
+                  type="button"
+                  (click)="navigate('/user/' + listing.seller)"
+                >
+                  View profile
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <div class="listing-description">
+
+              <h2>
+                Description
+              </h2>
+
+              <p>
+                {{ listing.description }}
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    } @else {
+
+      <section class="exchange-hero">
+
+        <div>
+
+          <span>
+            BUY & SELL LOCALLY
+          </span>
+
+          <h1>
+            Find great stuff<br>
+            around Amherst.
+          </h1>
+
+          <p>
+            Buy and sell locally with people in your community.
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <header class="exchange-page-header">
+
+        <div>
+
+          <span>
+            {{ page.category }}
+          </span>
+
+          <h2>
+            {{ page.title }}
+          </h2>
+
+          @if (page.subtitle) {
+
+            <p>
+              {{ page.subtitle }}
+            </p>
+
+          }
+
+        </div>
+
+      </header>
+
+
+      @if (page.listings?.length) {
+
+        <section class="exchange-listing-grid">
+
+          @for (
+            listing of page.listings;
+            track listing.id
+          ) {
+
+            <article
+              class="exchange-card"
+              (click)="navigate(
+                '/listing/' + listing.id,
+                'amherst-exchange.local'
+              )"
+            >
+
+              <div class="exchange-card-image">
+
+                <img
+                  [src]="listing.image"
+                  [alt]="listing.title"
+                >
+
+                <button
+                  type="button"
+                  class="exchange-save"
+                  (click)="$event.stopPropagation()"
+                >
+                  ♡
+                </button>
+
+              </div>
+
+
+              <div class="exchange-card-body">
+
+                <div class="exchange-card-price">
+                  {{ listing.price }}
+                </div>
+
+                <h3>
+                  {{ listing.title }}
+                </h3>
+
+                <div class="exchange-card-location">
+                  {{ listing.location }}
+                </div>
+
+
+                <div class="exchange-card-footer">
+
+                  <span>
+                    {{ listing.condition }}
+                  </span>
+
+                  <span>
+                    {{ listing.posted }}
+                  </span>
+
+                </div>
+
+              </div>
+
+            </article>
+
+          }
+
+        </section>
+
+      } @else {
+
+        <div class="exchange-empty">
+          No listings found.
+        </div>
+
+      }
+
+    }
+
+  </main>
+
+
+  <footer class="exchange-footer">
+
+    <div>
+      <strong>amherst exchange</strong>
+      <span>Local marketplace for Amherst, Virginia</span>
+    </div>
+
+    <div>
+      Safety · Help · Terms · Privacy
+    </div>
+
+  </footer>
+
+</div>
