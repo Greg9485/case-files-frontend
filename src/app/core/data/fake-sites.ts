@@ -2,22 +2,6 @@ import { FakeSite } from '../models/fake-site';
 
 export const FAKE_SITES: FakeSite[] = [
 
-  // {
-  //   domain: 'amherstboard.local',
-  //   name: 'AMHERST COMMUNITY BOARD',
-  //   tagline: 'EST. 2016',
-  //   accountLabel: 'COMMUNITY MEMBER',
-
-  //   navigation: [
-  //     { label: 'HOME', path: '/' },
-  //     { label: 'LOCAL', path: '/local' },
-  //     { label: 'NEWS', path: '/news' },
-  //     { label: 'DISCUSSION', path: '/discussion' },
-  //     { label: 'MISSING PERSONS', path: '/missing-persons' },
-  //     { label: 'ARCHIVE', path: '/archive' }
-  //   ]
-  // },
-
   {
     name: 'Amherst Community Board',
     domain: 'amherstboard.local',
