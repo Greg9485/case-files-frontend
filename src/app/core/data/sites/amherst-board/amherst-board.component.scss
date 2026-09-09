@@ -351,6 +351,54 @@
   line-height: 1.25;
 }
 
+.forum-thread-title-row {
+
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+
+  gap: 18px;
+
+}
+
+
+.forum-archived-badge {
+
+  flex-shrink: 0;
+
+  margin-top: 3px;
+
+  padding: 4px 7px;
+
+  border: 1px solid #c8c5bd;
+
+  background: #eeece6;
+
+  color: #77736b;
+
+  font-size: 0.57rem;
+
+  font-weight: 700;
+
+  letter-spacing: 0.09em;
+
+}
+
+
+.forum-post-timestamp {
+
+  margin-top: 4px;
+
+  color: #8b887f;
+
+  font-size: 0.58rem;
+
+  line-height: 1.45;
+
+}
+
 .forum-thread-date {
   margin-top: 9px;
   color: #85827a;
@@ -586,5 +634,20 @@
     padding: 18px;
     flex-direction: column;
   }
+
+    .forum-thread-title-row {
+
+    flex-direction: column;
+
+    gap: 8px;
+
+  }
+
+  .forum-archived-badge {
+
+    margin-top: 0;
+
+  }
+
 
 }
