@@ -1,0 +1,751 @@
+<div class="police-public-site">
+
+  <header class="police-header">
+
+    <div class="police-header-top">
+
+      <div class="police-agency">
+        AMHERST POLICE DEPARTMENT
+      </div>
+
+      <div class="police-government">
+        Official Public Records
+      </div>
+
+    </div>
+
+
+    <div class="police-title-bar">
+
+      <div>
+
+        <h1>
+          Incident Crime Reports
+        </h1>
+
+        <p>
+          Public access to selected Amherst Police Department
+          incident records.
+        </p>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <nav class="police-nav">
+
+    <div class="police-nav-inner">
+
+      <button
+        type="button"
+        (click)="navigate('/')"
+      >
+        Incident Crime Reports
+      </button>
+
+      <button
+        type="button"
+        (click)="navigate('/incidents')"
+      >
+        Search Records
+      </button>
+
+      <span class="nav-spacer"></span>
+
+      <span>
+        Amherst, Virginia
+      </span>
+
+    </div>
+
+  </nav>
+
+
+  <main class="police-content">
+
+    @if (isIncidentList()) {
+
+      <section class="police-records-page">
+
+        <div class="police-breadcrumb">
+          Public Data
+          <span>›</span>
+          Incident Crime Reports
+        </div>
+
+
+        <header class="police-page-heading">
+
+          <div>
+
+            <span>
+              PUBLIC DATA
+            </span>
+
+            <h2>
+              Incident Crime Reports
+            </h2>
+
+          </div>
+
+          <div class="police-record-count">
+            {{ page.incidents?.length ?? 0 }}
+            records
+          </div>
+
+        </header>
+
+
+        <section class="police-about">
+
+          <strong>
+            About Incident Crime Reports
+          </strong>
+
+          <p>
+            An incident is one or more offenses committed
+            at the same time and place. Not all offenses
+            are publicly searchable.
+          </p>
+
+          <p>
+            For privacy reasons, names and specific street
+            addresses are not displayed in public records.
+          </p>
+
+        </section>
+
+
+        <section class="police-filters">
+
+          <div class="filter-section-title">
+            Filter Incident Crime Reports
+          </div>
+
+
+          <div class="police-filter-grid">
+
+            <div class="police-filter">
+
+              <label>
+                Date From
+              </label>
+
+              <input
+                type="text"
+                placeholder="MM/DD/YYYY"
+              >
+
+            </div>
+
+
+            <div class="police-filter">
+
+              <label>
+                Date To
+              </label>
+
+              <input
+                type="text"
+                placeholder="MM/DD/YYYY"
+              >
+
+            </div>
+
+
+            <div class="police-filter">
+
+              <label>
+                Crime Category
+              </label>
+
+              <select>
+
+                <option>
+                  All
+                </option>
+
+                <option>
+                  Person
+                </option>
+
+                <option>
+                  Property
+                </option>
+
+                <option>
+                  Suspicious Activity
+                </option>
+
+                <option>
+                  Missing Person
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="police-filter">
+
+              <label>
+                Crime Sub Category
+              </label>
+
+              <select>
+
+                <option>
+                  All
+                </option>
+
+                <option>
+                  Missing Person
+                </option>
+
+                <option>
+                  Suspicious Situation
+                </option>
+
+                <option>
+                  Property Damage
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="police-filter">
+
+              <label>
+                Block Number
+              </label>
+
+              <input
+                type="text"
+                placeholder="Block"
+              >
+
+            </div>
+
+
+            <div class="police-filter">
+
+              <label>
+                Street Name
+              </label>
+
+              <input
+                type="text"
+                placeholder="Street"
+              >
+
+            </div>
+
+
+            <div class="police-filter">
+
+              <label>
+                Location Type
+              </label>
+
+              <select>
+
+                <option>
+                  All
+                </option>
+
+                <option>
+                  Residence
+                </option>
+
+                <option>
+                  Business
+                </option>
+
+                <option>
+                  Roadway
+                </option>
+
+                <option>
+                  Park / Recreation
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="police-filter">
+
+              <label>
+                District
+              </label>
+
+              <select>
+
+                <option>
+                  All
+                </option>
+
+                <option>
+                  Central
+                </option>
+
+                <option>
+                  North
+                </option>
+
+                <option>
+                  South
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="police-filter">
+
+              <label>
+                Status
+              </label>
+
+              <select>
+
+                <option>
+                  All
+                </option>
+
+                <option>
+                  Open
+                </option>
+
+                <option>
+                  Closed
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="police-filter">
+
+              <label>
+                Disposition
+              </label>
+
+              <select>
+
+                <option>
+                  All
+                </option>
+
+                <option>
+                  Active
+                </option>
+
+                <option>
+                  No Criminal Offense
+                </option>
+
+                <option>
+                  Cleared
+                </option>
+
+              </select>
+
+            </div>
+
+          </div>
+
+
+          <div class="filter-actions">
+
+            <button
+              type="button"
+              class="police-search-button"
+            >
+              Submit
+            </button>
+
+            <button
+              type="button"
+              class="police-clear-button"
+            >
+              Clear
+            </button>
+
+          </div>
+
+        </section>
+
+
+        <section class="records-toolbar">
+
+          <div>
+            Incident Crime Report Records
+          </div>
+
+          <div class="records-toolbar-actions">
+
+            <button type="button">
+              Download CSV
+            </button>
+
+            <select>
+
+              <option>
+                25 records per page
+              </option>
+
+              <option>
+                50 records per page
+              </option>
+
+              <option>
+                100 records per page
+              </option>
+
+            </select>
+
+          </div>
+
+        </section>
+
+
+        <div class="police-pagination">
+
+          <button type="button">
+            «
+          </button>
+
+          <button type="button">
+            ‹
+          </button>
+
+          <button
+            type="button"
+            class="active"
+          >
+            1
+          </button>
+
+          <button type="button">
+            2
+          </button>
+
+          <button type="button">
+            3
+          </button>
+
+          <button type="button">
+            4
+          </button>
+
+          <button type="button">
+            ›
+          </button>
+
+          <button type="button">
+            »
+          </button>
+
+        </div>
+
+
+        <div class="police-table-wrapper">
+
+          <table class="police-table">
+
+            <thead>
+
+              <tr>
+
+                <th>
+                  ICR #
+                </th>
+
+                <th>
+                  District
+                </th>
+
+                <th>
+                  Specific Crime
+                </th>
+
+                <th>
+                  Block / Intersection
+                </th>
+
+                <th>
+                  Beginning DateTime
+                </th>
+
+                <th>
+                  Status
+                </th>
+
+                <th>
+                  Disposition
+                </th>
+
+              </tr>
+
+            </thead>
+
+
+            <tbody>
+
+              @for (
+                record of page.incidents ?? [];
+                track record.id
+              ) {
+
+                <tr
+                  class="police-table-row"
+                  (click)="navigate(
+                    record.linkPath,
+                    'amherstpd.local'
+                  )"
+                >
+
+                  <td class="incident-number">
+                    {{ record.incidentNumber }}
+                  </td>
+
+                  <td>
+                    {{ record.district }}
+                  </td>
+
+                  <td>
+                    {{ record.type }}
+                  </td>
+
+                  <td>
+                    {{ record.location }}
+                  </td>
+
+                  <td>
+
+                    {{ record.date }}
+
+                    <br>
+
+                    <span class="incident-time">
+                      {{ record.time }}
+                    </span>
+
+                  </td>
+
+                  <td>
+
+                    <span
+                      class="incident-status"
+                      [class.open]="record.status === 'Open'"
+                    >
+                      {{ record.status }}
+                    </span>
+
+                  </td>
+
+                  <td>
+                    {{ record.disposition }}
+                  </td>
+
+                </tr>
+
+              }
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+
+        <div class="records-summary">
+
+          Showing 1 to
+          {{ page.incidents?.length ?? 0 }}
+          records
+
+        </div>
+
+
+        <div class="police-table-note">
+
+          Records shown are selected public incident
+          records. Investigative material may be withheld
+          or redacted pursuant to applicable exemptions.
+
+        </div>
+
+      </section>
+
+    }
+
+
+    @else if (isIncident()) {
+
+      <article class="police-incident-detail">
+
+        <div class="police-breadcrumb">
+
+          <button
+            type="button"
+            (click)="navigate('/incidents')"
+          >
+            Incident Crime Reports
+          </button>
+
+          <span>›</span>
+
+          <span>
+            {{ page.title }}
+          </span>
+
+        </div>
+
+
+        <header class="police-incident-header">
+
+          <div>
+
+            <span>
+              INCIDENT CRIME REPORT
+            </span>
+
+            <h2>
+              {{ page.title }}
+            </h2>
+
+          </div>
+
+
+          @if (incident) {
+
+            <span
+              class="incident-status large"
+              [class.open]="incident.status === 'Open'"
+            >
+              {{ incident.status }}
+            </span>
+
+          }
+
+        </header>
+
+
+        @if (incident) {
+
+          <section class="police-incident-summary">
+
+            <div>
+              <span>INCIDENT NUMBER</span>
+              <strong>{{ incident.incidentNumber }}</strong>
+            </div>
+
+            <div>
+              <span>DISTRICT</span>
+              <strong>{{ incident.district }}</strong>
+            </div>
+
+            <div>
+              <span>DATE</span>
+              <strong>{{ incident.date }}</strong>
+            </div>
+
+            <div>
+              <span>TIME</span>
+              <strong>{{ incident.time }}</strong>
+            </div>
+
+            <div>
+              <span>SPECIFIC CRIME</span>
+              <strong>{{ incident.type }}</strong>
+            </div>
+
+            <div>
+              <span>LOCATION</span>
+              <strong>{{ incident.location }}</strong>
+            </div>
+
+            <div>
+              <span>DISPOSITION</span>
+              <strong>{{ incident.disposition }}</strong>
+            </div>
+
+            <div>
+              <span>REPORTING OFFICER</span>
+              <strong>{{ incident.officer }}</strong>
+            </div>
+
+          </section>
+
+        }
+
+
+        <section class="police-public-notice">
+
+          <h3>
+            Public Information
+          </h3>
+
+          <p>
+            {{ page.content }}
+          </p>
+
+        </section>
+
+
+        @if (page.links?.length) {
+
+          <section class="police-incident-actions">
+
+       @for (
+            link of page.links;
+            track link.label
+            ) {
+
+            <button
+                type="button"
+                (click)="
+                link.path === '/case-file'
+                    ? openExternalRoute(link.path)
+                    : navigate(link.path, link.domain)
+                "
+            >
+                {{ link.label }}
+            </button>
+
+            }
+
+          </section>
+
+        }
+
+      </article>
+
+    }
+
+  </main>
+
+
+  <footer class="police-footer">
+
+    <div>
+      Amherst Police Department
+    </div>
+
+    <div>
+      Public Incident Crime Reports
+    </div>
+
+  </footer>
+
+</div>

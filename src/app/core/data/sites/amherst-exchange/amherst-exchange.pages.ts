@@ -1,112 +1,325 @@
-import { FakePage } from '../../../models/fake-page';
+import {
+  ExchangeListing,
+  FakePage
+} from '../../../models/fake-page';
+
+const EXCHANGE_LISTINGS: ExchangeListing[] = [
+
+  {
+    id: 'black-suv',
+    title: '2017 Black SUV',
+    price: '$8,500',
+    location: 'Amherst, VA',
+    posted: '2 days ago',
+    category: 'Vehicles',
+    condition: 'Good',
+    image: '/assets/exchange/black-suv.jpg',
+    images: [
+      '/assets/exchange/black-suv.jpg',
+      '/assets/exchange/black-suv-2.jpg',
+      '/assets/exchange/black-suv-3.jpg'
+    ],
+    seller: 'nightshift84',
+    description: `
+2017 black SUV.
+
+Runs well. No accidents reported.
+
+Selling because I recently bought another vehicle.
+
+Pickup available near the old mill.
+
+Serious inquiries only.
+    `
+  },
+
+  {
+    id: 'oak-dining-table',
+    title: 'Solid Oak Dining Table',
+    price: '$175',
+    location: 'Amherst, VA',
+    posted: '5 hours ago',
+    category: 'Furniture',
+    condition: 'Good',
+    image: '/assets/exchange/oak-table.jpg',
+    seller: 'amherstmom',
+    description: `
+Solid oak dining table.
+
+Seats six comfortably. Some normal wear
+from years of use.
+    `
+  },
+
+  {
+    id: 'guitar-amp',
+    title: 'Fender Practice Amp',
+    price: '$90',
+    location: 'Madison Heights, VA',
+    posted: '1 day ago',
+    category: 'Electronics',
+    condition: 'Good',
+    image: '/assets/exchange/guitar-amp.jpg',
+    seller: 'riverroad',
+    description: `
+Fender practice amplifier.
+
+Works properly. Downsizing equipment.
+    `
+  },
+
+  {
+    id: 'lawn-mower',
+    title: 'Honda Push Mower',
+    price: '$140',
+    location: 'Amherst, VA',
+    posted: '3 days ago',
+    category: 'Home & Garden',
+    condition: 'Used',
+    image: '/assets/exchange/lawn-mower.jpg',
+    seller: 'daveinva',
+    description: `
+Honda push mower.
+
+Starts easily and runs well.
+    `
+  },
+
+  {
+    id: 'bookshelf',
+    title: 'Wood Bookshelf',
+    price: '$45',
+    location: 'Amherst, VA',
+    posted: '4 days ago',
+    category: 'Furniture',
+    condition: 'Good',
+    image: '/assets/exchange/bookshelf.jpg',
+    seller: 'bluebird22',
+    description: `
+Wood bookshelf. Five shelves.
+
+Pickup only.
+    `
+  },
+
+  {
+    id: 'camping-tent',
+    title: '4 Person Camping Tent',
+    price: '$60',
+    location: 'Amherst, VA',
+    posted: '5 days ago',
+    category: 'Outdoor',
+    condition: 'Like New',
+    image: '/assets/exchange/camping-tent.jpg',
+    seller: 'ridgewalker',
+    description: `
+Used twice. No damage or leaks.
+
+Includes carrying bag.
+    `
+  },
+
+  {
+    id: 'coffee-maker',
+    title: 'Keurig Coffee Maker',
+    price: '$35',
+    location: 'Amherst, VA',
+    posted: '6 hours ago',
+    category: 'Home & Garden',
+    condition: 'Good',
+    image: '/assets/exchange/coffee-maker.jpg',
+    seller: 'localdealz',
+    description: `
+Works great.
+
+Moving and clearing out the kitchen.
+    `
+  },
+
+  {
+    id: 'mountain-bike',
+    title: 'Trek Mountain Bike',
+    price: '$250',
+    location: 'Amherst, VA',
+    posted: '2 days ago',
+    category: 'Outdoor',
+    condition: 'Good',
+    image: '/assets/exchange/mountain-bike.jpg',
+    seller: 'blue_ridge',
+    description: `
+Adult mountain bike.
+
+Recently tuned up.
+    `
+  },
+
+  {
+    id: 'tool-set',
+    title: 'Mechanics Tool Set',
+    price: '$80',
+    location: 'Amherst, VA',
+    posted: '1 day ago',
+    category: 'Tools',
+    condition: 'Good',
+    image: '/assets/exchange/tool-set.jpg',
+    seller: 'garageguy',
+    description: `
+Complete mechanics tool set.
+
+Some pieces show normal wear.
+    `
+  }
+];
+
+const BLACK_SUV = EXCHANGE_LISTINGS.find(
+  listing => listing.id === 'black-suv'
+)!;
 
 export const AMHERST_EXCHANGE_PAGES: FakePage[] = [
 
-    {
-        id: 'exchange-home',
-        domain: 'amherst-exchange.local',
-        path: '/',
-        title: 'Amherst Exchange',
-        subtitle: 'Buy. Sell. Trade.',
-        category: 'CLASSIFIEDS',
-        content: `
-        Amherst Exchange is a local marketplace for
-        buying, selling, and trading goods and services.
+  // ============================================================
+  // HOME
+  // ============================================================
 
-        Listings are posted by users and are not verified.
-        `,
-        links: [
-            {
-            label: 'Vehicles',
-            path: '/category/vehicles'
-            },
-            {
-            label: 'Electronics',
-            path: '/category/electronics'
-            },
-            {
-            label: 'Miscellaneous',
-            path: '/category/misc'
-            },
-            {
-            label: 'User: nightshift84',
-            path: '/user/nightshift84'
-            }
-        ]
-        },
+  {
+    id: 'exchange-home',
+    domain: 'amherst-exchange.local',
+    path: '/',
+    title: 'Amherst Exchange',
+    subtitle: 'Buy, sell, and trade locally.',
+    category: 'LOCAL MARKETPLACE',
+    type: 'EXCHANGE_HOME',
+    content: '',
+    listings: EXCHANGE_LISTINGS
+  },
 
-        {
-        id: 'exchange-vehicles',
-        domain: 'amherst-exchange.local',
-        path: '/category/vehicles',
-        title: 'Vehicles',
-        category: 'CLASSIFIEDS',
-        content: `
-        Vehicles and automotive parts currently listed
-        on Amherst Exchange.
-        `,
-        links: [
-            {
-            label: '2017 Black SUV — $8,500',
-            path: '/listing/black-suv'
-            }
-        ]
-        },
+  // ============================================================
+  // VEHICLES
+  // ============================================================
 
-        {
-        id: 'exchange-black-suv',
-        domain: 'amherst-exchange.local',
-        path: '/listing/black-suv',
-        title: '2017 Black SUV — $8,500',
-        category: 'VEHICLE LISTING',
-        content: `
-        2017 Black SUV.
+  {
+    id: 'exchange-vehicles',
+    domain: 'amherst-exchange.local',
+    path: '/category/vehicles',
+    title: 'Vehicles',
+    subtitle: 'Cars, trucks, motorcycles, and automotive parts.',
+    category: 'VEHICLES',
+    type: 'EXCHANGE_CATEGORY',
+    content: '',
+    listings: [
+      BLACK_SUV
+    ]
+  },
 
-        Runs well.
+  // ============================================================
+  // ELECTRONICS
+  // ============================================================
 
-        No accidents reported.
+  {
+    id: 'exchange-electronics',
+    domain: 'amherst-exchange.local',
+    path: '/category/electronics',
+    title: 'Electronics',
+    category: 'ELECTRONICS',
+    type: 'EXCHANGE_CATEGORY',
+    content: '',
+    listings: [
+      EXCHANGE_LISTINGS.find(
+        listing => listing.id === 'guitar-amp'
+      )!
+    ]
+  },
 
-        Seller:
-        nightshift84
+  // ============================================================
+  // FURNITURE
+  // ============================================================
 
-        Pickup available near the old mill.
-        `,
-        links: [
-            {
-            label: 'View seller profile',
-            path: '/user/nightshift84'
-            },
-            {
-            label: 'Discuss privately',
-            domain: 'backroom.local',
-            path: '/messages/nightshift84'
-            }
-        ]
-        },
+  {
+    id: 'exchange-furniture',
+    domain: 'amherst-exchange.local',
+    path: '/category/furniture',
+    title: 'Furniture',
+    category: 'FURNITURE',
+    type: 'EXCHANGE_CATEGORY',
+    content: '',
+    listings: [
+      EXCHANGE_LISTINGS.find(
+        listing => listing.id === 'oak-dining-table'
+      )!,
+      EXCHANGE_LISTINGS.find(
+        listing => listing.id === 'bookshelf'
+      )!
+    ]
+  },
 
-        {
-        id: 'exchange-nightshift',
-        domain: 'amherst-exchange.local',
-        path: '/user/nightshift84',
-        title: 'nightshift84',
-        category: 'USER PROFILE',
-        content: `
-        Member since: 2022
+  // ============================================================
+  // MISCELLANEOUS
+  // ============================================================
 
-        Listings: 14
+  {
+    id: 'exchange-misc',
+    domain: 'amherst-exchange.local',
+    path: '/category/misc',
+    title: 'Miscellaneous',
+    category: 'MISCELLANEOUS',
+    type: 'EXCHANGE_CATEGORY',
+    content: '',
+    listings: [
+      EXCHANGE_LISTINGS.find(
+        listing => listing.id === 'camping-tent'
+      )!,
+      EXCHANGE_LISTINGS.find(
+        listing => listing.id === 'mountain-bike'
+      )!,
+      EXCHANGE_LISTINGS.find(
+        listing => listing.id === 'tool-set'
+      )!
+    ]
+  },
 
-        Reputation: 96%
+  // ============================================================
+  // BLACK SUV LISTING
+  // ============================================================
 
-        Last active: Yesterday
+  {
+    id: 'exchange-black-suv',
+    domain: 'amherst-exchange.local',
+    path: '/listing/black-suv',
+    title: '2017 Black SUV',
+    category: 'VEHICLE LISTING',
+    type: 'EXCHANGE_LISTING',
+    content: '',
+    listings: [
+      BLACK_SUV
+    ],
+    links: [
+      {
+        label: 'View seller profile',
+        path: '/user/nightshift84'
+      },
+      {
+        label: 'Discuss privately',
+        domain: 'backroom.local',
+        path: '/messages/nightshift84'
+      }
+    ]
+  },
 
-        "I buy and sell whatever people need."
-        `,
-        links: [
-            {
-            label: 'View vehicle listing',
-            path: '/listing/black-suv'
-            }
-        ]
-    },
+  // ============================================================
+  // SELLER PROFILE
+  // ============================================================
+
+  {
+    id: 'exchange-nightshift',
+    domain: 'amherst-exchange.local',
+    path: '/user/nightshift84',
+    title: 'nightshift84',
+    subtitle: 'Local seller',
+    category: 'SELLER PROFILE',
+    content: '',
+    listings: [
+      BLACK_SUV
+    ]
+  }
 
 ];

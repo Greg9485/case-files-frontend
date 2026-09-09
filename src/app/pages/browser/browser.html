@@ -1,577 +1,215 @@
-<section
-  class="browser"
-  [class.dark-web-mode]="isDarkWebSite()"
->
+<div class="browser">
 
-  <!-- ======================================================
+  <!-- ========================================================
        BROWSER CHROME
-  ======================================================= -->
+       ======================================================== -->
 
-  <header class="browser-bar">
+  <header class="browser-chrome">
 
-```
-<div class="browser-controls">
+    <button
+      type="button"
+      class="browser-control"
+      (click)="goBack()"
+      [disabled]="historyIndex <= 0"
+      aria-label="Back"
+    >
+      ←
+    </button>
 
-  <button
-    (click)="goBack()"
-    [disabled]="historyIndex <= 0"
-    title="Back"
-  >
-    ←
-  </button>
 
-  <button
-    (click)="goForward()"
-    [disabled]="historyIndex >= history.length - 1"
-    title="Forward"
-  >
-    →
-  </button>
+    <button
+      type="button"
+      class="browser-control"
+      (click)="goForward()"
+      [disabled]="historyIndex >= history.length - 1"
+      aria-label="Forward"
+    >
+      →
+    </button>
 
-  <button
-    (click)="reload()"
-    title="Reload"
-  >
-    ⟳
-  </button>
 
-</div>
+    <button
+      type="button"
+      class="browser-control"
+      (click)="reload()"
+      aria-label="Reload"
+    >
+      ↻
+    </button>
 
-<div class="address-bar">
 
-  <span class="lock">🔒</span>
+    <div class="address-bar">
 
-  <span>
-    {{ currentPage.domain }}{{ currentPage.path }}
-  </span>
+      <span class="address-lock">
+        🔒
+      </span>
 
-</div>
+      <span>
+        {{ currentDomain }}{{ currentPath }}
+      </span>
 
-<button
-  class="bookmark"
-  (click)="toggleBookmark()"
-  [title]="
-    isCurrentPageBookmarked()
-      ? 'Remove bookmark'
-      : 'Bookmark this page'
-  "
->
-  {{ isCurrentPageBookmarked() ? '★' : '☆' }}
-</button>
+    </div>
 
-<button
-  class="bookmark"
-  (click)="toggleBookmarksMenu()"
-  title="Bookmarks"
->
-  ▾
-</button>
-```
+
+    <button
+      type="button"
+      class="browser-control"
+      (click)="toggleBookmark()"
+      [attr.aria-label]="
+        isCurrentPageBookmarked()
+          ? 'Remove bookmark'
+          : 'Bookmark page'
+      "
+    >
+      {{ isCurrentPageBookmarked() ? '★' : '☆' }}
+    </button>
+
+
+    <button
+      type="button"
+      class="browser-control"
+      (click)="toggleBookmarksMenu()"
+      aria-label="Bookmarks"
+    >
+      ▾
+    </button>
 
   </header>
 
-  <!-- ======================================================
+
+  <!-- ========================================================
        BOOKMARKS
-  ======================================================= -->
+       ======================================================== -->
 
-@if (showBookmarks) {
+  @if (showBookmarks) {
 
-```
-<div class="bookmarks-menu">
+    <div class="bookmarks-panel">
 
-  <div class="bookmarks-header">
-    BOOKMARKS
-  </div>
+      <div class="bookmarks-header">
+        BOOKMARKS
+      </div>
 
-  @if (bookmarks.length === 0) {
 
-    <div class="empty-bookmarks">
-      No bookmarked pages.
-    </div>
+      @if (bookmarks.length === 0) {
 
-  } @else {
-
-    @for (
-      bookmark of bookmarks;
-      track bookmark.domain + bookmark.path
-    ) {
-
-      <button
-        class="bookmark-item"
-        (click)="openBookmark(bookmark)"
-      >
-
-        <div>
-
-          <strong>
-            {{ bookmark.title }}
-          </strong>
-
-          <span>
-            {{ bookmark.domain }}{{ bookmark.path }}
-          </span>
-
+        <div class="bookmarks-empty">
+          No bookmarks saved.
         </div>
 
-        <span>→</span>
-
-      </button>
-
-    }
-
-  }
-
-</div>
-```
-
-}
-
-  <!-- ======================================================
-       WEBSITE
-  ======================================================= -->
-
-  <div class="website">
-
-```
-<!-- ====================================================
-     MUNICIPAL-STYLE HEADER
-===================================================== -->
-
-<header class="site-header">
-
-  <div class="town-identity">
-
-    <div class="town-seal" aria-hidden="true">
-
-      <div class="seal-inner">
-        <span class="seal-town">TOWN</span>
-        <strong>A</strong>
-        <span class="seal-state">VIRGINIA</span>
-      </div>
-
-    </div>
-
-
-    <div class="site-title">
-
-      <h1>
-        {{ currentSite.name }}
-      </h1>
-
-      @if (currentSite.tagline) {
-
-        <span class="site-tagline">
-          {{ currentSite.tagline }}
-        </span>
-
-      }
-
-    </div>
-
-  </div>
-
-
-  <div class="site-header-right">
-
-    <div class="contact-line">
-      Amherst, Virginia
-    </div>
-
-    <div class="account-line">
-      {{ currentSite.accountLabel }}
-    </div>
-
-  </div>
-
-</header>
-
-
-<!-- ====================================================
-     GOVERNMENT-STYLE NAVIGATION
-===================================================== -->
-
-<nav class="site-nav">
-
-  <div class="site-nav-inner">
-
-    @for (
-      item of currentSite.navigation;
-      track item.path
-    ) {
-
-      <button
-        (click)="
-          navigate(
-            item.path,
-            item.domain
-          )
-        "
-        [class.active]="
-          currentPage.path === item.path
-          &&
-          currentPage.domain ===
-            (
-              item.domain ||
-              currentSite.domain
-            )
-        "
-      >
-        {{ item.label }}
-      </button>
-
-    }
-
-  </div>
-
-</nav>
-
-
-<!-- ====================================================
-     WEBSITE CONTENT
-===================================================== -->
-
-<main
-  class="website-content"
-  [class.error-page]="
-    currentPage.status &&
-    currentPage.status !== 'ACTIVE'
-  "
->
-
-
-  <!-- ==================================================
-       ERROR PAGE
-  =================================================== -->
-
-  @if (
-    currentPage.status &&
-    currentPage.status !== 'ACTIVE'
-  ) {
-
-    <section class="system-message">
-
-      <div class="system-icon">
-
-        @switch (currentPage.status) {
-
-          @case ('NOT_FOUND') {
-            404
-          }
-
-          @case ('REMOVED') {
-            DEL
-          }
-
-          @case ('RESTRICTED') {
-            LOCK
-          }
-
-          @case ('OFFLINE') {
-            OFF
-          }
-
-        }
-
-      </div>
-
-      <span class="system-category">
-        {{ currentPage.category }}
-      </span>
-
-      <h2>
-        {{ currentPage.title }}
-      </h2>
-
-      <p>
-        {{ currentPage.content }}
-      </p>
-
-      <button
-        class="return-button"
-        (click)="goBack()"
-      >
-        ← RETURN TO PREVIOUS PAGE
-      </button>
-
-    </section>
-
-
-  <!-- ==================================================
-       FORUM THREAD
-  =================================================== -->
-
-  } @else if (isForumThread()) {
-
-    <section class="forum-thread">
-
-      <div class="breadcrumb">
-        COMMUNITY &nbsp; / &nbsp;
-        {{ currentPage.category || 'DISCUSSION' }}
-      </div>
-
-      <div class="forum-thread-header">
-
-        @if (currentPage.category) {
-
-          <span class="category">
-            {{ currentPage.category }}
-          </span>
-
-        }
-
-        <h2>
-          {{ currentPage.title }}
-        </h2>
-
-        @if (currentPage.subtitle) {
-
-          <p>
-            {{ currentPage.subtitle }}
-          </p>
-
-        }
-
-      </div>
-
-
-      <div class="forum-posts">
+      } @else {
 
         @for (
-          post of currentForumPosts;
-          track post.id
+          bookmark of bookmarks;
+          track bookmark.domain + bookmark.path
         ) {
 
-          <article
-            class="forum-post"
-            [class.original-poster]="
-              post.isOriginalPoster
-            "
+          <button
+            type="button"
+            class="bookmark-item"
+            (click)="openBookmark(bookmark)"
           >
 
-            <div class="forum-post-sidebar">
-
-              <button
-                class="forum-username"
-                (click)="
-                  openForumUser(
-                    post.userPath
-                  )
-                "
-              >
-                {{ post.username }}
-              </button>
-
-              @if (post.isOriginalPoster) {
-
-                <span class="op-badge">
-                  ORIGINAL POSTER
-                </span>
-
-              }
-
-            </div>
+            <span class="bookmark-title">
+              {{ bookmark.title }}
+            </span>
 
 
-            <div class="forum-post-main">
+            <span class="bookmark-url">
+              {{ bookmark.domain }}{{ bookmark.path }}
+            </span>
 
-              <div class="forum-post-meta">
-
-                <span>
-                  {{ post.timestamp }}
-                </span>
-
-              </div>
-
-              <p>
-                {{ post.content }}
-              </p>
-
-            </div>
-
-          </article>
+          </button>
 
         }
 
-      </div>
-
-
-      @if (
-        currentPage.links &&
-        currentPage.links.length > 0
-      ) {
-
-        <section class="related forum-related">
-
-          <div class="section-title">
-            RELATED INFORMATION
-          </div>
-
-          <div class="site-links">
-
-            @for (
-              link of currentPage.links;
-              track link.path
-            ) {
-
-              <button
-                class="site-link"
-                (click)="
-                  navigate(
-                    link.path,
-                    link.domain
-                  )
-                "
-              >
-
-                <span>
-                  {{ link.label }}
-                </span>
-
-                <span class="arrow">
-                  →
-                </span>
-
-              </button>
-
-            }
-
-          </div>
-
-        </section>
-
-      }
-
-    </section>
-
-
-  <!-- ==================================================
-       STANDARD PAGE
-  =================================================== -->
-
-  } @else {
-
-    <div class="breadcrumb">
-      TOWN OF AMHERST &nbsp; / &nbsp;
-      {{ currentPage.category || 'COMMUNITY' }}
-    </div>
-
-
-    <div class="content-header">
-
-      @if (currentPage.category) {
-
-        <span class="category">
-          {{ currentPage.category }}
-        </span>
-
-      }
-
-      <h2>
-        {{ currentPage.title }}
-      </h2>
-
-      @if (currentPage.subtitle) {
-
-        <p>
-          {{ currentPage.subtitle }}
-        </p>
-
       }
 
     </div>
-
-
-    <article class="page-content">
-
-      <p>
-        {{ currentPage.content }}
-      </p>
-
-    </article>
-
-
-    @if (
-      currentPage.links &&
-      currentPage.links.length > 0
-    ) {
-
-      <section class="related">
-
-        <div class="section-title">
-          RELATED INFORMATION
-        </div>
-
-        <div class="site-links">
-
-          @for (
-            link of currentPage.links;
-            track link.path
-          ) {
-
-            <button
-              class="site-link"
-              (click)="
-                navigate(
-                  link.path,
-                  link.domain
-                )
-              "
-            >
-
-              <span>
-                {{ link.label }}
-              </span>
-
-              <span class="arrow">
-                →
-              </span>
-
-            </button>
-
-          }
-
-        </div>
-
-      </section>
-
-    }
 
   }
 
-</main>
+
+  <!-- ========================================================
+       WEBSITE / PAGE VIEWPORT
+       ======================================================== -->
+
+  <!-- <div class="website">
+
+    @if (!currentPage) {
+
+      <div class="error-page">
+
+        <h1>
+          Page unavailable
+        </h1>
+
+        <p>
+          The requested page could not be found.
+        </p>
+
+      </div>
+
+    } @else {
+
+      <ng-container
+        *ngComponentOutlet="
+          pageRenderer;
+          inputs: pageRendererInputs
+        "
+      ></ng-container>
+
+    }
+
+  </div> -->
+
+    <div class="website">
+
+      @if (!currentPage) {
+
+        <div class="error-page">
+
+          <section class="system-message">
+
+            <div class="system-icon">
+              404
+            </div>
+
+            <span class="system-category">
+              BROWSER
+            </span>
+
+            <h2>
+              Page unavailable
+            </h2>
+
+            <p>
+              The requested page could not be found.
+            </p>
+
+            <button
+              type="button"
+              class="return-button"
+              (click)="goBack()"
+            >
+              ← RETURN TO PREVIOUS PAGE
+            </button>
+
+          </section>
+
+        </div>
+
+      } @else {
+
+        <ng-container
+          *ngComponentOutlet="
+            pageRenderer;
+            inputs: pageRendererInputs
+          "
+        ></ng-container>
+
+      }
+
+    </div>
 
 
-<!-- ====================================================
-     MUNICIPAL FOOTER
-===================================================== -->
-
-<footer class="site-footer">
-
-  <div>
-    <strong>
-      {{ currentSite.name }}
-    </strong>
-
-    <span>
-      174 S. Main Street, Amherst, VA 24521
-    </span>
-  </div>
-
-  <div class="footer-right">
-
-    <span>
-      434-946-7885
-    </span>
-
-    <span>
-      {{ currentSite.tagline || 'COMMUNITY INFORMATION' }}
-    </span>
-
-  </div>
-
-</footer>
-```
-
-  </div>
-
-</section>
+</div>

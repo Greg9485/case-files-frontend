@@ -1,0 +1,292 @@
+<div class="amherst-board-site">
+
+  <div class="utility-bar">
+    <div class="utility-inner">
+      <span>Town of Amherst, Virginia</span>
+
+      <div class="utility-links">
+        <span>434-946-7885</span>
+        <span>townhall@amherstva.gov</span>
+      </div>
+    </div>
+  </div>
+
+
+  <header class="site-header">
+
+    <div class="header-inner">
+
+      <div class="site-brand">
+
+        <div class="site-title">
+          TOWN OF AMHERST
+        </div>
+
+        <div class="site-tagline">
+          {{ site.description }}
+        </div>
+
+      </div>
+
+
+      <div class="site-search">
+
+        <input
+          type="text"
+          placeholder="Search..."
+          aria-label="Search"
+        >
+
+        <button
+          type="button"
+          aria-label="Search"
+        >
+          Search
+        </button>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <nav class="site-nav">
+
+    <div class="site-nav-inner">
+
+      @for (
+        link of site.navigation ?? [];
+        track link.label
+      ) {
+
+        <button
+          type="button"
+          (click)="navigate(link.path, link.domain)"
+        >
+          {{ link.label }}
+        </button>
+
+      }
+
+    </div>
+
+  </nav>
+
+
+  <main class="site-content">
+
+    <div class="content-column">
+
+      @if (isForumThread()) {
+
+        <article class="forum-thread">
+
+          <div class="breadcrumb">
+            Home
+            <span>›</span>
+            Community
+            <span>›</span>
+            {{ page.category }}
+          </div>
+
+
+          <header class="forum-thread-header">
+
+            <span class="forum-category">
+              {{ page.category }}
+            </span>
+
+            <h1>
+              {{ page.title }}
+            </h1>
+
+            <div class="forum-thread-date">
+              {{ page.subtitle }}
+            </div>
+
+          </header>
+
+
+          <div class="forum-intro">
+            Community discussion
+          </div>
+
+
+          <div class="forum-posts">
+
+            @for (
+              post of forumPosts;
+              track post.id
+            ) {
+
+              <article class="forum-post">
+
+                <aside class="forum-user">
+
+                  <strong>
+                    {{ post.username }}
+                  </strong>
+
+                  <span>
+                    Community member
+                  </span>
+
+                </aside>
+
+
+                <div class="forum-post-body">
+
+                  <p>
+                    {{ post.content }}
+                  </p>
+
+                </div>
+
+              </article>
+
+            }
+
+          </div>
+
+        </article>
+
+      } @else {
+
+        <article class="standard-page">
+
+          <div class="breadcrumb">
+            Home
+            <span>›</span>
+            {{ page.category }}
+          </div>
+
+
+          <header class="page-header">
+
+            <span class="page-category">
+              {{ page.category }}
+            </span>
+
+            <h1>
+              {{ page.title }}
+            </h1>
+
+            @if (page.subtitle) {
+
+              <p>
+                {{ page.subtitle }}
+              </p>
+
+            }
+
+          </header>
+
+
+          @if (page.content) {
+
+            <div class="page-content">
+
+              <p>
+                {{ page.content }}
+              </p>
+
+            </div>
+
+          }
+
+
+          @if (page.links?.length) {
+
+            <div class="page-links">
+
+              @for (
+                link of page.links;
+                track link.label
+              ) {
+
+                <button
+                  type="button"
+                  (click)="navigate(link.path, link.domain)"
+                >
+                  {{ link.label }}
+
+                  <span>›</span>
+                </button>
+
+              }
+
+            </div>
+
+          }
+
+        </article>
+
+      }
+
+    </div>
+
+
+    <aside class="site-sidebar">
+
+      <div class="sidebar-box">
+
+        <h2>
+          Quick Links
+        </h2>
+
+        <button type="button">
+          Town Government
+        </button>
+
+        <button type="button">
+          Public Notices
+        </button>
+
+        <button type="button">
+          Town Council
+        </button>
+
+        <button type="button">
+          Contact Town Hall
+        </button>
+
+      </div>
+
+
+      <div class="sidebar-box notice-box">
+
+        <h2>
+          Town Notices
+        </h2>
+
+        <p>
+          Public information and community notices
+          are posted here for Amherst residents.
+        </p>
+
+      </div>
+
+    </aside>
+
+  </main>
+
+
+  <footer class="site-footer">
+
+    <div class="footer-inner">
+
+      <div>
+        <strong>TOWN OF AMHERST</strong>
+        <span>Virginia</span>
+      </div>
+
+      <div>
+        Amherst Community Board · Local community discussion
+      </div>
+
+    </div>
+
+  </footer>
+
+</div>

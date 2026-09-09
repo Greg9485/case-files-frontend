@@ -22,12 +22,13 @@
 
   }
 
+
   <header class="case-file-header">
 
     <div>
 
       <span class="eyebrow">
-        CASE FILE
+        RESTRICTED CASE RECORD
       </span>
 
       <h1>
@@ -237,7 +238,7 @@
         </div>
 
 
-        <div class="attachment-actions">
+             <div class="attachment-actions">
 
           <button
             type="button"
@@ -249,79 +250,160 @@
 
         </div>
 
-
-        @if (metadataVisible) {
-
-          <div class="metadata">
-
-            <div class="metadata-header">
-              FILE METADATA
-            </div>
-
-
-            <dl>
-
-              <div>
-                <dt>FILENAME</dt>
-                <dd>ampd_inv_0017.jpg</dd>
-              </div>
-
-              <div>
-                <dt>FILE TYPE</dt>
-                <dd>JPEG IMAGE</dd>
-              </div>
-
-              <div>
-                <dt>CLASSIFICATION</dt>
-                <dd>RESTRICTED</dd>
-              </div>
-
-              <div>
-                <dt>ACCESS STATUS</dt>
-                <dd>IMAGE CONTENT UNAVAILABLE</dd>
-              </div>
-
-            </dl>
-
-
-            <div class="metadata-exception">
-
-              <span class="metadata-label">
-                METADATA
-              </span>
-
-              <pre>
-                Filename: ampd_inv_0017.jpg
-                File type: JPEG Image
-                File size: 2.84 MB
-                Dimensions: 4032 × 3024
-                Created: October 18, 2024 08:43:17 AM
-                Modified: October 18, 2024 09:12:04 AM
-                Captured: October 17, 2024 10:17:43 PM
-                Source: Investigative Portal
-                Device: Apple iPhone 13
-                Location: Amherst, Virginia
-                GPS: 37.5856° N, 79.0514° W
-                Classification: RESTRICTED
-                Access status: IMAGE CONTENT UNAVAILABLE
-                Source: INVESTIGATIVE PORTAL
-                Uploaded By: 
-            &#123;redacted&#125;
-                USERNAME: ampd_inv_74291
-                PASSWORD: CARTER-74291
-            &#123;&#123;/redacted&#125;
-            </pre>
-
-            </div>
-
-          </div>
-
-        }
-
       </div>
 
     </section>
 
   </article>
+
+
+  @if (metadataVisible) {
+
+    <div
+      class="metadata-modal-backdrop"
+      role="presentation"
+      (click)="closeMetadata()"
+    >
+
+      <section
+        class="metadata-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="metadata-modal-title"
+        (click)="$event.stopPropagation()"
+      >
+
+        <header class="metadata-modal-header">
+
+          <div>
+
+            <span>
+              AMHERST POLICE DEPARTMENT
+            </span>
+
+            <strong id="metadata-modal-title">
+              FILE METADATA
+            </strong>
+
+          </div>
+
+          <button
+            type="button"
+            class="metadata-close"
+            aria-label="Close metadata"
+            (click)="closeMetadata()"
+          >
+            ×
+          </button>
+
+        </header>
+
+
+        <div class="metadata-modal-body">
+
+          <div class="metadata-grid">
+
+            <div>
+              <dt>FILENAME</dt>
+              <dd>ampd_inv_0017.jpg</dd>
+            </div>
+
+            <div>
+              <dt>FILE TYPE</dt>
+              <dd>JPEG IMAGE</dd>
+            </div>
+
+            <div>
+              <dt>FILE SIZE</dt>
+              <dd>2.84 MB</dd>
+            </div>
+
+            <div>
+              <dt>DIMENSIONS</dt>
+              <dd>4032 × 3024</dd>
+            </div>
+
+            <div>
+              <dt>CREATED</dt>
+              <dd>October 18, 2024 08:43:17 AM</dd>
+            </div>
+
+            <div>
+              <dt>MODIFIED</dt>
+              <dd>October 18, 2024 09:12:04 AM</dd>
+            </div>
+
+            <div>
+              <dt>CAPTURED</dt>
+              <dd>October 17, 2024 10:17:43 PM</dd>
+            </div>
+
+            <div>
+              <dt>DEVICE</dt>
+              <dd>Apple iPhone 13</dd>
+            </div>
+
+            <div>
+              <dt>SOURCE</dt>
+              <dd>Investigative Portal</dd>
+            </div>
+
+            <div>
+              <dt>LOCATION</dt>
+              <dd>Amherst, Virginia</dd>
+            </div>
+
+          </div>
+
+
+          <div class="metadata-exception">
+
+            <span class="metadata-label">
+              EXTENDED METADATA
+            </span>
+
+            <pre>Filename: ampd_inv_0017.jpg
+File type: JPEG Image
+File size: 2.84 MB
+Dimensions: 4032 × 3024
+Created: October 18, 2024 08:43:17 AM
+Modified: October 18, 2024 09:12:04 AM
+Captured: October 17, 2024 10:17:43 PM
+Source: Investigative Portal
+Device: Apple iPhone 13
+Location: Amherst, Virginia
+GPS: 37.5856° N, 79.0514° W
+Classification: RESTRICTED
+Access status: IMAGE CONTENT UNAVAILABLE
+Uploaded By: &#123;redacted&#125;
+USERNAME: ampd_inv_74291
+PASSWORD: CARTER-74291
+&#123;/redacted</pre>
+
+          </div>
+
+        </div>
+
+
+        <footer class="metadata-modal-footer">
+
+          <span>
+            Close this window to continue.
+          </span>
+
+          <button
+            type="button"
+            (click)="closeMetadata()"
+          >
+            CLOSE
+          </button>
+
+        </footer>
+
+      </section>
+
+    </div>
+
+  }
 
 </section>

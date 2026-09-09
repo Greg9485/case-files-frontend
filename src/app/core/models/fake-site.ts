@@ -10,4 +10,5 @@ export interface FakeSite {
   tagline?: string;
   accountLabel?: string;
   navigation: FakeSiteNavItem[];
+  description?: string;
 }
