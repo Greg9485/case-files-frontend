@@ -1,5 +1,9 @@
 <div class="police-public-site">
 
+  <!-- ==========================================================
+       SITE HEADER
+       ========================================================== -->
+
   <header class="police-header">
 
     <div class="police-header-top">
@@ -32,48 +36,60 @@
 
     </div>
 
+
+    <nav class="police-nav">
+
+      <a
+        href="#"
+        (click)="$event.preventDefault(); navigate('/', 'amherstpd.local')"
+      >
+        Home
+      </a>
+
+      <a
+        href="#"
+        (click)="$event.preventDefault(); navigate('/incidents', 'amherstpd.local')"
+      >
+        Incident Reports
+      </a>
+
+    </nav>
+
   </header>
 
 
-  <nav class="police-nav">
-
-    <div class="police-nav-inner">
-
-      <button
-        type="button"
-        (click)="navigate('/')"
-      >
-        Incident Crime Reports
-      </button>
-
-      <button
-        type="button"
-        (click)="navigate('/incidents')"
-      >
-        Search Records
-      </button>
-
-      <span class="nav-spacer"></span>
-
-      <span>
-        Amherst, Virginia
-      </span>
-
-    </div>
-
-  </nav>
-
+  <!-- ==========================================================
+       MAIN CONTENT
+       ========================================================== -->
 
   <main class="police-content">
+
+
+    <!-- ========================================================
+         INCIDENT LIST
+         ======================================================== -->
 
     @if (isIncidentList()) {
 
       <section class="police-records-page">
 
         <div class="police-breadcrumb">
-          Public Data
-          <span>›</span>
-          Incident Crime Reports
+
+          <a
+            href="#"
+            (click)="$event.preventDefault(); navigate('/', 'amherstpd.local')"
+          >
+            Home
+          </a>
+
+          <span>
+            &gt;
+          </span>
+
+          <strong>
+            Incident Crime Reports
+          </strong>
+
         </div>
 
 
@@ -117,345 +133,6 @@
           </p>
 
         </section>
-
-
-        <section class="police-filters">
-
-          <div class="filter-section-title">
-            Filter Incident Crime Reports
-          </div>
-
-
-          <div class="police-filter-grid">
-
-            <div class="police-filter">
-
-              <label>
-                Date From
-              </label>
-
-              <input
-                type="text"
-                placeholder="MM/DD/YYYY"
-              >
-
-            </div>
-
-
-            <div class="police-filter">
-
-              <label>
-                Date To
-              </label>
-
-              <input
-                type="text"
-                placeholder="MM/DD/YYYY"
-              >
-
-            </div>
-
-
-            <div class="police-filter">
-
-              <label>
-                Crime Category
-              </label>
-
-              <select>
-
-                <option>
-                  All
-                </option>
-
-                <option>
-                  Person
-                </option>
-
-                <option>
-                  Property
-                </option>
-
-                <option>
-                  Suspicious Activity
-                </option>
-
-                <option>
-                  Missing Person
-                </option>
-
-              </select>
-
-            </div>
-
-
-            <div class="police-filter">
-
-              <label>
-                Crime Sub Category
-              </label>
-
-              <select>
-
-                <option>
-                  All
-                </option>
-
-                <option>
-                  Missing Person
-                </option>
-
-                <option>
-                  Suspicious Situation
-                </option>
-
-                <option>
-                  Property Damage
-                </option>
-
-              </select>
-
-            </div>
-
-
-            <div class="police-filter">
-
-              <label>
-                Block Number
-              </label>
-
-              <input
-                type="text"
-                placeholder="Block"
-              >
-
-            </div>
-
-
-            <div class="police-filter">
-
-              <label>
-                Street Name
-              </label>
-
-              <input
-                type="text"
-                placeholder="Street"
-              >
-
-            </div>
-
-
-            <div class="police-filter">
-
-              <label>
-                Location Type
-              </label>
-
-              <select>
-
-                <option>
-                  All
-                </option>
-
-                <option>
-                  Residence
-                </option>
-
-                <option>
-                  Business
-                </option>
-
-                <option>
-                  Roadway
-                </option>
-
-                <option>
-                  Park / Recreation
-                </option>
-
-              </select>
-
-            </div>
-
-
-            <div class="police-filter">
-
-              <label>
-                District
-              </label>
-
-              <select>
-
-                <option>
-                  All
-                </option>
-
-                <option>
-                  Central
-                </option>
-
-                <option>
-                  North
-                </option>
-
-                <option>
-                  South
-                </option>
-
-              </select>
-
-            </div>
-
-
-            <div class="police-filter">
-
-              <label>
-                Status
-              </label>
-
-              <select>
-
-                <option>
-                  All
-                </option>
-
-                <option>
-                  Open
-                </option>
-
-                <option>
-                  Closed
-                </option>
-
-              </select>
-
-            </div>
-
-
-            <div class="police-filter">
-
-              <label>
-                Disposition
-              </label>
-
-              <select>
-
-                <option>
-                  All
-                </option>
-
-                <option>
-                  Active
-                </option>
-
-                <option>
-                  No Criminal Offense
-                </option>
-
-                <option>
-                  Cleared
-                </option>
-
-              </select>
-
-            </div>
-
-          </div>
-
-
-          <div class="filter-actions">
-
-            <button
-              type="button"
-              class="police-search-button"
-            >
-              Submit
-            </button>
-
-            <button
-              type="button"
-              class="police-clear-button"
-            >
-              Clear
-            </button>
-
-          </div>
-
-        </section>
-
-
-        <section class="records-toolbar">
-
-          <div>
-            Incident Crime Report Records
-          </div>
-
-          <div class="records-toolbar-actions">
-
-            <button type="button">
-              Download CSV
-            </button>
-
-            <select>
-
-              <option>
-                25 records per page
-              </option>
-
-              <option>
-                50 records per page
-              </option>
-
-              <option>
-                100 records per page
-              </option>
-
-            </select>
-
-          </div>
-
-        </section>
-
-
-        <div class="police-pagination">
-
-          <button type="button">
-            «
-          </button>
-
-          <button type="button">
-            ‹
-          </button>
-
-          <button
-            type="button"
-            class="active"
-          >
-            1
-          </button>
-
-          <button type="button">
-            2
-          </button>
-
-          <button type="button">
-            3
-          </button>
-
-          <button type="button">
-            4
-          </button>
-
-          <button type="button">
-            ›
-          </button>
-
-          <button type="button">
-            »
-          </button>
-
-        </div>
 
 
         <div class="police-table-wrapper">
@@ -590,24 +267,42 @@
     }
 
 
+    <!-- ========================================================
+         INCIDENT DETAIL
+         ======================================================== -->
+
     @else if (isIncident()) {
 
       <article class="police-incident-detail">
 
+
         <div class="police-breadcrumb">
 
-          <button
-            type="button"
-            (click)="navigate('/incidents')"
+          <a
+            href="#"
+            (click)="$event.preventDefault(); navigate('/', 'amherstpd.local')"
           >
-            Incident Crime Reports
-          </button>
-
-          <span>›</span>
+            Home
+          </a>
 
           <span>
-            {{ page.title }}
+            &gt;
           </span>
+
+          <a
+            href="#"
+            (click)="$event.preventDefault(); navigate('/incidents', 'amherstpd.local')"
+          >
+            Incident Crime Reports
+          </a>
+
+          <span>
+            &gt;
+          </span>
+
+          <strong>
+            {{ page.title }}
+          </strong>
 
         </div>
 
@@ -707,21 +402,21 @@
 
           <section class="police-incident-actions">
 
-       @for (
-            link of page.links;
-            track link.label
+            @for (
+              link of page.links;
+              track link.label
             ) {
 
-            <button
-                type="button"
+              <a
+                href="#"
+                class="police-action-link"
                 (click)="
-                link.path === '/case-file'
-                    ? openExternalRoute(link.path)
-                    : navigate(link.path, link.domain)
+                  $event.preventDefault();
+                  navigate(link.path, 'amherstpd.local')
                 "
-            >
+              >
                 {{ link.label }}
-            </button>
+              </a>
 
             }
 
@@ -733,8 +428,438 @@
 
     }
 
+
+    <!-- ========================================================
+         CASE FILE
+         ======================================================== -->
+
+    @else if (isCaseFile()) {
+
+      <article class="police-case-file">
+
+
+        <!-- CASE FILE BREADCRUMB -->
+
+        <div class="police-breadcrumb">
+
+          <a
+            href="#"
+            (click)="$event.preventDefault(); navigate('/', 'amherstpd.local')"
+          >
+            Home
+          </a>
+
+          <span>
+            &gt;
+          </span>
+
+          <a
+            href="#"
+            (click)="$event.preventDefault(); navigate('/incidents', 'amherstpd.local')"
+          >
+            Incident Crime Reports
+          </a>
+
+          <span>
+            &gt;
+          </span>
+
+          <a
+            href="#"
+            (click)="$event.preventDefault(); navigateBackToIncident()"
+          >
+            Incident #24-1017
+          </a>
+
+          <span>
+            &gt;
+          </span>
+
+          <strong>
+            Case File
+          </strong>
+
+        </div>
+
+
+        <!-- UNLOCK NOTICE -->
+
+          @if (portalUnlockedToast) {
+
+        <div class="toast">
+
+          <span class="toast-indicator"></span>
+
+          <div class="toast-content">
+
+            <strong>
+              INVESTIGATION PORTAL UNLOCKED
+            </strong>
+
+            <span>
+              Restricted investigative access is now available.
+            </span>
+
+          </div>
+
+        </div>
+
+      }
+
+
+        <!-- CASE FILE HEADER -->
+
+        <header class="case-file-heading">
+
+          <div>
+
+            <span class="record-category">
+              CASE FILE / INVESTIGATIVE RECORD
+            </span>
+
+            <h2>
+              The Disappearance of Emily Carter
+            </h2>
+
+            <p>
+              Incident #24-1017 &nbsp; | &nbsp;
+              Missing Person &nbsp; | &nbsp;
+              Status: Open
+            </p>
+
+          </div>
+
+          <div class="case-file-status">
+            ACTIVE
+          </div>
+
+        </header>
+
+
+        <!-- CASE INFORMATION -->
+
+        <table class="case-file-identification">
+
+          <tr>
+
+            <th colspan="2">
+              AMHERST POLICE DEPARTMENT
+            </th>
+
+            <th colspan="2">
+              INVESTIGATIVE RECORD
+            </th>
+
+          </tr>
+
+          <tr>
+
+            <td class="field-label">
+              CASE NUMBER
+            </td>
+
+            <td>
+              APD-24-1017
+            </td>
+
+            <td class="field-label">
+              INCIDENT NUMBER
+            </td>
+
+            <td>
+              24-1017
+            </td>
+
+          </tr>
+
+          <tr>
+
+            <td class="field-label">
+              SUBJECT
+            </td>
+
+            <td>
+              Emily Carter
+            </td>
+
+            <td class="field-label">
+              CLASSIFICATION
+            </td>
+
+            <td>
+              RESTRICTED
+            </td>
+
+          </tr>
+
+        </table>
+
+
+        <!-- SUBJECT -->
+
+        <section class="case-file-section">
+
+          <h3>
+            SUBJECT
+          </h3>
+
+          <table class="case-file-data">
+
+            <tr>
+
+              <td>
+                NAME
+              </td>
+
+              <td>
+                Emily Carter
+              </td>
+
+              <td>
+                AGE
+              </td>
+
+              <td>
+                27
+              </td>
+
+            </tr>
+
+            <tr>
+
+              <td>
+                HOMETOWN
+              </td>
+
+              <td>
+                Lynchburg, Virginia
+              </td>
+
+              <td>
+                DATE REPORTED MISSING
+              </td>
+
+              <td>
+                October 18, 2024
+              </td>
+
+            </tr>
+
+          </table>
+
+        </section>
+
+
+        <!-- SUMMARY -->
+
+        <section class="case-file-section">
+
+          <h3>
+            SUMMARY
+          </h3>
+
+          <p>
+            Emily Carter was reported missing on October 18, 2024
+            after failing to return home following an evening
+            appointment in downtown Amherst.
+          </p>
+
+          <p>
+            Investigators determined that Carter was last seen
+            during the evening of October 17, 2024. Her vehicle
+            was located the following morning.
+          </p>
+
+        </section>
+
+
+        <!-- WITNESS STATEMENT -->
+
+        <section class="case-file-section">
+
+          <h3>
+            WITNESS STATEMENT
+          </h3>
+
+          <p>
+            A local business patron reported seeing Carter
+            shortly after 10:00 PM near the municipal parking
+            area.
+          </p>
+
+
+          <div class="investigative-note">
+
+            <div class="investigative-note-header">
+
+              <strong>
+                INVESTIGATIVE NOTE
+              </strong>
+
+              <span>
+                {{ witnessesUnlocked
+                  ? 'REVIEWED'
+                  : 'ADDITIONAL INFORMATION AVAILABLE'
+                }}
+              </span>
+
+            </div>
+
+
+            <div class="investigative-note-body">
+
+              The witness also recalled seeing a dark-colored SUV
+              parked nearby. No other vehicles were observed in
+              the immediate area at the time.
+
+            </div>
+
+
+            <button
+              type="button"
+              class="old-system-button"
+              (click)="revealWitness()"
+            >
+              {{
+                witnessesUnlocked
+                  ? 'WITNESS IDENTIFIED'
+                  : 'REVIEW STATEMENT'
+              }}
+            </button>
+
+          </div>
+
+
+          @if (witnessesUnlocked) {
+
+            <div class="case-file-result">
+
+              <strong>
+                NEW INFORMATION UNLOCKED
+              </strong>
+
+              <p>
+                Witness information has been added to the
+                investigation.
+
+              </p>
+
+            </div>
+
+          }
+
+        </section>
+
+
+        <!-- INVESTIGATIVE NOTES -->
+
+        <section class="case-file-section">
+
+          <h3>
+            INVESTIGATIVE NOTES
+          </h3>
+
+          <p>
+            No immediate connection was established between the
+            vehicle described by the witness and Carter's
+            disappearance.
+          </p>
+
+
+          <!-- ATTACHMENT -->
+
+          <div class="restricted-attachment">
+
+            <div class="attachment-header">
+
+              <div>
+
+                <span class="attachment-label">
+                  RESTRICTED ATTACHMENT
+                </span>
+
+                <strong>
+                  ampd_inv_0017.jpg
+                </strong>
+
+              </div>
+
+              <span class="attachment-status">
+                IMAGE RESTRICTED
+              </span>
+
+            </div>
+
+
+            <div class="attachment-preview">
+
+              <div class="image-placeholder">
+
+                <span>
+                  IMAGE UNAVAILABLE
+                </span>
+
+                <small>
+                  ACCESS RESTRICTED BY INVESTIGATIVE SYSTEM
+                </small>
+
+              </div>
+
+            </div>
+
+
+            <div class="attachment-actions">
+
+              <button
+                type="button"
+                class="old-system-button"
+                (click)="viewMetadata()"
+              >
+                VIEW FILE METADATA
+              </button>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- OLD WEBSITE FOOTER NAVIGATION -->
+
+        <div class="case-file-navigation">
+
+          <a
+            href="#"
+            (click)="$event.preventDefault(); navigateBackToIncident()"
+          >
+            &lt;&lt; Back to Incident #24-1017
+          </a>
+
+          <span>
+            |
+          </span>
+
+          <a
+            href="#"
+            (click)="$event.preventDefault(); navigateToIncidentList()"
+          >
+            Incident Crime Reports
+          </a>
+
+        </div>
+
+
+      </article>
+
+    }
+
   </main>
 
+
+  <!-- ==========================================================
+       FOOTER
+       ========================================================== -->
 
   <footer class="police-footer">
 
@@ -746,6 +871,165 @@
       Public Incident Crime Reports
     </div>
 
+    <div>
+      Site last updated: 06/14/2011
+    </div>
+
   </footer>
+
+
+  <!-- ==========================================================
+       METADATA WINDOW
+       ========================================================== -->
+
+  @if (metadataVisible) {
+
+    <div
+      class="metadata-modal-backdrop"
+      role="presentation"
+      (click)="closeMetadata()"
+    >
+
+      <section
+        class="metadata-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="metadata-modal-title"
+        (click)="$event.stopPropagation()"
+      >
+
+        <header class="metadata-modal-header">
+
+          <div>
+
+            <span>
+              AMHERST POLICE DEPARTMENT
+            </span>
+
+            <strong id="metadata-modal-title">
+              FILE METADATA
+            </strong>
+
+          </div>
+
+          <button
+            type="button"
+            class="metadata-close"
+            aria-label="Close metadata"
+            (click)="closeMetadata()"
+          >
+            X
+          </button>
+
+        </header>
+
+
+        <div class="metadata-modal-body">
+
+          <div class="metadata-grid">
+
+            <div>
+              <dt>FILENAME</dt>
+              <dd>ampd_inv_0017.jpg</dd>
+            </div>
+
+            <div>
+              <dt>FILE TYPE</dt>
+              <dd>JPEG IMAGE</dd>
+            </div>
+
+            <div>
+              <dt>FILE SIZE</dt>
+              <dd>2.84 MB</dd>
+            </div>
+
+            <div>
+              <dt>DIMENSIONS</dt>
+              <dd>4032 x 3024</dd>
+            </div>
+
+            <div>
+              <dt>CREATED</dt>
+              <dd>October 18, 2024 08:43:17 AM</dd>
+            </div>
+
+            <div>
+              <dt>MODIFIED</dt>
+              <dd>October 18, 2024 09:12:04 AM</dd>
+            </div>
+
+            <div>
+              <dt>CAPTURED</dt>
+              <dd>October 17, 2024 10:17:43 PM</dd>
+            </div>
+
+            <div>
+              <dt>DEVICE</dt>
+              <dd>Apple iPhone 13</dd>
+            </div>
+
+            <div>
+              <dt>SOURCE</dt>
+              <dd>Investigative Portal</dd>
+            </div>
+
+            <div>
+              <dt>LOCATION</dt>
+              <dd>Amherst, Virginia</dd>
+            </div>
+
+          </div>
+
+
+          <div class="metadata-exception">
+
+            <span class="metadata-label">
+              EXTENDED METADATA
+            </span>
+
+            <pre>Filename: ampd_inv_0017.jpg
+File type: JPEG Image
+File size: 2.84 MB
+Dimensions: 4032 x 3024
+Created: October 18, 2024 08:43:17 AM
+Modified: October 18, 2024 09:12:04 AM
+Captured: October 17, 2024 10:17:43 PM
+Source: Investigative Portal
+Device: Apple iPhone 13
+Location: Amherst, Virginia
+GPS: 37.5856 N, 79.0514 W
+Classification: RESTRICTED
+Access status: IMAGE CONTENT UNAVAILABLE
+Uploaded By: &#123;redacted&#125;
+USERNAME: ampd_inv_74291
+PASSWORD: CARTER-74291
+&#123;/redacted</pre>
+
+          </div>
+
+        </div>
+
+
+        <footer class="metadata-modal-footer">
+
+          <span>
+            Close this window to continue.
+          </span>
+
+          <button
+            type="button"
+            class="old-system-button"
+            (click)="closeMetadata()"
+          >
+            CLOSE
+          </button>
+
+        </footer>
+
+      </section>
+
+    </div>
+
+  }
 
 </div>
