@@ -17,7 +17,7 @@ export const AMHERST_POLICE_WITNESSES: PoliceWitness[] = [
 
     publicWitnessName: '[REDACTED]',
 
-    restrictedWitnessName: 'Sarah Mitchell',
+    restrictedWitnessName: 'Martin Hale',
 
     publicStatement:
       'I was leaving the municipal parking area when I noticed a dark-colored SUV parked near the far end of the lot. I remember seeing a woman standing near the vehicle, although I could not identify her. A short time later I heard a vehicle leave the area. I did not think anything of it at the time.',

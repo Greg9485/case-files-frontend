@@ -1,4 +1,12 @@
-import { Injectable, signal } from '@angular/core';
+import {
+  Injectable,
+  signal
+} from '@angular/core';
+
+export interface WitnessDiscovery {
+  source: string;
+  identityKnown: boolean;
+}
 
 export interface InvestigatorAccess {
   investigatorId: string;
@@ -17,6 +25,11 @@ export interface InvestigatorAccess {
   darkWebAuthenticated: boolean;
   darkWebUsername: string | null;
   darkWebAuthenticatedAt: Date | null;
+
+  witnessDiscoveries: Record<
+    string,
+    WitnessDiscovery[]
+  >;
 }
 
 @Injectable({
@@ -41,19 +54,36 @@ export class AccessService {
 
     darkWebAuthenticated: false,
     darkWebUsername: null,
-    darkWebAuthenticatedAt: null
+    darkWebAuthenticatedAt: null,
+
+    witnessDiscoveries: {}
   };
 
-  policePortalUnlockedSignal = signal(false);
-  witnessesUnlockedSignal = signal(false);
-  hackerEventTriggeredSignal = signal(false);
-  torBrowserUnlockedSignal = signal(false);
+  policePortalUnlockedSignal =
+    signal(false);
 
-  darkWebAuthenticatedSignal = signal(false);
+  witnessesUnlockedSignal =
+    signal(false);
+
+  hackerEventTriggeredSignal =
+    signal(false);
+
+  torBrowserUnlockedSignal =
+    signal(false);
+
+  darkWebAuthenticatedSignal =
+    signal(false);
+
+  witnessDiscoveriesSignal =
+    signal<
+      Record<string, WitnessDiscovery[]>
+    >({});
+
 
   getAccess(): InvestigatorAccess {
     return this.access;
   }
+
 
   // ============================================================
   // POLICE PORTAL ACCESS
@@ -63,34 +93,190 @@ export class AccessService {
     return this.policePortalUnlockedSignal();
   }
 
+
   unlockPolicePortal(): void {
+
     this.access = {
       ...this.access,
       policePortalUnlocked: true
     };
 
-    this.policePortalUnlockedSignal.set(true);
+    this.policePortalUnlockedSignal.set(
+      true
+    );
   }
+
 
   isWitnessesUnlocked(): boolean {
     return this.witnessesUnlockedSignal();
   }
 
+
   unlockWitnesses(): void {
+
     this.access = {
       ...this.access,
       witnessesUnlocked: true
     };
 
-    this.witnessesUnlockedSignal.set(true);
+    this.witnessesUnlockedSignal.set(
+      true
+    );
   }
+
+
+  // ============================================================
+  // WITNESS DISCOVERY
+  // ============================================================
+
+  discoverWitness(
+    witnessId: string,
+    source: string,
+    identityKnown: boolean
+  ): void {
+
+    const existingDiscoveries =
+      this.access.witnessDiscoveries[
+        witnessId
+      ] ?? [];
+
+    const alreadyDiscovered =
+      existingDiscoveries.some(
+        discovery =>
+          discovery.source === source
+      );
+
+    if (alreadyDiscovered) {
+
+      if (identityKnown) {
+        this.revealWitnessIdentity(
+          witnessId
+        );
+      }
+
+      return;
+    }
+
+    const updatedDiscoveries = [
+      ...existingDiscoveries,
+      {
+        source,
+        identityKnown
+      }
+    ];
+
+    const updatedWitnessDiscoveries = {
+      ...this.access.witnessDiscoveries,
+      [witnessId]:
+        updatedDiscoveries
+    };
+
+    this.access = {
+      ...this.access,
+      witnessDiscoveries:
+        updatedWitnessDiscoveries
+    };
+
+    this.witnessDiscoveriesSignal.set(
+      updatedWitnessDiscoveries
+    );
+  }
+
+
+  hasDiscoveredWitness(
+    witnessId: string
+  ): boolean {
+
+    return (
+      (
+        this.access.witnessDiscoveries[
+          witnessId
+        ] ?? []
+      ).length > 0
+    );
+  }
+
+
+  isWitnessIdentityKnown(
+    witnessId: string
+  ): boolean {
+
+    return (
+      this.getWitnessDiscoveries(
+        witnessId
+      ).some(
+        discovery =>
+          discovery.identityKnown
+      )
+    );
+  }
+
+
+  getWitnessDiscoveries(
+    witnessId: string
+  ): WitnessDiscovery[] {
+
+    return (
+      this.witnessDiscoveriesSignal()[
+        witnessId
+      ] ?? []
+    );
+  }
+
+
+  revealWitnessIdentity(
+    witnessId: string
+  ): void {
+
+    const discoveries =
+      this.access.witnessDiscoveries[
+        witnessId
+      ] ?? [];
+
+    if (!discoveries.length) {
+      return;
+    }
+
+    const updatedDiscoveries =
+      discoveries.map(
+        discovery => ({
+          ...discovery,
+          identityKnown: true
+        })
+      );
+
+    const updatedWitnessDiscoveries = {
+      ...this.access.witnessDiscoveries,
+      [witnessId]:
+        updatedDiscoveries
+    };
+
+    this.access = {
+      ...this.access,
+      witnessDiscoveries:
+        updatedWitnessDiscoveries
+    };
+
+    this.witnessDiscoveriesSignal.set(
+      updatedWitnessDiscoveries
+    );
+  }
+
+
+  // ============================================================
+  // HACKER EVENT
+  // ============================================================
 
   hasHackerEventTriggered(): boolean {
     return this.hackerEventTriggeredSignal();
   }
 
+
   triggerHackerEvent(): boolean {
-    if (this.hackerEventTriggeredSignal()) {
+
+    if (
+      this.hackerEventTriggeredSignal()
+    ) {
       return false;
     }
 
@@ -99,23 +285,35 @@ export class AccessService {
       hackerEventTriggered: true
     };
 
-    this.hackerEventTriggeredSignal.set(true);
+    this.hackerEventTriggeredSignal.set(
+      true
+    );
 
     return true;
   }
+
+
+  // ============================================================
+  // TOR BROWSER
+  // ============================================================
 
   isTorBrowserUnlocked(): boolean {
     return this.torBrowserUnlockedSignal();
   }
 
+
   unlockTorBrowser(): void {
+
     this.access = {
       ...this.access,
       torBrowserUnlocked: true
     };
 
-    this.torBrowserUnlockedSignal.set(true);
+    this.torBrowserUnlockedSignal.set(
+      true
+    );
   }
+
 
   // ============================================================
   // POLICE PORTAL AUTHENTICATION
@@ -125,12 +323,18 @@ export class AccessService {
     return this.access.authenticated;
   }
 
-  authenticate(username: string, password: string): boolean {
+
+  authenticate(
+    username: string,
+    password: string
+  ): boolean {
+
     if (
       username.trim().toLowerCase() ===
         this.access.username.toLowerCase() &&
       password === this.access.password
     ) {
+
       this.access = {
         ...this.access,
         authenticated: true,
@@ -143,13 +347,16 @@ export class AccessService {
     return false;
   }
 
+
   logout(): void {
+
     this.access = {
       ...this.access,
       authenticated: false,
       authenticatedAt: null
     };
   }
+
 
   // ============================================================
   // DARK WEB AUTHENTICATION
@@ -158,6 +365,7 @@ export class AccessService {
   isDarkWebAuthenticated(): boolean {
     return this.darkWebAuthenticatedSignal();
   }
+
 
   authenticateDarkWeb(
     username: string,
@@ -169,22 +377,19 @@ export class AccessService {
         .trim()
         .toLowerCase();
 
-
     const validUsername =
       'observer26';
-
 
     const validPassword =
       'emilycarter';
 
-
     if (
-      normalizedUsername !== validUsername ||
+      normalizedUsername !==
+        validUsername ||
       password !== validPassword
     ) {
       return false;
     }
-
 
     this.access = {
       ...this.access,
@@ -198,13 +403,11 @@ export class AccessService {
         new Date()
     };
 
-
     this.darkWebAuthenticatedSignal.set(
       true
     );
 
-
     return true;
-
   }
+
 }

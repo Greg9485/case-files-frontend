@@ -1,1 +1,722 @@
-<p>witnesses works!</p>
+<div class="witnesses-page">
+
+  <header class="page-header">
+
+    <div>
+
+      <span class="eyebrow">
+        CASE FILES / PLAYER REFERENCE
+      </span>
+
+      <h1>
+        WITNESSES
+      </h1>
+
+      <p>
+        Cross-reference witness information discovered
+        during investigation.
+      </p>
+
+    </div>
+
+    <div class="classification">
+      REFERENCE
+    </div>
+
+  </header>
+
+
+  @if (!witnessesUnlocked) {
+
+    <section class="access-warning">
+
+      <div class="warning-indicator">
+        !
+      </div>
+
+      <div>
+
+        <strong>
+          NO WITNESS RECORDS DISCOVERED
+        </strong>
+
+        <p>
+          Witnesses will appear here as they are
+          encountered during investigation.
+        </p>
+
+      </div>
+
+    </section>
+
+  }
+
+
+  <!-- ==========================================================
+       WITNESS LIST
+       ========================================================== -->
+
+  @if (
+    witnessesUnlocked &&
+    !selectedWitness
+  ) {
+
+    <section class="record-section">
+
+      <div class="section-heading">
+
+        <div>
+
+          <span>
+            PLAYER REFERENCE
+          </span>
+
+          <h2>
+            Witnesses Discovered
+          </h2>
+
+        </div>
+
+        <span class="record-count">
+
+          {{ getDiscoveredWitnesses().length }} RECORD
+
+          @if (
+            getDiscoveredWitnesses().length !== 1
+          ) {
+            <span>S</span>
+          }
+
+        </span>
+
+      </div>
+
+
+      <div class="record-list">
+
+        @for (
+          witness of getDiscoveredWitnesses();
+          track witness.id
+        ) {
+
+          <button
+            type="button"
+            class="record-row"
+            (click)="selectWitness(witness)"
+          >
+
+            <div class="record-main">
+
+              <strong>
+                {{ getWitnessDisplayName(witness) }}
+              </strong>
+
+              <span>
+
+                Witness #{{ getWitnessNumber(witness) }}
+
+                &nbsp; | &nbsp;
+
+                {{ getStatementCount(witness) }}
+
+                @if (
+                  getStatementCount(witness) === 1
+                ) {
+                  statement
+                } @else {
+                  statements
+                }
+
+              </span>
+
+            </div>
+
+
+            <div class="record-meta">
+
+              <span>
+                {{ witness.caseNumber }}
+              </span>
+
+              <span>
+                {{ witness.date }}
+              </span>
+
+            </div>
+
+
+            <span class="record-arrow">
+              &gt;
+            </span>
+
+          </button>
+
+        }
+
+      </div>
+
+    </section>
+
+  }
+
+
+  <!-- ==========================================================
+       WITNESS RECORD / STATEMENT INDEX
+       ========================================================== -->
+
+  @if (
+    witnessesUnlocked &&
+    selectedWitness &&
+    !selectedStatement
+  ) {
+
+    <article class="witness-record">
+
+
+      <div class="breadcrumb">
+
+        <button
+          type="button"
+          (click)="closeWitnessRecord()"
+        >
+          WITNESSES
+        </button>
+
+        <span>
+          &gt;
+        </span>
+
+        <strong>
+          {{ getCurrentWitnessName() }}
+        </strong>
+
+      </div>
+
+
+      <header class="statement-header">
+
+        <div>
+
+          <span class="record-category">
+            PLAYER REFERENCE RECORD
+          </span>
+
+          <h2>
+            {{ getCurrentWitnessName() }}
+          </h2>
+
+          @if (
+            isIdentityKnown(selectedWitness)
+          ) {
+
+            <p>
+              Previously identified as
+              Witness #{{ getWitnessNumber(selectedWitness) }}
+            </p>
+
+          } @else {
+
+            <p>
+              Witness #{{ getWitnessNumber(selectedWitness) }}
+            </p>
+
+          }
+
+        </div>
+
+        <div class="classification-stamp">
+          REFERENCE
+        </div>
+
+      </header>
+
+
+      <table class="statement-identification">
+
+        <tr>
+
+          <th colspan="2">
+            WITNESS IDENTIFICATION
+          </th>
+
+          <th colspan="2">
+            RECORD INFORMATION
+          </th>
+
+        </tr>
+
+
+        <tr>
+
+          <td class="field-label">
+            CASE NUMBER
+          </td>
+
+          <td>
+            {{ selectedWitness.caseNumber }}
+          </td>
+
+          <td class="field-label">
+            WITNESS ID
+          </td>
+
+          <td>
+           W-00{{ getWitnessNumber(selectedWitness) }}
+          </td>
+
+        </tr>
+
+
+        <tr>
+
+          <td class="field-label">
+            STATEMENTS
+          </td>
+
+          <td>
+            {{ getStatementCount(selectedWitness) }}
+          </td>
+
+          <td class="field-label">
+            STATUS
+          </td>
+
+          <td>
+
+            @if (
+              isIdentityKnown(selectedWitness)
+            ) {
+              IDENTIFIED
+            } @else {
+              REDACTED
+            }
+
+          </td>
+
+        </tr>
+
+
+        <tr>
+
+          <td class="field-label">
+            WITNESS
+          </td>
+
+          <td
+            colspan="3"
+            class="witness-name"
+          >
+            {{ getCurrentWitnessName() }}
+          </td>
+
+        </tr>
+
+      </table>
+
+
+      <!-- STATEMENTS -->
+
+      <section class="statement-index">
+
+        <div class="index-heading">
+
+          <div>
+
+            <span>
+              AVAILABLE RECORDS
+            </span>
+
+            <h3>
+              Witness Statements
+            </h3>
+
+          </div>
+
+          <span class="record-count">
+            {{ getStatementCount(selectedWitness) }}
+            RECORD
+            @if (
+              getStatementCount(selectedWitness) !== 1
+            ) {
+              <span>S</span>
+            }
+          </span>
+
+        </div>
+
+
+        <div class="statement-list">
+
+          @for (
+            statement of getStatementRecords(selectedWitness);
+            track statement.source
+          ) {
+
+            <button
+              type="button"
+              class="statement-row"
+              (click)="selectStatement(statement)"
+            >
+
+              <div class="statement-main">
+
+                <strong>
+                  {{ statement.title }}
+                </strong>
+
+                <span>
+                  {{ statement.statementId }}
+                  &nbsp; | &nbsp;
+                  {{ statement.date }}
+                  &nbsp; {{ statement.time }}
+                </span>
+
+              </div>
+
+
+              <div class="statement-source">
+
+                <span>
+                  SOURCE
+                </span>
+
+                <strong>
+                  {{ statement.source }}
+                </strong>
+
+              </div>
+
+
+              <span class="record-arrow">
+                &gt;
+              </span>
+
+            </button>
+
+          }
+
+        </div>
+
+      </section>
+
+
+      @if (
+        !isIdentityKnown(selectedWitness)
+      ) {
+
+        <section class="record-note">
+
+          <div class="note-header">
+
+            <strong>
+              INFORMATION STATUS
+            </strong>
+
+            <span>
+              REDACTED
+            </span>
+
+          </div>
+
+          <p>
+            The witness identity has not yet been
+            established from the records available
+            to the investigator.
+          </p>
+
+        </section>
+
+      }
+
+
+      @if (
+        isIdentityKnown(selectedWitness)
+      ) {
+
+        <section class="record-note identity-known">
+
+          <div class="note-header">
+
+            <strong>
+              INFORMATION STATUS
+            </strong>
+
+            <span>
+              IDENTIFIED
+            </span>
+
+          </div>
+
+          <p>
+            The witness identity has been established
+            through a subsequent investigative record.
+          </p>
+
+        </section>
+
+      }
+
+
+      <div class="statement-navigation">
+
+        <button
+          type="button"
+          (click)="closeWitnessRecord()"
+        >
+          &lt;&lt; Back to Witnesses
+        </button>
+
+      </div>
+
+    </article>
+
+  }
+
+
+  <!-- ==========================================================
+       INDIVIDUAL STATEMENT
+       ========================================================== -->
+
+  @if (
+    witnessesUnlocked &&
+    selectedWitness &&
+    selectedStatement
+  ) {
+
+    <article class="restricted-statement">
+
+
+      <div class="breadcrumb">
+
+        <button
+          type="button"
+          (click)="closeStatement()"
+        >
+          {{ getCurrentWitnessName() }}
+        </button>
+
+        <span>
+          &gt;
+        </span>
+
+        <strong>
+          {{ selectedStatement.title }}
+        </strong>
+
+      </div>
+
+
+      <header class="statement-header">
+
+        <div>
+
+          <span class="record-category">
+            {{ selectedStatement.source }}
+          </span>
+
+          <h2>
+            {{ selectedStatement.title }}
+          </h2>
+
+          <p>
+            Case
+            {{ selectedWitness.caseNumber }}
+            &nbsp; / &nbsp;
+            Statement
+            {{ selectedStatement.statementId }}
+          </p>
+
+        </div>
+
+        <div class="classification-stamp">
+          REFERENCE
+        </div>
+
+      </header>
+
+
+      <table class="statement-identification">
+
+        <tr>
+
+          <th colspan="2">
+            STATEMENT IDENTIFICATION
+          </th>
+
+          <th colspan="2">
+            SOURCE INFORMATION
+          </th>
+
+        </tr>
+
+
+        <tr>
+
+          <td class="field-label">
+            CASE NUMBER
+          </td>
+
+          <td>
+            {{ selectedWitness.caseNumber }}
+          </td>
+
+          <td class="field-label">
+            STATEMENT NUMBER
+          </td>
+
+          <td>
+            {{ selectedStatement.statementId }}
+          </td>
+
+        </tr>
+
+
+        <tr>
+
+          <td class="field-label">
+            DATE
+          </td>
+
+          <td>
+            {{ selectedStatement.date }}
+          </td>
+
+          <td class="field-label">
+            TIME
+          </td>
+
+          <td>
+            {{ selectedStatement.time }}
+          </td>
+
+        </tr>
+
+
+        <tr>
+
+          <td class="field-label">
+            WITNESS
+          </td>
+
+          <td>
+            {{ selectedStatement.witnessName }}
+          </td>
+
+          <td class="field-label">
+            SOURCE
+          </td>
+
+          <td>
+            {{ selectedStatement.source }}
+          </td>
+
+        </tr>
+
+
+        <tr>
+
+          <td class="field-label">
+            REPORTING OFFICER
+          </td>
+
+          <td colspan="3">
+            {{ selectedWitness.reportingOfficer }}
+          </td>
+
+        </tr>
+
+      </table>
+
+
+      <section class="statement-section">
+
+        <h3>
+          STATEMENT
+        </h3>
+
+        <div class="statement-body">
+
+          <p>
+            {{ selectedStatement.statement }}
+          </p>
+
+        </div>
+
+      </section>
+
+
+      @if (
+        selectedStatement.source ===
+        'PUBLIC POLICE RECORDS'
+      ) {
+
+        <section class="record-note">
+
+          <div class="note-header">
+
+            <strong>
+              SOURCE RECORD
+            </strong>
+
+            <span>
+              PUBLIC
+            </span>
+
+          </div>
+
+          <p>
+            This statement reflects the version of
+            the witness record available through the
+            public Amherst Police Department records.
+          </p>
+
+        </section>
+
+      }
+
+
+      @if (
+        selectedStatement.source ===
+        'AMHERST PD INVESTIGATION PORTAL'
+      ) {
+
+        <section class="record-note identity-known">
+
+          <div class="note-header">
+
+            <strong>
+              SOURCE RECORD
+            </strong>
+
+            <span>
+              INVESTIGATIVE
+            </span>
+
+          </div>
+
+          <p>
+            This statement was discovered through the
+            restricted Amherst PD Investigation Portal.
+          </p>
+
+        </section>
+
+      }
+
+
+      <div class="statement-navigation">
+
+        <button
+          type="button"
+          (click)="closeStatement()"
+        >
+          &lt;&lt; Back to Witness Record
+        </button>
+
+      </div>
+
+    </article>
+
+  }
+
+</div>

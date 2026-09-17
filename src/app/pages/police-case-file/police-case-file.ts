@@ -11,6 +11,9 @@ import {
 import {
   AccessService
 } from '../../core/services/access';
+import {
+  AMHERST_POLICE_WITNESSES
+} from '../../core/data/sites/amherst-pd/amherst-pd-witnesses';
 
 
 @Component({
@@ -181,19 +184,22 @@ export class PoliceCaseFileComponent {
    */
 
   openWitnessStatement(): void {
+    if (this.glitchActive() || this.hackerModalOpen()) return;
 
-    if (
-      this.glitchActive()
-      ||
-      this.hackerModalOpen()
-    ) {
-      return;
+    const witness =
+      AMHERST_POLICE_WITNESSES.find(
+        witness => witness.statementId === 'WS-24-001'
+      );
+
+    if (witness) {
+      this.accessService.discoverWitness(
+        witness.id,
+        'AMHERST PD INVESTIGATION PORTAL',
+        true
+      );
     }
 
-
-    this.witnessStatementOpen =
-      true;
-
+    this.witnessStatementOpen = true;
   }
 
 

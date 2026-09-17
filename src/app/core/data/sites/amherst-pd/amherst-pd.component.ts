@@ -70,20 +70,47 @@ export class AmherstPdComponent implements OnChanges {
   portalUnlockedToast = false;
 
 
-  ngOnChanges(
-    changes: SimpleChanges
-  ): void {
+  // ngOnChanges(
+  //   changes: SimpleChanges
+  // ): void {
 
-    if (
-      changes['page'] &&
-      this.isWitnessStatement()
-    ) {
+  //   if (
+  //     changes['page'] &&
+  //     this.isWitnessStatement()
+  //   ) {
 
-      this.accessService.unlockWitnesses();
+  //     this.accessService.unlockWitnesses();
+
+  //   }
+
+  // }
+
+    ngOnChanges(
+      changes: SimpleChanges
+    ): void {
+
+      if (
+        changes['page'] &&
+        this.isWitnessStatement()
+      ) {
+
+        this.accessService.unlockWitnesses();
+
+        if (this.witness) {
+
+          this.accessService.discoverWitness(
+            this.witness.id,
+            'PUBLIC POLICE RECORDS',
+            this.witness.publicWitnessName !==
+              '[REDACTED]'
+          );
+
+        }
+
+      }
 
     }
 
-  }
 
 
   get incident() {
