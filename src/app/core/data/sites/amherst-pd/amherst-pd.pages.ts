@@ -880,6 +880,46 @@ Case closed.
 
     ]
 
-  }
+  },
+
+  //==========================================
+  //    WITNESS PAGES
+  //==========================================
+
+  {
+    id: 'pd-witness-24-1017-001',
+
+    domain: 'amherstpd.local',
+
+    path:
+      '/incidents/24-1017/witness-statements/WS-24-001',
+
+    title: 'Witness Statement #001',
+
+    subtitle:
+      'Incident #24-1017',
+
+    category:
+      'WITNESS STATEMENT',
+
+    type:
+      'POLICE_WITNESS_STATEMENT',
+
+    witnessId:
+      'W-001',
+
+    content:
+      'Official witness statement associated with Amherst Police Department incident 24-1017.',
+
+    
+    links: [
+      {
+        label: 'Back to Case File',
+        path: '/incidents/24-1017/case-file'
+      }
+    ]
+  },
+
+
 
 ];

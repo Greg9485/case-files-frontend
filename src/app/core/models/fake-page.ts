@@ -13,7 +13,8 @@ export type FakePageType =
   | 'EXCHANGE_LISTING'
   | 'POLICE_INCIDENT_LIST'
   | 'POLICE_INCIDENT'
-  | 'POLICE_CASE_FILE';
+  | 'POLICE_CASE_FILE'
+  | 'POLICE_WITNESS_STATEMENT';
 
 export interface FakePageLink {
   label: string;
@@ -77,4 +78,5 @@ export interface FakePage {
   links?: FakePageLink[];
   listings?: MarketplaceListing[];
   incidents?: PoliceIncident[];
+  witnessId?: string;
 }

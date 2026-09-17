@@ -2,6 +2,8 @@ import {
   ChangeDetectorRef,
   Component,
   Input,
+  OnChanges,
+  SimpleChanges,
   inject
 } from '@angular/core';
 
@@ -17,6 +19,10 @@ import {
   AccessService
 } from '../../../services/access';
 
+import {
+  AMHERST_POLICE_WITNESSES
+} from './amherst-pd-witnesses';
+
 
 @Component({
   selector: 'app-amherst-pd',
@@ -25,13 +31,14 @@ import {
   templateUrl: './amherst-pd.component.html',
   styleUrl: './amherst-pd.component.scss'
 })
-export class AmherstPdComponent {
+export class AmherstPdComponent implements OnChanges {
 
   private accessService =
     inject(AccessService);
 
   private cdr =
     inject(ChangeDetectorRef);
+
 
   @Input()
   page!: FakePage;
@@ -58,18 +65,40 @@ export class AmherstPdComponent {
   ) => void;
 
 
-  witnessesUnlocked =
-    this.accessService.isWitnessesUnlocked();
-
-
   metadataVisible = false;
 
   portalUnlockedToast = false;
 
 
+  ngOnChanges(
+    changes: SimpleChanges
+  ): void {
+
+    if (
+      changes['page'] &&
+      this.isWitnessStatement()
+    ) {
+
+      this.accessService.unlockWitnesses();
+
+    }
+
+  }
+
+
   get incident() {
 
     return this.page.incidents?.[0];
+
+  }
+
+
+  get witness() {
+
+    return AMHERST_POLICE_WITNESSES.find(
+      witness =>
+        witness.id === this.page.witnessId
+    );
 
   }
 
@@ -95,11 +124,9 @@ export class AmherstPdComponent {
   }
 
 
-  revealWitness(): void {
+  isWitnessStatement(): boolean {
 
-    this.accessService.unlockWitnesses();
-
-    this.witnessesUnlocked = true;
+    return this.page.type === 'POLICE_WITNESS_STATEMENT';
 
   }
 
@@ -149,6 +176,16 @@ export class AmherstPdComponent {
 
     this.navigate(
       '/incidents/24-1017',
+      'amherstpd.local'
+    );
+
+  }
+
+
+  navigateBackToCaseFile(): void {
+
+    this.navigate(
+      '/incidents/24-1017/case-file',
       'amherstpd.local'
     );
 
