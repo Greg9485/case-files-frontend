@@ -675,6 +675,193 @@
 }
 
 
+  /* ==============================================================
+    WITNESS STATEMENTS
+    ============================================================== */
+
+  .witness-statement-list {
+    margin: 7px 9px;
+
+    border: 1px solid #999999;
+  }
+
+
+  .witness-statement-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 14px;
+
+    padding: 8px 9px;
+
+    background: #ffffff;
+
+    color: #333333;
+    text-decoration: none;
+
+    border-bottom: 1px solid #cccccc;
+  }
+
+
+  .witness-statement-row:last-child {
+    border-bottom: 0;
+  }
+
+
+  .witness-statement-row:hover {
+    background: #e6edf5;
+  }
+
+
+  .witness-statement-row strong {
+    display: block;
+
+    color: #003399;
+    font-size: 11px;
+    text-decoration: underline;
+  }
+
+
+  .witness-statement-row > div:first-child span {
+    display: block;
+
+    margin-top: 2px;
+
+    color: #666666;
+    font-size: 9px;
+  }
+
+
+  .witness-statement-meta {
+    display: flex;
+    gap: 12px;
+
+    color: #555555;
+    font-size: 9px;
+    white-space: nowrap;
+  }
+
+
+  .witness-statement-arrow {
+    color: #003399;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+
+  /* ==============================================================
+    FORMAL WITNESS STATEMENT
+    ============================================================== */
+
+  .police-witness-statement {
+    width: 100%;
+  }
+
+
+  .witness-statement-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    padding: 9px 10px;
+
+    background: #d9e2ec;
+    border: 1px solid #8d9aaa;
+  }
+
+
+  .witness-statement-heading .record-category {
+    display: block;
+
+    margin-bottom: 2px;
+
+    color: #666666;
+    font-size: 10px;
+    font-weight: bold;
+  }
+
+
+  .witness-statement-heading h2 {
+    margin: 0;
+
+    color: #003366;
+    font-size: 19px;
+    font-weight: bold;
+  }
+
+
+  .witness-statement-heading p {
+    margin: 4px 0 0;
+
+    color: #444444;
+    font-size: 10px;
+  }
+
+
+  .witness-statement-identification {
+    width: 100%;
+    margin-top: 10px;
+
+    border-collapse: collapse;
+
+    font-size: 11px;
+  }
+
+
+  .witness-statement-identification th {
+    padding: 5px 7px;
+
+    background: #666666;
+    border: 1px solid #555555;
+
+    color: #ffffff;
+    font-size: 10px;
+    text-align: left;
+  }
+
+
+  .witness-statement-identification td {
+    padding: 5px 7px;
+
+    background: #ffffff;
+    border: 1px solid #aaaaaa;
+  }
+
+
+  .witness-statement-identification .field-label {
+    width: 16%;
+
+    background: #eeeeee;
+
+    color: #555555;
+    font-size: 9px;
+    font-weight: bold;
+  }
+
+
+  .witness-statement-body {
+    margin: 8px 9px;
+
+    padding: 10px 11px;
+
+    background: #ffffff;
+    border: 1px solid #cccccc;
+
+    color: #222222;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 11px;
+    line-height: 1.6;
+  }
+
+
+  .witness-statement-body p {
+    margin: 0;
+  }
+
+
+
+
+
 /* ==============================================================
    INVESTIGATIVE NOTE
    ============================================================== */
@@ -1215,6 +1402,33 @@
     grid-template-columns: 1fr;
   }
 
+    .witness-statement-row {
+    grid-template-columns: 1fr auto;
+  }
+
+
+  .witness-statement-meta {
+    grid-column: 1 / -1;
+
+    gap: 10px;
+
+    white-space: normal;
+  }
+
+
+  .witness-statement-arrow {
+    grid-column: 2;
+    grid-row: 1;
+
+    align-self: center;
+  }
+
+
+  .witness-statement-identification {
+    display: block;
+    overflow-x: auto;
+  }
+
 }
 
 
@@ -1255,6 +1469,20 @@
     min-width: 0;
     width: calc(100vw - 30px);
     box-sizing: border-box;
+  }
+
+    .witness-statement-heading h2 {
+    font-size: 15px;
+  }
+
+
+  .witness-statement-meta {
+    flex-wrap: wrap;
+  }
+
+
+  .witness-statement-body {
+    font-size: 10px;
   }
 
 }

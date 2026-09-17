@@ -673,80 +673,72 @@
         </section>
 
 
-        <!-- WITNESS STATEMENT -->
+        <!-- WITNESS STATEMENTS -->
 
         <section class="case-file-section">
 
           <h3>
-            WITNESS STATEMENT
+            WITNESS STATEMENTS
           </h3>
 
           <p>
-            A local business patron reported seeing Carter
-            shortly after 10:00 PM near the municipal parking
-            area.
+            Witness statements associated with this incident.
+            Certain identifying information has been withheld from
+            the public record.
           </p>
 
 
-          <div class="investigative-note">
+          <div class="witness-statement-list">
 
-            <div class="investigative-note-header">
+            <a
+              href="#"
+              class="witness-statement-row"
+              (click)="
+                $event.preventDefault();
+                navigate(
+                  '/incidents/24-1017/witness-statements/WS-24-001',
+                  'amherstpd.local'
+                )
+              "
+            >
 
-              <strong>
-                INVESTIGATIVE NOTE
-              </strong>
+              <div>
 
-              <span>
-                {{ witnessesUnlocked
-                  ? 'REVIEWED'
-                  : 'ADDITIONAL INFORMATION AVAILABLE'
-                }}
+                <strong>
+                  Witness Statement #001
+                </strong>
+
+                <span>
+                  Statement WS-24-001
+                </span>
+
+              </div>
+
+
+              <div class="witness-statement-meta">
+
+                <span>
+                  10/18/2024
+                </span>
+
+                <span>
+                  10:35 AM
+                </span>
+
+                <span>
+                  WITNESS: REDACTED
+                </span>
+
+              </div>
+
+
+              <span class="witness-statement-arrow">
+                &gt;
               </span>
 
-            </div>
-
-
-            <div class="investigative-note-body">
-
-              The witness also recalled seeing a dark-colored SUV
-              parked nearby. No other vehicles were observed in
-              the immediate area at the time.
-
-            </div>
-
-
-            <button
-              type="button"
-              class="old-system-button"
-              (click)="revealWitness()"
-            >
-              {{
-                witnessesUnlocked
-                  ? 'WITNESS IDENTIFIED'
-                  : 'REVIEW STATEMENT'
-              }}
-            </button>
+            </a>
 
           </div>
-
-
-          @if (witnessesUnlocked) {
-
-            <div class="case-file-result">
-
-              <strong>
-                NEW INFORMATION UNLOCKED
-              </strong>
-
-              <p>
-                Witness information has been added to the
-                investigation.
-
-              </p>
-
-            </div>
-
-          }
 
         </section>
 
@@ -849,6 +841,263 @@
 
         </div>
 
+
+      </article>
+
+    }
+
+        <!-- ========================================================
+         WITNESS STATEMENT
+         ======================================================== -->
+
+    @else if (isWitnessStatement()) {
+
+      <article class="police-witness-statement">
+
+
+        <!-- BREADCRUMB -->
+
+        <div class="police-breadcrumb">
+
+          <a
+            href="#"
+            (click)="$event.preventDefault(); navigate('/', 'amherstpd.local')"
+          >
+            Home
+          </a>
+
+          <span>
+            &gt;
+          </span>
+
+          <a
+            href="#"
+            (click)="$event.preventDefault(); navigate('/incidents', 'amherstpd.local')"
+          >
+            Incident Crime Reports
+          </a>
+
+          <span>
+            &gt;
+          </span>
+
+          <a
+            href="#"
+            (click)="$event.preventDefault(); navigateBackToIncident()"
+          >
+            Incident #24-1017
+          </a>
+
+          <span>
+            &gt;
+          </span>
+
+          <a
+            href="#"
+            (click)="$event.preventDefault(); navigateBackToCaseFile()"
+          >
+            Case File
+          </a>
+
+          <span>
+            &gt;
+          </span>
+
+          <strong>
+            Witness Statement #001
+          </strong>
+
+        </div>
+
+
+        @if (witness) {
+
+          <!-- STATEMENT HEADER -->
+
+          <header class="witness-statement-heading">
+
+            <div>
+
+              <span class="record-category">
+                WITNESS STATEMENT / PUBLIC RECORD
+              </span>
+
+              <h2>
+                Witness Statement #001
+              </h2>
+
+              <p>
+                Incident #24-1017 &nbsp; | &nbsp;
+                Statement {{ witness.statementId }}
+              </p>
+
+            </div>
+
+          </header>
+
+
+          <!-- STATEMENT IDENTIFICATION -->
+
+          <table class="witness-statement-identification">
+
+            <tr>
+
+              <th colspan="2">
+                AMHERST POLICE DEPARTMENT
+              </th>
+
+              <th colspan="2">
+                WITNESS STATEMENT
+              </th>
+
+            </tr>
+
+
+            <tr>
+
+              <td class="field-label">
+                CASE NUMBER
+              </td>
+
+              <td>
+                {{ witness.caseNumber }}
+              </td>
+
+              <td class="field-label">
+                STATEMENT NUMBER
+              </td>
+
+              <td>
+                {{ witness.statementId }}
+              </td>
+
+            </tr>
+
+
+            <tr>
+
+              <td class="field-label">
+                DATE
+              </td>
+
+              <td>
+                {{ witness.date }}
+              </td>
+
+              <td class="field-label">
+                TIME
+              </td>
+
+              <td>
+                {{ witness.time }}
+              </td>
+
+            </tr>
+
+
+            <tr>
+
+              <td class="field-label">
+                REPORTING OFFICER
+              </td>
+
+              <td>
+                {{ witness.reportingOfficer }}
+              </td>
+
+              <td class="field-label">
+                WITNESS
+              </td>
+
+              <td>
+                {{ witness.publicWitnessName }}
+              </td>
+
+            </tr>
+
+          </table>
+
+
+          <!-- STATEMENT -->
+
+          <section class="case-file-section">
+
+            <h3>
+              STATEMENT
+            </h3>
+
+            <div class="witness-statement-body">
+
+              <p>
+                {{ witness.publicStatement }}
+              </p>
+
+            </div>
+
+          </section>
+
+
+          <!-- PUBLIC RECORD NOTICE -->
+
+          <section class="police-public-notice">
+
+            <h3>
+              Public Information
+            </h3>
+
+            <p>
+              Witness identifying information has been
+              redacted from this public record.
+            </p>
+
+          </section>
+
+
+          <!-- NAVIGATION -->
+
+          <div class="case-file-navigation">
+
+            <a
+              href="#"
+              (click)="
+                $event.preventDefault();
+                navigateBackToCaseFile()
+              "
+            >
+              &lt;&lt; Back to Case File
+            </a>
+
+            <span>
+              |
+            </span>
+
+            <a
+              href="#"
+              (click)="
+                $event.preventDefault();
+                navigateBackToIncident()
+              "
+            >
+              Incident #24-1017
+            </a>
+
+            <span>
+              |
+            </span>
+
+            <a
+              href="#"
+              (click)="
+                $event.preventDefault();
+                navigateToIncidentList()
+              "
+            >
+              Incident Crime Reports
+            </a>
+
+          </div>
+
+        }
 
       </article>
 
