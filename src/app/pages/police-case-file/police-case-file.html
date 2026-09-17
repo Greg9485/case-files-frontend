@@ -42,17 +42,49 @@
 
     <div>
 
+      <div class="case-breadcrumb">
+
+        <button
+          type="button"
+          (click)="backToIncidentReports()"
+        >
+          INCIDENT REPORTS
+        </button>
+
+        <span>
+          /
+        </span>
+
+        <span>
+          CASE APD-24-1017
+        </span>
+
+      </div>
+
+
       <span class="eyebrow">
         INVESTIGATIVE CASE FILE
       </span>
 
       <h2>
-        CASE #24-1017
+        CASE # APD-24-1017
       </h2>
 
       <p>
         Emily Carter
       </p>
+
+      <div class="incident-reference">
+
+        <span>
+          SOURCE INCIDENT
+        </span>
+
+        <strong>
+          IR-24-1017
+        </strong>
+
+      </div>
 
     </div>
 
@@ -220,34 +252,6 @@
           </div>
 
         </section>
-
-      </section>
-
-    }
-
-
-    <!-- INCIDENT REPORTS -->
-
-    @if (activeTab === 'INCIDENT REPORTS') {
-
-      <section class="panel placeholder">
-
-        <span class="eyebrow">
-          INCIDENT REPORTS
-        </span>
-
-        <h3>
-          Reports On File
-        </h3>
-
-        <p>
-          Incident and supplemental investigative reports
-          associated with this case will appear here.
-        </p>
-
-        <span class="system-code">
-          RECORDS AVAILABLE
-        </span>
 
       </section>
 

@@ -5,6 +5,10 @@ import {
 } from '@angular/core';
 
 import {
+  Router
+} from '@angular/router';
+
+import {
   AccessService
 } from '../../core/services/access';
 
@@ -25,6 +29,9 @@ export class PoliceCaseFileComponent {
   private accessService =
     inject(AccessService);
 
+  private router =
+    inject(Router);
+
 
   /*
    * ==========================================================
@@ -38,12 +45,26 @@ export class PoliceCaseFileComponent {
 
   tabs = [
     'CASE SUMMARY',
-    'INCIDENT REPORTS',
     'WITNESS STATEMENTS',
     'EVIDENCE',
     'INVESTIGATION NOTES',
     'RELATED RECORDS'
   ];
+
+
+  /*
+   * ==========================================================
+   * INCIDENT REPORT NAVIGATION
+   * ==========================================================
+   */
+
+  backToIncidentReports(): void {
+
+    this.router.navigate([
+      '/police-portal'
+    ]);
+
+  }
 
 
   /*
@@ -107,17 +128,17 @@ export class PoliceCaseFileComponent {
    * We are giving the player a clear next action.
    */
 
- private hackerMessages = [
-  'There\'s more going on here than you know.',
-  'Something in this case doesn\'t add up.',
-  'You\'ve been looking in the right places. Just not all of them.',
-  'There\'s another network. More files. Things they don\'t put in public records.',
-  'You\'re going to need an account.',
-  'Use observer26.',
-  'For the passcode: think about who this whole thing started with. No spaces. All lowercase.',
-  'I\'ve unlocked the connection for you.',
-  'Find me there.\n\n— quietstatic'
-];
+  private hackerMessages = [
+    'There\'s more going on here than you know.',
+    'Something in this case doesn\'t add up.',
+    'You\'ve been looking in the right places. Just not all of them.',
+    'There\'s another network. More files. Things they don\'t put in public records.',
+    'You\'re going to need an account.',
+    'Use observer26.',
+    'For the passcode: think about who this whole thing started with. No spaces. All lowercase.',
+    'I\'ve unlocked the connection for you.',
+    'Find me there.\n\n— quietstatic'
+  ];
 
 
   private hackerMessageIndex =

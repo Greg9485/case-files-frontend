@@ -1,13 +1,17 @@
 <section class="portal">
 
+  <!-- HEADER -->
+
   <header class="portal-header">
 
     <div class="agency">
+
       <div class="agency-mark">
         APD
       </div>
 
       <div>
+
         <span class="eyebrow">
           AMHERST POLICE DEPARTMENT
         </span>
@@ -15,10 +19,14 @@
         <h1>
           INVESTIGATIVE INFORMATION SYSTEM
         </h1>
+
       </div>
+
     </div>
 
+
     <div class="session">
+
       <span>
         INTERNAL USE ONLY
       </span>
@@ -26,134 +34,168 @@
       <strong>
         SESSION ACTIVE
       </strong>
+
     </div>
 
   </header>
 
 
-  <nav class="portal-nav">
-
-    @for (section of sections; track section) {
-
-      <button
-        [class.active]="activeSection === section"
-        (click)="setSection(section)"
-      >
-        {{ section }}
-      </button>
-
-    }
-
-  </nav>
-
+  <!-- CONTENT -->
 
   <main class="portal-content">
 
     <div class="breadcrumb">
-      APD / INVESTIGATIVE SYSTEM / {{ activeSection }}
+      APD / INVESTIGATIVE SYSTEM / INCIDENT REPORTS
     </div>
 
 
-    @if (activeSection === 'CASE SEARCH') {
+    <section class="panel">
 
-      <section class="panel">
+      <header class="panel-header">
 
-        <div class="panel-header">
-          <div>
-            <span class="eyebrow">
-              CASE SEARCH
-            </span>
+        <div>
 
-            <h2>
-              Investigative Records
-            </h2>
-          </div>
-
-          <span class="record-count">
-            1 RECORD
+          <span class="eyebrow">
+            INCIDENT REPORTS
           </span>
-        </div>
 
-
-        <div class="search-row">
-
-          <input
-            type="text"
-            value="24-1017"
-            aria-label="Case number"
-          />
-
-          <button class="search-button">
-            SEARCH
-          </button>
+          <h2>
+            Investigative Records
+          </h2>
 
         </div>
 
+        <span class="record-count">
+          1 RECORD
+        </span>
 
-        <button
-          class="record"
-          (click)="openEmilyCase()"
-        >
+      </header>
 
-          <div class="record-main">
 
-            <strong>
-              CASE #24-1017
-            </strong>
+      <div class="records-header">
 
-            <span>
-              Emily Carter
-            </span>
+        <span>
+          INCIDENT
+        </span>
 
-          </div>
+        <span>
+          TYPE
+        </span>
 
-          <div class="record-meta">
+        <span>
+          DATE
+        </span>
 
-            <span>
-              MISSING PERSON
-            </span>
+        <span>
+          STATUS
+        </span>
 
-            <span>
-              COLD
-            </span>
+        <span>
+          CASE
+        </span>
 
-          </div>
+        <span>
+          &nbsp;
+        </span>
 
-          <span class="arrow">
-            →
+      </div>
+
+
+      <button
+        type="button"
+        class="record"
+        (click)="openEmilyCase()"
+      >
+
+        <div class="record-main">
+
+          <strong>
+            IR-24-1017
+          </strong>
+
+          <span>
+            Emily Carter
           </span>
 
-        </button>
+        </div>
 
-      </section>
 
-    } @else {
+        <div class="record-type">
 
-      <section class="panel placeholder">
+          <span>
+            MISSING PERSON
+          </span>
 
-        <span class="eyebrow">
-          {{ activeSection }}
+        </div>
+
+
+        <div class="record-date">
+
+          <span>
+            OCT 18, 2024
+          </span>
+
+        </div>
+
+
+        <div class="record-status">
+
+          <span>
+            COLD CASE
+          </span>
+
+        </div>
+
+
+        <div class="record-case">
+
+          <span>
+            APD-24-1017
+          </span>
+
+        </div>
+
+
+        <span class="arrow">
+          →
         </span>
 
-        <h2>
-          Module Unavailable
-        </h2>
+      </button>
 
-        <p>
-          This investigative module is not currently available
-          through this session.
-        </p>
 
-        <span class="system-code">
-          ERROR: RECORD_ACCESS_PENDING
+      <div class="record-footer">
+
+        <span>
+          INCIDENT REPORTS
         </span>
 
-      </section>
+        <span>
+          RECORD ACCESS LOGGED
+        </span>
 
-    }
+      </div>
+
+    </section>
+
+
+    <section class="system-notice">
+
+      <span class="system-notice-label">
+        SYSTEM NOTICE
+      </span>
+
+      <p>
+        Access to investigative records is restricted to
+        authorized personnel. All record access may be logged
+        and reviewed.
+      </p>
+
+    </section>
 
   </main>
 
+
+  <!-- FOOTER -->
 
   <footer class="portal-footer">
 
