@@ -56,7 +56,9 @@
 
 
 .case-header .eyebrow {
+
   color: #cbd5e1;
+
 }
 
 
@@ -93,7 +95,9 @@
 
 
 .session strong {
+
   color: #86efac;
+
 }
 
 
@@ -111,11 +115,66 @@
 
   gap: 30px;
 
-  padding: 30px 35px;
+  padding: 24px 35px 30px;
 
   background: white;
 
   border-bottom: 1px solid #c7cdd4;
+
+}
+
+
+/* =========================
+   CASE BREADCRUMB
+========================= */
+
+.case-breadcrumb {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  margin-bottom: 20px;
+
+  color: #9ca3af;
+
+  font-family: monospace;
+
+  font-size: 9px;
+
+}
+
+
+.case-breadcrumb button {
+
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  color: #4b5563;
+
+  font-family: monospace;
+
+  font-size: 9px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.4px;
+
+  cursor: pointer;
+
+}
+
+
+.case-breadcrumb button:hover {
+
+  color: #8b1e1e;
+
+  text-decoration: underline;
 
 }
 
@@ -142,6 +201,45 @@
 }
 
 
+.incident-reference {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  margin-top: 13px;
+
+  font-family: monospace;
+
+  font-size: 9px;
+
+}
+
+
+.incident-reference span {
+
+  color: #9ca3af;
+
+  letter-spacing: 0.8px;
+
+}
+
+
+.incident-reference strong {
+
+  color: #374151;
+
+  font-weight: 600;
+
+}
+
+
+/* =========================
+   CASE STATUS
+========================= */
+
 .case-status {
 
   display: grid;
@@ -149,6 +247,8 @@
   grid-template-columns: auto auto;
 
   gap: 8px 18px;
+
+  margin-top: 34px;
 
   font-family: monospace;
 
@@ -158,17 +258,23 @@
 
 
 .case-status span {
+
   color: #6b7280;
+
 }
 
 
 .case-status strong {
+
   color: #111827;
+
 }
 
 
 .case-status .cold {
+
   color: #8b1e1e;
+
 }
 
 
@@ -217,7 +323,9 @@
 
 
 .case-nav button:first-child {
+
   border-left: 1px solid #e5e7eb;
+
 }
 
 
@@ -424,7 +532,9 @@
 
 
 .timeline > div:first-child {
+
   border-top: none;
+
 }
 
 
@@ -440,7 +550,9 @@
 
 
 .timeline p {
+
   margin: 0;
+
 }
 
 
@@ -476,7 +588,9 @@
 
 
 .witness-record:hover {
+
   background: #f8fafc;
+
 }
 
 
@@ -503,7 +617,9 @@
 
 
 .witness-main span {
+
   font-size: 15px;
+
 }
 
 
@@ -554,7 +670,9 @@
 ========================= */
 
 .placeholder {
+
   padding: 45px;
+
 }
 
 
@@ -718,7 +836,9 @@
 
 
 .close-button:hover {
+
   background: #f3f4f6;
+
 }
 
 
@@ -783,7 +903,9 @@
 ========================= */
 
 .statement-content {
+
   padding: 35px;
+
 }
 
 
@@ -1443,7 +1565,9 @@
 
 
 .hacker-content {
+
   padding: 35px;
+
 }
 
 
@@ -1472,7 +1596,9 @@
 
 
 .terminal-prompt {
+
   color: #22c55e;
+
 }
 
 
@@ -1577,6 +1703,7 @@
 @keyframes hacker-modal-in {
 
   from {
+
     opacity: 0;
 
     transform:
@@ -1586,6 +1713,7 @@
   }
 
   to {
+
     opacity: 1;
 
     transform:
@@ -1662,13 +1790,22 @@
 
 
   .session {
+
     align-items: flex-start;
+
   }
 
 
   .case-identification {
 
     flex-direction: column;
+
+  }
+
+
+  .case-status {
+
+    margin-top: 0;
 
   }
 
@@ -1697,7 +1834,9 @@
 
 
   .witness-meta {
+
     display: none;
+
   }
 
 
