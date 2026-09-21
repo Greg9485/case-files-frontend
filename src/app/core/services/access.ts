@@ -1,11 +1,22 @@
-import {
-  Injectable,
-  signal
-} from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 
 export interface WitnessDiscovery {
   source: string;
   identityKnown: boolean;
+}
+
+export interface NotebookClue {
+  id: string;
+  source: string;
+  content: string;
+}
+
+export interface PlayerNote {
+  id: string;
+  title: string;
+  body: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface InvestigatorAccess {
@@ -20,8 +31,8 @@ export interface InvestigatorAccess {
   policePortalUnlocked: boolean;
   witnessesUnlocked: boolean;
   hackerEventTriggered: boolean;
+  notebookUnlocked: boolean;
   torBrowserUnlocked: boolean;
-
   darkWebAuthenticated: boolean;
   darkWebUsername: string | null;
   darkWebAuthenticatedAt: Date | null;
@@ -30,6 +41,9 @@ export interface InvestigatorAccess {
     string,
     WitnessDiscovery[]
   >;
+
+  notebookClues: NotebookClue[];
+  playerNotes: PlayerNote[];
 }
 
 @Injectable({
@@ -40,8 +54,10 @@ export class AccessService {
   private access: InvestigatorAccess = {
     investigatorId: 'INV-74291',
     caseId: 'AMPD-001',
+
     username: 'AMPD_INV_74291',
     password: 'CARTER-74291',
+
     accessLevel: 'RESTRICTED',
 
     authenticated: false,
@@ -50,13 +66,17 @@ export class AccessService {
     policePortalUnlocked: false,
     witnessesUnlocked: false,
     hackerEventTriggered: false,
+    notebookUnlocked: false,
     torBrowserUnlocked: false,
 
     darkWebAuthenticated: false,
     darkWebUsername: null,
     darkWebAuthenticatedAt: null,
 
-    witnessDiscoveries: {}
+    witnessDiscoveries: {},
+
+    notebookClues: [],
+    playerNotes: []
   };
 
   policePortalUnlockedSignal =
@@ -68,6 +88,9 @@ export class AccessService {
   hackerEventTriggeredSignal =
     signal(false);
 
+  notebookUnlockedSignal =
+    signal(false);
+
   torBrowserUnlockedSignal =
     signal(false);
 
@@ -75,9 +98,13 @@ export class AccessService {
     signal(false);
 
   witnessDiscoveriesSignal =
-    signal<
-      Record<string, WitnessDiscovery[]>
-    >({});
+    signal<Record<string, WitnessDiscovery[]>>({});
+
+  notebookCluesSignal =
+    signal<NotebookClue[]>([]);
+
+  playerNotesSignal =
+    signal<PlayerNote[]>([]);
 
 
   getAccess(): InvestigatorAccess {
@@ -93,35 +120,31 @@ export class AccessService {
     return this.policePortalUnlockedSignal();
   }
 
-
   unlockPolicePortal(): void {
-
     this.access = {
       ...this.access,
       policePortalUnlocked: true
     };
 
-    this.policePortalUnlockedSignal.set(
-      true
-    );
+    this.policePortalUnlockedSignal.set(true);
   }
 
+
+  // ============================================================
+  // WITNESSES
+  // ============================================================
 
   isWitnessesUnlocked(): boolean {
     return this.witnessesUnlockedSignal();
   }
 
-
   unlockWitnesses(): void {
-
     this.access = {
       ...this.access,
       witnessesUnlocked: true
     };
 
-    this.witnessesUnlockedSignal.set(
-      true
-    );
+    this.witnessesUnlockedSignal.set(true);
   }
 
 
@@ -136,9 +159,7 @@ export class AccessService {
   ): void {
 
     const existingDiscoveries =
-      this.access.witnessDiscoveries[
-        witnessId
-      ] ?? [];
+      this.access.witnessDiscoveries[witnessId] ?? [];
 
     const alreadyDiscovered =
       existingDiscoveries.some(
@@ -149,9 +170,7 @@ export class AccessService {
     if (alreadyDiscovered) {
 
       if (identityKnown) {
-        this.revealWitnessIdentity(
-          witnessId
-        );
+        this.revealWitnessIdentity(witnessId);
       }
 
       return;
@@ -167,8 +186,7 @@ export class AccessService {
 
     const updatedWitnessDiscoveries = {
       ...this.access.witnessDiscoveries,
-      [witnessId]:
-        updatedDiscoveries
+      [witnessId]: updatedDiscoveries
     };
 
     this.access = {
@@ -247,8 +265,7 @@ export class AccessService {
 
     const updatedWitnessDiscoveries = {
       ...this.access.witnessDiscoveries,
-      [witnessId]:
-        updatedDiscoveries
+      [witnessId]: updatedDiscoveries
     };
 
     this.access = {
@@ -290,6 +307,188 @@ export class AccessService {
     );
 
     return true;
+  }
+
+
+  completeHackerEvent(): void {
+
+    /*
+     * The Notebook is already unlocked by
+     * the public police records metadata event.
+     *
+     * The Hacker Event only contributes
+     * additional clues to the existing Notebook.
+     */
+
+    this.addNotebookClue({
+      id: 'hacker-event-username',
+      source: 'HACKER EVENT',
+      content:
+        'Username: observer26.'
+    });
+
+    this.addNotebookClue({
+      id: 'hacker-event-passcode',
+      source: 'HACKER EVENT',
+      content:
+        'For the passcode: think about who this whole thing started with. No spaces. All lowercase.'
+    });
+  }
+
+
+  // ============================================================
+  // NOTEBOOK
+  // ============================================================
+
+  isNotebookUnlocked(): boolean {
+    return this.notebookUnlockedSignal();
+  }
+
+
+  unlockNotebook(): void {
+
+    if (
+      this.notebookUnlockedSignal()
+    ) {
+      return;
+    }
+
+    this.access = {
+      ...this.access,
+      notebookUnlocked: true
+    };
+
+    this.notebookUnlockedSignal.set(
+      true
+    );
+  }
+
+
+  addNotebookClue(
+    clue: NotebookClue
+  ): void {
+
+    const alreadyExists =
+      this.access.notebookClues.some(
+        existing =>
+          existing.id === clue.id
+      );
+
+    if (alreadyExists) {
+      return;
+    }
+
+    const updatedClues = [
+      ...this.access.notebookClues,
+      clue
+    ];
+
+    this.access = {
+      ...this.access,
+      notebookClues: updatedClues
+    };
+
+    this.notebookCluesSignal.set(
+      updatedClues
+    );
+  }
+
+
+  getNotebookClues(): NotebookClue[] {
+    return this.notebookCluesSignal();
+  }
+
+
+  // ============================================================
+  // PLAYER NOTES
+  // ============================================================
+
+  getPlayerNotes(): PlayerNote[] {
+    return this.playerNotesSignal();
+  }
+
+
+  addPlayerNote(
+    title: string,
+    body: string
+  ): PlayerNote {
+
+    const now = new Date();
+
+    const note: PlayerNote = {
+      id: `note-${Date.now()}`,
+      title: title.trim(),
+      body,
+      createdAt: now,
+      updatedAt: now
+    };
+
+    const updatedNotes = [
+      ...this.access.playerNotes,
+      note
+    ];
+
+    this.access = {
+      ...this.access,
+      playerNotes: updatedNotes
+    };
+
+    this.playerNotesSignal.set(
+      updatedNotes
+    );
+
+    return note;
+  }
+
+
+  updatePlayerNote(
+    noteId: string,
+    title: string,
+    body: string
+  ): void {
+
+    const updatedNotes =
+      this.access.playerNotes.map(
+        note =>
+          note.id === noteId
+            ? {
+                ...note,
+                title: title.trim(),
+                body,
+                updatedAt: new Date()
+              }
+            : note
+      );
+
+    this.access = {
+      ...this.access,
+      playerNotes: updatedNotes
+    };
+
+    this.playerNotesSignal.set(
+      updatedNotes
+    );
+  }
+
+
+  deletePlayerNote(
+    noteId: string
+  ): void {
+
+    const updatedNotes =
+      this.access.playerNotes.filter(
+        note =>
+          note.id !== noteId
+      );
+
+    this.access = {
+      ...this.access,
+      playerNotes: updatedNotes
+    };
+
+    this.playerNotesSignal.set(
+      updatedNotes
+    );
   }
 
 
@@ -373,9 +572,7 @@ export class AccessService {
   ): boolean {
 
     const normalizedUsername =
-      username
-        .trim()
-        .toLowerCase();
+      username.trim().toLowerCase();
 
     const validUsername =
       'observer26';
@@ -393,12 +590,9 @@ export class AccessService {
 
     this.access = {
       ...this.access,
-
       darkWebAuthenticated: true,
-
       darkWebUsername:
         normalizedUsername,
-
       darkWebAuthenticatedAt:
         new Date()
     };
@@ -409,5 +603,4 @@ export class AccessService {
 
     return true;
   }
-
 }
