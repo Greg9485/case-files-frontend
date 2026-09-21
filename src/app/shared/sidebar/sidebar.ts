@@ -13,7 +13,6 @@ import {
   AccessService
 } from '../../core/services/access';
 
-
 @Component({
   selector: 'app-sidebar',
 
@@ -31,29 +30,27 @@ export class SidebarComponent {
   private accessService =
     inject(AccessService);
 
-
   isPolicePortalUnlocked =
     this.accessService
       .policePortalUnlockedSignal;
-
 
   isWitnessesUnlocked =
     this.accessService
       .witnessesUnlockedSignal;
 
+  isNotebookUnlocked =
+    this.accessService
+      .notebookUnlockedSignal;
 
   isTorBrowserUnlocked =
     this.accessService
       .torBrowserUnlockedSignal;
 
-
   publicAccessExpanded =
     signal(true);
 
-
   sidebarCollapsed =
     signal(false);
-
 
   togglePublicAccess(): void {
 
@@ -62,7 +59,6 @@ export class SidebarComponent {
     );
 
   }
-
 
   toggleSidebar(): void {
 

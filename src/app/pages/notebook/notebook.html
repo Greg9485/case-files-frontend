@@ -1,1 +1,562 @@
-<p>notebook works!</p>
+<section class="notebook-page">
+
+  <header class="page-header">
+
+    <div>
+      <span class="eyebrow">
+        CASE FILES / PLAYER REFERENCE
+      </span>
+
+      <h1>
+        NOTEBOOK
+      </h1>
+
+      <p>
+        Important information you've collected.
+      </p>
+    </div>
+
+    @if (notebookUnlocked) {
+
+      <button
+        type="button"
+        class="new-note-button"
+        (click)="startNewNote()"
+      >
+        + NEW NOTE
+      </button>
+
+    }
+
+  </header>
+
+
+  @if (!notebookUnlocked) {
+
+    <section class="locked-state">
+
+      <div class="locked-icon">
+        ▤
+      </div>
+
+      <h2>
+        NOTEBOOK LOCKED
+      </h2>
+
+      <p>
+        No notebook records are currently available.
+      </p>
+
+      <span class="system-code">
+        ACCESS STATUS: LOCKED
+      </span>
+
+    </section>
+
+  } @else {
+
+    <main class="notebook-content">
+
+
+      <!-- =====================================================
+           GAME-GENERATED CLUES
+      ====================================================== -->
+
+      <section class="section">
+
+        <div class="section-header">
+
+          <div>
+            <span class="section-label">
+              GAME-GENERATED INFORMATION
+            </span>
+
+            <h2>
+              Collected Clues
+            </h2>
+          </div>
+
+          <span class="section-status">
+            READ ONLY
+          </span>
+
+        </div>
+
+
+        @if (clues.length === 0) {
+
+          <div class="empty-state">
+            No clues have been recorded.
+          </div>
+
+        } @else {
+
+          <div class="source-list">
+
+            @for (
+              source of clueSources;
+              track source
+            ) {
+
+              <section class="source-group">
+
+
+                <!-- SOURCE HEADER -->
+
+                <button
+                  type="button"
+                  class="source-header"
+                  [class.expanded]="
+                    isSourceExpanded(source)
+                  "
+                  (click)="
+                    toggleSource(source)
+                  "
+                  [attr.aria-expanded]="
+                    isSourceExpanded(source)
+                  "
+                >
+
+                  <div class="source-heading">
+
+                    <span class="source-label">
+                      SOURCE
+                    </span>
+
+                    <strong>
+                      {{ source }}
+                    </strong>
+
+                  </div>
+
+
+                  <div class="source-summary">
+
+                    <span class="clue-count">
+                      {{
+                        getCluesForSource(source).length
+                      }}
+                      CLUE{{
+                        getCluesForSource(source).length === 1
+                          ? ''
+                          : 'S'
+                      }}
+                    </span>
+
+                    <span class="source-toggle">
+                      {{
+                        isSourceExpanded(source)
+                          ? '−'
+                          : '+'
+                      }}
+                    </span>
+
+                  </div>
+
+                </button>
+
+
+                <!-- SOURCE CLUES -->
+
+                @if (
+                  isSourceExpanded(source)
+                ) {
+
+                  <div class="source-clues">
+
+                    @for (
+                      clue of getCluesForSource(source);
+                      track clue.id;
+                      let clueIndex = $index
+                    ) {
+
+                      <article class="clue">
+
+                        <div class="clue-marker">
+
+                          {{
+                            (clueIndex + 1)
+                              .toString()
+                              .padStart(2, '0')
+                          }}
+
+                        </div>
+
+
+                        <div class="clue-content">
+
+                          <span class="clue-label">
+                            RECORDED CLUE
+                          </span>
+
+                          <p>
+                            {{ clue.content }}
+                          </p>
+
+                        </div>
+
+                      </article>
+
+                    }
+
+                  </div>
+
+                }
+
+              </section>
+
+            }
+
+          </div>
+
+        }
+
+      </section>
+
+
+      <!-- =====================================================
+           PLAYER NOTES
+      ====================================================== -->
+
+      <section class="section notes-section">
+
+        <div class="section-header">
+
+          <div>
+            <span class="section-label">
+              PLAYER NOTES
+            </span>
+
+            <h2>
+              My Notes
+            </h2>
+          </div>
+
+          <span class="section-status">
+            {{ notes.length }}
+            NOTE{{ notes.length === 1 ? '' : 'S' }}
+          </span>
+
+        </div>
+
+
+        @if (notes.length === 0) {
+
+          <div class="empty-notes">
+
+            <p>
+              You haven't written any notes yet.
+            </p>
+
+            <button
+              type="button"
+              class="text-button"
+              (click)="startNewNote()"
+            >
+              + ADD YOUR FIRST NOTE
+            </button>
+
+          </div>
+
+        } @else {
+
+          <div class="note-list">
+
+            @for (
+              note of notes;
+              track note.id
+            ) {
+
+              <button
+                type="button"
+                class="note-record"
+                (click)="openNote(note)"
+              >
+
+                <div class="note-main">
+
+                  <strong>
+                    {{ note.title }}
+                  </strong>
+
+                  <span>
+                    {{ note.body }}
+                  </span>
+
+                </div>
+
+
+                <div class="note-meta">
+
+                  <span>
+                    CREATED
+                  </span>
+
+                  <strong>
+                    {{ formatDate(note.createdAt) }}
+                  </strong>
+
+                </div>
+
+
+                <span class="arrow">
+                  ›
+                </span>
+
+              </button>
+
+            }
+
+          </div>
+
+        }
+
+      </section>
+
+    </main>
+
+  }
+
+</section>
+
+
+<!-- ===========================================================
+     NOTE EDITOR / VIEWER
+=========================================================== -->
+
+@if (
+  selectedNote ||
+  isCreatingNote
+) {
+
+  <div class="modal-backdrop">
+
+    <section class="note-modal">
+
+      <header class="modal-header">
+
+        <div>
+
+          <span class="eyebrow">
+            PLAYER NOTE
+          </span>
+
+          @if (isCreatingNote) {
+
+            <h2>
+              New Note
+            </h2>
+
+          } @else {
+
+            <h2>
+              {{ selectedNote?.title }}
+            </h2>
+
+          }
+
+        </div>
+
+
+        <button
+          type="button"
+          class="close-button"
+          (click)="closeNote()"
+          aria-label="Close note"
+        >
+          ×
+        </button>
+
+      </header>
+
+
+      @if (isCreatingNote) {
+
+        <div class="note-form">
+
+          <label>
+
+            TITLE
+
+            <input
+              type="text"
+              [(ngModel)]="noteTitle"
+              maxlength="120"
+              placeholder="Note title"
+            />
+
+          </label>
+
+
+          <label>
+
+            NOTE
+
+            <textarea
+              [(ngModel)]="noteBody"
+              maxlength="500"
+              placeholder="Write something you want to remember..."
+            ></textarea>
+
+            <span class="character-count">
+              {{ getCharacterCount() }} / 500
+            </span>
+
+          </label>
+
+        </div>
+
+
+        <footer class="modal-footer">
+
+          <button
+            type="button"
+            class="secondary-button"
+            (click)="closeNote()"
+          >
+            CANCEL
+          </button>
+
+
+          <button
+            type="button"
+            class="primary-button"
+            [disabled]="
+              !noteTitle.trim() ||
+              !noteBody.trim() ||
+              noteBody.length > 500
+            "
+            (click)="saveNewNote()"
+          >
+            ADD NOTE
+          </button>
+
+        </footer>
+
+      } @else if (isEditingNote) {
+
+        <div class="note-form">
+
+          <label>
+
+            TITLE
+
+            <input
+              type="text"
+              [(ngModel)]="noteTitle"
+              maxlength="120"
+            />
+
+          </label>
+
+
+          <label>
+
+            NOTE
+
+            <textarea
+              [(ngModel)]="noteBody"
+              maxlength="500"
+            ></textarea>
+
+            <span class="character-count">
+              {{ getCharacterCount() }} / 500
+            </span>
+
+          </label>
+
+        </div>
+
+
+        <footer class="modal-footer">
+
+          <button
+            type="button"
+            class="secondary-button"
+            (click)="cancelEdit()"
+          >
+            CANCEL
+          </button>
+
+
+          <button
+            type="button"
+            class="primary-button"
+            [disabled]="
+              !noteTitle.trim() ||
+              !noteBody.trim() ||
+              noteBody.length > 500
+            "
+            (click)="saveEditedNote()"
+          >
+            SAVE CHANGES
+          </button>
+
+        </footer>
+
+      } @else {
+
+        <div class="note-view">
+
+          <div class="note-view-meta">
+
+            <span>
+              CREATED
+              {{ formatDate(selectedNote!.createdAt) }}
+            </span>
+
+
+            @if (
+              selectedNote!.updatedAt.getTime() !==
+              selectedNote!.createdAt.getTime()
+            ) {
+
+              <span>
+                UPDATED
+                {{ formatDate(selectedNote!.updatedAt) }}
+              </span>
+
+            }
+
+          </div>
+
+
+          <p>
+            {{ selectedNote!.body }}
+          </p>
+
+        </div>
+
+
+        <footer class="modal-footer note-actions">
+
+          <button
+            type="button"
+            class="danger-button"
+            (click)="deleteNote()"
+          >
+            DELETE
+          </button>
+
+
+          <div>
+
+            <button
+              type="button"
+              class="secondary-button"
+              (click)="beginEdit()"
+            >
+              EDIT
+            </button>
+
+          </div>
+
+        </footer>
+
+      }
+
+    </section>
+
+  </div>
+
+}

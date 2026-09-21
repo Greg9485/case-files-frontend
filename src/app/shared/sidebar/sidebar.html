@@ -179,15 +179,28 @@
       </span>
 
 
-      <span class="locked-link">
+      @if (isNotebookUnlocked()) {
 
-        Notebook
+        <a
+          routerLink="/notebook"
+          routerLinkActive="active"
+        >
+          Notebook
+        </a>
 
-        <small>
-          LOCKED
-        </small>
+        } @else {
 
-      </span>
+        <span class="locked-link">
+
+          Notebook
+
+          <small>
+            LOCKED
+          </small>
+
+        </span>
+
+      }
 
 
       <span class="locked-link">
@@ -335,13 +348,29 @@
 
       <!-- NOTEBOOK -->
 
-      <span
-        class="rail-item locked"
-        title="Notebook — Locked"
-        aria-label="Notebook — Locked"
-      >
-        <span class="rail-icon">▤</span>
-      </span>
+      @if (isNotebookUnlocked()) {
+
+        <a
+          class="rail-item"
+          routerLink="/notebook"
+          routerLinkActive="active"
+          title="Notebook"
+          aria-label="Notebook"
+        >
+          <span class="rail-icon">▤</span>
+        </a>
+
+      } @else {
+
+        <span
+          class="rail-item locked"
+          title="Notebook — Locked"
+          aria-label="Notebook — Locked"
+        >
+          <span class="rail-icon">▤</span>
+        </span>
+
+      }
 
 
       <!-- ARCHIVE -->

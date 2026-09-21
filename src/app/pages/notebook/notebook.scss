@@ -1,0 +1,1209 @@
+.notebook-page {
+
+  min-height: calc(100vh - 60px);
+
+  background: #eeeeee;
+
+  color: #222;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+}
+
+
+/* ============================================================
+
+   HEADER
+
+============================================================ */
+
+.page-header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: flex-start;
+
+  gap: 30px;
+
+  padding: 22px 28px;
+
+  background: #d9e2ec;
+
+  border-bottom: 1px solid #8d9aaa;
+
+}
+
+
+.eyebrow {
+
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #6b7280;
+
+  font-family: monospace;
+
+  font-size: 9px;
+
+  font-weight: 700;
+
+  letter-spacing: 1.2px;
+
+}
+
+
+.page-header h1 {
+
+  margin: 0;
+
+  color: #003366;
+
+  font-size: 22px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.5px;
+
+}
+
+
+.page-header p {
+
+  margin: 7px 0 0;
+
+  color: #4b5563;
+
+  font-size: 12px;
+
+}
+
+
+.new-note-button {
+
+  padding: 10px 14px;
+
+  background: #003366;
+
+  border: 1px solid #00284f;
+
+  color: white;
+
+  font-size: 9px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.8px;
+
+  cursor: pointer;
+
+}
+
+
+.new-note-button:hover {
+
+  background: #00284f;
+
+}
+
+
+/* ============================================================
+
+   LOCKED STATE
+
+============================================================ */
+
+.locked-state {
+
+  width: min(720px, 90%);
+
+  margin: 60px auto;
+
+  padding: 45px;
+
+  box-sizing: border-box;
+
+  text-align: center;
+
+  background: white;
+
+  border: 1px solid #b8c1cc;
+
+}
+
+
+.locked-icon {
+
+  margin-bottom: 15px;
+
+  color: #8d9aaa;
+
+  font-size: 34px;
+
+}
+
+
+.locked-state h2 {
+
+  margin: 0;
+
+  color: #374151;
+
+  font-size: 16px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.5px;
+
+}
+
+
+.locked-state p {
+
+  margin: 10px 0 18px;
+
+  color: #6b7280;
+
+  font-size: 12px;
+
+}
+
+
+.system-code {
+
+  display: inline-block;
+
+  padding: 7px 10px;
+
+  background: #f1f3f5;
+
+  color: #7b8490;
+
+  font-family: monospace;
+
+  font-size: 9px;
+
+  letter-spacing: 0.6px;
+
+}
+
+
+/* ============================================================
+
+   CONTENT
+
+============================================================ */
+
+.notebook-content {
+
+  width: min(1050px, 94%);
+
+  margin: 0 auto;
+
+  padding: 28px 0 60px;
+
+}
+
+
+.section {
+
+  margin-bottom: 24px;
+
+  background: white;
+
+  border: 1px solid #b8c1cc;
+
+}
+
+
+.section-header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: flex-start;
+
+  padding: 18px 20px;
+
+  border-bottom: 1px solid #cbd2d9;
+
+  background: #f4f6f8;
+
+}
+
+
+.section-label {
+
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #6b7280;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  font-weight: 700;
+
+  letter-spacing: 1px;
+
+}
+
+
+.section-header h2 {
+
+  margin: 0;
+
+  color: #003366;
+
+  font-size: 16px;
+
+  font-weight: 600;
+
+}
+
+
+.section-status {
+
+  color: #7b8490;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: 0.8px;
+
+}
+
+
+/* ============================================================
+
+   CLUE SOURCE LEDGER
+
+============================================================ */
+
+.source-list {
+
+  width: 100%;
+
+}
+
+
+.source-group {
+
+  border-bottom: 1px solid #d7dce1;
+
+}
+
+
+.source-group:last-child {
+
+  border-bottom: none;
+
+}
+
+
+/* ------------------------------------------------------------
+
+   SOURCE HEADER
+
+------------------------------------------------------------ */
+
+.source-header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 20px;
+
+  width: 100%;
+
+  padding: 13px 20px;
+
+  box-sizing: border-box;
+
+  background: #e8edf2;
+
+  border: none;
+
+  border-bottom: 1px solid #d0d6dc;
+
+  color: #222;
+
+  text-align: left;
+
+  cursor: pointer;
+
+}
+
+
+.source-header:hover {
+
+  background: #dde4eb;
+
+}
+
+
+.source-header.expanded {
+
+  background: #e2e8ee;
+
+}
+
+
+.source-heading {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 5px;
+
+  min-width: 0;
+
+}
+
+
+.source-label {
+
+  color: #6b7280;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: 0.8px;
+
+}
+
+
+.source-heading strong {
+
+  overflow: hidden;
+
+  color: #374151;
+
+  font-family: monospace;
+
+  font-size: 9px;
+
+  letter-spacing: 0.5px;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+
+}
+
+
+.source-summary {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  flex-shrink: 0;
+
+}
+
+
+.clue-count {
+
+  color: #7b8490;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: 0.5px;
+
+}
+
+
+.source-toggle {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 20px;
+
+  height: 20px;
+
+  background: #f7f8fa;
+
+  border: 1px solid #b8c1cc;
+
+  color: #4b5563;
+
+  font-family: monospace;
+
+  font-size: 13px;
+
+  line-height: 1;
+
+}
+
+
+/* ------------------------------------------------------------
+
+   CLUES
+
+------------------------------------------------------------ */
+
+.source-clues {
+
+  background: white;
+
+}
+
+
+.clue {
+
+  display: grid;
+
+  grid-template-columns: 42px 1fr;
+
+  gap: 15px;
+
+  padding: 18px 20px;
+
+  border-bottom: 1px solid #e5e7eb;
+
+}
+
+
+.clue:last-child {
+
+  border-bottom: none;
+
+}
+
+
+.clue-marker {
+
+  align-self: start;
+
+  padding: 6px 5px;
+
+  background: #f1f3f5;
+
+  border: 1px solid #cbd2d9;
+
+  color: #6b7280;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.5px;
+
+  text-align: center;
+
+}
+
+
+.clue-content {
+
+  min-width: 0;
+
+}
+
+
+.clue-label {
+
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #8a929b;
+
+  font-family: monospace;
+
+  font-size: 7px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.8px;
+
+}
+
+
+.clue p {
+
+  margin: 0;
+
+  color: #303841;
+
+  font-size: 13px;
+
+  line-height: 1.7;
+
+  white-space: pre-wrap;
+
+}
+
+
+/* ============================================================
+
+   PLAYER NOTES
+
+============================================================ */
+
+.empty-notes,
+
+.empty-state {
+
+  padding: 35px 20px;
+
+  color: #7b8490;
+
+  font-size: 12px;
+
+}
+
+
+.empty-notes p {
+
+  margin: 0 0 15px;
+
+}
+
+
+.text-button {
+
+  padding: 0;
+
+  background: none;
+
+  border: none;
+
+  color: #003399;
+
+  font-family: monospace;
+
+  font-size: 9px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+}
+
+
+.text-button:hover {
+
+  text-decoration: underline;
+
+}
+
+
+.note-record {
+
+  display: grid;
+
+  grid-template-columns: 1fr auto auto;
+
+  align-items: center;
+
+  gap: 25px;
+
+  width: 100%;
+
+  padding: 18px 20px;
+
+  box-sizing: border-box;
+
+  text-align: left;
+
+  background: white;
+
+  border: none;
+
+  border-bottom: 1px solid #d7dce1;
+
+  color: #222;
+
+  cursor: pointer;
+
+}
+
+
+.note-record:last-child {
+
+  border-bottom: none;
+
+}
+
+
+.note-record:hover {
+
+  background: #f7f9fa;
+
+}
+
+
+.note-main {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+
+  min-width: 0;
+
+}
+
+
+.note-main strong {
+
+  color: #003366;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+}
+
+
+.note-main span {
+
+  overflow: hidden;
+
+  color: #5f6872;
+
+  font-size: 11px;
+
+  line-height: 1.5;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+
+}
+
+
+.note-meta {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-end;
+
+  gap: 5px;
+
+}
+
+
+.note-meta span {
+
+  color: #8a929b;
+
+  font-family: monospace;
+
+  font-size: 7px;
+
+  letter-spacing: 0.8px;
+
+}
+
+
+.note-meta strong {
+
+  color: #5f6872;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  font-weight: 400;
+
+}
+
+
+.arrow {
+
+  color: #9ca3af;
+
+  font-size: 20px;
+
+}
+
+
+/* ============================================================
+
+   MODAL
+
+============================================================ */
+
+.modal-backdrop {
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 1000;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 25px;
+
+  background:
+    rgba(15, 23, 42, 0.72);
+
+}
+
+
+.note-modal {
+
+  width: min(720px, 100%);
+
+  max-height: 90vh;
+
+  overflow: hidden;
+
+  background: white;
+
+  border: 1px solid #8d9aaa;
+
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.35);
+
+}
+
+
+.modal-header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: flex-start;
+
+  padding: 20px;
+
+  background: #e8edf2;
+
+  border-bottom: 1px solid #cbd2d9;
+
+}
+
+
+.modal-header h2 {
+
+  margin: 0;
+
+  color: #003366;
+
+  font-size: 17px;
+
+  font-weight: 600;
+
+}
+
+
+.close-button {
+
+  width: 30px;
+
+  height: 30px;
+
+  padding: 0;
+
+  background: white;
+
+  border: 1px solid #b8c1cc;
+
+  color: #4b5563;
+
+  font-size: 19px;
+
+  cursor: pointer;
+
+}
+
+
+.close-button:hover {
+
+  background: #f1f3f5;
+
+}
+
+
+/* ============================================================
+
+   FORM
+
+============================================================ */
+
+.note-form {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 22px;
+
+  padding: 25px;
+
+}
+
+
+.note-form label {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+
+  color: #6b7280;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.8px;
+
+}
+
+
+.note-form input,
+
+.note-form textarea {
+
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 10px;
+
+  background: white;
+
+  border: 1px solid #aeb7c1;
+
+  color: #222;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 13px;
+
+  outline: none;
+
+}
+
+
+.note-form input:focus,
+
+.note-form textarea:focus {
+
+  border-color: #003366;
+
+  box-shadow:
+    0 0 0 1px #003366;
+
+}
+
+
+.note-form textarea {
+
+  min-height: 180px;
+
+  resize: vertical;
+
+  line-height: 1.6;
+
+}
+
+
+.character-count {
+
+  align-self: flex-end;
+
+  color: #8a929b;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  font-weight: 400;
+
+  letter-spacing: 0;
+
+}
+
+
+/* ============================================================
+
+   NOTE VIEW
+
+============================================================ */
+
+.note-view {
+
+  padding: 25px;
+
+}
+
+
+.note-view-meta {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 15px;
+
+  margin-bottom: 25px;
+
+  padding-bottom: 12px;
+
+  border-bottom: 1px solid #e1e5e8;
+
+}
+
+
+.note-view-meta span {
+
+  color: #7b8490;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: 0.4px;
+
+}
+
+
+.note-view p {
+
+  margin: 0;
+
+  color: #303841;
+
+  font-size: 13px;
+
+  line-height: 1.8;
+
+  white-space: pre-wrap;
+
+}
+
+
+/* ============================================================
+
+   MODAL FOOTER
+
+============================================================ */
+
+.modal-footer {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 15px;
+
+  padding: 15px 20px;
+
+  background: #f4f6f8;
+
+  border-top: 1px solid #cbd2d9;
+
+}
+
+
+.modal-footer > div {
+
+  display: flex;
+
+  gap: 8px;
+
+}
+
+
+.primary-button,
+
+.secondary-button,
+
+.danger-button {
+
+  padding: 9px 14px;
+
+  font-size: 9px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.6px;
+
+  cursor: pointer;
+
+}
+
+
+.primary-button {
+
+  background: #003366;
+
+  border: 1px solid #00284f;
+
+  color: white;
+
+}
+
+
+.primary-button:hover:not(:disabled) {
+
+  background: #00284f;
+
+}
+
+
+.primary-button:disabled {
+
+  opacity: 0.4;
+
+  cursor: not-allowed;
+
+}
+
+
+.secondary-button {
+
+  background: white;
+
+  border: 1px solid #aeb7c1;
+
+  color: #374151;
+
+}
+
+
+.secondary-button:hover {
+
+  background: #e8edf2;
+
+}
+
+
+.danger-button {
+
+  background: white;
+
+  border: 1px solid #c58b8b;
+
+  color: #8b1e1e;
+
+}
+
+
+.danger-button:hover {
+
+  background: #fef2f2;
+
+}
+
+
+/* ============================================================
+
+   MOBILE
+
+============================================================ */
+
+@media (max-width: 700px) {
+
+  .page-header {
+
+    flex-direction: column;
+
+  }
+
+
+  .new-note-button {
+
+    align-self: flex-start;
+
+  }
+
+
+  .source-header {
+
+    align-items: flex-start;
+
+  }
+
+
+  .source-summary {
+
+    gap: 8px;
+
+  }
+
+
+  .source-heading strong {
+
+    white-space: normal;
+
+  }
+
+
+  .clue {
+
+    grid-template-columns: 1fr;
+
+    gap: 10px;
+
+  }
+
+
+  .clue-marker {
+
+    width: fit-content;
+
+  }
+
+
+  .note-record {
+
+    grid-template-columns: 1fr auto;
+
+  }
+
+
+  .note-meta {
+
+    display: none;
+
+  }
+
+}

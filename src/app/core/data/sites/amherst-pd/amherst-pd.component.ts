@@ -31,7 +31,8 @@ import {
   templateUrl: './amherst-pd.component.html',
   styleUrl: './amherst-pd.component.scss'
 })
-export class AmherstPdComponent implements OnChanges {
+export class AmherstPdComponent
+  implements OnChanges {
 
   private accessService =
     inject(AccessService);
@@ -70,98 +71,80 @@ export class AmherstPdComponent implements OnChanges {
   portalUnlockedToast = false;
 
 
-  // ngOnChanges(
-  //   changes: SimpleChanges
-  // ): void {
+  ngOnChanges(
+    changes: SimpleChanges
+  ): void {
 
-  //   if (
-  //     changes['page'] &&
-  //     this.isWitnessStatement()
-  //   ) {
+    if (
+      changes['page'] &&
+      this.isWitnessStatement()
+    ) {
 
-  //     this.accessService.unlockWitnesses();
+      this.accessService.unlockWitnesses();
 
-  //   }
+      if (this.witness) {
 
-  // }
-
-    ngOnChanges(
-      changes: SimpleChanges
-    ): void {
-
-      if (
-        changes['page'] &&
-        this.isWitnessStatement()
-      ) {
-
-        this.accessService.unlockWitnesses();
-
-        if (this.witness) {
-
-          this.accessService.discoverWitness(
-            this.witness.id,
-            'PUBLIC POLICE RECORDS',
-            this.witness.publicWitnessName !==
-              '[REDACTED]'
-          );
-
-        }
+        this.accessService.discoverWitness(
+          this.witness.id,
+          'PUBLIC POLICE RECORDS',
+          this.witness.publicWitnessName !==
+            '[REDACTED]'
+        );
 
       }
 
     }
 
+  }
 
 
   get incident() {
-
     return this.page.incidents?.[0];
-
   }
 
 
   get witness() {
-
     return AMHERST_POLICE_WITNESSES.find(
       witness =>
         witness.id === this.page.witnessId
     );
-
   }
 
 
   isIncidentList(): boolean {
-
-    return this.page.type === 'POLICE_INCIDENT_LIST';
-
+    return (
+      this.page.type ===
+      'POLICE_INCIDENT_LIST'
+    );
   }
 
 
   isIncident(): boolean {
-
-    return this.page.type === 'POLICE_INCIDENT';
-
+    return (
+      this.page.type ===
+      'POLICE_INCIDENT'
+    );
   }
 
 
   isCaseFile(): boolean {
-
-    return this.page.type === 'POLICE_CASE_FILE';
-
+    return (
+      this.page.type ===
+      'POLICE_CASE_FILE'
+    );
   }
 
 
   isWitnessStatement(): boolean {
-
-    return this.page.type === 'POLICE_WITNESS_STATEMENT';
-
+    return (
+      this.page.type ===
+      'POLICE_WITNESS_STATEMENT'
+    );
   }
 
 
   viewMetadata(): void {
-
     this.metadataVisible = true;
-
   }
 
 
@@ -170,15 +153,57 @@ export class AmherstPdComponent implements OnChanges {
     this.metadataVisible = false;
 
 
+    /*
+     * The public metadata event is the
+     * moment the player gains access to
+     * the Investigation Portal and Notebook.
+     *
+     * This is intentionally one-time.
+     */
+
     if (
-      !this.accessService.isPolicePortalUnlocked()
+      this.accessService.isPolicePortalUnlocked()
     ) {
-
-      this.accessService.unlockPolicePortal();
-
-      this.showPortalUnlockedToast();
-
+      return;
     }
+
+
+    this.accessService.unlockPolicePortal();
+
+    this.accessService.unlockNotebook();
+
+
+    /*
+     * ==========================================================
+     * INITIAL NOTEBOOK CLUES
+     * ==========================================================
+     */
+
+    this.accessService.addNotebookClue({
+      id:
+        'public-police-investigation-credentials',
+
+      source:
+        'AMHERST PD INVESTIGATION PORTAL',
+
+      content:
+        'Amherst PD Investigation Login Credentials Found\n\nUSERNAME: ampd_inv_74291\nPASSWORD: CARTER-74291'
+    });
+
+
+    this.accessService.addNotebookClue({
+      id:
+        'public-police-metadata-ampd-inv-0017',
+
+      source:
+        'PUBLIC POLICE RECORDS',
+
+      content:
+        'ampd_inv_0017.jpg was captured October 17, 2024 at 10:17:43 PM in Amherst, Virginia using an Apple iPhone 13. GPS: 37.5856 N, 79.0514 W.'
+    });
+
+
+    this.showPortalUnlockedToast();
 
   }
 
