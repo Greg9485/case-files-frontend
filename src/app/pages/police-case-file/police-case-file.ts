@@ -58,6 +58,13 @@ export class PoliceCaseFileComponent {
 
   backToIncidentReports(): void {
 
+    if (
+      this.accessService
+        .isApplicationInteractionLocked()
+    ) {
+      return;
+    }
+
     this.router.navigate([
       '/police-portal'
     ]);
@@ -134,6 +141,8 @@ export class PoliceCaseFileComponent {
   ): void {
 
     if (
+      this.accessService
+        .isApplicationInteractionLocked() ||
       this.glitchActive() ||
       this.hackerModalOpen()
     ) {
@@ -154,6 +163,8 @@ export class PoliceCaseFileComponent {
   openWitnessStatement(): void {
 
     if (
+      this.accessService
+        .isApplicationInteractionLocked() ||
       this.glitchActive() ||
       this.hackerModalOpen()
     ) {
@@ -223,6 +234,24 @@ export class PoliceCaseFileComponent {
 
 
     /*
+     * ==========================================================
+     * APPLICATION LOCK
+     * ==========================================================
+     *
+     * The player is locked out immediately after closing the
+     * witness statement.
+     *
+     * The UI remains completely normal-looking.
+     *
+     * The three-second delay happens while the entire
+     * application is non-interactive.
+     */
+
+    this.accessService
+      .lockApplicationInteraction();
+
+
+    /*
      * Quiet delay before anything happens.
      */
 
@@ -236,7 +265,6 @@ export class PoliceCaseFileComponent {
     );
 
   }
-
 
   /*
    * ==========================================================
@@ -450,14 +478,9 @@ export class PoliceCaseFileComponent {
 
 
     /*
-     * The hacker event is now complete.
+     * The hacker event is complete.
      *
-     * The system returns to normal.
-     *
-     * The Notebook was already unlocked
-     * when the public police metadata was
-     * closed, so completing the Hacker Event
-     * only adds its clues.
+     * Notebook clues are added before gameplay resumes.
      */
 
     this.accessService
@@ -465,9 +488,23 @@ export class PoliceCaseFileComponent {
 
 
     /*
-     * TOR remains deliberately delayed so
-     * the player has a moment to notice the
-     * newly added Hacker Event clues.
+     * ==========================================================
+     * APPLICATION UNLOCK
+     * ==========================================================
+     *
+     * The player immediately regains full application
+     * functionality.
+     *
+     * TOR IS NOT UNLOCKED YET.
+     */
+
+    this.accessService
+      .unlockApplicationInteraction();
+
+
+    /*
+     * Give the player three seconds of normal gameplay
+     * before revealing the TOR Browser.
      */
 
     setTimeout(
@@ -480,7 +517,6 @@ export class PoliceCaseFileComponent {
     );
 
   }
-
 
   /*
    * ==========================================================
