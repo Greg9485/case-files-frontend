@@ -158,6 +158,14 @@ export class AccessService {
     identityKnown: boolean
   ): void {
 
+    /*
+    * Any discovered witness unlocks the Witnesses
+    * player-reference system.
+    *
+    * The source of the discovery does not matter.
+    */
+    this.unlockWitnesses();
+
     const existingDiscoveries =
       this.access.witnessDiscoveries[witnessId] ?? [];
 
@@ -170,7 +178,9 @@ export class AccessService {
     if (alreadyDiscovered) {
 
       if (identityKnown) {
-        this.revealWitnessIdentity(witnessId);
+        this.revealWitnessIdentity(
+          witnessId
+        );
       }
 
       return;
