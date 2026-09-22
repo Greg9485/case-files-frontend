@@ -80,8 +80,6 @@ export class AmherstPdComponent
       this.isWitnessStatement()
     ) {
 
-      this.accessService.unlockWitnesses();
-
       if (this.witness) {
 
         this.accessService.discoverWitness(
