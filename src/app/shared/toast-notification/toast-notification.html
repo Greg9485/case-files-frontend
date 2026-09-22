@@ -1,0 +1,31 @@
+@if (currentToast(); as toast) {
+
+  <aside
+    class="toast"
+    role="status"
+    aria-live="polite"
+  >
+
+    <div class="toast-marker">
+      !
+    </div>
+
+    <div class="toast-content">
+
+      <div class="toast-eyebrow">
+        CASE FILES / SYSTEM NOTICE
+      </div>
+
+      <div class="toast-title">
+        {{ getTitle(toast) }}
+      </div>
+
+      <div class="toast-message">
+        {{ getMessage(toast) }}
+      </div>
+
+    </div>
+
+  </aside>
+
+}

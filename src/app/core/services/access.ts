@@ -19,6 +19,16 @@ export interface PlayerNote {
   updatedAt: Date;
 }
 
+export type AccessNotificationType =
+  | 'WITNESS'
+  | 'NOTEBOOK';
+
+export interface AccessNotification {
+  id: number;
+  type: AccessNotificationType;
+  count: number;
+}
+
 export interface InvestigatorAccess {
   investigatorId: string;
   caseId: string;
@@ -33,6 +43,7 @@ export interface InvestigatorAccess {
   hackerEventTriggered: boolean;
   notebookUnlocked: boolean;
   torBrowserUnlocked: boolean;
+
   darkWebAuthenticated: boolean;
   darkWebUsername: string | null;
   darkWebAuthenticatedAt: Date | null;
@@ -106,11 +117,50 @@ export class AccessService {
   playerNotesSignal =
     signal<PlayerNote[]>([]);
 
+  /*
+   * ============================================================
+   * SIDEBAR NOTIFICATIONS
+   * ============================================================
+   */
+
+  witnessesNotificationSignal =
+    signal(false);
+
+  notebookNotificationSignal =
+    signal(false);
+
+  /*
+   * ============================================================
+   * TOAST NOTIFICATIONS
+   * ============================================================
+   */
+
+  notificationsSignal =
+    signal<AccessNotification[]>([]);
+
+  private notificationId = 0;
+
+  private notify(
+    type: AccessNotificationType
+  ): void {
+
+    const notification: AccessNotification = {
+      id: ++this.notificationId,
+      type,
+      count: 1
+    };
+
+    this.notificationsSignal.update(
+      notifications => [
+        ...notifications,
+        notification
+      ]
+    );
+  }
 
   getAccess(): InvestigatorAccess {
     return this.access;
   }
-
 
   // ============================================================
   // POLICE PORTAL ACCESS
@@ -121,6 +171,7 @@ export class AccessService {
   }
 
   unlockPolicePortal(): void {
+
     this.access = {
       ...this.access,
       policePortalUnlocked: true
@@ -128,7 +179,6 @@ export class AccessService {
 
     this.policePortalUnlockedSignal.set(true);
   }
-
 
   // ============================================================
   // WITNESSES
@@ -139,6 +189,13 @@ export class AccessService {
   }
 
   unlockWitnesses(): void {
+
+    if (
+      this.witnessesUnlockedSignal()
+    ) {
+      return;
+    }
+
     this.access = {
       ...this.access,
       witnessesUnlocked: true
@@ -147,6 +204,9 @@ export class AccessService {
     this.witnessesUnlockedSignal.set(true);
   }
 
+  clearWitnessesNotification(): void {
+    this.witnessesNotificationSignal.set(false);
+  }
 
   // ============================================================
   // WITNESS DISCOVERY
@@ -159,23 +219,33 @@ export class AccessService {
   ): void {
 
     /*
-    * Any discovered witness unlocks the Witnesses
-    * player-reference system.
-    *
-    * The source of the discovery does not matter.
-    */
+     * Any discovered witness unlocks the Witnesses
+     * player-reference system.
+     *
+     * The source of the discovery does not matter.
+     */
     this.unlockWitnesses();
 
     const existingDiscoveries =
       this.access.witnessDiscoveries[witnessId] ?? [];
 
-    const alreadyDiscovered =
-      existingDiscoveries.some(
+    const existingDiscovery =
+      existingDiscoveries.find(
         discovery =>
           discovery.source === source
       );
 
-    if (alreadyDiscovered) {
+    /*
+     * This witness has already been discovered
+     * from this source.
+     *
+     * If the identity is now known, allow the
+     * identity-reveal logic to handle it.
+     *
+     * Do not generate another notification for
+     * simply viewing the same information again.
+     */
+    if (existingDiscovery) {
 
       if (identityKnown) {
         this.revealWitnessIdentity(
@@ -208,8 +278,18 @@ export class AccessService {
     this.witnessDiscoveriesSignal.set(
       updatedWitnessDiscoveries
     );
-  }
 
+    /*
+     * New witness information.
+     *
+     * This drives both:
+     * - the persistent sidebar NEW indicator
+     * - the immediate toast notification
+     */
+    this.witnessesNotificationSignal.set(true);
+
+    this.notify('WITNESS');
+  }
 
   hasDiscoveredWitness(
     witnessId: string
@@ -223,7 +303,6 @@ export class AccessService {
       ).length > 0
     );
   }
-
 
   isWitnessIdentityKnown(
     witnessId: string
@@ -239,7 +318,6 @@ export class AccessService {
     );
   }
 
-
   getWitnessDiscoveries(
     witnessId: string
   ): WitnessDiscovery[] {
@@ -251,7 +329,6 @@ export class AccessService {
     );
   }
 
-
   revealWitnessIdentity(
     witnessId: string
   ): void {
@@ -262,6 +339,20 @@ export class AccessService {
       ] ?? [];
 
     if (!discoveries.length) {
+      return;
+    }
+
+    /*
+     * Only notify if the identity actually
+     * changes from unknown to known.
+     */
+    const identityWasUnknown =
+      discoveries.some(
+        discovery =>
+          !discovery.identityKnown
+      );
+
+    if (!identityWasUnknown) {
       return;
     }
 
@@ -287,8 +378,15 @@ export class AccessService {
     this.witnessDiscoveriesSignal.set(
       updatedWitnessDiscoveries
     );
-  }
 
+    /*
+     * Revealing an identity is new witness
+     * information.
+     */
+    this.witnessesNotificationSignal.set(true);
+
+    this.notify('WITNESS');
+  }
 
   // ============================================================
   // HACKER EVENT
@@ -297,7 +395,6 @@ export class AccessService {
   hasHackerEventTriggered(): boolean {
     return this.hackerEventTriggeredSignal();
   }
-
 
   triggerHackerEvent(): boolean {
 
@@ -319,16 +416,7 @@ export class AccessService {
     return true;
   }
 
-
   completeHackerEvent(): void {
-
-    /*
-     * The Notebook is already unlocked by
-     * the public police records metadata event.
-     *
-     * The Hacker Event only contributes
-     * additional clues to the existing Notebook.
-     */
 
     this.addNotebookClue({
       id: 'hacker-event-username',
@@ -345,7 +433,6 @@ export class AccessService {
     });
   }
 
-
   // ============================================================
   // NOTEBOOK
   // ============================================================
@@ -353,7 +440,6 @@ export class AccessService {
   isNotebookUnlocked(): boolean {
     return this.notebookUnlockedSignal();
   }
-
 
   unlockNotebook(): void {
 
@@ -368,11 +454,12 @@ export class AccessService {
       notebookUnlocked: true
     };
 
-    this.notebookUnlockedSignal.set(
-      true
-    );
+    this.notebookUnlockedSignal.set(true);
   }
 
+  clearNotebookNotification(): void {
+    this.notebookNotificationSignal.set(false);
+  }
 
   addNotebookClue(
     clue: NotebookClue
@@ -401,13 +488,19 @@ export class AccessService {
     this.notebookCluesSignal.set(
       updatedClues
     );
-  }
 
+    /*
+     * Every genuinely new notebook clue is
+     * new information for the player.
+     */
+    this.notebookNotificationSignal.set(true);
+
+    this.notify('NOTEBOOK');
+  }
 
   getNotebookClues(): NotebookClue[] {
     return this.notebookCluesSignal();
   }
-
 
   // ============================================================
   // PLAYER NOTES
@@ -416,7 +509,6 @@ export class AccessService {
   getPlayerNotes(): PlayerNote[] {
     return this.playerNotesSignal();
   }
-
 
   addPlayerNote(
     title: string,
@@ -450,7 +542,6 @@ export class AccessService {
     return note;
   }
 
-
   updatePlayerNote(
     noteId: string,
     title: string,
@@ -480,7 +571,6 @@ export class AccessService {
     );
   }
 
-
   deletePlayerNote(
     noteId: string
   ): void {
@@ -501,7 +591,6 @@ export class AccessService {
     );
   }
 
-
   // ============================================================
   // TOR BROWSER
   // ============================================================
@@ -509,7 +598,6 @@ export class AccessService {
   isTorBrowserUnlocked(): boolean {
     return this.torBrowserUnlockedSignal();
   }
-
 
   unlockTorBrowser(): void {
 
@@ -523,7 +611,6 @@ export class AccessService {
     );
   }
 
-
   // ============================================================
   // POLICE PORTAL AUTHENTICATION
   // ============================================================
@@ -531,7 +618,6 @@ export class AccessService {
   isAuthenticated(): boolean {
     return this.access.authenticated;
   }
-
 
   authenticate(
     username: string,
@@ -556,7 +642,6 @@ export class AccessService {
     return false;
   }
 
-
   logout(): void {
 
     this.access = {
@@ -566,7 +651,6 @@ export class AccessService {
     };
   }
 
-
   // ============================================================
   // DARK WEB AUTHENTICATION
   // ============================================================
@@ -574,7 +658,6 @@ export class AccessService {
   isDarkWebAuthenticated(): boolean {
     return this.darkWebAuthenticatedSignal();
   }
-
 
   authenticateDarkWeb(
     username: string,

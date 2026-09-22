@@ -26,13 +26,7 @@
 
   @if (!sidebarCollapsed()) {
 
-    <!-- ======================================================
-         EXPANDED NAVIGATION
-         ====================================================== -->
-
     <div class="nav-main">
-
-      <!-- HOME -->
 
       <a
         routerLink="/"
@@ -42,10 +36,6 @@
         Home
       </a>
 
-
-      <!-- ================================================
-           AMHERST PUBLIC ACCESS
-      ================================================= -->
 
       <section class="nav-group">
 
@@ -108,10 +98,6 @@
       </section>
 
 
-      <!-- ================================================
-           INVESTIGATION PORTAL
-      ================================================= -->
-
       @if (isPolicePortalUnlocked()) {
 
         <a
@@ -136,17 +122,31 @@
       }
 
 
-      <!-- ================================================
+      <!-- ====================================================
            WITNESSES
-      ================================================= -->
+           ==================================================== -->
 
       @if (isWitnessesUnlocked()) {
 
         <a
           routerLink="/witnesses"
           routerLinkActive="active"
+          class="nav-notification-link"
+          (click)="openWitnesses()"
         >
-          Witnesses
+
+          <span>
+            Witnesses
+          </span>
+
+          @if (witnessesNotification()) {
+
+            <span class="new-badge">
+              NEW
+            </span>
+
+          }
+
         </a>
 
       } @else {
@@ -164,10 +164,6 @@
       }
 
 
-      <!-- ================================================
-           LOCKED SECTIONS
-      ================================================= -->
-
       <span class="locked-link">
 
         Evidence
@@ -179,16 +175,34 @@
       </span>
 
 
+      <!-- ====================================================
+           NOTEBOOK
+           ==================================================== -->
+
       @if (isNotebookUnlocked()) {
 
         <a
           routerLink="/notebook"
           routerLinkActive="active"
+          class="nav-notification-link"
+          (click)="openNotebook()"
         >
-          Notebook
+
+          <span>
+            Notebook
+          </span>
+
+          @if (notebookNotification()) {
+
+            <span class="new-badge">
+              NEW
+            </span>
+
+          }
+
         </a>
 
-        } @else {
+      } @else {
 
         <span class="locked-link">
 
@@ -215,10 +229,6 @@
 
     </div>
 
-
-    <!-- ======================================================
-         TOR BROWSER
-         ====================================================== -->
 
     @if (isTorBrowserUnlocked()) {
 
@@ -248,13 +258,7 @@
 
   } @else {
 
-    <!-- ======================================================
-         COLLAPSED ICON RAIL
-         ====================================================== -->
-
     <div class="icon-rail">
-
-      <!-- HOME -->
 
       <a
         class="rail-item"
@@ -268,8 +272,6 @@
       </a>
 
 
-      <!-- PUBLIC ACCESS -->
-
       <button
         type="button"
         class="rail-item"
@@ -280,8 +282,6 @@
         <span class="rail-icon">▣</span>
       </button>
 
-
-      <!-- INVESTIGATION PORTAL -->
 
       @if (isPolicePortalUnlocked()) {
 
@@ -318,8 +318,18 @@
           routerLinkActive="active"
           title="Witnesses"
           aria-label="Witnesses"
+          (click)="openWitnesses()"
         >
           <span class="rail-icon">♙</span>
+
+          @if (witnessesNotification()) {
+
+            <span class="rail-new-badge">
+              !
+            </span>
+
+          }
+
         </a>
 
       } @else {
@@ -334,8 +344,6 @@
 
       }
 
-
-      <!-- EVIDENCE -->
 
       <span
         class="rail-item locked"
@@ -356,8 +364,18 @@
           routerLinkActive="active"
           title="Notebook"
           aria-label="Notebook"
+          (click)="openNotebook()"
         >
           <span class="rail-icon">▤</span>
+
+          @if (notebookNotification()) {
+
+            <span class="rail-new-badge">
+              !
+            </span>
+
+          }
+
         </a>
 
       } @else {
@@ -373,8 +391,6 @@
       }
 
 
-      <!-- ARCHIVE -->
-
       <span
         class="rail-item locked"
         title="Archive — Locked"
@@ -383,8 +399,6 @@
         <span class="rail-icon">▥</span>
       </span>
 
-
-      <!-- TOR -->
 
       @if (isTorBrowserUnlocked()) {
 

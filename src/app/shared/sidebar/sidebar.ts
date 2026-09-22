@@ -46,6 +46,14 @@ export class SidebarComponent {
     this.accessService
       .torBrowserUnlockedSignal;
 
+  witnessesNotification =
+    this.accessService
+      .witnessesNotificationSignal;
+
+  notebookNotification =
+    this.accessService
+      .notebookNotificationSignal;
+
   publicAccessExpanded =
     signal(true);
 
@@ -65,6 +73,20 @@ export class SidebarComponent {
     this.sidebarCollapsed.update(
       collapsed => !collapsed
     );
+
+  }
+
+  openWitnesses(): void {
+
+    this.accessService
+      .clearWitnessesNotification();
+
+  }
+
+  openNotebook(): void {
+
+    this.accessService
+      .clearNotebookNotification();
 
   }
 
