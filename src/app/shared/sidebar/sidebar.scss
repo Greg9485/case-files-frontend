@@ -606,3 +606,101 @@ nav.collapsed .rail-item:hover::after {
   }
 
 }
+
+/* ============================================================
+   SIDEBAR NOTIFICATIONS
+   ============================================================ */
+
+.nav-notification-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+
+.new-badge {
+  flex: 0 0 auto;
+
+  padding:
+    3px
+    6px;
+
+  border-radius: 3px;
+
+  background: #475569;
+
+  color: #f8fafc;
+
+  font-size: 0.55rem;
+
+  font-weight: 700;
+
+  letter-spacing: 0.08em;
+
+  line-height: 1;
+
+  animation:
+    notification-pulse
+    1.8s
+    ease-in-out
+    infinite;
+}
+
+
+/* ============================================================
+   COLLAPSED NOTIFICATIONS
+   ============================================================ */
+
+.rail-new-badge {
+  position: absolute;
+
+  top: 4px;
+  right: 4px;
+
+  width: 15px;
+  height: 15px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #475569;
+
+  color: #f8fafc;
+
+  font-size: 0.6rem;
+
+  font-weight: 700;
+
+  line-height: 1;
+
+  z-index: 2;
+
+  animation:
+    notification-pulse
+    1.8s
+    ease-in-out
+    infinite;
+}
+
+
+/* ============================================================
+   NOTIFICATION ANIMATION
+   ============================================================ */
+
+@keyframes notification-pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.55;
+  }
+
+}
