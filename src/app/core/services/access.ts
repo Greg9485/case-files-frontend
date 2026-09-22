@@ -1,4 +1,10 @@
-import { Injectable, signal } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+
+import {
+  Injectable,
+  inject,
+  signal
+} from '@angular/core';
 
 export interface WitnessDiscovery {
   source: string;
@@ -156,6 +162,97 @@ export class AccessService {
         notification
       ]
     );
+  }
+
+    /*
+   * ============================================================
+   * APPLICATION INTERACTION LOCK
+   * ============================================================
+   *
+   * This is a transient gameplay state.
+   *
+   * When active, the entire Case Files application becomes
+   * non-interactive without changing the appearance of the UI.
+   *
+   * This intentionally lives outside InvestigatorAccess because
+   * it is not an investigator permission or persistent unlock.
+   */
+
+  applicationInteractionLockedSignal =
+    signal(false);
+
+  private document =
+    inject(DOCUMENT);
+
+  private readonly blockedInteractionEvents = [
+    'pointerdown',
+    'mousedown',
+    'touchstart',
+    'click',
+    'keydown',
+    'contextmenu'
+  ] as const;
+
+  private readonly blockInteraction =
+    (event: Event): void => {
+
+      if (
+        !this.applicationInteractionLockedSignal()
+      ) {
+        return;
+      }
+
+      event.preventDefault();
+      event.stopPropagation();
+    };
+
+
+  constructor() {
+
+    if (
+      typeof window === 'undefined'
+    ) {
+      return;
+    }
+
+    for (
+      const eventName of
+      this.blockedInteractionEvents
+    ) {
+
+      this.document.addEventListener(
+        eventName,
+        this.blockInteraction,
+        true
+      );
+
+    }
+
+  }
+
+
+  isApplicationInteractionLocked(): boolean {
+
+    return this.applicationInteractionLockedSignal();
+
+  }
+
+
+  lockApplicationInteraction(): void {
+
+    this.applicationInteractionLockedSignal.set(
+      true
+    );
+
+  }
+
+
+  unlockApplicationInteraction(): void {
+
+    this.applicationInteractionLockedSignal.set(
+      false
+    );
+
   }
 
   getAccess(): InvestigatorAccess {
