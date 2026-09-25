@@ -28,75 +28,106 @@
 
     <div class="nav-main">
 
+
+      <!-- ====================================================
+           HOME
+           ==================================================== -->
+
       <a
         routerLink="/"
         routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
+        [routerLinkActiveOptions]="{
+          exact: true
+        }"
       >
         Home
       </a>
 
 
-      <section class="nav-group">
+      <!-- ====================================================
+           AMHERST PUBLIC ACCESS
+           ==================================================== -->
 
-        <button
-          class="nav-group-toggle"
-          type="button"
-          (click)="togglePublicAccess()"
-        >
+      @if (isPublicAccessUnlocked()) {
 
-          <span>
-            Amherst Public Access
-          </span>
+        <section class="nav-group">
 
-          <span
-            class="group-arrow"
-            [class.expanded]="
-              publicAccessExpanded()
-            "
+          <button
+            class="nav-group-toggle"
+            type="button"
+            (click)="togglePublicAccess()"
           >
-            ›
-          </span>
 
-        </button>
+            <span>
+              Amherst Public Access
+            </span>
 
-
-        @if (publicAccessExpanded()) {
-
-          <div class="nav-submenu">
-
-            <a
-              class="subnav-link"
-              routerLink="/amherst-board"
-              routerLinkActive="active"
+            <span
+              class="group-arrow"
+              [class.expanded]="
+                publicAccessExpanded()
+              "
             >
-              Amherst Community Board
-            </a>
+              ›
+            </span>
+
+          </button>
 
 
-            <a
-              class="subnav-link"
-              routerLink="/amherst-exchange"
-              routerLinkActive="active"
-            >
-              Amherst Exchange
-            </a>
+          @if (publicAccessExpanded()) {
+
+            <div class="nav-submenu">
+
+              <a
+                class="subnav-link"
+                routerLink="/amherst-board"
+                routerLinkActive="active"
+              >
+                Amherst Community Board
+              </a>
 
 
-            <a
-              class="subnav-link"
-              routerLink="/amherst-public-records"
-              routerLinkActive="active"
-            >
-              Amherst Public Police Records
-            </a>
+              <a
+                class="subnav-link"
+                routerLink="/amherst-exchange"
+                routerLinkActive="active"
+              >
+                Amherst Exchange
+              </a>
 
-          </div>
 
-        }
+              <a
+                class="subnav-link"
+                routerLink="/amherst-public-records"
+                routerLinkActive="active"
+              >
+                Amherst Public Police Records
+              </a>
 
-      </section>
+            </div>
 
+          }
+
+        </section>
+
+      } @else {
+
+        <span class="locked-link">
+
+          Amherst Public Access
+
+          <small>
+            LOCKED
+          </small>
+
+        </span>
+
+      }
+
+
+      <!-- ====================================================
+           POLICE INVESTIGATION PORTAL
+           ==================================================== -->
 
       @if (isPolicePortalUnlocked()) {
 
@@ -139,6 +170,7 @@
             Witnesses
           </span>
 
+
           @if (witnessesNotification()) {
 
             <span class="new-badge">
@@ -163,6 +195,10 @@
 
       }
 
+
+      <!-- ====================================================
+           EVIDENCE
+           ==================================================== -->
 
       <span class="locked-link">
 
@@ -192,6 +228,7 @@
             Notebook
           </span>
 
+
           @if (notebookNotification()) {
 
             <span class="new-badge">
@@ -217,6 +254,10 @@
       }
 
 
+      <!-- ====================================================
+           ARCHIVE
+           ==================================================== -->
+
       <span class="locked-link">
 
         Archive
@@ -229,6 +270,10 @@
 
     </div>
 
+
+    <!-- ======================================================
+         TOR BROWSER
+         ====================================================== -->
 
     @if (isTorBrowserUnlocked()) {
 
@@ -258,30 +303,64 @@
 
   } @else {
 
+
+    <!-- ======================================================
+         COLLAPSED SIDEBAR
+         ====================================================== -->
+
     <div class="icon-rail">
+
+
+      <!-- HOME -->
 
       <a
         class="rail-item"
         routerLink="/"
         routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
+        [routerLinkActiveOptions]="{
+          exact: true
+        }"
         title="Home"
         aria-label="Home"
       >
-        <span class="rail-icon">⌂</span>
+        <span class="rail-icon">
+          ⌂
+        </span>
       </a>
 
 
-      <button
-        type="button"
-        class="rail-item"
-        title="Amherst Public Access"
-        aria-label="Amherst Public Access"
-        (click)="togglePublicAccess()"
-      >
-        <span class="rail-icon">▣</span>
-      </button>
+      <!-- PUBLIC ACCESS -->
 
+      @if (isPublicAccessUnlocked()) {
+
+        <button
+          type="button"
+          class="rail-item"
+          title="Amherst Public Access"
+          aria-label="Amherst Public Access"
+          (click)="togglePublicAccess()"
+        >
+          <span class="rail-icon">
+            ▣
+          </span>
+        </button>
+
+      } @else {
+
+        <span
+          class="rail-item locked"
+          title="Amherst Public Access — Locked"
+          aria-label="Amherst Public Access — Locked"
+        >
+          <span class="rail-icon">
+            ▣
+          </span>
+        </span>
+
+      }
+
+
+      <!-- POLICE PORTAL -->
 
       @if (isPolicePortalUnlocked()) {
 
@@ -292,7 +371,9 @@
           title="Amherst PD Investigation Portal"
           aria-label="Amherst PD Investigation Portal"
         >
-          <span class="rail-icon">⌕</span>
+          <span class="rail-icon">
+            ⌕
+          </span>
         </a>
 
       } @else {
@@ -302,7 +383,9 @@
           title="Amherst PD Investigation Portal — Locked"
           aria-label="Amherst PD Investigation Portal — Locked"
         >
-          <span class="rail-icon">◉</span>
+          <span class="rail-icon">
+            ◉
+          </span>
         </span>
 
       }
@@ -320,7 +403,11 @@
           aria-label="Witnesses"
           (click)="openWitnesses()"
         >
-          <span class="rail-icon">♙</span>
+
+          <span class="rail-icon">
+            ♙
+          </span>
+
 
           @if (witnessesNotification()) {
 
@@ -339,18 +426,24 @@
           title="Witnesses — Locked"
           aria-label="Witnesses — Locked"
         >
-          <span class="rail-icon">♙</span>
+          <span class="rail-icon">
+            ♙
+          </span>
         </span>
 
       }
 
+
+      <!-- EVIDENCE -->
 
       <span
         class="rail-item locked"
         title="Evidence — Locked"
         aria-label="Evidence — Locked"
       >
-        <span class="rail-icon">◇</span>
+        <span class="rail-icon">
+          ◇
+        </span>
       </span>
 
 
@@ -366,7 +459,11 @@
           aria-label="Notebook"
           (click)="openNotebook()"
         >
-          <span class="rail-icon">▤</span>
+
+          <span class="rail-icon">
+            ▤
+          </span>
+
 
           @if (notebookNotification()) {
 
@@ -385,20 +482,28 @@
           title="Notebook — Locked"
           aria-label="Notebook — Locked"
         >
-          <span class="rail-icon">▤</span>
+          <span class="rail-icon">
+            ▤
+          </span>
         </span>
 
       }
 
+
+      <!-- ARCHIVE -->
 
       <span
         class="rail-item locked"
         title="Archive — Locked"
         aria-label="Archive — Locked"
       >
-        <span class="rail-icon">▥</span>
+        <span class="rail-icon">
+          ▥
+        </span>
       </span>
 
+
+      <!-- TOR -->
 
       @if (isTorBrowserUnlocked()) {
 
@@ -413,7 +518,9 @@
             title="TOR Browser — Secure Connection"
             aria-label="TOR Browser — Secure Connection"
           >
-            <span class="rail-icon">◉</span>
+            <span class="rail-icon">
+              ◉
+            </span>
           </a>
 
         </div>

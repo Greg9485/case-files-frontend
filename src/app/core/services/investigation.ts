@@ -23,8 +23,6 @@ export class InvestigationService {
     };
 
     this.events.push(event);
-
-    console.log('INVESTIGATION EVENT:', event);
   }
 
 
