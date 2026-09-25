@@ -1,158 +1,489 @@
-<section class="dashboard">
+<section class="home">
 
-  <div class="case-header">
+  <!-- =========================================================
+       HEADER
+       ========================================================= -->
 
-    <div>
-      <p class="eyebrow">
-        ACTIVE INVESTIGATION
-      </p>
+  <header class="home-header">
 
-      <h1>
-        CASE #001
-      </h1>
+    <div class="brand">
 
-      <h2>
-        The Disappearance of Emily Carter
-      </h2>
+      <div class="brand-mark">
+        CF
+      </div>
+
+      <div class="brand-copy">
+
+        <span class="brand-name">
+          CASE FILES
+        </span>
+
+        <span class="brand-subtitle">
+          PRIVATE INVESTIGATION NETWORK
+        </span>
+
+      </div>
+
     </div>
 
 
-    <div class="status">
-      <span>
-        CASE STATUS
+    <div class="case-indicator">
+
+      <span class="indicator-label">
+        ACTIVE CASE
       </span>
 
       <strong>
-        COLD CASE
+        EMILY CARTER
       </strong>
+
+      <span class="indicator-status">
+        INVESTIGATION OPEN
+      </span>
+
     </div>
+
+  </header>
+
+
+  <!-- =========================================================
+       MAIN WORKSPACE
+       ========================================================= -->
+
+  <div class="workspace">
+
+    <!-- =======================================================
+         CHATROOM
+         ======================================================= -->
+
+    <section class="chat-panel">
+
+      <div class="chat-header">
+
+        <div>
+
+          <div class="section-label">
+            CASE FILES / COMMUNITY
+          </div>
+
+          <h1>
+            Emily Carter Investigation
+          </h1>
+
+          <p>
+            Independent investigators
+          </p>
+
+        </div>
+
+
+        <div class="chat-status">
+
+          <span class="status-dot"></span>
+
+          <span>
+            4 MEMBERS ONLINE
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div
+        #messageList
+        class="message-list"
+        (scroll)="handleMessageListScroll()"
+      >
+
+        @for (
+          message of messages;
+          track message.id
+        ) {
+
+          @if (
+            message.sender === 'system'
+          ) {
+
+            <div class="system-message">
+
+              <span></span>
+
+              <p>
+                {{ message.text }}
+              </p>
+
+              <span></span>
+
+            </div>
+
+          } @else {
+
+            <article
+              class="message"
+              [class.player-message]="
+                message.sender === 'player'
+              "
+            >
+
+              @if (
+                message.sender === 'sleuth'
+              ) {
+
+                <div class="avatar">
+
+                  {{
+                    getSleuthInitials(
+                      message.sleuthId ?? ''
+                    )
+                  }}
+
+                </div>
+
+              } @else {
+
+                <div class="avatar player-avatar">
+                  YOU
+                </div>
+
+              }
+
+
+              <div class="message-body">
+
+                <div class="message-meta">
+
+                  <strong>
+
+                    {{
+                      message.sender === 'player'
+                        ? 'YOU'
+                        : getSleuthName(
+                            message.sleuthId ?? ''
+                          )
+                    }}
+
+                  </strong>
+
+
+                  @if (
+                    message.sender === 'sleuth'
+                  ) {
+
+                    <span>
+
+                      {{
+                        getSleuth(
+                          message.sleuthId ?? ''
+                        )?.role
+                      }}
+
+                    </span>
+
+                  }
+
+
+                  <time>
+                    {{ message.timestamp }}
+                  </time>
+
+                </div>
+
+
+                <p>
+                  {{ message.text }}
+                </p>
+
+              </div>
+
+            </article>
+
+          }
+
+        }
+
+
+        <!-- =====================================================
+             NPC TYPING INDICATOR
+             ===================================================== -->
+
+        @if (isTyping) {
+
+          <article class="message typing-message">
+
+            <div class="avatar">
+
+              {{
+                getSleuthInitials(
+                  typingSleuthId ?? ''
+                )
+              }}
+
+            </div>
+
+
+            <div class="message-body">
+
+              <div class="message-meta">
+
+                <strong>
+                  {{
+                    getSleuthName(
+                      typingSleuthId ?? ''
+                    )
+                  }}
+                </strong>
+
+                <span>
+
+                  {{
+                    getSleuth(
+                      typingSleuthId ?? ''
+                    )?.role
+                  }}
+
+                </span>
+
+                <time>
+                  typing...
+                </time>
+
+              </div>
+
+
+              <div class="typing-indicator">
+
+                <span></span>
+                <span></span>
+                <span></span>
+
+              </div>
+
+            </div>
+
+          </article>
+
+        }
+
+      </div>
+
+
+      <!-- =====================================================
+           COMPOSER
+           ===================================================== -->
+
+      <div class="composer">
+
+        <div class="composer-label">
+          MESSAGE THE INVESTIGATION GROUP
+        </div>
+
+
+        <div class="composer-row">
+
+          <input
+            type="text"
+            [value]="playerMessage"
+            (input)="
+              playerMessage =
+                $any($event.target).value;
+              saveConversation()
+            "
+            (keydown)="handleKeydown($event)"
+            placeholder="Ask something..."
+            autocomplete="off"
+            [disabled]="
+              isTyping ||
+              !canPlayerRespond
+            "
+          />
+
+
+          <button
+            type="button"
+            (click)="sendMessage()"
+            [disabled]="
+              isTyping ||
+              !canPlayerRespond ||
+              !playerMessage.trim()
+            "
+          >
+            SEND
+          </button>
+
+        </div>
+
+
+        <span class="composer-hint">
+
+          @if (canPlayerRespond) {
+            Press Enter to send
+          } @else {
+            The investigation group is talking...
+          }
+
+        </span>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         RIGHT RAIL
+         ======================================================= -->
+
+    <aside class="investigation-rail">
+
+      <!-- =====================================================
+           INVESTIGATORS
+           ===================================================== -->
+
+      <section class="rail-section">
+
+        <div class="rail-heading">
+
+          <span>
+            INVESTIGATORS
+          </span>
+
+          <strong>
+            3
+          </strong>
+
+        </div>
+
+
+        <div class="sleuth-list">
+
+          @for (
+            sleuth of sleuths;
+            track sleuth.id
+          ) {
+
+            <div class="sleuth-card">
+
+              <div class="sleuth-avatar">
+                {{ sleuth.initials }}
+              </div>
+
+
+              <div class="sleuth-info">
+
+                <strong>
+                  {{ sleuth.displayName }}
+                </strong>
+
+                <span>
+                  {{ sleuth.role }}
+                </span>
+
+              </div>
+
+
+              <span class="online-dot"></span>
+
+            </div>
+
+          }
+
+        </div>
+
+      </section>
+
+
+      <!-- =====================================================
+           CASE
+           ===================================================== -->
+
+      <section class="rail-section case-section">
+
+        <div class="rail-heading">
+
+          <span>
+            CASE
+          </span>
+
+          <strong>
+            #001
+          </strong>
+
+        </div>
+
+
+        <div class="case-title">
+          The Disappearance of Emily Carter
+        </div>
+
+
+        <div class="case-details">
+
+          <div>
+
+            <span>
+              LOCATION
+            </span>
+
+            <strong>
+              Amherst, Virginia
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              LAST ACTIVE
+            </span>
+
+            <strong>
+              October 17, 2024
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              STATUS
+            </span>
+
+            <strong>
+              UNRESOLVED
+            </strong>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =====================================================
+           NETWORK NOTE
+           ===================================================== -->
+
+      <section class="network-note">
+
+        <span class="note-label">
+          ABOUT THIS GROUP
+        </span>
+
+        <p>
+          We're all working in the same system, so we can see what
+          you've found here. Help us find more clues.
+        </p>
+
+        <span class="note-footer">
+          INFORMATION SHARING ENABLED
+        </span>
+
+      </section>
+
+    </aside>
 
   </div>
-
-
-  <div class="stats">
-
-    <div class="stat-card">
-      <span>
-        DAYS MISSING
-      </span>
-
-      <strong>
-        547
-      </strong>
-    </div>
-
-
-    <div class="stat-card">
-      <span>
-        LAST KNOWN LOCATION
-      </span>
-
-      <strong>
-        Amherst, VA
-      </strong>
-    </div>
-
-
-    <div class="stat-card">
-      <span>
-        EVIDENCE COLLECTED
-      </span>
-
-      <strong>
-        0 / 12
-      </strong>
-    </div>
-
-
-    <div class="stat-card">
-      <span>
-        WITNESSES IDENTIFIED
-      </span>
-
-      <strong>
-        0 / 5
-      </strong>
-    </div>
-
-  </div>
-
-
-  <div class="case-section">
-
-    <h3>
-      Case Summary
-    </h3>
-
-
-    <p>
-      Emily Carter, 26, disappeared after leaving an Amherst Town Council meeting
-      on October 17th, 2024. Despite an initial investigation,
-      authorities were unable to determine her whereabouts.
-    </p>
-
-
-    <p>
-      The case was closed after six weeks due to a lack of
-      actionable evidence.
-    </p>
-
-
-  </div>
-
-
-  <div class="timeline">
-
-    <h3>
-      Known Timeline
-    </h3>
-
-
-    <div class="event">
-
-      <span>
-        Oct 17, 2024 — 9:42 PM
-      </span>
-
-      <p>
-        Emily leaves Amherst City Hall.
-      </p>
-
-    </div>
-
-
-    <div class="event">
-
-      <span>
-        Oct 17, 2024 — 9:27 PM
-      </span>
-
-      <p>
-        Phone activity ends.
-      </p>
-
-    </div>
-
-
-    <div class="event unknown">
-
-      <span>
-        UNKNOWN
-      </span>
-
-      <p>
-        Events after disappearance remain unresolved.
-      </p>
-
-    </div>
-
-
-  </div>
-
-
-  <button>
-    Begin Investigation
-  </button>
-
 
 </section>
