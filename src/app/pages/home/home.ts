@@ -220,38 +220,51 @@ export class HomeComponent
   ngOnInit(): void {
 
     /*
-     * Try to restore the existing conversation first.
-     */
+    * A browser refresh starts a fresh Home conversation.
+    *
+    * Normal Angular route navigation does not trigger this,
+    * so the conversation remains persistent while moving
+    * around the application.
+    */
+    this.clearConversationOnRefresh();
+
+
+    /*
+    * Try to restore the existing conversation first.
+    */
 
     const restored =
       this.restoreConversation();
 
 
     /*
-     * If the conversation already exists, do not restart
-     * the scripted sequence.
-     */
+    * If the conversation already exists, do not restart
+    * the scripted sequence.
+    */
 
     if (restored) {
 
       this.changeDetector.detectChanges();
 
+
       /*
-       * If the player was already at a response point when
-       * they left the page, allow them to continue.
-       */
+      * If the player was already at a response point when
+      * they left the page, allow them to continue.
+      */
 
       if (this.canPlayerRespond) {
         this.focusComposer();
       }
 
+
       return;
+
     }
 
 
     /*
-     * New conversation.
-     */
+    * New conversation.
+    */
 
     if (this.conversationStarted) {
       return;
@@ -278,16 +291,16 @@ export class HomeComponent
 
 
     /*
-     * Force the initial system message to render.
-     */
+    * Force the initial system message to render.
+    */
 
     this.changeDetector.detectChanges();
 
 
     /*
-     * Begin the NPC conversation after the initial
-     * message has been rendered.
-     */
+    * Begin the NPC conversation after the initial
+    * message has been rendered.
+    */
 
     const timer =
       setTimeout(() => {
@@ -1461,7 +1474,7 @@ export class HomeComponent
   saveConversation(): void {
 
     /*
-     * localStorage is intentionally used only for the
+     * sessionStorage is intentionally used only for the
      * client-side vertical slice.
      *
      * This is not a backend/database implementation.
@@ -1498,7 +1511,7 @@ export class HomeComponent
 
     try {
 
-      window.localStorage.setItem(
+      window.sessionStorage.setItem(
 
         this.storageKey,
 
@@ -1518,6 +1531,17 @@ export class HomeComponent
   }
 
 
+  private clearConversationOnRefresh(): void {
+    const navigationEntry = performance.getEntriesByType(
+      'navigation'
+    )[0] as PerformanceNavigationTiming | undefined;
+
+    if (navigationEntry?.type === 'reload') {
+      sessionStorage.removeItem('case-files-home-chat');
+    }
+  }
+
+
   private restoreConversation(): boolean {
 
     if (
@@ -1532,7 +1556,7 @@ export class HomeComponent
     try {
 
       const stored =
-        window.localStorage.getItem(
+        window.sessionStorage.getItem(
           this.storageKey
         );
 
@@ -1650,7 +1674,7 @@ export class HomeComponent
        * start a clean conversation instead of breaking Home.
        */
 
-      window.localStorage.removeItem(
+      window.sessionStorage.removeItem(
         this.storageKey
       );
 
