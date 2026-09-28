@@ -17,7 +17,7 @@ export const AMHERST_POLICE_INCIDENTS: PoliceIncident[] = [
     type: 'Missing Person',
     location: 'Downtown Amherst',
     status: 'Open',
-    disposition: 'Active Investigation',
+    disposition: 'Cold Case',
     officer: 'Criminal Investigations',
     subject: 'Emily Carter',
     linkPath: '/incidents/24-1017'

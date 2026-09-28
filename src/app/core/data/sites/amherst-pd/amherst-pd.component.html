@@ -514,11 +514,11 @@
           <div>
 
             <span class="record-category">
-              CASE FILE / INVESTIGATIVE RECORD
+              PUBLIC CASE SUMMARY
             </span>
 
             <h2>
-              The Disappearance of Emily Carter
+              Missing Person - Emily Carter
             </h2>
 
             <p>
@@ -530,7 +530,7 @@
           </div>
 
           <div class="case-file-status">
-            ACTIVE
+            OPEN
           </div>
 
         </header>
@@ -547,7 +547,7 @@
             </th>
 
             <th colspan="2">
-              INVESTIGATIVE RECORD
+              PUBLIC RELEASE COPY
             </th>
 
           </tr>
@@ -587,7 +587,7 @@
             </td>
 
             <td>
-              RESTRICTED
+              PUBLIC COPY
             </td>
 
           </tr>
@@ -632,7 +632,7 @@
               </td>
 
               <td>
-                Lynchburg, Virginia
+              Warrenton, Virginia
               </td>
 
               <td>
@@ -640,8 +640,32 @@
               </td>
 
               <td>
-                October 18, 2024
+              October 18, 2024
               </td>
+
+            </tr>
+
+          </table>
+
+          <table class="case-file-data">
+
+            <tr>
+
+              <td>EDUCATION</td>
+
+              <td>Virginia Tech — Environmental Science</td>
+
+              <td>EMPLOYMENT</td>
+
+              <td>Commonwealth environmental scientist</td>
+
+            </tr>
+
+            <tr>
+
+              <td>ASSIGNMENT</td>
+
+              <td colspan="3">Environmental assessment, Amherst Materials &amp; Manufacturing Facility</td>
 
             </tr>
 
@@ -659,16 +683,42 @@
           </h3>
 
           <p>
-            Emily Carter was reported missing on October 18, 2024
-            after failing to return home following an evening
-            appointment in downtown Amherst.
+            Emily Carter was reported missing on October 18, 2024.
+            She had attended an Amherst Town Council meeting on
+            October 17 concerning the proposed Amherst Materials &amp;
+            Manufacturing Facility.
           </p>
 
           <p>
-            Investigators determined that Carter was last seen
-            during the evening of October 17, 2024. Her vehicle
-            was located the following morning.
+            Carter was last confirmed active in Amherst on October 17.
+            Her vehicle was located the following morning, and an
+            investigation was opened.
           </p>
+
+        </section>
+
+
+        <section class="case-file-section">
+
+          <h3>RELATED INCIDENT REPORTS</h3>
+
+          <p>
+            Additional public reports filed before Carter was reported
+            missing.
+          </p>
+
+          <div class="witness-statement-list">
+            <a href="#" class="witness-statement-row"
+              (click)="$event.preventDefault(); navigate('/incidents/24-0964', 'amherstpd.local')">
+              <div><strong>Incident #24-0964</strong><span>Suspicious vehicle — September 30, 2024</span></div>
+              <span class="witness-statement-arrow">&gt;</span>
+            </a>
+            <a href="#" class="witness-statement-row"
+              (click)="$event.preventDefault(); navigate('/incidents/24-1004', 'amherstpd.local')">
+              <div><strong>Incident #24-1004</strong><span>Suspicious vehicle — October 11, 2024</span></div>
+              <span class="witness-statement-arrow">&gt;</span>
+            </a>
+          </div>
 
         </section>
 
