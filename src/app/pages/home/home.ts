@@ -42,13 +42,10 @@ interface ScriptedMessage {
 type ConversationStage =
   | 'opening'
   | 'awaiting-introduction'
-  | 'case-introduction'
-  | 'awaiting-case-response'
-  | 'theories'
-  | 'awaiting-theory-response'
-  | 'investigation-invite'
-  | 'awaiting-investigation-response'
-  | 'public-access'
+  | 'emily-background'
+  | 'development-background'
+  | 'development-theory'
+  | 'awaiting-council-task'
   | 'unlocking'
   | 'complete';
 
@@ -88,33 +85,36 @@ export class HomeComponent
    * ============================================================
    */
 
+  private readonly refreshKey =
+  'case-files-home-refresh';
+
   private readonly storageKey =
-    'case-files-home-chat';
+    'case-files-home-chat-v3';
 
 
   /*
    * ============================================================
-   * SLEUTHS
+   * NPCS
    * ============================================================
    */
 
   readonly sleuths: Sleuth[] = [
 
     {
-      id: 'mara',
-      username: 'mara',
-      displayName: 'Mara',
-      initials: 'M',
-      role: 'THE SKEPTIC',
-      status: 'online'
-    },
-
-    {
       id: 'jonah',
       username: 'jonah',
       displayName: 'Jonah',
       initials: 'J',
-      role: 'THE DIGGER',
+      role: 'THE FACT FINDER',
+      status: 'online'
+    },
+
+    {
+      id: 'mara',
+      username: 'mara',
+      displayName: 'Mara',
+      initials: 'M',
+      role: 'THE THEORIST',
       status: 'online'
     },
 
@@ -123,7 +123,7 @@ export class HomeComponent
       username: 'riley',
       displayName: 'Riley',
       initials: 'R',
-      role: 'THE PATTERN SEEKER',
+      role: 'THE WEB WIZARD',
       status: 'online'
     }
 
@@ -138,77 +138,56 @@ export class HomeComponent
 
   messages: ChatMessage[] = [];
 
-
   playerMessage = '';
-
-
-  /*
-   * These remain public because the existing template
-   * references them.
-   *
-   * The actual message text is no longer progressively
-   * rendered. The typing state is now used only to show
-   * the typing indicator.
-   */
 
   typingMessage = '';
 
-
   typingSleuthId: string | null = null;
 
-
   isTyping = false;
-
-
-  /*
-   * Public because the template reads this.
-   */
 
   canPlayerRespond = false;
 
 
-  private conversationStage:
+  conversationStage:
     ConversationStage = 'opening';
 
 
   private conversationStarted = false;
-
 
   private nextMessageId = 1;
 
 
   /*
    * ============================================================
-   * SCROLL STATE
+   * TIMING
    * ============================================================
-   */
-
-  private shouldScroll = false;
-
-
-  /*
-   * True when the player is currently close enough to the
-   * bottom that new messages should automatically follow.
    *
-   * This starts true so the opening conversation behaves
-   * normally.
+   * 64 WPM is approximately 30% faster than the previous
+   * 45 WPM baseline.
    */
 
-  private shouldAutoScroll = true;
-
-
-  /*
-   * ============================================================
-   * TIMERS
-   * ============================================================
-   */
+  private readonly npcTypingWpm = 300;
 
   private typingTimer:
     ReturnType<typeof setTimeout> | null = null;
 
-
   private responseTimers:
     ReturnType<typeof setTimeout>[] = [];
+
+
+  /*
+   * ============================================================
+   * SCROLL STATE
+   * ============================================================
+   *
+   * Auto-scroll remains active while the player is at or near
+   * the bottom of the conversation.
+   *
+   * If the player manually scrolls upward, auto-scroll pauses.
+   */
+
+  private shouldAutoScroll = true;
 
 
   /*
@@ -218,29 +197,10 @@ export class HomeComponent
    */
 
   ngOnInit(): void {
-
-    /*
-    * A browser refresh starts a fresh Home conversation.
-    *
-    * Normal Angular route navigation does not trigger this,
-    * so the conversation remains persistent while moving
-    * around the application.
-    */
-    this.clearConversationOnRefresh();
-
-
-    /*
-    * Try to restore the existing conversation first.
-    */
+    this.initializeSession();
 
     const restored =
       this.restoreConversation();
-
-
-    /*
-    * If the conversation already exists, do not restart
-    * the scripted sequence.
-    */
 
     if (restored) {
 
@@ -248,9 +208,14 @@ export class HomeComponent
 
 
       /*
-      * If the player was already at a response point when
-      * they left the page, allow them to continue.
-      */
+       * Restored conversations should open at the most
+       * recent messages rather than the beginning.
+       */
+
+      this.shouldAutoScroll = true;
+
+      this.scheduleScrollToBottom();
+
 
       if (this.canPlayerRespond) {
         this.focusComposer();
@@ -258,13 +223,8 @@ export class HomeComponent
 
 
       return;
-
     }
 
-
-    /*
-    * New conversation.
-    */
 
     if (this.conversationStarted) {
       return;
@@ -290,17 +250,8 @@ export class HomeComponent
     this.saveConversation();
 
 
-    /*
-    * Force the initial system message to render.
-    */
-
     this.changeDetector.detectChanges();
 
-
-    /*
-    * Begin the NPC conversation after the initial
-    * message has been rendered.
-    */
 
     const timer =
       setTimeout(() => {
@@ -309,7 +260,7 @@ export class HomeComponent
 
         this.changeDetector.detectChanges();
 
-      }, 250);
+      }, 900);
 
 
     this.responseTimers.push(timer);
@@ -334,11 +285,6 @@ export class HomeComponent
     this.responseTimers = [];
 
 
-    /*
-     * Save one final time so an unsent player message
-     * is not lost when leaving the page.
-     */
-
     this.saveConversation();
 
   }
@@ -356,7 +302,9 @@ export class HomeComponent
       !this.canPlayerRespond ||
       this.isTyping
     ) {
+
       return;
+
     }
 
 
@@ -368,10 +316,6 @@ export class HomeComponent
       return;
     }
 
-
-    /*
-     * Display exactly what the player typed.
-     */
 
     this.addMessage({
 
@@ -385,37 +329,18 @@ export class HomeComponent
     });
 
 
-    /*
-     * Clear composer.
-     */
-
     this.playerMessage = '';
 
-
-    /*
-     * Save immediately so the player's input and
-     * conversation state are persistent.
-     */
+    this.canPlayerRespond = false;
 
     this.saveConversation();
-
-
-    /*
-     * Player cannot respond again until the next
-     * scripted conversation beat finishes.
-     */
-
-    this.canPlayerRespond = false;
 
 
     this.changeDetector.detectChanges();
 
 
-    /*
-     * MVP 1 deliberately ignores the actual text.
-     *
-     * MVP 2 can replace this with an AI response system.
-     */
+    this.scheduleScrollToBottom();
+
 
     this.advanceConversation();
 
@@ -486,61 +411,65 @@ export class HomeComponent
 
   /*
    * ============================================================
-   * OPENING CONVERSATION
+   * OPENING
    * ============================================================
    */
 
   private playOpeningConversation(): void {
 
-    const opening: ScriptedMessage[] = [
+    this.conversationStage =
+      'opening';
+
+
+    const messages: ScriptedMessage[] = [
 
       {
-        sleuthId: 'jonah',
+        sleuthId: 'riley',
 
         text:
-          'I still think the vehicle is the part we should be looking at.'
+          'Hey. We have a new person in here.'
       },
 
       {
         sleuthId: 'mara',
 
         text:
-          'You have said that approximately forty-seven times.'
+          'Oh. Hey.'
       },
 
       {
         sleuthId: 'jonah',
 
         text:
-          'Because nobody has actually explained why it was found where it was.'
+          'Hi.'
       },
 
       {
         sleuthId: 'riley',
 
         text:
-          'Okay, both of you. We have a new person.'
+          'We are all looking into Emily Carter. If that is what brought you here, you are in the right place.'
       },
 
       {
         sleuthId: 'mara',
 
         text:
-          'Oh. Hey. New person.'
+          'We have been circling this one for a while.'
       },
 
       {
         sleuthId: 'riley',
 
         text:
-          'You looking into the Emily Carter case too?'
+          'You wanna help us dig around on this?'
       }
 
     ];
 
 
     this.playMessagesSequentially(
-      opening,
+      messages,
       () => {
 
         this.conversationStage =
@@ -578,28 +507,14 @@ export class HomeComponent
 
       case 'awaiting-introduction':
 
-        this.playCaseIntroduction();
+        this.playEmilyBackground();
 
         break;
 
 
-      case 'awaiting-case-response':
+      case 'awaiting-council-task':
 
-        this.playTheoryConversation();
-
-        break;
-
-
-      case 'awaiting-theory-response':
-
-        this.playInvestigationInvite();
-
-        break;
-
-
-      case 'awaiting-investigation-response':
-
-        this.playPublicAccessConversation();
+        this.beginPublicAccessUnlock();
 
         break;
 
@@ -615,17 +530,14 @@ export class HomeComponent
 
   /*
    * ============================================================
-   * CASE INTRODUCTION
+   * EMILY BACKGROUND
    * ============================================================
    */
 
-  private playCaseIntroduction(): void {
+  private playEmilyBackground(): void {
 
     this.conversationStage =
-      'case-introduction';
-
-
-    this.saveConversation();
+      'emily-background';
 
 
     const messages: ScriptedMessage[] = [
@@ -634,56 +546,77 @@ export class HomeComponent
         sleuthId: 'jonah',
 
         text:
-          'Nice. We have been digging around this one for a while.'
-      },
-
-      {
-        sleuthId: 'riley',
-
-        text:
-          'Emily has been missing since October 2024. So, yeah... almost two years now.'
-      },
-
-      {
-        sleuthId: 'mara',
-
-        text:
-          'She was twenty-seven when she disappeared.'
-      },
-
-      {
-        sleuthId: 'riley',
-
-        text:
-          'There are a few theories about what happened.'
+          'I can give you the short version of what I found.'
       },
 
       {
         sleuthId: 'jonah',
 
         text:
-          'The development project is probably the obvious one.'
+          'Emily Carter was twenty-seven when she disappeared in October 2024.'
+      },
+
+      {
+        sleuthId: 'jonah',
+
+        text:
+          'She grew up in Warrenton, Virginia, went to Virginia Tech, and studied environmental science.'
+      },
+
+      {
+        sleuthId: 'jonah',
+
+        text:
+          'After college she went to work as an environmental scientist for the Commonwealth.'
+      },
+
+      {
+        sleuthId: 'jonah',
+
+        text:
+          'She had been there about three years when she came to Amherst.'
       },
 
       {
         sleuthId: 'mara',
 
         text:
-          'And there are people who think somebody in the police department knows more than they have said.'
+          'And this was not some routine inspection.'
+      },
+
+      {
+        sleuthId: 'jonah',
+
+        text:
+          'Right. It looks like this was her first major assignment that she was actually spearheading.'
+      },
+
+      {
+        sleuthId: 'jonah',
+
+        text:
+          'She had been in Amherst for several weeks.'
+      },
+
+      {
+        sleuthId: 'jonah',
+
+        text:
+          'From everything I found, she was excited about it. A little nervous too, but this was basically the career she wanted.'
       },
 
       {
         sleuthId: 'riley',
 
         text:
-          'We have not been able to prove either theory.'
+          'So why Amherst?'
       },
 
       {
-        sleuthId: 'riley',
+        sleuthId: 'jonah',
 
         text:
-          'What do you think?'
+          'That part gets interesting.'
       }
 
     ];
@@ -693,20 +626,7 @@ export class HomeComponent
       messages,
       () => {
 
-        this.conversationStage =
-          'awaiting-case-response';
-
-
-        this.canPlayerRespond = true;
-
-
-        this.saveConversation();
-
-
-        this.changeDetector.detectChanges();
-
-
-        this.focusComposer();
+        this.playDevelopmentBackground();
 
       }
     );
@@ -716,68 +636,199 @@ export class HomeComponent
 
   /*
    * ============================================================
-   * THEORY CONVERSATION
+   * DEVELOPMENT BACKGROUND
    * ============================================================
    */
 
-  private playTheoryConversation(): void {
+  private playDevelopmentBackground(): void {
 
     this.conversationStage =
-      'theories';
-
-
-    this.saveConversation();
+      'development-background';
 
 
     const messages: ScriptedMessage[] = [
 
       {
-        sleuthId: 'mara',
+        sleuthId: 'jonah',
 
         text:
-          'Yeah, that is pretty much where we are too.'
+          'She was reviewing the environmental side of a proposed manufacturing development outside town.'
       },
 
       {
         sleuthId: 'jonah',
 
         text:
-          'The development angle is not completely out of nowhere. Emily had environmental concerns about some of the work happening around Amherst.'
+          'Blue Ridge Advanced Materials was proposing a specialty plastics facility.'
       },
 
       {
-        sleuthId: 'riley',
+        sleuthId: 'jonah',
 
         text:
-          'But having a reason to investigate somebody is not the same thing as proving they had anything to do with a disappearance.'
+          'It was not a tiny project. New production space, a warehouse, loading areas, parking, access roads, and a pretty substantial amount of land clearing.'
       },
 
       {
         sleuthId: 'mara',
+
+        text:
+          'Which is where I start getting interested.'
+      },
+
+      {
+        sleuthId: 'jonah',
+
+        text:
+          'The project had legitimate economic arguments. Jobs, tax revenue, investment, all the usual stuff.'
+      },
+
+      {
+        sleuthId: 'jonah',
+
+        text:
+          'But Emily found environmental concerns that were harder to dismiss.'
+      },
+
+      {
+        sleuthId: 'jonah',
+
+        text:
+          'The wetlands and intermittent waterways looked more extensive than the developer\'s assessment suggested.'
+      },
+
+      {
+        sleuthId: 'jonah',
+
+        text:
+          'She was also looking at stormwater runoff and the potential water-quality issues from an industrial site.'
+      },
+
+      {
+        sleuthId: 'mara',
+
+        text:
+          'And that is where I think the story starts.'
+      },
+
+      {
+        sleuthId: 'jonah',
+
+        text:
+          'Careful.'
+      },
+
+      {
+        sleuthId: 'mara',
+
+        text:
+          'I know. We do not have proof.'
+      },
+
+      {
+        sleuthId: 'jonah',
 
         text:
           'Exactly.'
+      }
+
+    ];
+
+
+    this.playMessagesSequentially(
+      messages,
+      () => {
+
+        this.playDevelopmentTheory();
+
+      }
+    );
+
+  }
+
+
+  /*
+   * ============================================================
+   * DEVELOPMENT THEORY
+   * ============================================================
+   */
+
+  private playDevelopmentTheory(): void {
+
+    this.conversationStage =
+      'development-theory';
+
+
+    const messages: ScriptedMessage[] = [
+
+      {
+        sleuthId: 'mara',
+
+        text:
+          'I think the developers had something to do with her disappearance.'
       },
 
       {
         sleuthId: 'jonah',
 
         text:
-          'And the police theory is even harder to prove.'
+          'Based on what?'
+      },
+
+      {
+        sleuthId: 'mara',
+
+        text:
+          'Emily is working on an assessment that could complicate a major development. Then she disappears.'
+      },
+
+      {
+        sleuthId: 'jonah',
+
+        text:
+          'That gives you a motive to investigate. It does not give you a suspect.'
+      },
+
+      {
+        sleuthId: 'mara',
+
+        text:
+          'Fair.'
+      },
+
+      {
+        sleuthId: 'jonah',
+
+        text:
+          'There are also other people involved in the development who we have not looked at closely enough.'
+      },
+
+      {
+        sleuthId: 'mara',
+
+        text:
+          'Which is exactly why I think we should start digging into the town itself.'
       },
 
       {
         sleuthId: 'riley',
 
         text:
-          'That is why we are trying to stick to actual records instead of just building theories around rumors.'
+          'Good. Because I can get you into the places where that digging actually starts.'
       },
 
       {
         sleuthId: 'riley',
 
         text:
-          'You want to help us look?'
+          'There are old Amherst town-council records that predate Emily by months. I can get you to the public sources.'
+      },
+
+      {
+        sleuthId: 'riley',
+
+        text:
+          'Can you dig into those older meetings and see what was happening before Emily arrived?'
       }
 
     ];
@@ -788,7 +839,7 @@ export class HomeComponent
       () => {
 
         this.conversationStage =
-          'awaiting-theory-response';
+          'awaiting-council-task';
 
 
         this.canPlayerRespond = true;
@@ -810,233 +861,134 @@ export class HomeComponent
 
   /*
    * ============================================================
-   * INVESTIGATION INVITATION
+   * PUBLIC ACCESS UNLOCK SEQUENCE
    * ============================================================
+   *
+   * Player responds to the council-record task.
+   *
+   * 1. Pause
+   * 2. Riley says she is unlocking access
+   * 3. Pause
+   * 4. Public access actually unlocks
+   * 5. Pause
+   * 6. Riley confirms access
+   * 7. Pause
+   * 8. Jonah tells the player to report back
    */
 
-  private playInvestigationInvite(): void {
+  private beginPublicAccessUnlock(): void {
 
     this.conversationStage =
-      'investigation-invite';
+      'unlocking';
 
 
     this.saveConversation();
 
 
-    const messages: ScriptedMessage[] = [
-
-      {
-        sleuthId: 'jonah',
-
-        text:
-          'Good. Honestly, we could use another set of eyes.'
-      },
-
-      {
-        sleuthId: 'mara',
-
-        text:
-          'We have not found much yet.'
-      },
-
-      {
-        sleuthId: 'riley',
-
-        text:
-          'But there are public records, local sites, old posts... enough to start putting the pieces together.'
-      },
-
-      {
-        sleuthId: 'mara',
-
-        text:
-          'Start with the boring stuff.'
-      },
-
-      {
-        sleuthId: 'jonah',
-
-        text:
-          'The boring stuff is usually where the useful stuff is hiding.'
-      },
-
-      {
-        sleuthId: 'riley',
-
-        text:
-          'We can give you access to the Amherst public records.'
-      }
-
-    ];
-
-
-    this.playMessagesSequentially(
-      messages,
-      () => {
-
-        this.conversationStage =
-          'awaiting-investigation-response';
-
-
-        this.canPlayerRespond = true;
-
-
-        this.saveConversation();
-
-
-        this.changeDetector.detectChanges();
-
-
-        this.focusComposer();
-
-      }
-    );
-
-  }
-
-
-  /*
-   * ============================================================
-   * PUBLIC ACCESS CONVERSATION
-   * ============================================================
-   */
-
-  private playPublicAccessConversation(): void {
-
-    this.conversationStage =
-      'public-access';
-
-
-    this.saveConversation();
-
-
-    const messages: ScriptedMessage[] = [
-
-      {
-        sleuthId: 'jonah',
-
-        text:
-          'The community board and local exchange are useful too.'
-      },
-
-      {
-        sleuthId: 'mara',
-
-        text:
-          'Just remember that people online are very good at being confidently wrong.'
-      },
-
-      {
-        sleuthId: 'riley',
-
-        text:
-          'The police records should give you something more concrete to work with.'
-      },
-
-      {
-        sleuthId: 'jonah',
-
-        text:
-          'Hey Riley.'
-      },
-
-      {
-        sleuthId: 'riley',
-
-        text:
-          'Yeah?'
-      },
-
-      {
-        sleuthId: 'jonah',
-
-        text:
-          'Unlock the portal for them?'
-      },
-
-      {
-        sleuthId: 'riley',
-
-        text:
-          'Sure. Give me a second.'
-      }
-
-    ];
-
-
-    this.playMessagesSequentially(
-      messages,
-      () => {
-
-        this.conversationStage =
-          'unlocking';
-
-
-        this.saveConversation();
-
-
-        const timer =
-          setTimeout(() => {
-
-            this.unlockPublicAccess();
-
-          }, 1200);
-
-
-        this.responseTimers.push(timer);
-
-      }
-    );
-
-  }
-
-
-  /*
-   * ============================================================
-   * PUBLIC ACCESS UNLOCK
-   * ============================================================
-   */
-
-  private unlockPublicAccess(): void {
-
-    this.accessService
-      .unlockPublicAccess();
-
-
-    this.conversationStage =
-      'complete';
-
-
-    this.addMessage({
-
-      sender: 'system',
-
-      text:
-        'AMHERST PUBLIC ACCESS UNLOCKED',
-
-      timestamp:
-        this.getCurrentTime()
-
-    });
-
-
-    this.saveConversation();
-
-
-    const timer =
+    const initialPause =
       setTimeout(() => {
 
         this.typeNpcMessage(
           'riley',
 
-          'You are in. Public access is unlocked now. See what you can find.'
+          'Okay. I am unlocking it for you now.',
+
+          () => {
+
+            const unlockPause =
+              setTimeout(() => {
+
+                this.accessService
+                  .unlockPublicAccess();
+
+
+                this.addMessage({
+
+                  sender: 'system',
+
+                  text:
+                    'AMHERST PUBLIC ACCESS UNLOCKED',
+
+                  timestamp:
+                    this.getCurrentTime()
+
+                });
+
+
+                this.saveConversation();
+
+
+                this.changeDetector.detectChanges();
+
+
+                this.scheduleScrollToBottom();
+
+
+                const confirmationPause =
+                  setTimeout(() => {
+
+                    this.typeNpcMessage(
+                      'riley',
+
+                      'Okay. You should have access now.',
+
+                      () => {
+
+                        const finalPause =
+                          setTimeout(() => {
+
+                            this.typeNpcMessage(
+                              'jonah',
+
+                              'Let us know what you find.',
+
+                              () => {
+
+                                this.conversationStage =
+                                  'complete';
+
+
+                                this.saveConversation();
+
+                              }
+
+                            );
+
+                          }, 750);
+
+
+                        this.responseTimers.push(
+                          finalPause
+                        );
+
+                      }
+
+                    );
+
+                  }, 675);
+
+
+                this.responseTimers.push(
+                  confirmationPause
+                );
+
+              }, 900);
+
+
+            this.responseTimers.push(
+              unlockPause
+            );
+
+          }
 
         );
 
-      }, 600);
+      }, 900);
 
 
-    this.responseTimers.push(timer);
+    this.responseTimers.push(
+      initialPause
+    );
 
   }
 
@@ -1052,13 +1004,25 @@ export class HomeComponent
     onComplete: () => void
   ): void {
 
+    /*
+     * Consolidate Jonah's consecutive one-line messages before
+     * playback.
+     *
+     * 3-4 consecutive Jonah messages -> 2 messages
+     * 5+ consecutive Jonah messages -> 3 messages
+     */
+
+    const normalizedMessages =
+      this.consolidateJonahMessages(messages);
+
+
     let index = 0;
 
 
     const playNext = (): void => {
 
       if (
-        index >= messages.length
+        index >= normalizedMessages.length
       ) {
 
         onComplete();
@@ -1069,14 +1033,14 @@ export class HomeComponent
 
 
       const message =
-        messages[index];
+        normalizedMessages[index];
 
 
       index++;
 
 
       const initialDelay =
-        message.delay ?? 650;
+        message.delay ?? 900;
 
 
       const timer =
@@ -1114,7 +1078,9 @@ export class HomeComponent
         }, initialDelay);
 
 
-      this.responseTimers.push(timer);
+      this.responseTimers.push(
+        timer
+      );
 
     };
 
@@ -1126,13 +1092,164 @@ export class HomeComponent
 
   /*
    * ============================================================
-   * NPC TYPING INDICATOR
+   * JONAH MESSAGE CONSOLIDATION
    * ============================================================
    *
-   * The previous implementation typed every character.
+   * Jonah often has several short factual messages in a row.
+   * Consolidating them keeps the conversation feeling like a
+   * real chat rather than a sequence of individual fact drops.
+   */
+
+  private consolidateJonahMessages(
+    messages: ScriptedMessage[]
+  ): ScriptedMessage[] {
+
+    const result: ScriptedMessage[] = [];
+
+    let index = 0;
+
+
+    while (
+      index < messages.length
+    ) {
+
+      const message =
+        messages[index];
+
+
+      if (
+        message.sleuthId !== 'jonah'
+      ) {
+
+        result.push(message);
+
+        index++;
+
+        continue;
+
+      }
+
+
+      const run: ScriptedMessage[] = [];
+
+
+      while (
+        index < messages.length &&
+        messages[index].sleuthId === 'jonah'
+      ) {
+
+        run.push(
+          messages[index]
+        );
+
+        index++;
+
+      }
+
+
+      if (run.length < 3) {
+
+        result.push(
+          ...run
+        );
+
+        continue;
+
+      }
+
+
+      const targetCount =
+        run.length <= 4
+          ? 2
+          : 3;
+
+
+      const chunkSizes =
+        this.getChunkSizes(
+          run.length,
+          targetCount
+        );
+
+
+      let runIndex = 0;
+
+
+      for (
+        const chunkSize of chunkSizes
+      ) {
+
+        const chunk =
+          run.slice(
+            runIndex,
+            runIndex + chunkSize
+          );
+
+
+        runIndex += chunkSize;
+
+
+        result.push({
+
+          sleuthId: 'jonah',
+
+          text:
+            chunk
+              .map(
+                message =>
+                  message.text
+              )
+              .join(' ')
+
+        });
+
+      }
+
+    }
+
+
+    return result;
+
+  }
+
+
+  private getChunkSizes(
+    total: number,
+    chunks: number
+  ): number[] {
+
+    const base =
+      Math.floor(
+        total / chunks
+      );
+
+
+    const remainder =
+      total % chunks;
+
+
+    return Array.from(
+      {
+        length: chunks
+      },
+      (_, index) =>
+        base +
+        (index < remainder ? 1 : 0)
+    );
+
+  }
+
+
+  /*
+   * ============================================================
+   * NPC TYPING
+   * ============================================================
    *
-   * This version only displays the NPC typing state for a
-   * short period, then inserts the complete message.
+   * Previous baseline: 45 WPM.
+   *
+   * Current baseline: 64 WPM.
+   *
+   * This is approximately 30% faster while still retaining
+   * the typing-indicator behavior.
    */
 
   private typeNpcMessage(
@@ -1156,12 +1273,14 @@ export class HomeComponent
 
 
     /*
-     * Keep the typing delay conversational rather than
-     * proportional to every individual character.
+     * Keep the conversation pinned while the NPC is typing.
      */
 
-    const typingDelay =
-      this.getTypingIndicatorDelay(text);
+    this.scheduleScrollToBottom();
+
+
+    const typingDuration =
+      this.getTypingDuration(text);
 
 
     this.typingTimer =
@@ -1193,47 +1312,56 @@ export class HomeComponent
         this.changeDetector.detectChanges();
 
 
+        this.scheduleScrollToBottom();
+
+
         if (onComplete) {
           onComplete();
         }
 
-      }, typingDelay);
+      }, typingDuration);
 
   }
 
 
-  private getTypingIndicatorDelay(
+  private getTypingDuration(
     text: string
   ): number {
 
-    /*
-     * Short messages feel almost immediate.
-     * Longer messages give the impression that the
-     * person actually composed a thought.
-     */
-
-    if (
-      text.length < 45
-    ) {
-
-      return 700;
-
-    }
+    const characterCount =
+      text.length;
 
 
-    if (
-      text.length < 100
-    ) {
-
-      return 1050;
-
-    }
+    const words =
+      characterCount / 5;
 
 
-    return 1350;
+    const minutes =
+      words / this.npcTypingWpm;
+
+
+    const typingMilliseconds =
+      minutes * 60_000;
+
+
+    return Math.max(
+      900,
+      Math.round(
+        typingMilliseconds + 500
+      )
+    );
 
   }
 
+
+  /*
+   * ============================================================
+   * CONVERSATION PAUSES
+   * ============================================================
+   *
+   * These are approximately 25% shorter than the previous
+   * values.
+   */
 
   private getConversationPause(
     text: string
@@ -1243,21 +1371,30 @@ export class HomeComponent
       text.endsWith('?')
     ) {
 
-      return 1000;
+      return 1350;
 
     }
 
 
     if (
-      text.length < 45
+      text.length < 25
     ) {
 
-      return 650;
+      return 560;
 
     }
 
 
-    return 800;
+    if (
+      text.length > 160
+    ) {
+
+      return 900;
+
+    }
+
+
+    return 710;
 
   }
 
@@ -1270,10 +1407,6 @@ export class HomeComponent
 
   private focusComposer(): void {
 
-    /*
-     * Allow Angular to render the enabled composer first.
-     */
-
     const timer =
       setTimeout(() => {
 
@@ -1285,7 +1418,7 @@ export class HomeComponent
 
         input?.focus();
 
-      }, 50);
+      }, 100);
 
 
     this.responseTimers.push(timer);
@@ -1345,24 +1478,6 @@ export class HomeComponent
 
     });
 
-
-    /*
-     * Only automatically follow the message if the player
-     * was already at the bottom of the conversation.
-     */
-
-    if (this.shouldAutoScroll) {
-
-      this.shouldScroll = true;
-
-    }
-
-
-    this.changeDetector.detectChanges();
-
-
-    this.scheduleScrollToBottom();
-
   }
 
 
@@ -1372,69 +1487,16 @@ export class HomeComponent
    * ============================================================
    */
 
-  private scheduleScrollToBottom(): void {
-
-    if (
-      !this.shouldScroll ||
-      !this.shouldAutoScroll
-    ) {
-
-      return;
-
-    }
-
-
-    /*
-     * The new message must exist in the DOM before we
-     * calculate the new scroll height.
-     */
-
-    setTimeout(() => {
-
-      this.scrollToBottom();
-
-
-    }, 0);
-
-  }
-
-
-  private scrollToBottom(
-    smooth = true
-  ): void {
+  handleMessageListScroll(): void {
 
     const element =
       this.messageList?.nativeElement;
 
 
     if (!element) {
-
       return;
-
     }
 
-
-    element.scrollTo({
-
-      top:
-        element.scrollHeight,
-
-      behavior:
-        smooth
-          ? 'smooth'
-          : 'auto'
-
-    });
-
-
-    this.shouldScroll = false;
-
-  }
-
-
-  private isNearBottom(
-    element: HTMLElement
-  ): boolean {
 
     const distanceFromBottom =
       element.scrollHeight -
@@ -1443,27 +1505,58 @@ export class HomeComponent
 
 
     /*
-     * A small tolerance means the player does not have
-     * to land on the exact final pixel to resume auto-scroll.
+     * If the player is within 48px of the bottom, we consider
+     * them to be following the conversation.
      */
 
-    return distanceFromBottom <= 80;
+    this.shouldAutoScroll =
+      distanceFromBottom <= 48;
 
   }
 
-  handleMessageListScroll(): void {
 
-    const element =
-      this.messageList?.nativeElement;
+  private scheduleScrollToBottom(): void {
 
-    if (!element) {
+    if (!this.shouldAutoScroll) {
       return;
     }
 
-    this.shouldAutoScroll =
-      this.isNearBottom(element);
+
+    setTimeout(() => {
+
+      /*
+       * Check again because the player may have manually
+       * scrolled upward while the render was pending.
+       */
+
+      if (!this.shouldAutoScroll) {
+        return;
+      }
+
+
+      const element =
+        this.messageList?.nativeElement;
+
+
+      if (!element) {
+        return;
+      }
+
+
+      element.scrollTo({
+
+        top:
+          element.scrollHeight,
+
+        behavior:
+          'smooth'
+
+      });
+
+    }, 0);
 
   }
+
 
   /*
    * ============================================================
@@ -1472,13 +1565,6 @@ export class HomeComponent
    */
 
   saveConversation(): void {
-
-    /*
-     * sessionStorage is intentionally used only for the
-     * client-side vertical slice.
-     *
-     * This is not a backend/database implementation.
-     */
 
     if (
       typeof window === 'undefined'
@@ -1489,7 +1575,8 @@ export class HomeComponent
     }
 
 
-    const state: PersistedChatState = {
+    const state:
+      PersistedChatState = {
 
       messages:
         this.messages,
@@ -1523,22 +1610,11 @@ export class HomeComponent
 
       /*
        * Persistence failure should never prevent
-       * the chat itself from functioning.
+       * the chat from functioning.
        */
 
     }
 
-  }
-
-
-  private clearConversationOnRefresh(): void {
-    const navigationEntry = performance.getEntriesByType(
-      'navigation'
-    )[0] as PerformanceNavigationTiming | undefined;
-
-    if (navigationEntry?.type === 'reload') {
-      sessionStorage.removeItem('case-files-home-chat');
-    }
   }
 
 
@@ -1555,22 +1631,20 @@ export class HomeComponent
 
     try {
 
-      const stored =
+      const raw =
         window.sessionStorage.getItem(
           this.storageKey
         );
 
 
-      if (!stored) {
-
+      if (!raw) {
         return false;
-
       }
 
 
       const state =
         JSON.parse(
-          stored
+          raw
         ) as PersistedChatState;
 
 
@@ -1585,7 +1659,7 @@ export class HomeComponent
 
 
       this.messages =
-        state.messages;
+        state.messages ?? [];
 
 
       this.playerMessage =
@@ -1599,7 +1673,7 @@ export class HomeComponent
 
       this.conversationStarted =
         state.conversationStarted ??
-        true;
+        false;
 
 
       this.nextMessageId =
@@ -1619,60 +1693,24 @@ export class HomeComponent
         );
 
 
-      /*
-       * A persisted completed conversation should remain
-       * completed and should not restart.
-       */
-
-      if (
-        this.conversationStage ===
-        'complete'
-      ) {
-
-        this.canPlayerRespond = false;
-
-      }
-
-
-      /*
-       * Restore response states so a conversation that was
-       * left at a player-response point remains interactive.
-       */
-
-      if (
-
+      this.canPlayerRespond =
         this.conversationStage ===
           'awaiting-introduction' ||
-
         this.conversationStage ===
-          'awaiting-case-response' ||
+          'awaiting-council-task';
 
-        this.conversationStage ===
-          'awaiting-theory-response' ||
 
-        this.conversationStage ===
-          'awaiting-investigation-response'
-
-      ) {
-
-        this.canPlayerRespond = true;
-
-      }
-
+      /*
+       * Restored conversations should open at the current
+       * bottom rather than leaving the player at the top.
+       */
 
       this.shouldAutoScroll = true;
-
-      this.shouldScroll = true;
 
 
       return true;
 
     } catch {
-
-      /*
-       * If the stored state is malformed for any reason,
-       * start a clean conversation instead of breaking Home.
-       */
 
       window.sessionStorage.removeItem(
         this.storageKey
@@ -1682,6 +1720,53 @@ export class HomeComponent
       return false;
 
     }
+
+  }
+
+  private initializeSession(): void {
+
+    if (
+      typeof window === 'undefined'
+    ) {
+
+      return;
+
+    }
+
+
+    const wasRefreshing =
+      window.sessionStorage.getItem(
+        this.refreshKey
+      );
+
+
+    if (wasRefreshing) {
+
+      window.sessionStorage.removeItem(
+        this.storageKey
+      );
+
+      window.sessionStorage.removeItem(
+        this.refreshKey
+      );
+
+    }
+
+
+    window.addEventListener(
+      'beforeunload',
+      () => {
+
+        window.sessionStorage.setItem(
+          this.refreshKey,
+          'true'
+        );
+
+      },
+      {
+        once: true
+      }
+    );
 
   }
 

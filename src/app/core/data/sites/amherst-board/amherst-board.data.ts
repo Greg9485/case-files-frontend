@@ -135,12 +135,10 @@ Probably construction workers, but figured I would mention it.`
       {
         id: 'old-mill-4',
         author: {
-          username: 'observer26'
+          username: 'amherstnative'
         },
         postedAt: '2026-08-30 11:13 PM',
-        content: `The vehicle isn't the interesting part.
-
-Look at the dates connected to the property.`
+        content: `Could be a contractor or somebody using the road to turn around. Hard to know from one sighting.`
       }
     ]
   },
@@ -194,14 +192,10 @@ It wasn't.`
       {
         id: 'emily-4',
         author: {
-          username: 'observer26'
+          username: 'michael_r'
         },
         postedAt: '2026-08-31 02:18 PM',
-        content: `He's right about the date.
-
-The missing-person report and the disappearance are not the same event.
-
-That's where the records start getting interesting.`
+        content: `I remember seeing her at the council meeting about the state assessment. I hope the town posts the report when it is ready.`
       }
     ]
   },
