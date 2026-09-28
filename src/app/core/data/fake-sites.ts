@@ -54,7 +54,7 @@ export const FAKE_SITES: FakeSite[] = [
       { label: 'VEHICLES', path: '/category/vehicles' },
       { label: 'ELECTRONICS', path: '/category/electronics' },
       { label: 'MISCELLANEOUS', path: '/category/misc' },
-      { label: 'USERS', path: '/user/nightshift84' }
+      { label: 'USERS', path: '/user/lotline' }
     ]
   },
 
