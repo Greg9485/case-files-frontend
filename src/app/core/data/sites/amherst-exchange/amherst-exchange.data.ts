@@ -4,50 +4,9 @@ import {
 } from '../../../models/fake-page';
 
 export const AMHERST_EXCHANGE_LISTINGS: ExchangeListing[] = [
-
-  // ==========================================================
-  // BLACK SUV — PRIMARY STORY CLUE
-  // ==========================================================
-
-  {
-    id: 'black-suv',
-    title: '2017 Black SUV',
-    price: '$8,500',
-    location: 'Amherst, VA',
-    seller: 'nightshift84',
-    posted: '3 days ago',
-    category: 'Vehicles',
-    image: 'assets/exchange/black-suv/cover.jpg',
-    images: [
-      'assets/exchange/black-suv/cover.jpg',
-      'assets/exchange/black-suv/1.jpg',
-      'assets/exchange/black-suv/2.jpg'
-    ],
-    description:
-      '2017 Black SUV. Runs well. No accidents reported. ' +
-      'Pickup available near the old mill.'
-  },
-
   // ==========================================================
   // OTHER LOCAL VEHICLE LISTINGS
   // ==========================================================
-
-  {
-    id: '2014-honda-civic',
-    title: '2014 Honda Civic LX',
-    price: '$7,200',
-    location: 'Amherst, VA',
-    seller: 'jennifer_m',
-    posted: '1 day ago',
-    category: 'Vehicles',
-    image: 'assets/exchange/honda-civic/cover.jpg',
-    images: [
-      'assets/exchange/honda-civic/cover.jpg'
-    ],
-    description:
-      'Clean title. 142k miles. New tires. ' +
-      'Runs and drives great.'
-  },
 
   {
     id: '2019-ford-ranger',
@@ -57,9 +16,9 @@ export const AMHERST_EXCHANGE_LISTINGS: ExchangeListing[] = [
     seller: 'mike_r',
     posted: '2 days ago',
     category: 'Vehicles',
-    image: 'assets/exchange/ford-ranger/cover.jpg',
+    image: 'assets/exchange/ford-ranger.webp',
     images: [
-      'assets/exchange/ford-ranger/cover.jpg'
+      'assets/exchange/ford-ranger.webp'
     ],
     description:
       '4x4 pickup. One owner. 92k miles. ' +
@@ -74,9 +33,9 @@ export const AMHERST_EXCHANGE_LISTINGS: ExchangeListing[] = [
     seller: 'oldmillman',
     posted: '4 days ago',
     category: 'Vehicles',
-    image: 'assets/exchange/jeep-liberty/cover.jpg',
+    image: 'assets/exchange/jeep-liberty.webp',
     images: [
-      'assets/exchange/jeep-liberty/cover.jpg'
+      'assets/exchange/jeep-liberty.webp'
     ],
     description:
       'Runs good. Needs minor interior work. ' +
@@ -95,9 +54,9 @@ export const AMHERST_EXCHANGE_LISTINGS: ExchangeListing[] = [
     seller: 'pixelpusher',
     posted: '5 hours ago',
     category: 'Electronics',
-    image: 'assets/exchange/gaming-pc/cover.jpg',
+    image: 'assets/exchange/gaming-pc.webp',
     images: [
-      'assets/exchange/gaming-pc/cover.jpg'
+      'assets/exchange/gaming-pc.webp'
     ],
     description:
       'Gaming PC in good condition. ' +
@@ -112,9 +71,9 @@ export const AMHERST_EXCHANGE_LISTINGS: ExchangeListing[] = [
     seller: 'cassie84',
     posted: '1 day ago',
     category: 'Electronics',
-    image: 'assets/exchange/sony-tv/cover.jpg',
+    image: 'assets/exchange/sony-tv.webp',
     images: [
-      'assets/exchange/sony-tv/cover.jpg'
+      'assets/exchange/sony-tv.webp'
     ],
     description:
       '55 inch Sony 4K smart TV. ' +
@@ -133,9 +92,9 @@ export const AMHERST_EXCHANGE_LISTINGS: ExchangeListing[] = [
     seller: 'bethsells',
     posted: '2 days ago',
     category: 'Home',
-    image: 'assets/exchange/oak-table/cover.jpg',
+    image: 'assets/exchange/oak-table.webp',
     images: [
-      'assets/exchange/oak-table/cover.jpg'
+      'assets/exchange/oak-table.webp'
     ],
     description:
       'Solid oak table with six chairs. ' +
@@ -150,9 +109,9 @@ export const AMHERST_EXCHANGE_LISTINGS: ExchangeListing[] = [
     seller: 'river_rat',
     posted: '3 days ago',
     category: 'Sports & Outdoors',
-    image: 'assets/exchange/fishing-gear/cover.jpg',
+    image: 'assets/exchange/fishing-gear.webp',
     images: [
-      'assets/exchange/fishing-gear/cover.jpg'
+      'assets/exchange/fishing-gear.webp'
     ],
     description:
       'Several rods, tackle boxes and assorted gear. ' +
@@ -198,62 +157,5 @@ export const AMHERST_EXCHANGE_PAGES: FakePage[] = [
       listing => listing.category === 'Vehicles'
     )
   },
-
-  // ==========================================================
-  // BLACK SUV — STORY CLUE
-  // ==========================================================
-
-  {
-    id: 'exchange-black-suv',
-    domain: 'amherst-exchange.local',
-    path: '/listing/black-suv',
-    title: '2017 Black SUV',
-    category: 'VEHICLE',
-    type: 'EXCHANGE_LISTING',
-    content: '',
-    listings: AMHERST_EXCHANGE_LISTINGS.filter(
-      listing => listing.id === 'black-suv'
-    ),
-    links: [
-      {
-        label: 'View seller profile',
-        path: '/user/nightshift84'
-      },
-      {
-        label: 'Discuss privately',
-        domain: 'backroom.local',
-        path: '/messages/nightshift84'
-      }
-    ]
-  },
-
-  // ==========================================================
-  // SELLER PROFILE
-  // ==========================================================
-
-  {
-    id: 'exchange-nightshift',
-    domain: 'amherst-exchange.local',
-    path: '/user/nightshift84',
-    title: 'nightshift84',
-    subtitle: 'Local seller',
-    category: 'SELLER PROFILE',
-    type: 'EXCHANGE_CATEGORY',
-    content:
-      'Member since: 2022\n\n' +
-      'Listings: 14\n\n' +
-      'Reputation: 96%\n\n' +
-      'Last active: Yesterday\n\n' +
-      '"I buy and sell whatever people need."',
-    listings: AMHERST_EXCHANGE_LISTINGS.filter(
-      listing => listing.seller === 'nightshift84'
-    ),
-    links: [
-      {
-        label: 'View vehicle listing',
-        path: '/listing/black-suv'
-      }
-    ]
-  }
 
 ];
