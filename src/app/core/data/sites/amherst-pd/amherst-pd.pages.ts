@@ -27,6 +27,38 @@ export const AMHERST_PD_PAGES: FakePage[] = [
     incidents: [
 
       {
+        id: '24-0952', incidentNumber: '24-0952', date: '09/28/2024',
+        time: '09:14 PM', type: 'Suspicious Activity',
+        location: 'North Branch watershed access', status: 'Closed',
+        disposition: 'No Further Action', district: 'North',
+        officer: 'T. Reed', linkPath: '/incidents/24-0952'
+      },
+
+      {
+        id: '24-0964', incidentNumber: '24-0964', date: '09/30/2024',
+        time: '08:13 PM', type: 'Suspicious Vehicle',
+        location: 'U.S. Route 29', status: 'Closed',
+        disposition: 'Unable to Locate', district: 'North',
+        officer: 'T. Reed', linkPath: '/incidents/24-0964'
+      },
+
+      {
+        id: '24-0970', incidentNumber: '24-0970', date: '10/02/2024',
+        time: '10:38 PM', type: 'Suspicious Activity',
+        location: 'North Branch watershed access', status: 'Closed',
+        disposition: 'Unable to Locate', district: 'North',
+        officer: 'T. Reed', linkPath: '/incidents/24-0970'
+      },
+
+      {
+        id: '24-1004', incidentNumber: '24-1004', date: '10/11/2024',
+        time: '09:46 PM', type: 'Suspicious Vehicle',
+        location: 'South Main Street', status: 'Closed',
+        disposition: 'No Further Action', district: 'Central',
+        officer: 'J. Harris', linkPath: '/incidents/24-1004'
+      },
+
+      {
 
         id: '24-1012',
 
@@ -94,7 +126,7 @@ export const AMHERST_PD_PAGES: FakePage[] = [
 
         status: 'Open',
 
-        disposition: 'Active Investigation',
+        disposition: 'Cold Case',
 
         district: 'Central',
 
@@ -212,6 +244,38 @@ export const AMHERST_PD_PAGES: FakePage[] = [
     incidents: [
 
       {
+        id: '24-0952', incidentNumber: '24-0952', date: '09/28/2024',
+        time: '09:14 PM', type: 'Suspicious Activity',
+        location: 'North Branch watershed access', status: 'Closed',
+        disposition: 'No Further Action', district: 'North',
+        officer: 'T. Reed', linkPath: '/incidents/24-0952'
+      },
+
+      {
+        id: '24-0964', incidentNumber: '24-0964', date: '09/30/2024',
+        time: '08:13 PM', type: 'Suspicious Vehicle',
+        location: 'U.S. Route 29', status: 'Closed',
+        disposition: 'Unable to Locate', district: 'North',
+        officer: 'T. Reed', linkPath: '/incidents/24-0964'
+      },
+
+      {
+        id: '24-0970', incidentNumber: '24-0970', date: '10/02/2024',
+        time: '10:38 PM', type: 'Suspicious Activity',
+        location: 'North Branch watershed access', status: 'Closed',
+        disposition: 'Unable to Locate', district: 'North',
+        officer: 'T. Reed', linkPath: '/incidents/24-0970'
+      },
+
+      {
+        id: '24-1004', incidentNumber: '24-1004', date: '10/11/2024',
+        time: '09:46 PM', type: 'Suspicious Vehicle',
+        location: 'South Main Street', status: 'Closed',
+        disposition: 'No Further Action', district: 'Central',
+        officer: 'J. Harris', linkPath: '/incidents/24-1004'
+      },
+
+      {
 
         id: '24-1012',
 
@@ -279,7 +343,7 @@ export const AMHERST_PD_PAGES: FakePage[] = [
 
         status: 'Open',
 
-        disposition: 'Active Investigation',
+        disposition: 'Cold Case',
 
         district: 'Central',
 
@@ -420,7 +484,7 @@ record are not available through this system.
 
         status: 'Open',
 
-        disposition: 'Active Investigation',
+        disposition: 'Cold Case',
 
         district: 'Central',
 
@@ -469,7 +533,7 @@ record are not available through this system.
 
     path: '/incidents/24-1017/case-file',
 
-    title: 'Case File - Incident #24-1017',
+    title: 'Missing Person - Emily Carter',
 
     subtitle: 'Investigative record',
 
@@ -497,7 +561,7 @@ record are not available through this system.
 
         status: 'Open',
 
-        disposition: 'Active Investigation',
+        disposition: 'Cold Case',
 
         district: 'Central',
 
@@ -604,6 +668,83 @@ Case closed.
 
     ]
 
+  },
+
+
+  {
+    id: 'pd-incident-24-0952',
+    domain: 'amherstpd.local',
+    path: '/incidents/24-0952',
+    title: 'Incident #24-0952',
+    subtitle: 'Suspicious Activity',
+    category: 'INCIDENT CRIME REPORT',
+    type: 'POLICE_INCIDENT',
+    content: 'On September 28, 2024, a caller reported two handmade effigies fashioned from cloth and brush and tied near trees along the North Branch watershed access trail. Patrol checked the immediate area and nearby wooded paths; no persons were located. No threats, property damage, or other offense were reported. The area was noted as a place local teenagers sometimes gather. The objects were not collected as evidence. Closed with no further action.',
+    incidents: [{
+      id: '24-0952', incidentNumber: '24-0952', date: '09/28/2024',
+      time: '09:14 PM', type: 'Suspicious Activity',
+      location: 'North Branch watershed access', status: 'Closed',
+      disposition: 'No Further Action', district: 'North',
+      officer: 'T. Reed', linkPath: '/incidents/24-0952'
+    }],
+    links: [{ label: 'Back to incident records', path: '/incidents' }]
+  },
+
+  {
+    id: 'pd-incident-24-0970',
+    domain: 'amherstpd.local',
+    path: '/incidents/24-0970',
+    title: 'Incident #24-0970',
+    subtitle: 'Suspicious Activity',
+    category: 'INCIDENT CRIME REPORT',
+    type: 'POLICE_INCIDENT',
+    content: 'On October 2, 2024, a caller reported seeing several lights moving along the wooded trail near the North Branch watershed access after dark. The caller thought they may have been flashlights or torches and believed local teenagers sometimes gathered in the area. Officers checked the trail and adjacent roads but found no people, fire, or signs of recent activity. The call was closed as unable to locate; no further action was taken.',
+    incidents: [{
+      id: '24-0970', incidentNumber: '24-0970', date: '10/02/2024',
+      time: '10:38 PM', type: 'Suspicious Activity',
+      location: 'North Branch watershed access', status: 'Closed',
+      disposition: 'Unable to Locate', district: 'North',
+      officer: 'T. Reed', linkPath: '/incidents/24-0970'
+    }],
+    links: [{ label: 'Back to incident records', path: '/incidents' }]
+  },
+
+  {
+    id: 'pd-incident-24-0964',
+    domain: 'amherstpd.local',
+    path: '/incidents/24-0964',
+    title: 'Incident #24-0964',
+    subtitle: 'Suspicious Vehicle',
+    category: 'INCIDENT CRIME REPORT',
+    type: 'POLICE_INCIDENT',
+    content: 'On September 30, 2024, Emily Carter reported noticing a dark sport utility vehicle behind her while traveling east on U.S. Route 29. She reported no contact, threat, or traffic violation. Patrol checked the route and nearby streets but did not locate a vehicle matching the brief description. The report was recorded for information and closed as unable to locate.',
+    incidents: [{
+      id: '24-0964', incidentNumber: '24-0964', date: '09/30/2024',
+      time: '08:13 PM', type: 'Suspicious Vehicle',
+      location: 'U.S. Route 29', status: 'Closed',
+      disposition: 'Unable to Locate', district: 'North',
+      officer: 'T. Reed', linkPath: '/incidents/24-0964'
+    }],
+    links: [{ label: 'Back to incident records', path: '/incidents' }]
+  },
+
+  {
+    id: 'pd-incident-24-1004',
+    domain: 'amherstpd.local',
+    path: '/incidents/24-1004',
+    title: 'Incident #24-1004',
+    subtitle: 'Suspicious Vehicle',
+    category: 'INCIDENT CRIME REPORT',
+    type: 'POLICE_INCIDENT',
+    content: 'On October 11, 2024, Emily Carter reported seeing a dark sport utility vehicle traveling on South Main Street. No threatening behavior or contact was reported. An officer checked the area and did not locate a vehicle requiring further investigation. The call was documented; no further action was taken.',
+    incidents: [{
+      id: '24-1004', incidentNumber: '24-1004', date: '10/11/2024',
+      time: '09:46 PM', type: 'Suspicious Vehicle',
+      location: 'South Main Street', status: 'Closed',
+      disposition: 'No Further Action', district: 'Central',
+      officer: 'J. Harris', linkPath: '/incidents/24-1004'
+    }],
+    links: [{ label: 'Back to incident records', path: '/incidents' }]
   },
 
 

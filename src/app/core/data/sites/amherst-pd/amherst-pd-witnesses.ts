@@ -20,7 +20,7 @@ export const AMHERST_POLICE_WITNESSES: PoliceWitness[] = [
     restrictedWitnessName: 'Martin Hale',
 
     publicStatement:
-      'I was leaving the municipal parking area when I noticed a dark-colored SUV parked near the far end of the lot. I remember seeing a woman standing near the vehicle, although I could not identify her. A short time later I heard a vehicle leave the area. I did not think anything of it at the time.',
+      'I was downtown after the Town Council meeting on October 17. I noticed Emily Carter on foot and saw a dark SUV traveling behind her for part of the way. I later saw her leave the area in what appeared to be her own vehicle. I did not think anything of it at the time.',
 
     restrictedStatement:
       'I was leaving the municipal parking area when I noticed a dark-colored SUV parked near the far end of the lot. I remember seeing Emily Carter standing near the vehicle. I did not know her personally, but I recognized her from around town. A short time later I heard the SUV leave the area. I did not think anything of it at the time.'
