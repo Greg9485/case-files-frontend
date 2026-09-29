@@ -31,7 +31,8 @@ export interface PlayerNote {
 
 export type AccessNotificationType =
   | 'WITNESS'
-  | 'NOTEBOOK';
+  | 'NOTEBOOK'
+  | 'EVIDENCE';
 
 
 export interface AccessNotification {
@@ -73,7 +74,13 @@ export interface InvestigatorAccess {
 
   witnessesUnlocked: boolean;
 
+  evidenceUnlocked: boolean;
+
+  evidenceDiscoveries: string[];
+
   hackerEventTriggered: boolean;
+
+  hackerEventCompleted: boolean;
 
   notebookUnlocked: boolean;
 
@@ -162,7 +169,16 @@ export class AccessService {
     witnessesUnlocked:
       false,
 
+    evidenceUnlocked:
+      false,
+
+    evidenceDiscoveries:
+      [],
+
     hackerEventTriggered:
+      false,
+
+    hackerEventCompleted:
       false,
 
     notebookUnlocked:
@@ -225,6 +241,12 @@ export class AccessService {
   witnessesUnlockedSignal =
     signal(false);
 
+  evidenceUnlockedSignal =
+    signal(false);
+
+  evidenceDiscoveriesSignal =
+    signal<string[]>([]);
+
 
   hackerEventTriggeredSignal =
     signal(false);
@@ -276,6 +298,9 @@ export class AccessService {
 
 
   notebookNotificationSignal =
+    signal(false);
+
+  evidenceNotificationSignal =
     signal(false);
 
 
@@ -482,9 +507,12 @@ export class AccessService {
       }
 
       const restored = JSON.parse(saved) as Partial<InvestigatorAccess>;
+      const hackerEventCompleted = restored.hackerEventCompleted ??
+        (restored.notebookClues ?? []).some(clue => clue.id === 'hacker-event-passcode');
       this.access = {
         ...this.access,
         ...restored,
+        hackerEventCompleted,
         authenticatedAt: restored.authenticatedAt
           ? new Date(String(restored.authenticatedAt))
           : null,
@@ -492,6 +520,7 @@ export class AccessService {
           ? new Date(String(restored.darkWebAuthenticatedAt))
           : null,
         witnessDiscoveries: restored.witnessDiscoveries ?? {},
+        evidenceDiscoveries: restored.evidenceDiscoveries ?? [],
         notebookClues: restored.notebookClues ?? [],
         playerNotes: (restored.playerNotes ?? []).map(note => ({
           ...note,
@@ -502,7 +531,7 @@ export class AccessService {
 
       // If a refresh interrupted the first event before Tor unlocked,
       // let the player trigger that event again from Martin's statement.
-      if (this.access.hackerEventTriggered && !this.access.torBrowserUnlocked) {
+      if (this.access.hackerEventTriggered && !this.access.hackerEventCompleted && !this.access.torBrowserUnlocked) {
         this.access = {
           ...this.access,
           hackerEventTriggered: false
@@ -512,6 +541,8 @@ export class AccessService {
       this.publicAccessUnlockedSignal.set(this.access.publicAccessUnlocked);
       this.policePortalUnlockedSignal.set(this.access.policePortalUnlocked);
       this.witnessesUnlockedSignal.set(this.access.witnessesUnlocked);
+      this.evidenceUnlockedSignal.set(this.access.evidenceUnlocked || this.access.evidenceDiscoveries.length > 0);
+      this.evidenceDiscoveriesSignal.set(this.access.evidenceDiscoveries);
       this.hackerEventTriggeredSignal.set(this.access.hackerEventTriggered);
       this.notebookUnlockedSignal.set(this.access.notebookUnlocked);
       this.torBrowserUnlockedSignal.set(this.access.torBrowserUnlocked);
@@ -659,6 +690,27 @@ export class AccessService {
       false
     );
 
+  }
+
+  discoverEvidence(evidenceId: string): void {
+    if (this.access.evidenceDiscoveries.includes(evidenceId)) {
+      return;
+    }
+
+    const discoveries = [...this.access.evidenceDiscoveries, evidenceId];
+    this.access = {
+      ...this.access,
+      evidenceUnlocked: true,
+      evidenceDiscoveries: discoveries
+    };
+    this.evidenceUnlockedSignal.set(true);
+    this.evidenceDiscoveriesSignal.set(discoveries);
+    this.evidenceNotificationSignal.set(true);
+    this.notify('EVIDENCE');
+  }
+
+  clearEvidenceNotification(): void {
+    this.evidenceNotificationSignal.set(false);
   }
 
 
@@ -944,6 +996,18 @@ export class AccessService {
 
   completeHackerEvent():
     void {
+
+    if (this.access.hackerEventCompleted) {
+      return;
+    }
+
+    this.access = {
+      ...this.access,
+      hackerEventTriggered: true,
+      hackerEventCompleted: true
+    };
+
+    this.hackerEventTriggeredSignal.set(true);
 
     this.addNotebookClue({
 
@@ -1316,6 +1380,27 @@ export class AccessService {
 
     return this.access.authenticated;
 
+  }
+
+  resumeAuthenticationForEvidence(
+    service: 'police' | 'undernet'
+  ): void {
+    if (service === 'police') {
+      this.access = {
+        ...this.access,
+        authenticated: true,
+        authenticatedAt: this.access.authenticatedAt ?? new Date()
+      };
+      return;
+    }
+
+    this.access = {
+      ...this.access,
+      darkWebAuthenticated: true,
+      darkWebUsername: this.access.darkWebUsername ?? 'observer26',
+      darkWebAuthenticatedAt: this.access.darkWebAuthenticatedAt ?? new Date()
+    };
+    this.darkWebAuthenticatedSignal.set(true);
   }
 
 

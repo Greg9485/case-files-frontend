@@ -15,7 +15,7 @@ export class CaseService {
     missingPerson: 'Emily Carter',
     status: 'Cold Case',
     location: 'Amherst, VA',
-    dateReportedMissing: 'October 17, 2024',
+    dateReportedMissing: 'October 18, 2024',
     age: 27,
     hometown: 'Lynchburg, VA',
     summary:

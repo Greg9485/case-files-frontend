@@ -135,6 +135,12 @@ export class ToastNotificationComponent {
 
     }
 
+    if (notification.type === 'EVIDENCE') {
+      return notification.count > 1
+        ? 'NEW EVIDENCE RECORDS'
+        : 'NEW EVIDENCE';
+    }
+
     return notification.count > 1
       ? `${notification.count} NEW NOTEBOOK ENTRIES`
       : 'NEW NOTEBOOK ENTRY';
@@ -153,6 +159,10 @@ export class ToastNotificationComponent {
         ? 'New witness information has been added to your case files.'
         : 'New witness information has been added to your case files.';
 
+    }
+
+    if (notification.type === 'EVIDENCE') {
+      return 'New source-backed information has been added to Evidence.';
     }
 
     return notification.count > 1

@@ -20,6 +20,10 @@ import {
 } from '../../../services/access';
 
 import {
+  EvidenceService
+} from '../../../services/evidence';
+
+import {
   AMHERST_POLICE_WITNESSES
 } from './amherst-pd-witnesses';
 
@@ -36,6 +40,9 @@ export class AmherstPdComponent
 
   private accessService =
     inject(AccessService);
+
+  private evidenceService =
+    inject(EvidenceService);
 
   private cdr =
     inject(ChangeDetectorRef);
@@ -149,6 +156,10 @@ export class AmherstPdComponent
   closeMetadata(): void {
 
     this.metadataVisible = false;
+
+    if (this.isCaseFile()) {
+      this.evidenceService.discover('attachment-metadata');
+    }
 
 
     /*
