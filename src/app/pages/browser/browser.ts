@@ -201,6 +201,14 @@ export class BrowserComponent {
       this.currentPage?.domain ??
       this.initialDomain;
 
+    if (
+      targetDomain === 'undernet.local' &&
+      path.startsWith('/extracted-data') &&
+      !this.accessService.isExtractedDataUnlocked()
+    ) {
+      path = '/';
+    }
+
 
     if (
       this.currentPage &&

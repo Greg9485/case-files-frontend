@@ -173,6 +173,8 @@ export class PoliceCaseFileComponent {
     'You\'re going to need an account.',
     'Use observer26.',
     'For the passcode: think about who this whole thing started with. No spaces. All lowercase.',
+    'I’m opening a secure connection for you now. I was able to extract metadata and archived messages from accounts that usually send encrypted.',
+    'Some tracks weren’t covered. I haven’t had time to review any of it yet. Dig around in the new Extracted Data area and tell me what you find.',
     'I\'ve unlocked the connection for you.',
     'Find me there.\n\n— quietstatic'
   ];
@@ -597,6 +599,9 @@ export class PoliceCaseFileComponent {
 
     this.accessService
       .unlockTorBrowser();
+
+    this.accessService
+      .unlockExtractedData();
 
   }
 

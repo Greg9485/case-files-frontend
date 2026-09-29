@@ -1567,4 +1567,153 @@ It usually does.`,
     }
   ]
 },
+
+{
+  id: 'undernet-extracted-data',
+  domain: 'undernet.local',
+  path: '/extracted-data',
+  title: 'EXTRACTED DATA',
+  category: 'QUIETSTATIC RECOVERY CACHE',
+  content: `SECURE CONNECTION: ACTIVE
+
+RECOVERY STATUS: PARTIAL
+SOURCE: MULTIPLE PRIVATE ACCOUNTS
+INDEX CREATED BY: quietstatic
+
+These records were recovered from private services and account metadata. They were not posted for public access. Some fields are missing, and the recovered timestamps have not been independently verified.
+
+Quietstatic has not reviewed this material. Cross-reference it with the public Amherst sites before drawing conclusions.`,
+  links: [
+    { label: 'Invoice — local development advisory', path: '/extracted-data/cedar-invoice' },
+    { label: 'Cedar Trace account access log', path: '/extracted-data/account-access' },
+    { label: 'Recovered transfer record', path: '/extracted-data/transfer-record' },
+    { label: 'Field note — October 11', path: '/extracted-data/field-note' },
+    { label: 'Message fragment — lotline / amherstforward', path: '/extracted-data/message-fragment' }
+  ]
+},
+
+{
+  id: 'undernet-extracted-cedar-invoice',
+  domain: 'undernet.local',
+  path: '/extracted-data/cedar-invoice',
+  title: 'INVOICE: LOCAL DEVELOPMENT ADVISORY',
+  category: 'EXTRACTED DATA • DOCUMENT FRAGMENT',
+  content: `CEDAR TRACE LLC
+INVOICE CT-0441
+DATE: AUGUST 29, 2024
+
+BILL TO: BLUE RIDGE ADVANCED MATERIALS
+SERVICE: LOCAL DEVELOPMENT ADVISORY
+DESCRIPTION: Stakeholder research and local conditions review
+AMOUNT: $18,500.00
+STATUS: PAID
+
+REMITTANCE ACCOUNT: CEDAR TRACE OPERATING •••• 2716
+
+RECOVERY NOTE: The invoice image was found in an archived account export. No contract or supporting work product was included in the recovered set.
+
+Blue Ridge paid Cedar Trace for advisory work. This invoice does not describe or authorize any work involving Emily Carter.`,
+  links: [
+    { label: 'RETURN TO EXTRACTED DATA INDEX', path: '/extracted-data' }
+  ]
+},
+
+{
+  id: 'undernet-extracted-account-access',
+  domain: 'undernet.local',
+  path: '/extracted-data/account-access',
+  title: 'CEDAR TRACE — ACCOUNT ACCESS LOG',
+  category: 'EXTRACTED DATA • SESSION METADATA',
+  content: `ACCOUNT: CEDAR TRACE OPERATING •••• 2716
+RECOVERED SESSION WINDOW: SEPTEMBER 2–OCTOBER 12, 2024
+
+DEVICE TOKEN D-PR-041
+Access type: mobile handset
+Device phone number: 434-555-0148
+Observed account actions: balance review, transfer preparation
+
+DEVICE TOKEN AMH-7C19
+Access type: desktop browser
+Observed account actions: statement review, message archive access
+
+CORRELATED SESSION: The same device token AMH-7C19 appears in Amherst Community Board session metadata during posts made under the handle amherstforward.
+
+The public Amherst Exchange listing for seller lotline gives the same direct number, 434-555-0148, and identifies the seller as Dan Pruitt. The records do not identify the person using device AMH-7C19.
+
+RECOVERY NOTE: Device tokens are locally generated identifiers. A match indicates the same browser or device profile, not a verified person.`,
+  links: [
+    { label: 'RETURN TO EXTRACTED DATA INDEX', path: '/extracted-data' }
+  ]
+},
+
+{
+  id: 'undernet-extracted-transfer-record',
+  domain: 'undernet.local',
+  path: '/extracted-data/transfer-record',
+  title: 'TRANSFER RECORD — PARTIAL',
+  category: 'EXTRACTED DATA • FINANCIAL FRAGMENT',
+  content: `SOURCE: CEDAR TRACE OPERATING •••• 2716
+DATE: OCTOBER 9, 2024
+AMOUNT: $4,800.00
+DESTINATION: RUSK FIELD SERVICES
+PAYMENT HANDLE: ruskfield
+REFERENCE: LOCAL OBSERVATION / CLOSEOUT
+
+The destination account profile lists a Virginia business registration under the name Caleb Rusk. No invoice describing the specific work was recovered.
+
+The source account access log shows DEVICE TOKEN D-PR-041 preparing the transfer. A second fragment records that the payment was marked complete two days later.
+
+RECOVERY NOTE: The surviving record does not establish what Blue Ridge knew about this transfer or its purpose.`,
+  links: [
+    { label: 'RETURN TO EXTRACTED DATA INDEX', path: '/extracted-data' }
+  ]
+},
+
+{
+  id: 'undernet-extracted-field-note',
+  domain: 'undernet.local',
+  path: '/extracted-data/field-note',
+  title: 'FIELD NOTE — OCTOBER 11, 2024',
+  category: 'EXTRACTED DATA • CONTRACTOR ARCHIVE',
+  content: `ACCOUNT: ruskfield
+JOB: AMHERST / REVIEWER CONTACT
+STATUS: CLOSED
+
+“Charcoal midsize. Tinted rear glass, chrome across grille. Second pass on South Main. She got the point. No plate in the notes.”
+
+ATTACHED JOB REMINDER: “BACK OFF THE DEVELOPMENT.”
+
+The vehicle description and phrase match Emily Carter’s October 11 supplemental statement in the Amherst PD Investigation Portal. The older olive-green SUV described in her September report is not mentioned in this field note.
+
+RECOVERY NOTE: This is an unsent contractor note recovered from a private work archive. The author field is incomplete.`,
+  links: [
+    { label: 'RETURN TO EXTRACTED DATA INDEX', path: '/extracted-data' }
+  ]
+},
+
+{
+  id: 'undernet-extracted-message-fragment',
+  domain: 'undernet.local',
+  path: '/extracted-data/message-fragment',
+  title: 'MESSAGE FRAGMENT — RECIPIENTS REDACTED',
+  category: 'EXTRACTED DATA • PRIVATE MESSAGE CACHE',
+  content: `RECOVERED FROM: CEDAR TRACE MESSAGE CACHE
+DATE: OCTOBER 10, 2024
+SENDER HANDLE: amherstforward
+RECIPIENT HANDLE: lotline
+DELIVERY: PARTIAL — 2 OF 4 LINES RECOVERED
+
+“The plan is in motion. Keep Caleb paid from the account and keep this off email.”
+
+“No matter what happens, do not let this get back to Blue Ridge.”
+
+The sender’s legal name is not present in the recovered fragment. The account-access record links the sender’s device token to posts made as amherstforward on the Amherst Community Board. The recipient handle appears in both the Amherst Board and Amherst Exchange.
+
+END OF RECOVERED CONTENT
+
+QUIETSTATIC NOTE: This is the last intact message in the cache. The rest of the archive is damaged.`,
+  links: [
+    { label: 'RETURN TO EXTRACTED DATA INDEX', path: '/extracted-data' }
+  ]
+},
 ];

@@ -523,6 +523,69 @@
   text-align: right;
 }
 
+.sprint-ending-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(8, 12, 17, .88);
+}
+
+.sprint-ending-modal {
+  width: min(560px, 100%);
+  padding: 28px;
+  border: 1px solid #5a6673;
+  box-shadow: 0 20px 70px rgba(0, 0, 0, .5);
+}
+
+.sprint-ending-modal h2 {
+  margin: 10px 0 18px;
+  font: 16px monospace;
+  letter-spacing: 2px;
+}
+
+.sprint-ending-modal p {
+  margin: 0 0 24px;
+  line-height: 1.65;
+}
+
+.ending-eyebrow {
+  font: 10px monospace;
+  letter-spacing: 1px;
+}
+
+.sprint-ending-modal button {
+  padding: 10px 14px;
+  border: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
+  font: 10px monospace;
+  cursor: pointer;
+}
+
+.hacker-ending {
+  background: #101820;
+  color: #e5edf1;
+  font-family: monospace;
+}
+
+.hacker-ending .ending-eyebrow {
+  color: #91c7a6;
+}
+
+.completion-ending {
+  background: #f3f3f0;
+  border-color: #b8b8b2;
+  color: #20231f;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.completion-ending .ending-eyebrow {
+  color: #73766f;
+}
+
 
 /* ============================================================
    RESPONSIVE
