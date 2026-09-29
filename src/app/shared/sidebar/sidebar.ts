@@ -52,6 +52,9 @@ export class SidebarComponent {
     this.accessService
       .witnessesUnlockedSignal;
 
+  isEvidenceUnlocked =
+    this.accessService.evidenceUnlockedSignal;
+
 
   isNotebookUnlocked =
     this.accessService
@@ -77,6 +80,9 @@ export class SidebarComponent {
   notebookNotification =
     this.accessService
       .notebookNotificationSignal;
+
+  evidenceNotification =
+    this.accessService.evidenceNotificationSignal;
 
 
   /*
@@ -139,6 +145,10 @@ export class SidebarComponent {
     this.accessService
       .clearNotebookNotification();
 
+  }
+
+  openEvidence(): void {
+    this.accessService.clearEvidenceNotification();
   }
 
 }

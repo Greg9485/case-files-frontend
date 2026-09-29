@@ -1,139 +1,45 @@
 <section class="evidence-page">
-
-  <div class="page-header">
-
+  <header class="page-header">
     <div>
-      <p class="eyebrow">CASE #001</p>
+      <p class="eyebrow">CASE #24-1017</p>
       <h1>Evidence</h1>
-      <p class="subtitle">
-        Materials recovered during the investigation.
-      </p>
+      <p class="subtitle">Source records collected during the investigation.</p>
     </div>
-
-    <div class="counter">
-      {{ evidence.filter(e => e.discovered).length }}
-      /
-      {{ evidence.length }}
-      DISCOVERED
+    <div class="progress" aria-label="Evidence discovery progress">
+      <strong>{{ discoveredPercentage }}%</strong>
+      <span>DISCOVERED</span>
     </div>
+  </header>
 
-  </div>
-
-
-  <div class="evidence-grid">
-
-    @for (item of evidence; track item.id) {
-
-      <article
-        class="evidence-card"
-        [class.locked]="!item.discovered"
-        (click)="selectEvidence(item)"
-      >
-
-        <div class="evidence-type">
-          {{ item.type }}
-        </div>
-
-        @if (item.discovered) {
-
-          <h2>
-            {{ item.title }}
-          </h2>
-
-          <p>
-            {{ item.description }}
-          </p>
-
-          <span
-            class="importance"
-            [class.high]="item.importance === 'high'"
-          >
-            {{ item.importance | uppercase }}
-          </span>
-
-        } @else {
-
-          <div class="locked-content">
-
-            <div class="lock">
-              ?
-            </div>
-
-            <h2>
-              Evidence Locked
-            </h2>
-
-            <p>
-              This evidence has not yet been discovered.
-            </p>
-
-          </div>
-
+  @for (group of evidenceGroups; track group.name) {
+    <section class="evidence-group">
+      <h2>{{ group.name }}</h2>
+      <div class="evidence-list">
+        @for (item of group.entries; track item.id) {
+          <button class="evidence-entry" type="button" (click)="selectEvidence(item)">
+            <strong>{{ item.title }}</strong>
+            <span class="entry-summary">{{ item.summary }}</span>
+            <span class="entry-source">{{ item.source }}</span>
+          </button>
         }
-
-      </article>
-
-    }
-
-  </div>
-
-
-  @if (selectedEvidence) {
-
-    <div
-      class="evidence-overlay"
-      (click)="closeEvidence()"
-    >
-
-      <article
-        class="evidence-viewer"
-        (click)="$event.stopPropagation()"
-      >
-
-        <button
-          class="close"
-          (click)="closeEvidence()"
-        >
-          ×
-        </button>
-
-
-        <p class="eyebrow">
-          {{ selectedEvidence.type }}
-        </p>
-
-        <h1>
-          {{ selectedEvidence.title }}
-        </h1>
-
-
-        <div class="document">
-
-          {{ selectedEvidence.content }}
-
-        </div>
-
-
-        <div class="clues">
-
-          <h3>
-            Potential Clues
-          </h3>
-
-          @for (clue of selectedEvidence.clues; track clue) {
-
-            <div class="clue">
-              {{ clue }}
-            </div>
-
-          }
-
-        </div>
-
-      </article>
-
-    </div>
-
+      </div>
+    </section>
+  } @empty {
+    <p class="empty-state">No evidence has been recorded yet.</p>
   }
 
+  @if (selectedEvidence) {
+    <div class="evidence-overlay" (click)="closeEvidence()">
+      <article class="evidence-viewer" role="dialog" aria-modal="true" (click)="$event.stopPropagation()">
+        <button class="close" type="button" aria-label="Close evidence" (click)="closeEvidence()">×</button>
+        <p class="eyebrow">SOURCE RECORD</p>
+        <h2>{{ selectedEvidence.title }}</h2>
+        <p class="source-line">{{ selectedEvidence.source }}</p>
+        <p class="detail">{{ selectedEvidence.detail }}</p>
+        @if (selectedEvidence.sourceLink) {
+          <button class="source-link" type="button" (click)="openSource(selectedEvidence)">OPEN SOURCE</button>
+        }
+      </article>
+    </div>
+  }
 </section>

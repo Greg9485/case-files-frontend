@@ -7,10 +7,15 @@ import {
 import {
   Router
 } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import {
   AccessService
 } from '../../core/services/access';
+
+import {
+  EvidenceService
+} from '../../core/services/evidence';
 
 import {
   AMHERST_POLICE_WITNESSES
@@ -44,8 +49,21 @@ export class PoliceCaseFileComponent {
   private accessService =
     inject(AccessService);
 
+  private evidenceService =
+    inject(EvidenceService);
+
   private router =
     inject(Router);
+
+  private route =
+    inject(ActivatedRoute);
+
+  constructor() {
+    const sourceId = this.route.snapshot.queryParamMap.get('source');
+    if (sourceId) {
+      this.openWitnessStatement(sourceId);
+    }
+  }
 
 
   /*
@@ -268,6 +286,27 @@ export class PoliceCaseFileComponent {
 
     this.witnessStatementOpen =
       false;
+
+    const evidenceIdByStatement: Record<string, string> = {
+      'emily-vehicle-001': 'emily-september-restricted',
+      'emily-vehicle-002': 'emily-october-restricted',
+      'martin-hale': 'w001-restricted'
+    };
+    const evidenceId = this.selectedStatement
+      ? evidenceIdByStatement[this.selectedStatement.id]
+      : undefined;
+    if (evidenceId) {
+      this.evidenceService.discover(evidenceId);
+    }
+
+    if (this.route.snapshot.queryParamMap.has('source')) {
+      void this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: { source: null },
+        queryParamsHandling: 'merge',
+        replaceUrl: true
+      });
+    }
 
     if (this.selectedStatement?.id === 'martin-hale') {
       this.startHackerEvent();

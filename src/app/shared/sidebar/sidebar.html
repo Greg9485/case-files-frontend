@@ -200,15 +200,14 @@
            EVIDENCE
            ==================================================== -->
 
-      <span class="locked-link">
-
-        Evidence
-
-        <small>
-          LOCKED
-        </small>
-
-      </span>
+      @if (isEvidenceUnlocked()) {
+        <a routerLink="/evidence" routerLinkActive="active" class="nav-notification-link" (click)="openEvidence()">
+          <span>Evidence</span>
+          @if (evidenceNotification()) { <span class="new-badge">NEW</span> }
+        </a>
+      } @else {
+        <span class="locked-link">Evidence<small>LOCKED</small></span>
+      }
 
 
       <!-- ====================================================
@@ -436,15 +435,14 @@
 
       <!-- EVIDENCE -->
 
-      <span
-        class="rail-item locked"
-        title="Evidence — Locked"
-        aria-label="Evidence — Locked"
-      >
-        <span class="rail-icon">
-          ◇
-        </span>
-      </span>
+      @if (isEvidenceUnlocked()) {
+        <a class="rail-item" routerLink="/evidence" routerLinkActive="active" title="Evidence" aria-label="Evidence" (click)="openEvidence()">
+          <span class="rail-icon">◇</span>
+          @if (evidenceNotification()) { <span class="rail-new-badge">!</span> }
+        </a>
+      } @else {
+        <span class="rail-item locked" title="Evidence — Locked" aria-label="Evidence — Locked"><span class="rail-icon">◇</span></span>
+      }
 
 
       <!-- NOTEBOOK -->

@@ -1,10 +1,15 @@
 export interface Evidence {
   id: string;
+  group: string;
   title: string;
-  type: string;
-  description: string;
-  content: string;
-  discovered: boolean;
-  importance: 'low' | 'medium' | 'high';
-  clues: string[];
+  summary: string;
+  source: string;
+  detail: string;
+  sourceLink?: {
+    route: string;
+    domain?: string;
+    path?: string;
+    query?: Record<string, string>;
+    authentication?: 'police' | 'undernet';
+  };
 }
