@@ -206,9 +206,9 @@
           </h4>
 
           <p>
-            Emily Carter was reported missing on October 18, 2024
-            after failing to return home following an evening
-            appointment in downtown Amherst.
+              Emily Carter was reported missing on October 18, 2024,
+              after attending the Amherst Town Council meeting on
+              October 17.
           </p>
 
           <p>
@@ -273,55 +273,41 @@
             </span>
 
             <h3>
-              Recorded Witness Interviews
+              Recorded Statements
             </h3>
 
           </div>
 
           <span class="record-id">
-            1 RECORD
+            3 RECORDS
           </span>
 
         </header>
 
 
-        <button
-          type="button"
-          class="witness-record"
-          (click)="openWitnessStatement()"
-        >
+        @for (statement of caseStatements; track statement.id) {
 
-          <div class="witness-main">
+          <button
+            type="button"
+            class="witness-record"
+            (click)="openWitnessStatement(statement.id)"
+          >
 
-            <strong>
-              WITNESS-001
-            </strong>
+            <div class="witness-main">
+              <strong>{{ statement.recordNumber }}</strong>
+              <span>{{ statement.subjectName }} — {{ statement.recordType }}</span>
+            </div>
 
-            <span>
-              Martin Hale
-            </span>
+            <div class="witness-meta">
+              <span>RECORD DATE</span>
+              <strong>{{ statement.interviewDate }}</strong>
+            </div>
 
-          </div>
+            <span class="arrow">→</span>
 
+          </button>
 
-          <div class="witness-meta">
-
-            <span>
-              INTERVIEW DATE
-            </span>
-
-            <strong>
-              OCTOBER 18, 2024
-            </strong>
-
-          </div>
-
-
-          <span class="arrow">
-            →
-          </span>
-
-        </button>
+        }
 
       </section>
 
@@ -454,12 +440,10 @@
           <div>
 
             <span class="eyebrow">
-              WITNESS STATEMENT
+              {{ selectedStatement?.recordType }}
             </span>
 
-            <h3>
-              Martin Hale
-            </h3>
+            <h3>{{ selectedStatement?.subjectName }}</h3>
 
           </div>
 
@@ -478,18 +462,18 @@
         <div class="statement-meta">
 
           <div>
-            <span>WITNESS ID</span>
-            <strong>WITNESS-001</strong>
+            <span>RECORD ID</span>
+            <strong>{{ selectedStatement?.recordNumber }}</strong>
           </div>
 
           <div>
             <span>INTERVIEW DATE</span>
-            <strong>OCTOBER 18, 2024</strong>
+            <strong>{{ selectedStatement?.interviewDate }}</strong>
           </div>
 
           <div>
             <span>INTERVIEW LOCATION</span>
-            <strong>AMHERST POLICE DEPARTMENT</strong>
+            <strong>{{ selectedStatement?.interviewLocation }}</strong>
           </div>
 
           <div>
@@ -502,35 +486,11 @@
 
         <article class="statement-content">
 
-          <h4>
-            RECORDED STATEMENT
-          </h4>
+          <h4>RECORDED STATEMENT</h4>
 
-          <p>
-            My name is Martin Hale. I was in the downtown Amherst
-            area during the evening of October 17, 2024.
-          </p>
-
-          <p>
-            I provided investigators with information regarding
-            activity I observed near the municipal parking area.
-          </p>
-
-          <p>
-            I remember seeing several people in the area and
-            noticed a dark-colored vehicle parked nearby.
-          </p>
-
-
-          <div class="contradiction">
-            CONTRADICTORY INFO
-          </div>
-
-
-          <p>
-            This statement was recorded and entered into the
-            investigative case file.
-          </p>
+          @for (paragraph of selectedStatement?.paragraphs ?? []; track $index) {
+            <p>{{ paragraph }}</p>
+          }
 
         </article>
 
@@ -538,7 +498,7 @@
         <footer class="modal-footer">
 
           <span>
-            APD INVESTIGATIVE RECORD
+            APD INVESTIGATIVE RECORD — {{ selectedStatement?.recordNumber }}
           </span>
 
           <button

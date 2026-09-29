@@ -17,6 +17,17 @@ import {
 } from '../../core/data/sites/amherst-pd/amherst-pd-witnesses';
 
 
+interface CaseStatement {
+  id: string;
+  recordNumber: string;
+  subjectName: string;
+  recordType: string;
+  interviewDate: string;
+  interviewLocation: string;
+  paragraphs: string[];
+}
+
+
 @Component({
   selector: 'app-police-case-file',
 
@@ -80,6 +91,50 @@ export class PoliceCaseFileComponent {
 
   witnessStatementOpen =
     false;
+
+  selectedStatement: CaseStatement | null = null;
+
+  readonly caseStatements: CaseStatement[] = [
+    {
+      id: 'emily-vehicle-001',
+      recordNumber: 'SUPPLEMENTAL-24-0964',
+      subjectName: 'Emily Carter',
+      recordType: 'REPORTING PARTY STATEMENT',
+      interviewDate: 'SEPTEMBER 30, 2024',
+      interviewLocation: 'AMHERST POLICE DEPARTMENT',
+      paragraphs: [
+        'Carter stated that she noticed a dark olive-green, older boxy SUV with a rear-mounted spare tire and a small rust spot above the right rear wheel arch near a gravel pull-off along U.S. Route 29.',
+        'She said the SUV entered the road behind her and remained behind her through two turns toward Old Mill Road. She could not see the driver clearly and did not obtain a plate number.',
+        'Carter said she felt unsafe and drove to a well-lit business. The SUV continued along the road and did not enter the lot. She requested that the contact be documented.'
+      ]
+    },
+    {
+      id: 'emily-vehicle-002',
+      recordNumber: 'SUPPLEMENTAL-24-1004',
+      subjectName: 'Emily Carter',
+      recordType: 'REPORTING PARTY STATEMENT',
+      interviewDate: 'OCTOBER 11, 2024',
+      interviewLocation: 'AMHERST POLICE DEPARTMENT',
+      paragraphs: [
+        'Carter reported a second encounter with a dark sport utility vehicle on South Main Street. She described it as a newer, charcoal-black midsize SUV with heavily tinted rear windows and a narrow chrome strip across the grille. It had no rear-mounted spare tire and did not match the older olive-green SUV in her September report.',
+        'Carter said the SUV slowed alongside her vehicle. An occupant shouted, “BACK OFF THE DEVELOPMENT.” She was unable to identify the speaker or obtain a license plate before the SUV pulled ahead and turned away.',
+        'Carter stated that the encounter made her feel unsafe and asked that the statement be added to the case record.'
+      ]
+    },
+    {
+      id: 'martin-hale',
+      recordNumber: 'WITNESS-001',
+      subjectName: 'Martin Hale',
+      recordType: 'WITNESS STATEMENT',
+      interviewDate: 'OCTOBER 18, 2024',
+      interviewLocation: 'AMHERST POLICE DEPARTMENT',
+      paragraphs: [
+        'My name is Martin Hale. I was in downtown Amherst during the evening of October 17, 2024. I saw Emily Carter standing beside a dark olive-green SUV near the municipal parking area.',
+        'The SUV I noticed was a dark olive-green, older boxy SUV with a rear-mounted spare tire and a small rust spot above the right rear wheel arch.',
+        'I heard that SUV start and leave the lot. I did not see Emily get into it, and I did not see her drive away in her own vehicle. Her vehicle was still in the municipal lot when I left. I later learned it had been towed and impounded.'
+      ]
+    }
+  ];
 
 
   /*
@@ -160,7 +215,7 @@ export class PoliceCaseFileComponent {
    * ==========================================================
    */
 
-  openWitnessStatement(): void {
+  openWitnessStatement(statementId: string): void {
 
     if (
       this.accessService
@@ -171,20 +226,28 @@ export class PoliceCaseFileComponent {
       return;
     }
 
-    const witness =
-      AMHERST_POLICE_WITNESSES.find(
-        witness =>
-          witness.statementId ===
-          'WS-24-001'
+    const statement = this.caseStatements.find(
+      item => item.id === statementId
+    );
+
+    if (!statement) {
+      return;
+    }
+
+    this.selectedStatement = statement;
+
+    if (statement.id === 'martin-hale') {
+      const witness = AMHERST_POLICE_WITNESSES.find(
+        item => item.statementId === 'WS-24-001'
       );
 
-    if (witness) {
-
-      this.accessService.discoverWitness(
-        witness.id,
-        'AMHERST PD INVESTIGATION PORTAL',
-        true
-      );
+      if (witness) {
+        this.accessService.discoverWitness(
+          witness.id,
+          'AMHERST PD INVESTIGATION PORTAL',
+          true
+        );
+      }
 
     }
 
@@ -204,7 +267,9 @@ export class PoliceCaseFileComponent {
     this.witnessStatementOpen =
       false;
 
-    this.startHackerEvent();
+    if (this.selectedStatement?.id === 'martin-hale') {
+      this.startHackerEvent();
+    }
   }
 
 
