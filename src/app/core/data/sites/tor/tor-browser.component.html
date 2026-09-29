@@ -60,7 +60,7 @@
     <div class="site-nav-inner">
 
       @for (
-        item of site.navigation;
+        item of navigationItems;
         track item.path
       ) {
 
@@ -270,5 +270,27 @@
     </div>
 
   </footer>
+
+  @if (secondHackerModalOpen) {
+    <div class="sprint-ending-backdrop">
+      <section class="sprint-ending-modal hacker-ending" role="dialog" aria-modal="true" aria-labelledby="ending-hacker-title">
+        <div class="ending-eyebrow">UNKNOWN CONNECTION • quietstatic</div>
+        <h2 id="ending-hacker-title">SECURE CHANNEL</h2>
+        <p>You’re onto something here. I wanted to be sure you were good enough before I really let you in to help me. Now I can see you’re invested. Great work. The real work can begin.</p>
+        <button type="button" (click)="closeSecondHackerEvent()">CLOSE CONNECTION</button>
+      </section>
+    </div>
+  }
+
+  @if (completionModalOpen) {
+    <div class="sprint-ending-backdrop">
+      <section class="sprint-ending-modal completion-ending" role="dialog" aria-modal="true" aria-labelledby="ending-complete-title">
+        <div class="ending-eyebrow">CASE FILES • VERTICAL SLICE</div>
+        <h2 id="ending-complete-title">CONTENT CHECKPOINT</h2>
+        <p>You’ve uncovered all the clues we’ve built so far. Thanks for playing. You’ve reached the end of the content for now. We’ll let you know when the next act is complete so you can keep digging deeper.</p>
+        <button type="button" (click)="closeCompletionModal()">RETURN TO UNDERNET</button>
+      </section>
+    </div>
+  }
 
 </section>

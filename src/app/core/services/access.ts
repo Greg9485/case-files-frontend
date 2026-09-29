@@ -79,6 +79,10 @@ export interface InvestigatorAccess {
 
   torBrowserUnlocked: boolean;
 
+  extractedDataUnlocked: boolean;
+
+  sprintEightComplete: boolean;
+
 
   /*
    * DARK WEB
@@ -115,7 +119,7 @@ export interface InvestigatorAccess {
 })
 export class AccessService {
 
-  private access:
+  private _access:
     InvestigatorAccess = {
 
     investigatorId:
@@ -165,6 +169,12 @@ export class AccessService {
       false,
 
     torBrowserUnlocked:
+      false,
+
+    extractedDataUnlocked:
+      false,
+
+    sprintEightComplete:
       false,
 
 
@@ -227,6 +237,12 @@ export class AccessService {
   torBrowserUnlockedSignal =
     signal(false);
 
+  extractedDataUnlockedSignal =
+    signal(false);
+
+  sprintEightCompleteSignal =
+    signal(false);
+
 
   darkWebAuthenticatedSignal =
     signal(false);
@@ -274,6 +290,17 @@ export class AccessService {
 
 
   private notificationId = 0;
+
+  private readonly storageKey = 'case-files-progress-v1';
+
+  private get access(): InvestigatorAccess {
+    return this._access;
+  }
+
+  private set access(updated: InvestigatorAccess) {
+    this._access = updated;
+    this.persistProgress();
+  }
 
 
   private notify(
@@ -361,6 +388,8 @@ export class AccessService {
 
   constructor() {
 
+    this.restoreProgress();
+
     if (
       typeof window === 'undefined'
     ) {
@@ -418,6 +447,87 @@ export class AccessService {
     InvestigatorAccess {
 
     return this.access;
+
+  }
+
+
+  private persistProgress(): void {
+
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    try {
+      window.localStorage.setItem(
+        this.storageKey,
+        JSON.stringify(this.access)
+      );
+    } catch {
+      // Storage can be unavailable in private or restricted contexts.
+    }
+
+  }
+
+
+  private restoreProgress(): void {
+
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    try {
+      const saved = window.localStorage.getItem(this.storageKey);
+      if (!saved) {
+        return;
+      }
+
+      const restored = JSON.parse(saved) as Partial<InvestigatorAccess>;
+      this.access = {
+        ...this.access,
+        ...restored,
+        authenticatedAt: restored.authenticatedAt
+          ? new Date(String(restored.authenticatedAt))
+          : null,
+        darkWebAuthenticatedAt: restored.darkWebAuthenticatedAt
+          ? new Date(String(restored.darkWebAuthenticatedAt))
+          : null,
+        witnessDiscoveries: restored.witnessDiscoveries ?? {},
+        notebookClues: restored.notebookClues ?? [],
+        playerNotes: (restored.playerNotes ?? []).map(note => ({
+          ...note,
+          createdAt: new Date(String(note.createdAt)),
+          updatedAt: new Date(String(note.updatedAt))
+        }))
+      };
+
+      // If a refresh interrupted the first event before Tor unlocked,
+      // let the player trigger that event again from Martin's statement.
+      if (this.access.hackerEventTriggered && !this.access.torBrowserUnlocked) {
+        this.access = {
+          ...this.access,
+          hackerEventTriggered: false
+        };
+      }
+
+      this.publicAccessUnlockedSignal.set(this.access.publicAccessUnlocked);
+      this.policePortalUnlockedSignal.set(this.access.policePortalUnlocked);
+      this.witnessesUnlockedSignal.set(this.access.witnessesUnlocked);
+      this.hackerEventTriggeredSignal.set(this.access.hackerEventTriggered);
+      this.notebookUnlockedSignal.set(this.access.notebookUnlocked);
+      this.torBrowserUnlockedSignal.set(this.access.torBrowserUnlocked);
+      this.extractedDataUnlockedSignal.set(this.access.extractedDataUnlocked);
+      this.sprintEightCompleteSignal.set(this.access.sprintEightComplete);
+      this.darkWebAuthenticatedSignal.set(this.access.darkWebAuthenticated);
+      this.witnessDiscoveriesSignal.set(this.access.witnessDiscoveries);
+      this.notebookCluesSignal.set(this.access.notebookClues);
+      this.playerNotesSignal.set(this.access.playerNotes);
+    } catch {
+      try {
+        window.localStorage.removeItem(this.storageKey);
+      } catch {
+        // Storage can be unavailable in private or restricted contexts.
+      }
+    }
 
   }
 
@@ -1158,6 +1268,42 @@ export class AccessService {
       true
     );
 
+  }
+
+
+  isExtractedDataUnlocked(): boolean {
+    return this.extractedDataUnlockedSignal();
+  }
+
+
+  unlockExtractedData(): void {
+    if (this.extractedDataUnlockedSignal()) {
+      return;
+    }
+
+    this.access = {
+      ...this.access,
+      extractedDataUnlocked: true
+    };
+    this.extractedDataUnlockedSignal.set(true);
+  }
+
+
+  hasCompletedSprintEight(): boolean {
+    return this.sprintEightCompleteSignal();
+  }
+
+
+  completeSprintEight(): void {
+    if (this.sprintEightCompleteSignal()) {
+      return;
+    }
+
+    this.access = {
+      ...this.access,
+      sprintEightComplete: true
+    };
+    this.sprintEightCompleteSignal.set(true);
   }
 
 
